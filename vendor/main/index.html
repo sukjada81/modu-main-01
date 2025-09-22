@@ -1,0 +1,206 @@
+<div class="content" style="margin-bottom:10px;">
+	<form name='widgetForm' method='post' action=''>
+	<input type="hidden" name="widget_order" />
+
+	<div id="widget" class="clearfix">
+		
+		<div id="widgetSortable">
+			<!-- DYNAMIC @loop_widget1@ -->
+			<div data-idx="{{v}}" class="widget_{{v}}">
+				<div style="padding-top:30%"><i class="xi-spinner-2 xi-spin xi-2x colorWhite"></i></div>
+			</div>
+			<!-- DYNAMIC @loop_widget1@ -->
+		</div>
+
+	</div>
+
+	</form>
+
+</div>
+
+<script src="//www.gstatic.com/charts/loader.js"></script>
+
+<script>
+<!--
+
+var clock;
+var widgetCallBacks = new Array();
+
+function widgetLoad(name, num) {
+	
+	var data = new FormData();
+	var widget_type = $("#widget_" + name).parents('li').attr("data-type");
+	var widget_color = $("#widget_" + name).parents('li').attr("data-color");
+
+	$('.widget_' + name).addClass(widget_type).addClass(widget_color);
+
+	if(num) data.append('num', num);
+
+	$.ajax({
+		url: '../widget/' + name + '/index.php', 
+		type: 'POST',
+		data: data, 
+		cache: false,
+		dataType: 'json',
+		processData: false, 
+		contentType: false, 
+		success: function(data, textStatus, jqXHR) {
+			if(typeof(data.error) === 'undefined') {
+				$.each(data, function(key, value) {
+					$('.widget_' + name).html(data[key].listHtml);
+				});
+				widgetCallBack(name);
+			}
+			else {
+				alertify.error(data.error);
+			}
+		},
+		error: function(jqXHR, textStatus, errorThrown) {						
+			alertify.error(textStatus);
+		}		
+	});	
+
+	if(typeof(widgetCallBacks[name]) != 'undefined') {
+		eval("widgetCallBack_" + name)();
+	}
+}
+
+function resetTooltipWidget() {
+	$(".masterTooltipWidget").tooltip({
+		show: null,
+		position: {
+			my: "left-5 bottom",
+			at: "left top"
+		},
+		open: function( event, ui ) {			
+			ui.tooltip.finish().css({top:ui.tooltip.position().top - 4}).animate({ top: ui.tooltip.position().top - 7, opacity:'1'}, "fast" );
+		}
+    });	
+}
+
+function widgetCallBack(name) {
+	resetTooltipWidget();
+
+	$('.widget_' + name + ' .widgetStatistics p, .widget_' + name + ' .widgetNumber, .widget_' + name + ' .widgetStep span').each(function(i) {
+		if($(this).text() > 1) {
+			$(this).animateNumber({number : $(this).text(), numberStep: $.animateNumber.numberStepFactories.separator(',')});
+		}
+	});
+
+	if($('.widget_' + name + ' .widgetTitle span').length) {
+		$('.widgetTitle span').unbind('click').bind('click',function(e) {
+			var id	= $(this).attr("data-id");			
+			var num = $(this).attr("data-num");
+			$('.widget_' + id).html('<div style="padding-top:35%"><i class="xi-spinner-2 xi-2x colorWhite"></i></div>');
+			widgetLoad(id, num);
+		});	
+	}
+}
+
+function widgetUpdate(type) {
+
+	if(!type) type = 0;
+	
+	var msg_arr	= new Array();
+	msg_arr[0] = "위젯순서가 저장되었습니다.";
+	msg_arr[1] = "위젯이 추가 되었습니다.";
+	msg_arr[2] = "위젯이 삭제 되었습니다.";
+
+	$('form[name=widgetForm] input[name=widget_order]').val($('#widgetSortable').sortable("toArray", { attribute : 'data-idx' }));
+
+	var data = new FormData();
+
+	data.append('order', $('form[name=widgetForm] input[name=widget_order]').val());
+
+	$.ajax({
+		url: '../widget/widget_post_json.php', 
+		type: 'POST',	
+		data: data, 
+		cache: false,
+		dataType: 'json',
+		processData: false, 
+		contentType: false, 
+		success: function(data, textStatus, jqXHR) {
+			if(typeof(data.error) === 'undefined') {											
+				alertify.success(msg_arr[type]);
+			}
+			else {
+				alertify.error(data.error);
+			}
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			alertify.error(textStatus);
+		}		
+	});
+}
+
+$(document).ready(function(){ 
+
+	var monthNames = [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" ]; 
+	var dayNames= ["일","월","화","수","목","금","토"]
+	var newDate = new Date('{{server_time}}');
+	
+	newDate.setDate(newDate.getDate());
+	$('#Date').html(newDate.getFullYear() + '년 ' + monthNames[newDate.getMonth()] + '월 ' + newDate.getDate() + '일 ' + dayNames[newDate.getDay()] + '요일 ' + '<font class="size07 fontMontserrat">({{LUNARS}})</font>');
+
+	clock = $('.clock').FlipClock(newDate, {
+				clockFace: 'TwentyFourHourClock'
+			});
+
+	$('#widgetSortable').sortable({
+		placeholder: "highlight",
+		cursor : "move",
+		activate: function(e, ui ) {			
+			$('#widget').find('.highlight').css({'width': parseInt(ui.item.css('width'))});
+		},
+		update : function(e, ui) {
+			widgetUpdate();
+		}
+	});
+
+	$(".widget_switch").click(function(e){
+		var id = $(this).attr("data-id");
+
+		if($(this).prop("checked")) {
+			$("#widgetSortable").append('<div data-idx="' + id + '" class="widget_' + id + ' displayNone"><div style="padding-top:30%"><i class="xi-spinner-2 xi-spin xi-2x colorWhite"></i></div></div>');			
+			widgetLoad(id);
+			$(".widget_" + id).fadeIn("slow");
+			widgetUpdate(1);									
+		}
+		else {
+			$(".widget_" + id).fadeOut("slow", function() {
+				$(".widget_" + id).remove();
+				widgetUpdate(2);
+			});
+		}
+
+	});
+
+	$(".masterTooltipWidget2").tooltip({
+		show: null,
+		position: {
+			my: "right+10 bottom",
+			at: "right top"
+		},
+		open: function( event, ui ) {			
+			ui.tooltip.finish().css({top:ui.tooltip.position().top - 4}).animate({ top: ui.tooltip.position().top - 7, opacity:'1'}, "fast" );
+		}
+    });	
+	
+	<!-- DYNAMIC @loop_widget2@ -->
+	widgetLoad('{{v}}');
+	<!-- DYNAMIC @loop_widget2@ -->	
+
+});
+
+$(window).resize(function(){ 
+
+	if($("#chart_order").length) drawChartOrder();
+	if($("#chart_count").length) drawChartCount();
+	if($("#chart_goods").length) drawChartGoods();	
+	if($("#chart_sales").length) drawChartSales();
+
+});
+
+//-->
+</script>

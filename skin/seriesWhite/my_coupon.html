@@ -1,0 +1,144 @@
+<div id="contents">
+	
+	{{SUB_MENUS}}
+
+	<h2 class="contentTitle">쿠폰</h2>
+	
+	<div class="empty40"></div>
+	
+	<div class="content_list">
+		<div id="contentMenu" class="contentMenu">
+			<ul>
+				<li class="contentMenuSub {{type1}}" data-type="1">사용가능한 쿠폰</li>
+				<li class="contentMenuSub {{type2}}" data-type="2">지난 쿠폰 내역</li>				
+			</ul>
+			<div class="contentBar left"></div>
+			<div class="contentBar right"></div>
+
+			<script>
+				var a = 100 / parseInt($("#contentMenu ul li").length);
+				$("#contentMenu .contentMenuSub").css({'width':'calc('+a+'% - 2px)'});
+			
+				$('#contentMenu .contentMenuSub').hover(function(e){		
+					if(!$(this).hasClass('selected')) {
+						var left = $(this).position().left;
+						var right = parseInt(left + parseInt($(this).css('width'))) + 2; 
+
+						$("#contentMenu .left").css({left:left}).show();
+						$("#contentMenu .right").css({left:right}).show();
+					}
+				}, 
+				function() {
+					$("#contentMenu .left").hide();
+					$("#contentMenu .right").hide();
+				});
+
+				$('#contentMenu .contentMenuSub').click(function(e){
+					var type = $(this).attr('data-type');
+					window.location.href = "{{Main}}?channel=my_coupon&type=" + type;
+				});
+				
+			</script>
+		</div>
+	</div>
+
+	<div>
+		<div class="listTopTitle fontSCDream">
+			전체 <b id="listTotal">{{TOTAL}}</b>
+		</div>
+	</div>	
+	
+	<div class="empty20"></div>
+
+	<div class="content_list">
+
+		<div id="listArea">
+			<!-- DYNAMIC @is_list_area@ -->
+			<table class="listIn fixed-header">
+			<colgroup>
+			<col width="20%" /> 
+			<col width="60%" />
+			<col width="20%" />
+			</colgroup>
+			<thead> 
+			<tr> 
+				<th>쿠폰종류</th>			
+				<th>쿠폰정보</th>				
+				<th>유효기간</th>	
+			</tr>
+			</thead>
+			<tbody>
+			<!-- DYNAMIC @loop_list@ -->			
+			<tr>
+				<td>
+					<div class="coupon_info">
+						<i class="xi-coupon xi-5x" style="width:40px; overflow:hidden;"></i>
+						<span>
+							<P>{{COUPON_TYPE}}</P>
+							<P>{{COUPON_MESSAGE2}}</P>						
+						</span>
+					</div>
+				</td>
+				<td style="text-align:left; line-height:1.8em;">
+					{{COUPON_MESSAGE1}} {{COUPON_MESSAGE3}}
+					{{COUPON_MESSAGE4}}
+					<!-- DYNAMIC @is_goods@ -->
+					<br />적용상품 : <a href="{{Main}}?channel=view&uid={{G_UID}}" class="underLineThin">{{COUPON_MESSAGE5}}</a>
+					<!-- DYNAMIC @is_goods@ -->
+				</td>				
+				<td class="num">
+					<div>{{SIGNDATE}} ~ {{E_DATE}}</div>
+					<!-- DYNAMIC @is_status@ -->
+					<center>
+						<div class="borderBox">{{COUPON_MESSAGE6}}</div>
+					</center>
+					<!-- DYNAMIC @is_status@ -->
+				</td>
+			</tr>			
+			<!-- DYNAMIC @loop_list@ -->
+			<!-- DYNAMIC @empty_list@ -->
+			<tr>
+				<td colspan="3" class="emptyList">쿠폰이 없습니다.</td>
+			<tr>
+			<!-- DYNAMIC @empty_list@ -->
+			</tbody>
+			</table>
+			<!-- DYNAMIC @is_list_area@ -->
+		</div>
+
+	</div>
+
+	<div class="paging">{{PAGING}}</div>
+	
+</div>	
+
+<script src="lib/jquery.timeliny.js?ver={{ver}}"></script>
+<script>
+<!--	
+	
+	var defaultUrl		= "{{Main}}?channel={{channel}}&type={{type}}";
+	var defaultSort		= "{{sort}}";
+	var defaultLimit	= "{{limit}}";
+	var defaultPage		= "{{page}}";
+	var pagingType		= '{{PAGING_TYPE}}';
+	var lastPage		= '{{total_page}}';
+
+// -->
+</script>
+<script src="{{skin}}/js/listDefaultProc.js?ver={{ver}}"></script>
+<script>
+<!--
+
+	<!-- DYNAMIC @is_paging_type_0@ -->
+	if(listReset == 1) getListPage(defaultUrl + '&sort=' + sort + '&limit=' + limit + '&page=' + page);
+	pageClickReset();
+	<!-- DYNAMIC @is_paging_type_0@ -->
+
+	<!-- DYNAMIC @is_paging_type_1@ -->
+	if(limit != defaultLimit) listReset = 0;
+	$('.paging').timeliny({page: page, lastPage: lastPage, boundaries:'100', url: defaultUrl + '&sort=' + sort + '&limit=' + limit, listReset:listReset});
+	if(limit != defaultLimit) changeSL(1, page);
+	<!-- DYNAMIC @is_paging_type_1@ -->
+	
+// -->
+</script>

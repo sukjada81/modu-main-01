@@ -1,0 +1,393 @@
+<link rel="stylesheet" href="../../lib/toastui-chart.min.css" />
+<script src="../../lib/toastui-chart.min.js"></script>
+
+<div class="content">
+	<div class="listLine"></div>	
+	<div class="listSelect size09">		
+		<form name='modifyForm1' method="get" action='{{PHP_SELF}}' />
+		<input type="hidden" name="type" value="{{type}}" />
+		<input type="hidden" name="mode" value="{{mode}}" />
+		<!-- DYNAMIC @is_year1@ -->
+		<div class="firstLine selectYear" style="padding-left:0">
+			<select name="year">
+				<!-- DYNAMIC @loop_year1@ -->
+				<option value="{{i}}">{{i}}년</option>
+				<!-- DYNAMIC @loop_year1@ -->
+			</select>		
+			<script>
+				$("form[name=modifyForm1] select[name='year']").val('{{year}}').heapbox({'width' : '150px', 'onChange':function(value) { $("form[name=modifyForm1]").submit(); } });
+			</script>
+		</div>
+		<!-- DYNAMIC @is_year1@ -->
+		<!-- DYNAMIC @is_month1@ -->
+		<div class="line selectMonth">
+			<select name="month">
+				<!-- DYNAMIC @loop_month1@ -->
+				<option value="{{i2}}">{{i2}}월</option>
+				<!-- DYNAMIC @loop_month1@ -->
+			</select>		
+			<script>
+				$("form[name=modifyForm1] select[name='month']").val('{{month}}').heapbox({'width' : '150px', 'onChange':function(value) { $("form[name=modifyForm1]").submit(); } });
+			</script>
+		</div>
+		<!-- DYNAMIC @is_month1@ -->
+		<!-- DYNAMIC @is_week1@ -->
+		<div class="line selectWeek">
+			<select name="week">
+				<!-- DYNAMIC @loop_week1@ -->
+				<option value="{{DATES}}">{{cnt}}주 ( {{DATES}} )</option>
+				<!-- DYNAMIC @loop_week1@ -->
+			</select>		
+			<script>
+				$("form[name=modifyForm1] select[name='week']").val('{{week}}').heapbox({'width' : '280px', 'onChange':function(value) { $("form[name=modifyForm1]").submit(); } });
+			</script>
+		</div>
+		<!-- DYNAMIC @is_week1@ -->
+		<!-- DYNAMIC @is_day1@ -->
+		<div class="line  selectDay">
+			<select name="day">
+				<!-- DYNAMIC @loop_day1@ -->
+				<option value="{{i2}}">{{i2}}일</option>
+				<!-- DYNAMIC @loop_day1@ -->
+			</select>		
+			<script>
+				$("form[name=modifyForm1] select[name='day']").val('{{day}}').heapbox({'width' : '150px', 'heapsize' : '335px', 'searchUsed' : false, 'onChange':function(value) { $("form[name=modifyForm1]").submit(); } });
+			</script>
+		</div>
+		<!-- DYNAMIC @is_day1@ -->
+		<!-- DYNAMIC @is_detail1@ -->
+		<div class="firstLine selectDetail" style="padding-left:0; font-size:1.05em">
+			<div class="requireLeft" style="padding-left:0;"><input type="text" name="s_date" class="ip2 dates" value="{{s_date}}" data-date-picker='1' /></div>
+			<div class="floatLeft" style="padding:0 0 0 15px;">~</div>
+			<div class="requireLeft"><input type="text" name="e_date" class="ip2 dates" value="{{e_date}}" data-date-picker='1' /></div>
+			<div class="floatLeft" style="padding-left:5px;">
+				<button class="graButtonWhite btnSubmit floatLeft" type="button" style=" width:74px"><span class="text"><i class="xi-search xi-x"></i> 검색</span></button>
+				<button class="btns2" type="button" data-s_date='{{DATE1}}' data-e_date='{{DATE1}}'>오늘</button>
+				<button class="btns2" type="button" data-s_date='{{DATE2}}' data-e_date='{{DATE1}}'>3일</button>
+				<button class="btns2" type="button" data-s_date='{{DATE3}}' data-e_date='{{DATE1}}'>7일</button>
+				<button class="btns2" type="button" data-s_date='{{DATE4}}' data-e_date='{{DATE1}}'>1개월</button>
+				
+			</div>
+		</div>
+		<!-- DYNAMIC @is_detail1@ -->
+		</form>
+	</div>
+	<div class="listSelectR">
+		<div class="contentMenu">		
+			<ul>			
+				<li class="contentMenuSub {{select_year}}" data-mode="year">년간통계</li>
+				<li class="contentMenuSub {{select_month}}" data-mode="month">월간통계</li>
+				<li class="contentMenuSub {{select_week}}" data-mode="week">주간통계</li>				
+				<li class="contentMenuSub {{select_day}}" data-mode="day">일간통계</li>
+				<li class="contentMenuSub {{select_detail}}" data-mode="detail">특정기간통계</li>
+			</ul>
+			<div class="contentBar left"></div>
+			<div class="contentBar right"></div>
+
+			<script>
+				var a = 100 / parseInt($(".content .listSelectR .contentMenu ul li").length);
+				$(".content .listSelectR .contentMenuSub").css({'width':'calc('+a+'% - 2px)'});
+			</script>
+		</div>		
+	</div>	
+
+	<div id="listArea">
+		<div class="empty10">&nbsp;</div>
+		<div class="alignLeft"> 
+			<form name="deviceForm">
+			<select name="device">
+				<option value="">통합</option>
+				<option value="pc">PC</option>
+				<option value="mobile">모바일</option>
+			</select>		
+			<script>
+				$("form[name=deviceForm] select[name='device']").val('').heapbox({'width' : '150px', 'zindex':2, 'onChange':function(value) { deviceChange(value); } });
+			</script>
+			</form>
+		</div>
+		<div class="empty10">&nbsp;</div>
+		<div id="chart-area"></div>
+		<div class="empty10">&nbsp;</div>	
+
+		<table class="listIn fixed-header">
+		<colgroup>		
+		<col width="6%" />		<!-- 순위 --> 
+		<col width="80" />		<!-- 이미지 --> 
+		<col />					<!-- 상품명 --> 
+		<col width="10%" />		<!-- {{TTL}} --> 
+		<col width="40%" />		<!-- 점유률 --> 
+		</colgroup>
+		<thead> 
+		<tr> 
+			<th>순위</th>
+			<th>이미지 <i class="xi-external-link"></i></th>
+			<th>상품명 <i class="xi-external-link"></i></th>
+			<th>{{TTL}}</th>
+			<th>점유률</th>
+		</tr>
+		</thead>		
+		<tbody id="list_all">
+		<!-- DYNAMIC @loop_list@ -->
+		<tr>
+			<td class="number">{{NUM}}</td>
+			<td><a href="{{SMain}}?channel=view&uid={{G_UID}}" title="사용자페이지상품보기" target="_blank"><img src="../../image/goods/img{{IMAGE}}" alt="{{CONTENT}} 이미지" width="50" /></a></td>
+			<td style="text-align:left;"><a href="goods_info.php?mode=modify&uid={{G_UID}}" title="상품정보수정"  class="underLine" target="_blank">{{CONTENT}}</a></td>
+			<td class="number">{{COUNT}}</td>
+			<td>
+				<div class="per_line"><div class="per_line_bar" data-per="{{WIDTH}}">&nbsp;</div></div>
+				<div class="floatRight size10 fontMontserrat">{{PER}}%</div>
+			</td>
+		</tr>
+		<!-- DYNAMIC @loop_list@ -->
+		</tbody>
+		<tbody class="displayNone" id="list_pc">
+		<!-- DYNAMIC @loop_list_PC@ -->
+		<tr>
+			<td class="number">{{NUM}}</td>
+			<td><a href="{{SMain}}?channel=view&uid={{G_UID}}" title="사용자페이지상품보기" target="_blank"><img src="../../image/goods/img{{IMAGE}}" alt="{{CONTENT}} 이미지" width="50" /></a></td>
+			<td style="text-align:left;">{{CONTENT}}</td>
+			<td class="number">{{COUNT}}</td>
+			<td>
+				<div class="per_line"><div class="per_line_bar" data-per="{{WIDTH}}">&nbsp;</div></div>
+				<div class="floatRight size10 fontMontserrat">{{PER}}%</div>
+			</td>
+		</tr>
+		<!-- DYNAMIC @loop_list_PC@ -->
+		</tbody>
+		<tbody class="displayNone" id="list_mobile">
+		<!-- DYNAMIC @loop_list_MOBILE@ -->
+		<tr>
+			<td class="number">{{NUM}}</td>
+			<td><a href="{{SMain}}?channel=view&uid={{G_UID}}" title="사용자페이지상품보기" target="_blank"><img src="../../image/goods/img{{IMAGE}}" alt="{{CONTENT}} 이미지" width="50" /></a></td>
+			<td style="text-align:left;">{{CONTENT}}</td>
+			<td class="number">{{COUNT}}</td>
+			<td>
+				<div class="per_line"><div class="per_line_bar" data-per="{{WIDTH}}">&nbsp;</div></div>
+				<div class="floatRight size10 fontMontserrat">{{PER}}%</div>
+			</td>
+		</tr>
+		<!-- DYNAMIC @loop_list_MOBILE@ -->
+		</tbody>
+		<!-- DYNAMIC @empty_list@ -->
+		<tr id="empty_all">
+			<td colspan="5" class="emptyList"><i class="fas fa-quote-left"></i>&nbsp;&nbsp;등록된 내역이 없습니다!&nbsp;&nbsp;<i class="fas fa-quote-right"></i></td>
+		<tr>
+		<!-- DYNAMIC @empty_list@ -->
+		<!-- DYNAMIC @empty_list_PC@ -->
+		<tr class="displayNone" id="empty_pc">
+			<td colspan="5" class="emptyList"><i class="fas fa-quote-left"></i>&nbsp;&nbsp;등록된 내역이 없습니다!&nbsp;&nbsp;<i class="fas fa-quote-right"></i></td>
+		<tr>
+		<!-- DYNAMIC @empty_list_PC@ -->
+		<!-- DYNAMIC @empty_list_MOBILE@ -->
+		<tr class="displayNone" id="empty_mobile">
+			<td colspan="5" class="emptyList"><i class="fas fa-quote-left"></i>&nbsp;&nbsp;등록된 내역이 없습니다!&nbsp;&nbsp;<i class="fas fa-quote-right"></i></td>
+		<tr>
+		<!-- DYNAMIC @empty_list_MOBILE@ -->		
+		</table>
+	</div>
+
+	<div class="listSelectB size09">		
+		<form name='modifyForm2' method="get" action='{{PHP_SELF}}' />
+		<input type="hidden" name="type" value="{{type}}" />
+		<input type="hidden" name="mode" value="{{mode}}" />
+		<!-- DYNAMIC @is_year2@ -->
+		<div class="firstLine selectYear" style="padding-left:0">
+			<select name="year">
+				<!-- DYNAMIC @loop_year2@ -->
+				<option value="{{i}}">{{i}}년</option>
+				<!-- DYNAMIC @loop_year2@ -->
+			</select>		
+			<script>
+				$("form[name=modifyForm2] select[name='year']").val('{{year}}').heapbox({'width' : '150px', 'onChange':function(value) { $("form[name=modifyForm2]").submit(); } });
+			</script>
+		</div>
+		<!-- DYNAMIC @is_year2@ -->
+		<!-- DYNAMIC @is_month2@ -->
+		<div class="line selectMonth">
+			<select name="month">
+				<!-- DYNAMIC @loop_month2@ -->
+				<option value="{{i2}}">{{i2}}월</option>
+				<!-- DYNAMIC @loop_month2@ -->
+			</select>		
+			<script>
+				$("form[name=modifyForm2] select[name='month']").val('{{month}}').heapbox({'width' : '150px', 'onChange':function(value) { $("form[name=modifyForm2]").submit(); } });
+			</script>
+		</div>
+		<!-- DYNAMIC @is_month2@ -->
+		<!-- DYNAMIC @is_week2@ -->
+		<div class="line selectWeek">
+			<select name="week">
+				<!-- DYNAMIC @loop_week2@ -->
+				<option value="{{DATES}}">{{cnt}}주 ( {{DATES}} )</option>
+				<!-- DYNAMIC @loop_week2@ -->
+			</select>		
+			<script>
+				$("form[name=modifyForm2] select[name='week']").val('{{week}}').heapbox({'width' : '280px', 'onChange':function(value) { $("form[name=modifyForm2]").submit(); } });
+			</script>
+		</div>
+		<!-- DYNAMIC @is_week2@ -->
+		<!-- DYNAMIC @is_day2@ -->
+		<div class="line  selectDay">
+			<select name="day">
+				<!-- DYNAMIC @loop_day2@ -->
+				<option value="{{i2}}">{{i2}}일</option>
+				<!-- DYNAMIC @loop_day2@ -->
+			</select>		
+			<script>
+				$("form[name=modifyForm2] select[name='day']").val('{{day}}').heapbox({'width' : '150px', 'heapsize' : '335px', 'searchUsed' : false, 'onChange':function(value) { $("form[name=modifyForm2]").submit(); } });
+			</script>
+		</div>
+		<!-- DYNAMIC @is_day2@ -->
+		<!-- DYNAMIC @is_detail2@ -->
+		<div class="firstLine selectDetail" style="padding-left:0; font-size:1.05em">
+			<div class="requireLeft" style="padding-left:0;"><input type="text" name="s_date" class="ip2 dates" datePicker='1' value="{{s_date}}" /></div>
+			<div class="floatLeft" style="padding:0 0 0 15px;">~</div>
+			<div class="requireLeft"><input type="text" name="e_date" class="ip2 dates" datePicker='1' value="{{e_date}}" /></div>
+			<div class="floatLeft" style="padding-left:5px;">
+				<button class="graButtonWhite btnSubmit floatLeft" type="button" style=" width:74px"><span class="text"><i class="xi-search xi-x"></i> 검색</span></button>
+				<button class="btns2" type="button" data-s_date='{{DATE1}}' data-e_date='{{DATE1}}'>오늘</button>
+				<button class="btns2" type="button" data-s_date='{{DATE2}}' data-e_date='{{DATE1}}'>3일</button>
+				<button class="btns2" type="button" data-s_date='{{DATE3}}' data-e_date='{{DATE1}}'>7일</button>
+				<button class="btns2" type="button" data-s_date='{{DATE4}}' data-e_date='{{DATE1}}'>1개월</button>
+				
+			</div>
+		</div>
+		<!-- DYNAMIC @is_detail2@ -->
+		</form>
+	</div>
+	<div class="listSelectRB"></div>
+	<div class="listLineB"></div>
+</div>
+
+<script>
+<!--
+	var type			= '{{type}}';
+	var series			= [ 
+							<!-- DYNAMIC @loop_content@ -->
+							{	name: '{{CONTENT}}', data: {{COUNT2}} },						
+							<!-- DYNAMIC @loop_content@ -->
+						  ];
+	var series_PC		= [ 
+							<!-- DYNAMIC @loop_content_PC@ -->
+							{	name: '{{CONTENT}}', data: {{COUNT2}} },						
+							<!-- DYNAMIC @loop_content_PC@ -->
+						];
+	var series_MOBILE	= [ 
+							<!-- DYNAMIC @loop_content_MOBILE@ -->
+							{	name: '{{CONTENT}}', data: {{COUNT2}} },						
+							<!-- DYNAMIC @loop_content_MOBILE@ -->
+						  ];
+
+	function animationLine() {
+		$('.per_line_bar').each(function(i) {
+			per = $(this).attr('data-per') + '%';
+			$(this).stop().animate({width: per});
+		});	
+	}
+
+	function deviceChange(value) {
+		$('#list_all').hide();
+		$('#list_pc').hide();
+		$('#list_mobile').hide();
+
+		$('#empty_all').hide();
+		$('#empty_pc').hide();
+		$('#empty_mobile').hide();
+
+		if(value == 'pc') 			{
+			var str = series_PC;
+			$('#list_pc').show();
+			$('#empty_pc').show();
+		}
+		else if(value == 'mobile')	{
+			var str = series_MOBILE;
+			$('#list_mobile').show();
+			$('#empty_mobile').show();
+		}
+		else {
+			var str = series;
+			$('#list_all').show();
+			$('#empty_all').show();
+		}
+		$('.per_line_bar').css({width: 0});
+		animationLine();
+
+		var data = {
+		categories: ['{{DATESTR}}'],
+		series:	str	,
+		};
+
+		chart.setData(data);
+	}
+
+	var el = document.getElementById('chart-area');
+	var data = {
+		categories: ['{{TTL}}'],
+		series:		series,
+	};
+	
+	var options = {
+		chart:		{ width: parseInt($("#listArea").css('width')), height: 400, title: '' },
+		series:		{ selectable: true,   radiusRange: { inner: '0%', outer: '100%', } },
+		legend:		{ align: 'right'},
+	};
+
+	const chart = toastui.Chart.pieChart({ el, data, options });
+
+	$(function() {		
+		
+		$('.listSelectRB').html($('.listSelectR').html());
+
+		var a = 100 / parseInt($(".content .listSelectRB .contentMenu ul li").length);
+		$(".content .listSelectRB .contentMenuSub").css({'width':'calc('+a+'% - 2px)'});
+	
+		$('.listSelectR .contentMenuSub').hover(function(e){		
+			if(!$(this).hasClass('selected')) {
+				var left = $(this).position().left;
+				var right = parseInt(left + parseInt($(this).css('width'))) + 1; 
+
+				$(".listSelectR .contentMenu .left").css({left:left}).show();
+				$(".listSelectR .contentMenu .right").css({left:right}).show();
+			}
+		}, 
+		function() {
+			$(".listSelectR .contentMenu .left").hide();
+			$(".listSelectR .contentMenu .right").hide();
+		});
+
+		$('.listSelectRB .contentMenuSub').hover(function(e){		
+			if(!$(this).hasClass('selected')) {
+				var left = $(this).position().left;
+				var right = parseInt(left + parseInt($(this).css('width'))) + 1; 
+
+				$(".listSelectRB .contentMenu .left").css({left:left}).show();
+				$(".listSelectRB .contentMenu .right").css({left:right}).show();
+			}
+		}, 
+		function() {
+			$(".listSelectRB .contentMenu .left").hide();
+			$(".listSelectRB .contentMenu .right").hide();
+		});
+
+		$('.content .contentMenuSub').click(function(e){
+			mode = $(this).attr('data-mode');
+			window.location.href = "{{PHP_SELF}}?type=" + type + "&mode=" + mode;
+		});
+				
+		$('.btns2').click(function(e) {
+			$("form[name=modifyForm1] input[name='s_date']").val($(this).attr('data-s_date'));
+			$("form[name=modifyForm1] input[name='e_date']").val($(this).attr('data-e_date'));
+			$("form[name=modifyForm2] input[name='s_date']").val($(this).attr('data-s_date'));
+			$("form[name=modifyForm2] input[name='e_date']").val($(this).attr('data-e_date'));
+			return;
+		});
+
+		$('.btnSubmit').click(function(e) {			
+			$(this).parents('form').submit();
+		});
+
+		animationLine();
+	});
+
+//-->
+</script>

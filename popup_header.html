@@ -1,0 +1,41 @@
+<!doctype html> 
+<html lang="ko">
+
+<head>
+	<title>{{popup_title}}</title>
+
+	<!-- DYNAMIC @is_mobile_header@ -->
+	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, width=device-width, target-densitydpi=medium-dpi, user-scalable=no">
+	<!-- DYNAMIC @is_mobile_header@ -->
+
+	<!-- DYNAMIC @is_mobile_icon@ -->
+	<link rel="apple-touch-icon" href="{{mobile_icon}}" />
+	<link rel="shortcut icon" href="{{mobile_icon}}" />
+	<!-- DYNAMIC @is_mobile_icon@ -->
+	
+	<link rel="StyleSheet" href="{{skin}}/css/{{mobile_header}}style.css?t={{t}}" type="text/css" title="style" />
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/xpressengine/xeicon@latest/xeicon.min.css">
+	<link type="text/css" rel="stylesheet" href="../lib/{{mobile_header}}alertify.css?ver={{ver}}" />
+	
+	<script type="text/javascript" src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+	<script type="text/javascript" src="../lib/jquery-ui.js?ver={{ver}}"></script>
+	<script type="text/javascript" src="../lib/jquery.heapbox.js?ver={{ver}}"></script>
+	<script type="text/javascript" src="../lib/alertify.js?ver={{ver}}"></script>
+	
+	<script type="text/javascript" src="../lib/clipboard.js?ver={{ver}}"></script>
+	<script type="text/javascript" src="../lib/lib.Function.js?t={{t}}"></script>
+	<script type="text/javascript" src="{{skin}}/js/lib.CheckForm.js?t={{t}}"></script>	
+
+</head> 
+
+<script type="text/javascript">
+<!--
+
+shop_skin = '{{skin}}/';
+alertify.defaults.glossary.title = "{{SERVER_NAME}}";
+
+// -->
+</script>
+
+<body>

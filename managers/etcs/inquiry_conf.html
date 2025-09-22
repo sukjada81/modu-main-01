@@ -1,0 +1,99 @@
+<form name='goodsForm' method='post' action='inquiry_post.php' enctype="multipart/form-data" target='HFrm'>
+<input type="hidden" name="mode" value="conf" />
+<input type="hidden" name="cate_order" />
+<input type="hidden" name="cate_max_num" />
+
+<div class="content">
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;상품문의 설정
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>
+	<tr> 
+		<td>분류 <i class="xi-arrows xi-x colorDGary masterTooltip" title="등록된 항목을 마우스로 누르고 아래 위로 이동하시면 순서를 변경 하실 수 있습니다."></i></td>
+		<td colspan="3" style="padding:20px;">
+			<table class="listIn" id="cateSortable">
+			<colgroup>
+			<col width="10%" /> 
+			<col width="10%" />
+			<col width="70%" /> 			
+			<col width="10%" />
+			</colgroup>
+			<thead>
+			<tr> 
+				<th>번호</th>
+				<th>분류번호</th>
+				<th>분류명</th>
+				<th>처리</th>
+			</tr>
+			</thead>
+			<tbody></tbody>
+			</table>
+		</td>		
+	</tr>
+	<tr> 
+		<td>글쓰기 권한</td>
+		<td colspan="3">
+			<div>
+				<label><input type='radio' name="inquiry_access_write" value="0" {{checked_inquiry_access_write_0}} /><span class="radio"></span> 전체(회원 + 비회원)</label>&nbsp;&nbsp;
+				<label><input type='radio' name="inquiry_access_write" value="1" {{checked_inquiry_access_write_1}} /><span class="radio"></span> 회원전용</label>&nbsp;&nbsp;
+			</div>
+		</td>					
+	</tr>
+	<tr > 
+		<td>작성자표시보호 <i class="xi-help xi-x colorDGary masterTooltip" title="작성자표시보호 사용시 이름의 두번째 자리가 *로 표시 됩니다. 예)홍*동"></i></td>
+		<td colspan="3">
+			<div>
+				<label><input type='radio' name="inquiry_privacy_type" value="0" {{checked_inquiry_privacy_type_0}} /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;
+				<label><input type='radio' name="inquiry_privacy_type" value="1" {{checked_inquiry_privacy_type_1}} /><span class="radio"></span> 사용함</label>
+			</div>
+		</td>
+	</tr>
+	<tr> 
+		<td>비밀글</td>
+		<td colspan="3">
+			<div>
+				<label><input type='radio' name="inquiry_secret_type" value="0" {{checked_inquiry_secret_type_0}} /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;
+				<label><input type='radio' name="inquiry_secret_type" value="1" {{checked_inquiry_secret_type_1}} /><span class="radio"></span> 비밀글</label>&nbsp;&nbsp;
+				<label><input type='radio' name="inquiry_secret_type" value="2" {{checked_inquiry_secret_type_2}} /><span class="radio"></span> 사용자 선택</label>
+			</div>
+		</td>
+	</tr>
+	</table>
+	
+	<div class="empty60"></div>
+
+	<div class="btnSubmitBox">
+		<div class="displayInline"><button class="weight300 shine" type="submit">저장하기</button></div>
+		<div class="btnPrev"><i class="xi-arrow-left xi-x"></i></div>
+		<div class="btnPrevTitle">이전페이지</div>		
+	</div>
+
+</div>
+
+</form>
+
+<script>
+<!--
+	
+	var ck_cate_num		= '{{cate_max_num}}';
+	
+	$(function() {
+
+		$("#cateSortable").multiBox({'sortable':'1','order':'form[name=goodsForm] input[name=cate_order]','focus':'3','list' : [{'name':'','width':'10','type':'','enter':0},{'name':'cate_num','width':'10','type':'hidden','enter':0},{'name':'cate_name','width':'70','type':'text','enter':1},{'name':'','width':'10','type':'icon','enter':0}]});
+
+		<!-- DYNAMIC @loop_cate@ -->
+		$("#cateSortable").multiBox('add', [{'name' : 'cate_num', 'value' : '{{cate_num}}'},{'name' : 'cate_name', 'value' : '{{cate_name}}'}]);
+		<!-- DYNAMIC @loop_cate@ -->
+		
+	});	
+
+//-->
+</script>

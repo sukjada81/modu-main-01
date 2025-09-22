@@ -1,0 +1,318 @@
+<form name='signForm' method='post' action='vendor_post.php?{{addstring}}' enctype="multipart/form-data" target='HFrm'>
+<input type="hidden" name="mode" value="{{mode}}" />
+<input type="hidden" name="uid" value="{{uid}}" />
+<input type="hidden" name="img_del1" value="" />
+<input type="hidden" name="img_del2" value="" />
+
+<div class="content">
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;판매자 기본 정보
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>
+	<!-- DYNAMIC @is_write1@ -->
+	<tr> 
+		<td>아이디 <i class="xi-help xi-x colorDGary masterTooltip" title="영문시작, 영소문자, 숫자 조합 6~12자만 가능합니다."></i></td>
+		<td colspan="3"><input type='text' name='id' value='{{id}}' placeholder="영문시작, 영소문자, 숫자 조합 6~12자" required="required" data-msg="판매자 아이디를" data-check-id='1' /></td>		
+	</tr>
+	<tr> 
+		<td>비밀번호 <i class="xi-help xi-x colorDGary masterTooltip" title="영문, 숫자, 특수문자(!@#$%^&+=_) 2가지 이상 조합 8~20자만 가능합니다."></i></td>
+		<td><input type='password' name='passwd' placeholder="영문, 숫자, 특수문자 2가지 이상 조합 8~20자" required="required" data-msg="비밀번호를" data-check-password='1' /></td>
+		<td>비밀번호 확인</td>
+		<td><input type='password' name='re_passwd' required="required" data-msg="비밀번호확인을" data-check-password='2' data-check-field='document.signForm.passwd' /></td>
+	</tr>
+	<!-- DYNAMIC @is_write1@ -->
+	<!-- DYNAMIC @is_modify1@ -->
+	<tr> 
+		<td>아이디 <i class="xi-help xi-x colorDGary masterTooltip" title="영문시작, 영소문자, 숫자 조합 6~12자만 가능합니다."></i></td>
+		<td colspan="3">{{id}}</td>	
+	</tr>
+	<tr> 
+		<td>변경할 비밀번호 <i class="xi-help xi-x colorDGary masterTooltip" title="영문, 숫자, 특수문자(!@#$%^&+=_) 2가지 이상 조합 8~20자만 가능합니다."></i></td>
+		<td><input type='password' name='passwd' placeholder="영문, 숫자, 특수문자 2가지 이상 조합 8~20자" data-check-password='1' /></td>
+		<td>변경할 비밀번호 확인</td>
+		<td><input type='password' name='re_passwd' data-check-password='2' data-check-field='document.signForm.passwd' /></td>
+	</tr>		
+	<!-- DYNAMIC @is_modify1@ -->
+	<tr> 
+		<td>승인상태 선택 </td>
+		<td>
+			<label><input type='radio' name="auth" value="R" {{checked_auth_R}} /><span class="radio"></span> 승인요청</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="auth" value="Y" {{checked_auth_Y}} /><span class="radio"></span> 승인완료</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="auth" value="N" {{checked_auth_N}} /><span class="radio"></span> 승인보류</label>
+		</td>		
+		<td>판매상태 선택 <i class="xi-help xi-x colorDGary masterTooltip" title="판매허용일 경우에만 상품이 쇼핑몰에 노출이되며 판매준비, 판매중지일 경우 상품이 쇼핑몰에 노출되지 않습니다."></i></td>
+		<td>
+			<label><input type='radio' name="sell" value="A" {{checked_sell_A}} /><span class="radio"></span> 판매허용</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="sell" value="R" {{checked_sell_R}} /><span class="radio"></span> 판매준비</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="sell" value="N" {{checked_sell_N}} /><span class="radio"></span> 판매중지</label>
+		</td>		
+	</tr>
+	<tr> 
+		<td>상품승인 선택 <i class="xi-help xi-x colorDGary masterTooltip" title="관리자 수동승인일 경우 판매자 상품등록/수정시 쇼핑몰에 노출이 되지 않으며 관리자가 승인 처리 해 줘야만 쇼핑몰에 노출이 됩니다."></i></td>
+		<td colspan="3">
+			<label><input type='radio' name="goods_auth" value="A" {{checked_goods_auth_A}} /><span class="radio"></span> 자동승인</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="goods_auth" value="P" {{checked_goods_auth_P}} /><span class="radio"></span> 관리자 수동승인</label>
+		</td>	
+	</tr>
+	<tr> 
+		<td>배송주체 <i class="xi-help xi-x colorDGary masterTooltip" title="판매자 배송일경우 판매자의 배송정책이 적용되며 본사배송일 경우 본사상품과 동일하게 본사 배송정책이 적용 됩니다."></i></td>
+		<td colspan="3">
+			<label><input type='radio' name="delivery_type" value="0" {{checked_delivery_type_0}} /><span class="radio"></span> 판매자배송</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="delivery_type" value="1" {{checked_delivery_type_1}} /><span class="radio"></span> 본사배송</label>
+		</td>	
+	</tr>
+	<tr> 
+		<td>판매수수료율 <i class="xi-help xi-x colorDGary masterTooltip" title="- 판매금액 기준 판매시 수수료율입니다.[BR]- 판매자에게 판매수수료를 제외한 금액을 정산합니다.[BR]- 소수 2자리까지 가능 합니다.[BR]- 수수료 변경시 판매사 수수료적용 상품의 수수료가 일괄 변경되며 공급가 기준으로 판매가도 변경 됩니다."></i></td>
+		<td>
+			<div class="requireLeft" style="margin:0"><input type='text' name='commission' value='{{commission}}' placeholder="0.00" style="width:150px; font-size:14px;" class="only_num_jum" required="required"  data-msg="판매수수료를" />%</div></td>
+		</td>	
+		<td>정산주기 <i class="xi-help xi-x colorDGary masterTooltip" title="정산주기는 월1 ~ 4회 가능 합니다."></i></td>
+		<td>
+			<select name="account_cycle">
+				<option value="1">주 1회</option>
+				<option value="2">월 2회</option>
+				<option value="3">월 1회</option>
+				<option value="4">자율</option>
+			</select>			
+			<script>
+				$("form[name=signForm] select[name='account_cycle']").val('{{account_cycle}}').heapbox({'width' : '120px'});
+			</script>
+		</td>	
+	</tr>
+	<tr> 
+		<td>정산계좌정보</td>
+		<td colspan="3">
+			<input type='text' name='bank_name' value='{{bank_name}}' placeholder="은행명" style="width:30%" />
+			<input type='text' name='bank_num' value='{{bank_num}}' placeholder="계좌번호" style="width:30%" />
+			<input type='text' name='bank_owner' value='{{bank_owner}}' placeholder="예금주" style="width:30%" />		
+		</td>		
+	</tr>
+	<tr> 
+		<td>첨부 이미지</td>
+		<td colspan="3">
+			<table class="listIn">
+			<colgroup>
+			<col width="50%" /> 
+			<col width="50%" /> 
+			</colgroup>
+			<thead>
+			<tr> 
+				<th>사업자등록증사본</th>
+				<th>통장사본</th>
+			</tr>
+			</thead>
+			<tbody class="imageUP">
+			<tr>
+				<td>
+					<button class="fileinput-button btns" type="button">
+						<span class="text"><i class="fas fa-upload"></i> 이미지 업로드</span>				
+						<input type="file" name="image1" class="imageBtn" num="1" />
+					</button>
+					<button class="filedel-button btns" type="button" id="imageDel1">
+						<span class="text"><i class="xi-close"></i> 이미지 삭제</span>
+					</button>
+				</td>
+				<td>
+					<button class="fileinput-button btns" type="button">
+						<span class="text"><i class="fas fa-upload"></i> 이미지 업로드</span>				
+						<input type="file" name="image2" class="imageBtn" num="2" />
+					</button>
+					<button class="filedel-button btns" type="button" id="imageDel2">
+						<span class="text"><i class="xi-close"></i> 이미지 삭제</span>
+					</button>
+				</td>
+			</tr>
+			<tr id="uploadImage">
+				<td id="imgWidth">
+					<img id="image1" alt="사업자등록증사본 업로드" src="../common/img/blank.gif" />
+				</td>
+				<td>
+					<img id="image2" alt="통장사본 업로드" src="../common/img/blank.gif" />
+				</td>
+			</tr>
+			</tbody>
+			</table>
+					
+		</td>
+	</tr>
+	<tr> 
+		<td>관리메모</td>
+		<td colspan="3"><textarea name="memo">{{memo}}</textarea></td>		
+	</tr>
+	</table>
+
+	<div class="empty60"></div>
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;업체 정보 및 담당자 정보
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>
+	<tr> 
+		<td>업체명</td>
+		<td><input type='text' name='comp_name' value='{{comp_name}}' required="required" data-msg="상호(업체명)을" /></td>
+		<td>대표자명</td>
+		<td><input type='text' name='comp_owner' value='{{comp_owner}}' required="required" data-msg="대표자명을" /></td>
+	</tr>
+	<tr> 
+		<td>사업자등록번호</td>
+		<td colspan="3"><p style="position:relative"><input type='text' name='comp_license_no' value='{{comp_license_no}}' style="width:98%" placeholder="예) 100-20-30000" required="required" data-msg="사업자등록번호를" /></p></td>		
+	</tr>
+	<tr> 
+		<td>사업자 업태</td>
+		<td><input type='text' name='comp_type' value='{{comp_type}}' /></td>
+		<td>사업자 종목</td>
+		<td><input type='text' name='comp_item' value='{{comp_item}}' /></td>
+	</tr>
+	<tr> 
+		<td>사업장 주소</td>
+		<td colspan="3">
+			<div style="position:relative"><input type='text' name='comp_postcode_search' style="width:98%" placeholder="경대로 144 (도로명 + 건물번호) or 신암동 645-1 (지역명(동/리) + (번지, 건물명, 아파트명)) + 엔터키" data-zip-search='1' /></div>
+			<div class="empty10"></div>
+			<input type='text' name='comp_postcode' value='{{comp_postcode}}' style="width:10%" placeholder="우편번호" />
+			<input type='text' name='comp_address1' value='{{comp_address1}}' style="width:42%" placeholder="사업장 주소" required="required" data-msg="사업장주소를" />
+			<input type='text' name='comp_address2' value='{{comp_address2}}' style="width:43%" placeholder="사업장 상세주소" />
+		</td>
+	</tr>	
+	<tr> 
+		<td>대표이메일</td>
+		<td colspan="3"><p style="position:relative"><input type='text' name='comp_email' value='{{comp_email}}' style="width:98%" required="required" data-msg="대표이메일을" data-check-email='1' /></p></td>
+	</tr>
+	<tr> 
+		<td>대표전화</td>
+		<td><input type='text' name='comp_tel' value='{{comp_tel}}' placeholder="예) 02-0000-0000" data-msg="대표전화번호를" required="required" /></td>
+		<td>대표팩스</td>
+		<td><input type='text' name='comp_fax' value='{{comp_fax}}' placeholder="예) 02-0000-0000" /></td>
+	</tr>
+	<tr> 
+		<td>담당자명</td>
+		<td><input type='text' name='cont_name' value='{{cont_name}}' /></td>
+		<td>담당자 번호</td>
+		<td><input type='text' name='cont_cell' value='{{cont_cell}}' placeholder="예) 010-0000-0000" /></td>
+	</tr>
+	<tr> 
+		<td>담당자 이메일</td>
+		<td colspan="3"><p style="position:relative"><input type='text' name='cont_email' value='{{cont_email}}' style="width:98%" data-check-email='1' /></p></td>
+	</tr>
+	<tr> 
+		<td>담당자 부서</td>
+		<td><input type='text' name='cont_part' value='{{cont_part}}' placeholder="예) 영업부" /></td>
+		<td>담당자 직위</td>
+		<td><input type='text' name='cont_position' value='{{cont_position}}' placeholder="예) 과장" data-on-enter="1" /></td>
+	</tr>
+
+	</table>		
+
+	<div class="empty60" ></div>
+
+	<div class="btnSubmitBox">
+		<!-- DYNAMIC @is_delete@ -->
+		<div class="floatLeft">
+			<button class="shineButton btnDel" type="button" style="width:150px; margin:7px 0 0 50px;  height:40px;">판매사삭제</button>
+		</div>
+		<!-- DYNAMIC @is_delete@ -->
+		<div class="displayInline"><button class="weight300 shine" type="submit">판매사{{TTL}}하기</button></div>
+		<div class="btnPrev"><i class="xi-arrow-left xi-x"></i></div>
+		<div class="btnPrevTitle">이전페이지</div>		
+	</div>
+
+</div>
+
+</form>
+
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+<!--
+
+	function putImage(num, vls, size) {
+		if(vls) {
+			$("#uploadImage").show();
+			$("#image"+num).attr("src", "../../image/vendor/"+vls);
+			if(parseInt($("#imgWidth").css('width')) < parseInt(size)) {
+				$("#image"+num).css({'width':'95%'});
+			}
+			else $("#image"+num).css({'width':size});
+
+			$("#imageDel"+num).css({opacity:0.1, display:"inline-block"}).stop().animate({width:'show', opacity:1.0}, 'fast');
+		}	
+		else {
+			if($("#imageDel"+num).css('display')!='none') {
+				$("#image"+num).attr("src", "../common/img/blank.gif");
+				$("#image"+num).css({'width':'1'});
+				$("#imageDel"+num).animate({width:'hide'}, 'fast');
+				eval("form.image"+num).value = '';
+			}
+		}
+	}
+	
+	$(function() {
+		
+		zipSearch('comp');
+
+		$(".btnDel").click(function(e){
+			alertify.confirm('판매사삭제', '정말로 {{comp_name}} ({{id}}) 판매사를 삭제 하시겠습니까?<br />삭제시 상품 및 모든 정보가 삭제되며 삭제 후 복구가 불가능 합니다.', function() { 
+				$("form[name=signForm] input[name='mode']").val('delete');
+				$("form[name=signForm]").submit(); }
+				, function(){ });
+			return false;
+		});	
+
+		$('.imageBtn').on('change', function(e){	
+			
+			if(!CommonCheckImage($(this))) return;
+
+			if(e.target.files[0]) {
+				var num = $(this).attr("num");
+				var reader = new FileReader();
+				reader.onload = function (e) {
+					var image = new Image();
+					image.src = e.target.result;
+
+					image.onload = function(){
+						$("#uploadImage").show();
+						$("#image"+num).attr("src", this.src);
+
+						if(parseInt($("#imgWidth").css('width')) < parseInt(this.width)) {
+							$("#image"+num).css({'width':'95%'});
+						}
+						else $("#image"+num).css({'width':this.width});
+
+						$("#imageDel"+num).css({opacity:0.1, display:"inline-block"}).stop().animate({width:'show', opacity:1.0}, 'fast');
+			        };                      
+				}
+				reader.readAsDataURL(e.target.files[0]);
+			}
+		});
+
+		$('.filedel-button').on('click', function(e){		
+			var num = str_replace("imageDel","",this.id);
+			$("#image"+num).attr("src", "../common/img/blank.gif");
+			$("#image"+num).css({'width':'1'});
+			$("#imageDel"+num).animate({width:'hide'}, 'fast');
+			eval("document.signForm.img_del"+num).value = 1;
+		});
+
+		<!-- DYNAMIC @loop_image@ -->
+		putImage({{i}}, '{{image}}', '{{size}}')	
+		<!-- DYNAMIC @loop_image@ -->	
+
+		resetContent();
+
+	});
+
+//-->
+</script>

@@ -1,0 +1,21 @@
+<!-- DYNAMIC @is_list_area@ -->
+<div>	
+	<div class="widgetTitle black"><a href="../calculate/calculate_list.php">정산내역</a> <span data-id="calculate"><i class="xi-renew masterTooltipWidget" title="새로고침"></i></span></div>
+	<div class="widgetList widgetListGray widgetCalculateList">
+		<a href="../calculate/calculate_list.php">
+		<!-- DYNAMIC @loop_list@ -->		
+		<div>
+			<ul>
+				<li>{{DATES}}</li>
+				<li>{{PRICE}}</li>				
+				<li>{{STATUS}}</li>
+			</ul>			
+		</div>
+		<!-- DYNAMIC @loop_list@ -->
+		<!-- DYNAMIC @empty_list@ -->
+		<div class="widgetEmptyList"><i class="fas fa-quote-left"></i>&nbsp;&nbsp;정산내역이 없습니다!&nbsp;&nbsp;<i class="fas fa-quote-right"></i></div>
+		<!-- DYNAMIC @empty_list@ -->
+		</a>
+	</div>
+</div>
+<!-- DYNAMIC @is_list_area@ -->

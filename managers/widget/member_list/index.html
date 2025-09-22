@@ -1,0 +1,38 @@
+<!-- DYNAMIC @is_list_area@ -->
+<div>	
+	<div class="widgetTitle black"><a href="../member/member_list.php">최근 회원가입 내역</a> <span data-id="member_list"><i class="xi-renew masterTooltipWidget" title="새로고침"></i></span></div>
+	<div class="widgetList widgetListGray widgetMemberList">
+		<!-- DYNAMIC @loop_list@ -->		
+		<div>
+			<ul>
+				<li class="btnCrm" data-id="{{ID}}"><i class="xi-user xi-x masterTooltipWidget" title="CRM보기"></i> {{NAME}}</li>
+				<li>{{ID}}</li>				
+				<li>{{LEVEL}}</li>
+				<li>{{SIGNDATE}}</li>
+			</ul>			
+		</div>
+		<!-- DYNAMIC @loop_list@ -->
+		<!-- DYNAMIC @empty_list@ -->
+		<div class="widgetEmptyList"><i class="fas fa-quote-left"></i>&nbsp;&nbsp;회원가입내역이 없습니다!&nbsp;&nbsp;<i class="fas fa-quote-right"></i></div>
+		<!-- DYNAMIC @empty_list@ -->
+	</div>
+</div>
+
+<script>
+
+	function widgetCallBack_member_list() {
+
+		if($('.btnCrm').length) {
+			$('.btnCrm').unbind('click').bind('click',function(e) {
+				var id = $(this).attr("data-id");
+				iframeWidth = '950px';
+				iframeHeight = '.8';
+				iframeView("../member/popup_member_crm.php?id=" + id, "회원 CRM보기");			
+			});	
+		}
+	}
+
+	widgetCallBacks['member_list'] = 1;
+
+</script>
+<!-- DYNAMIC @is_list_area@ -->

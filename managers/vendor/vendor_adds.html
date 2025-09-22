@@ -1,0 +1,217 @@
+<form name='memberForm' method='post' action='vendor_excel_post.php' enctype="multipart/form-data" target='HFrm' onsubmit="return false;">					
+
+<div class="content">
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;판매사일괄등록
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>
+	<tr> 
+		<td>엑셀파일 등록</td>
+		<td colspan="3">
+			<div class="btnBox2">						
+				<div id="btn_excel" class="btnBoxIcon">
+					<i class="fas fa-plus-circle fa-2x"></i>											
+				</div>												
+				<input type="file" name="excel" class="excelBtn" required="required" data-msg="엑셀파일을" />
+				<div class="excel_name"></div> 
+				<div id="btn2_excel" class="btnBoxIcon2">
+					<i class="fas fa-edit masterTooltip" title="변경하기"></i>
+				</div>
+			</div>			
+		</td>
+	</tr>
+	<tr> 
+		<td>비밀번호 암호화 <i class="xi-help xi-x colorDGary masterTooltip" title="비밀번호가 암호화(MD5)되지 않았을 경우 체크를 하시며 암호화 되어 등록 됩니다."></i></td>
+		<td colspan="3">
+			<label><input type='checkbox' name="passwd_encoding" value="1" /><span></span> MD5로 암호화함</label>&nbsp;&nbsp;
+		</td>
+	</tr>
+	<tr> 
+		<td>엑셀파일 안내</td>
+		<td colspan="3">
+			샘플파일은 다운받으신 후 xls파일이나 xlsx파일로 저장 후 등록 하시면 됩니다. <br />
+			대량 등록일 경우 서버 부하 및 처리 시간이 많이 걸릴 수 있으니 분할해서 등록 하시기 바랍니다.<br /><br />
+			<button class="btns" type="button" style="width:18%" id="sampleDwon"><span class="text"><i class="xi-download xi-x"></i> 엑셀샘플 다운로드</span></button>
+		</td>
+	</tr>
+	</table>
+
+	<div class="empty60"></div>
+
+	<div class="btnSubmitBox">
+		<div class="displayInline"><button class="weight300 shine" type="submit">판매사 일괄등록</button></div>		
+	</div>
+
+	<div class="empty60"></div>
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;판매사정보 엑셀 작성 안내
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="54%" />	
+	</colgroup>
+	<tr> 
+		<td>아이디 <i class="fas fa-pen-square masterTooltip" title="필수 입력사항 입니다."></i></td>
+		<td>test01&nbsp;&nbsp;<font class="colorBlue">기등록된 아이디가 있는 경우 판매사가입이 되지 않습니다.</font></td>
+	</tr>
+	<tr> 
+		<td>비밀번호 <i class="fas fa-pen-square masterTooltip" title="필수 입력사항 입니다."></i></td>
+		<td>111111&nbsp;&nbsp;<font class="colorBlue">MD5로 암호화해서 등록 하거나 암호화 되지않았을 경우 위 설정의 '비밀번호 암호화'의  MD5로 암호화함에 체크를 하시기 바랍니다. </font></td>
+	</tr>
+	<tr> 
+		<td>승인상태</td>
+		<td>승인완료&nbsp;&nbsp;<font class="colorBlue">승인요청, 승인완료, 승인보류 중 선택 미입력시 승인요청으로 등록</font></td>
+	</tr>
+	<tr> 
+		<td>판매상태</td>
+		<td>판매허용&nbsp;&nbsp;<font class="colorBlue">판매허용, 판매준비, 판매중지 중 선택 미입력시 판매허용으로 등록</font></td>
+	</tr>
+	<tr> 
+		<td>싱품승인</td>
+		<td>자동승인&nbsp;&nbsp;<font class="colorBlue">자동승인, 수동승인 중 선택 미입력시 자동승인으로 등록</font></td>
+	</tr>
+	<tr> 
+		<td>배송주체</td>
+		<td>판매자배송&nbsp;&nbsp;<font class="colorBlue">판매자배송, 본사배송 중 선택 미입력시 판매자배송으로 등록</font></td>
+	</tr>
+	<tr> 
+		<td>판매수수료</td>
+		<td>10&nbsp;&nbsp;<font class="colorBlue">소수2자리까지 가능 예)4.55, 미입력시 0으로 등록</font></td>
+	</tr>
+	<tr> 
+		<td>정산주기</td>
+		<td>월2회&nbsp;&nbsp;<font class="colorBlue">주1회, 월2회, 월1회, 자율 중 선택 미입력시 월2회로 등록</font></td>
+	</tr>
+	<tr> 
+		<td>정산은행명</td>
+		<td>대구은행</td>
+	</tr>
+	<tr> 
+		<td>정산계좌번호</td>
+		<td>00000000000</td>
+	</tr>
+	<tr> 
+		<td>정산예금주</td>
+		<td>홍길동</td>
+	</tr>
+	<tr> 
+		<td>업체명 <i class="fas fa-pen-square masterTooltip" title="필수 입력사항 입니다."></i></td>
+		<td>모두복지몰</td>
+	</tr>
+	<tr> 
+		<td>대표자명 <i class="fas fa-pen-square masterTooltip" title="필수 입력사항 입니다."></i></td>
+		<td>홍길동</td>
+	</tr>
+	<tr> 
+		<td>사업자등록번호 <i class="fas fa-pen-square masterTooltip" title="필수 입력사항 입니다."></i></td>
+		<td>502-00-00000</td>
+	</tr>
+	<tr> 
+		<td>사업자업태 {{required}}</td>
+		<td>서비스</td>
+	</tr>
+	<tr> 
+		<td>사업자종목 {{required}}</td>
+		<td>소프트웨어개발</td>
+	</tr>	
+	<tr> 
+		<td>사업장 우편번호 {{required}}</td>
+		<td>03048</td>
+	</tr>
+	<tr> 
+		<td>사업장 주소 {{required}}</td>
+		<td>서울특별시 종로구 청와대로 1 (세종로  1)</td>
+	</tr>
+	<tr> 
+		<td>사업장 상세주소</td>
+		<td>1층 101호</td>
+	</tr>
+	<tr> 
+		<td>대표이메일</td>
+		<td>test@funcher.kr</td>
+	</tr>
+	<tr> 
+		<td>대표전화</td>
+		<td>02-0000-0000</td>
+	</tr>
+	<tr> 
+		<td>대표팩스</td>
+		<td>02-0000-0000</td>
+	</tr>
+	<tr> 
+		<td>담당자명</td>
+		<td>홍길동</td>
+	</tr>
+	<tr> 
+		<td>담당자번호</td>
+		<td>02-0000-0000</td>
+	</tr>
+	<tr> 
+		<td>담당자이메일</td>
+		<td>test@funchere.kr</td>
+	</tr>
+	<tr> 
+		<td>담당자부서</td>
+		<td>개발</td>
+	</tr>
+	<tr> 
+		<td>담당자직책</td>
+		<td>팀장</td>
+	</tr>
+	<tr> 
+		<td>사업자등록증사본</td>
+		<td>http://funcher.kr/tmp_img/iphone12.jpg&nbsp;&nbsp;<font class="colorBlue">등록시 가져올 이미지 웹상 경로</font></td>
+	</tr>
+	<tr> 
+		<td>통장사본</td>
+		<td>http://funcher.kr/tmp_img/iphone12.jpg&nbsp;&nbsp;<font class="colorBlue">등록시 가져올 이미지 웹상 경로</font></td>
+	</tr>
+	</table>
+
+</div>
+
+</form>
+
+
+<script>
+<!--
+	$(function() {
+		
+		$('#sampleDwon').click(function(e){
+			window.location.href = "./vendor_excel_sample.xlsx";
+		});
+
+		$('.excelBtn').on('change', function(e){
+
+			if(!CommonCheckExcel($(this))) return;
+			
+			$("#btn_excel").hide();
+			$("#btn2_excel").fadeIn(100);
+			var name = $("form[name=memberForm] input[name='excel']").val().split('\\');		
+			$(".excel_name").html(name[name.length-1]);
+
+			$('.inputMessageBox').fadeOut('200').remove();
+						
+		});
+
+		$('#btn2_excel').find('.fa-edit').click(function(e){
+			$("form[name=memberForm] input[name='excel']").trigger('click');
+		});
+		
+	});
+
+
+	
+//-->
+</script>

@@ -1,0 +1,350 @@
+<link href="../../lib/summernote-lite.css?ver={{ver}}" rel="stylesheet">
+<script src="../../lib/summernote-lite.js?ver={{ver}}"></script>
+<script src="../../lib/summernote-ko-KR.js"></script>
+
+<form name='goodsForm' method='post' action='design_post.php' enctype="multipart/form-data" target='HFrm'>
+<input type="hidden" name="mode" value="common" />
+<input type="hidden" name="detail_image_order" />
+<input type="hidden" name="cate_goods_order" />
+<input type="hidden" name="main_display_order" />
+<input type="hidden" name="main2_display_order" />
+
+<div class="content">
+	
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;공통 디자인 설정
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>
+	<tr> 
+		<td>하단 아이콘 설정 <i class="xi-help xi-x colorDGary masterTooltip" title="선택된 항목에 대해 아이콘이 노출 됩니다."></i></td>
+		<td colspan="3">			
+			<label><input type='checkbox' name="design_icon1" value="1" {{checked_design_icon1_1}} /><span></span> 국세청 현금영수증 가맹점</label>&nbsp;&nbsp;
+			<label><input type='checkbox' name="design_icon2" value="1" {{checked_design_icon2_1}} /><span></span> SSL 결제보안인증 사이트</label>&nbsp;&nbsp;
+			<label><input type='checkbox' name="design_icon3" value="1" {{checked_design_icon3_1}} /><span></span> 공정거래위원회 인증표준약관사용</label>&nbsp;&nbsp;
+		</td>
+	</tr>
+	<tr> 
+		<td>하단 입점사링크 설정 <i class="xi-help xi-x colorDGary masterTooltip" title="- 입점기능 사용할 경우 입점사가입 및 입점관리로그인 링크가 노출됩니다.[BR]- 전자결제 카드심사시 몰인몰일 경우 심사거부가 될 수 있으니 카드심사 후 사용하시기 바랍니다."></i></td>
+		<td colspan="3">			
+			<label><input type='checkbox' name="design_vendor_link" value="1" {{checked_design_vendor_link_1}} /><span></span> 링크노출</label>&nbsp;&nbsp;
+		</td>
+	</tr>
+	</table>
+
+	<div class="empty60"></div>
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;메인 디자인 설정
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>
+	<tr> 
+		<td>인기상품 설정 </td>
+		<td colspan="3">
+			<label><input type='radio' name="design_main_display1" value="0" class="design_main_display" {{checked_design_main_display1_0}} /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="design_main_display1" value="1" class="design_main_display" {{checked_design_main_display1_1}} /><span class="radio"></span> 리스트형</label>&nbsp;&nbsp;
+			<label><input type='radio' name="design_main_display1" value="2" class="design_main_display" {{checked_design_main_display1_2}} /><span class="radio"></span> 상품이동형</label> <i class="xi-help xi-x colorDGary masterTooltip" style="line-height:1.6em" title="상품이 하나씩 롤링 됩니다."></i>&nbsp;&nbsp;
+			<label><input type='radio' name="design_main_display1" value="3" class="design_main_display" {{checked_design_main_display1_3}} /><span class="radio"></span> 상품그룹이동형</label> <i class="xi-help xi-x colorDGary masterTooltip" style="line-height:1.6em" title="상품이 보여지는 갯수만큼 그룹으로 되어 롤링됩니다.(5개가 보여지면 5개씩 롤링됩니다.)"></i>&nbsp;&nbsp;			
+		</td>
+	</tr>
+	<tr> 
+		<td>추천상품 설정 </td>
+		<td colspan="3">
+			<label><input type='radio' name="design_main_display2" value="0" class="design_main_display" {{checked_design_main_display2_0}} /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="design_main_display2" value="1" class="design_main_display" {{checked_design_main_display2_1}} /><span class="radio"></span> 리스트형</label>&nbsp;&nbsp;
+			<label><input type='radio' name="design_main_display2" value="2" class="design_main_display" {{checked_design_main_display2_2}} /><span class="radio"></span> 상품이동형</label> <i class="xi-help xi-x colorDGary masterTooltip" style="line-height:1.6em" title="상품이 하나씩 롤링 됩니다."></i>&nbsp;&nbsp;
+			<label><input type='radio' name="design_main_display2" value="3" class="design_main_display" {{checked_design_main_display2_3}} /><span class="radio"></span> 상품그룹이동형</label> <i class="xi-help xi-x colorDGary masterTooltip" style="line-height:1.6em" title="상품이 보여지는 갯수만큼 그룹으로 되어 롤링됩니다.(5개가 보여지면 5개씩 롤링됩니다.)"></i>&nbsp;&nbsp;
+		</td>
+	</tr>
+	<tr> 
+		<td>신상품 설정 </td>
+		<td colspan="3">
+			<label><input type='radio' name="design_main_display3" value="0" class="design_main_display" {{checked_design_main_display3_0}} /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="design_main_display3" value="1" class="design_main_display" {{checked_design_main_display3_1}} /><span class="radio"></span> 리스트형</label>&nbsp;&nbsp;
+			<label><input type='radio' name="design_main_display3" value="2" {{checked_design_main_display3_2}} /><span class="radio"></span> 상품이동형</label> <i class="xi-help xi-x colorDGary masterTooltip" style="line-height:1.6em" title="상품이 하나씩 롤링 됩니다."></i>&nbsp;&nbsp;
+			<label><input type='radio' name="design_main_display3" value="3" class="design_main_display" {{checked_design_main_display3_3}} /><span class="radio"></span> 상품그룹이동형</label> <i class="xi-help xi-x colorDGary masterTooltip" style="line-height:1.6em" title="상품이 보여지는 갯수만큼 그룹으로 되어 롤링됩니다.(5개가 보여지면 5개씩 롤링됩니다.)"></i>&nbsp;&nbsp;	
+		</td>
+	</tr>
+	<tr> 
+		<td>분류상품 설정 </td>
+		<td colspan="3">
+			<div>
+				<label><input type='radio' name="design_main_category" value="0" {{checked_design_main_category_0}} /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;
+				<label><input type='radio' name="design_main_category" value="1" {{checked_design_main_category_1}} /><span class="radio"></span> 리스트형</label>&nbsp;&nbsp;
+				<label><input type='radio' name="design_main_category" value="2" {{checked_design_main_category_2}} /><span class="radio"></span> 상품이동형</label> <i class="xi-help xi-x colorDGary masterTooltip" style="line-height:1.6em" title="상품이 하나씩 롤링 됩니다."></i>&nbsp;&nbsp;
+				<label><input type='radio' name="design_main_category" value="3" {{checked_design_main_category_3}} /><span class="radio"></span> 상품그룹이동형</label> <i class="xi-help xi-x colorDGary masterTooltip" style="line-height:1.6em" title="상품이 보여지는 갯수만큼 그룹으로 되어 롤링됩니다.(5개가 보여지면 5개씩 롤링됩니다.)"></i>&nbsp;&nbsp;	
+			</div>
+
+			<div class="cateContent">
+
+				<div class="empty20">&nbsp;</div>
+
+				<table class="listIn fixed-header2" id="cateGoodsSortable">
+				<col width="10%" /> 
+				<col width="40%" />
+				<col width="30%" />
+				<col width="10%" />
+				<col width="10%" />
+				<thead>
+				<tr> 
+					<th>번호</th>
+					<th>분류</th>
+					<th>전시상품 </th>
+					<th>사용</th>
+					<th>처리</th>
+				</tr>
+				</thead>
+				<tbody></tbody>
+				</table>
+			</div>
+		</td>
+	</tr>
+	<tr> 
+		<td>커스텀 디자인 <i class="xi-help xi-x colorDGary masterTooltip" title="- 선택된 위치의 디자인 영역을 에디터를 통해 꾸밀 수 있습니다.[BR]- 노출될 위치를 선택 하시면 에디터가 나타납니다."></td>
+		<td colspan="3" style="padding:0 20px 20px 20px;">
+			<div class="detailImage">
+				<div class="detailImageType">
+					<label><input type='radio' name="design_main_custom_code" value="0" {{checked_design_main_custom_code_0}} /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;
+					<label><input type='radio' name="design_main_custom_code" value="1" {{checked_design_main_custom_code_1}} /><span class="radio"></span> 사용함</label>
+				</div>				
+				<div class="floatRight detailBtn displayNone">
+					<button class="fileinput-button btns" style="float:right" type="button">
+						<span class="text"><i class="xi-upload"></i> 이미지 업로드</span>
+						<input type="file" name="detail_image" id="detail_image" multiple />
+					</button>
+				</div>
+
+				<div class="detailContent displayNone">
+					<div class="empty20"></div>
+					<ul id="detailImageSortable"></ul>
+					<div id="detailImageEmpty">이미지 업로드를 이용하여 사용할 이미지를 등록 해 주시면 됩니다.</div>
+				</div>
+			</div>
+
+			<div class="detailEditer">
+				<XMP class="sn_design_main_custom_code_info" style="display:none">{{design_main_custom_code_info}}</XMP>
+				<input type="hidden" name="design_main_custom_code_info" data-notefor=".sn_design_main_custom_code_info" value= "" />
+			</div>
+
+			<div id="contentMenuDetailSub2" class="selected displayNone"></div>
+		</td>
+	</tr>
+	<tr> 
+		<td>노출순서 설정 <i class="xi-arrows xi-x colorDGary masterTooltip" title="등록된 항목을 마우스로 누르고 좌우로 이동하시면 순서를 변경 하실 수 있습니다."></i></td>
+		<td colspan="3">
+			<ul id="mainDisplaySortable" class="displaySortable">
+				<!-- DYNAMIC @loop_main_display@ -->
+				<li data-idx="{{display_code}}" class="{{display_code}}">{{display_name}}</li>
+				<!-- DYNAMIC @loop_main_display@ -->
+			</ul>
+		</td>
+	</tr>
+	</table>
+
+	<div class="empty60"></div>
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;분류 디자인 설정
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>
+	<tr> 
+		<td>인기상품 설정 </td>
+		<td colspan="3">
+			<label><input type='radio' name="design_main2_display1" value="0" class="design_main2_display" {{checked_design_main2_display1_0}} /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="design_main2_display1" value="1" class="design_main2_display" {{checked_design_main2_display1_1}} /><span class="radio"></span> 리스트형</label>&nbsp;&nbsp;
+			<label><input type='radio' name="design_main2_display1" value="2" class="design_main2_display" {{checked_design_main2_display1_2}} /><span class="radio"></span> 상품이동형</label> <i class="xi-help xi-x colorDGary masterTooltip" style="line-height:1.6em" title="상품이 하나씩 롤링 됩니다."></i>&nbsp;&nbsp;
+			<label><input type='radio' name="design_main2_display1" value="3" class="design_main2_display" {{checked_design_main2_display1_3}} /><span class="radio"></span> 상품그룹이동형</label> <i class="xi-help xi-x colorDGary masterTooltip" style="line-height:1.6em" title="상품이 보여지는 갯수만큼 그룹으로 되어 롤링됩니다.(5개가 보여지면 5개씩 롤링됩니다.)"></i>&nbsp;&nbsp;			
+		</td>
+	</tr>
+	<tr> 
+		<td>추천상품 설정 </td>
+		<td colspan="3">
+			<label><input type='radio' name="design_main2_display2" value="0" class="design_main2_display" {{checked_design_main2_display2_0}} /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="design_main2_display2" value="1" class="design_main2_display" {{checked_design_main2_display2_1}} /><span class="radio"></span> 리스트형</label>&nbsp;&nbsp;
+			<label><input type='radio' name="design_main2_display2" value="2" class="design_main2_display" {{checked_design_main2_display2_2}} /><span class="radio"></span> 상품이동형</label> <i class="xi-help xi-x colorDGary masterTooltip" style="line-height:1.6em" title="상품이 하나씩 롤링 됩니다."></i>&nbsp;&nbsp;
+			<label><input type='radio' name="design_main2_display2" value="3" class="design_main2_display" {{checked_design_main2_display2_3}} /><span class="radio"></span> 상품그룹이동형</label> <i class="xi-help xi-x colorDGary masterTooltip" style="line-height:1.6em" title="상품이 보여지는 갯수만큼 그룹으로 되어 롤링됩니다.(5개가 보여지면 5개씩 롤링됩니다.)"></i>&nbsp;&nbsp;
+		</td>
+	</tr>
+	<tr> 
+		<td>신상품 설정 </td>
+		<td colspan="3">
+			<label><input type='radio' name="design_main2_display3" value="0" class="design_main2_display" {{checked_design_main2_display3_0}} /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="design_main2_display3" value="1" class="design_main2_display" {{checked_design_main2_display3_1}} /><span class="radio"></span> 리스트형</label>&nbsp;&nbsp;
+			<label><input type='radio' name="design_main2_display3" value="2" class="design_main2_display" {{checked_design_main2_display3_2}} /><span class="radio"></span> 상품이동형</label> <i class="xi-help xi-x colorDGary masterTooltip" style="line-height:1.6em" title="상품이 하나씩 롤링 됩니다."></i>&nbsp;&nbsp;
+			<label><input type='radio' name="design_main2_display3" value="3" class="design_main2_display" {{checked_design_main2_display3_3}} /><span class="radio"></span> 상품그룹이동형</label> <i class="xi-help xi-x colorDGary masterTooltip" style="line-height:1.6em" title="상품이 보여지는 갯수만큼 그룹으로 되어 롤링됩니다.(5개가 보여지면 5개씩 롤링됩니다.)"></i>&nbsp;&nbsp;	
+		</td>
+	</tr>
+	<tr> 
+		<td>노출순서 설정 <i class="xi-arrows xi-x colorDGary masterTooltip" title="등록된 항목을 마우스로 누르고 좌우로 이동하시면 순서를 변경 하실 수 있습니다."></i></td>
+		<td colspan="3">
+			<ul id="main2DisplaySortable" class="displaySortable">
+				<!-- DYNAMIC @loop_main2_display@ -->
+				<li data-idx="{{display_code}}" class="{{display_code}}">{{display_name}}</li>
+				<!-- DYNAMIC @loop_main2_display@ -->
+			</ul>
+		</td>
+	</tr>
+	</table>
+	
+	<div class="empty60"></div>
+
+	<div class="btnSubmitBox">
+		<div class="displayInline"><button class="weight300 shine" type="submit">저장하기</button></div>
+		<div class="btnPrev"><i class="xi-arrow-left xi-x"></i></div>
+		<div class="btnPrevTitle">이전페이지</div>		
+	</div>
+
+</div>
+
+</form>
+
+<script>
+<!--
+	
+	var default_editer				= '.sn_design_main_custom_code_info';
+	var detailImageCnt				= 1;
+	var temp_upload					= "{{temp_upload}}";
+	var select_option				= new Array();
+	select_option['goods_cate']		= [{{goods_cate_select_option}}];
+	select_option['goods_display']  = [['인기상품', 1], ['추천상품', 2], ['신상품', 3]];
+
+	function ckMainCategory() {
+		if($('form[name=goodsForm] input[name=design_main_category]:checked').val() == '0') {
+			$('.cateContent').hide();
+		}
+		else {
+			$('.cateContent').show();		
+		}
+		resetContent();
+	}
+
+	function ckMainCustomCode() {
+		if($('form[name=goodsForm] input[name=design_main_custom_code]:checked').val() == '0') {			
+			$('.detailEditer').slideUp("fast", function() { resetContent(); $('.detailBtn').hide(); $('.detailContent').hide();});
+			resetContent();
+		}
+		else {
+			$('.detailBtn').show();
+			$('.detailContent').show();
+			$('.detailEditer').slideDown("slow", function() { resetContent(); });
+			imageStatus();
+		}
+	}
+
+	function ckMainDisplay() {
+		if($('form[name=goodsForm] input[name=design_main_display1]:checked').val() == '0')		$("#mainDisplaySortable .best").removeClass("selected");
+		else																					$("#mainDisplaySortable .best").addClass("selected");
+		if($('form[name=goodsForm] input[name=design_main_display2]:checked').val() == '0')		$("#mainDisplaySortable .reco").removeClass("selected");
+		else																					$("#mainDisplaySortable .reco").addClass("selected");
+		if($('form[name=goodsForm] input[name=design_main_display3]:checked').val() == '0')		$("#mainDisplaySortable .new").removeClass("selected");
+		else																					$("#mainDisplaySortable .new").addClass("selected");
+		if($('form[name=goodsForm] input[name=design_main_category]:checked').val() == '0')		$("#mainDisplaySortable .cate").removeClass("selected");
+		else																					$("#mainDisplaySortable .cate").addClass("selected");
+		if($('form[name=goodsForm] input[name=design_main_custom_code]:checked').val() == '0')	$("#mainDisplaySortable .code").removeClass("selected");
+		else																					$("#mainDisplaySortable .code").addClass("selected");
+	}
+
+	function ckMain2Display() {
+		if($('form[name=goodsForm] input[name=design_main2_display1]:checked').val() == '0')	$("#main2DisplaySortable .best").removeClass("selected");
+		else																					$("#main2DisplaySortable .best").addClass("selected");
+		if($('form[name=goodsForm] input[name=design_main2_display2]:checked').val() == '0')	$("#main2DisplaySortable .reco").removeClass("selected");
+		else																					$("#main2DisplaySortable .reco").addClass("selected");
+		if($('form[name=goodsForm] input[name=design_main2_display3]:checked').val() == '0')	$("#main2DisplaySortable .new").removeClass("selected");
+		else																					$("#main2DisplaySortable .new").addClass("selected");
+	}
+
+	$("#cateGoodsSortable").multiBox({'sortable':'1','order':'form[name=goodsForm] input[name=cate_goods_order]','focus':'2','list' : [{'name':'','width':'10','type':'','enter':0},{'name':'goods_cate','width':'40','type':'selectbox','enter':0},{'name':'goods_display','width':'30','type':'selectbox','enter':0},{'name':'goods_used','width':'10','type':'checkbox','enter':0},{'name':'','width':'10','type':'icon','enter':0}]});
+
+	$(function() {
+		
+		$('.sn_design_main_custom_code_info').summernote({						
+			'lang' : 'ko-KR',
+			'height' : '300px',
+			'dialogsFade' : true,
+			'imgSync' : true,
+			callbacks: {
+				onBlur: function() {
+					imageStatus();
+				}    
+			}
+		});	
+
+		$('#mainDisplaySortable').sortable({
+			placeholder: "highlight",
+			cursor : "move",
+			update : function(e, ui) {
+				$('form[name=goodsForm] input[name=main_display_order]').val($(this).sortable("toArray", { attribute : 'data-idx' }));
+			}
+		});
+		
+		$('form[name=goodsForm] input[name=main_display_order]').val($('#mainDisplaySortable').sortable("toArray", { attribute : 'data-idx' }));
+
+		$('#main2DisplaySortable').sortable({
+			placeholder: "highlight",
+			cursor : "move",
+			update : function(e, ui) {
+				$('form[name=goodsForm] input[name=main2_display_order]').val($(this).sortable("toArray", { attribute : 'data-idx' }));
+			}
+		});
+		
+		$('form[name=goodsForm] input[name=main2_display_order]').val($('#main2DisplaySortable').sortable("toArray", { attribute : 'data-idx' }));
+		
+		<!-- DYNAMIC @loop_cate_goods@ -->
+		$("#cateGoodsSortable").multiBox('add', [{'name' : 'goods_cate', 'value' : '{{goods_cate}}'}, {'name' : 'goods_display', 'value' : '{{goods_display}}'}, {'name' : 'goods_used', 'value' : '{{goods_used}}'}]);
+		<!-- DYNAMIC @loop_cate_goods@ -->
+
+		<!-- DYNAMIC @loop_detail_image@ -->
+		detailImageInsert('{{image}}', '{{image_name}}');
+		<!-- DYNAMIC @loop_detail_image@ -->
+
+		if('{{design_main_category}}' == 0) $('.cateContent').hide();
+
+		$('.design_main_display').click(function(e){
+			ckMainDisplay();
+		});
+
+		$('.design_main2_display').click(function(e){
+			ckMain2Display();
+		});
+
+		$('form[name=goodsForm] input[name=design_main_category]').click(function(e){
+			ckMainCategory();
+			ckMainDisplay();
+		});
+
+		$('form[name=goodsForm] input[name=design_main_custom_code]').click(function(e){
+			ckMainCustomCode();
+			ckMainDisplay();
+		});
+
+		ckMainCategory();
+		ckMainCustomCode();
+		ckMainDisplay();
+		ckMain2Display();
+		
+	});	
+
+//-->
+</script>
+
+<script src="../goods/js_goods_detail_image.js?ver={{ver}}"></script>

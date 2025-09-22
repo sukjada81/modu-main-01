@@ -1,0 +1,249 @@
+<form name='memberForm' method='post' action='member_excel_post.php' enctype="multipart/form-data" target='HFrm' onsubmit="return false;">					
+
+<div class="content">
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;회원일괄등록
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>
+	<tr> 
+		<td>엑셀파일 등록</td>
+		<td colspan="3">
+			<div class="btnBox2">						
+				<div id="btn_excel" class="btnBoxIcon">
+					<i class="fas fa-plus-circle fa-2x"></i>											
+				</div>												
+				<input type="file" name="excel" class="excelBtn" required="required" data-msg="엑셀파일을" />
+				<div class="excel_name"></div> 
+				<div id="btn2_excel" class="btnBoxIcon2">
+					<i class="fas fa-edit masterTooltip" title="변경하기"></i>
+				</div>
+			</div>			
+		</td>
+	</tr>
+	<tr> 
+		<td>비밀번호 암호화 <i class="xi-help xi-x colorDGary masterTooltip" title="비밀번호가 암호화(MD5)되지 않았을 경우 체크를 하시며 암호화 되어 등록 됩니다."></i></td>
+		<td colspan="3">
+			<label><input type='checkbox' name="passwd_encoding" value="1" /><span></span> MD5로 암호화함</label>&nbsp;&nbsp;
+		</td>
+	</tr>
+	<tr> 
+		<td>엑셀파일 안내</td>
+		<td colspan="3">
+			샘플파일은 다운받으신 후 xls파일이나 xlsx파일로 저장 후 등록 하시면 됩니다. <br />
+			대량 등록일 경우 서버 부하 및 처리 시간이 많이 걸릴 수 있으니 분할해서 등록 하시기 바랍니다.<br /><br />
+			<button class="btns" type="button" style="width:18%" id="sampleDwon"><span class="text"><i class="xi-download xi-x"></i> 엑셀샘플 다운로드</span></button>
+		</td>
+	</tr>
+	</table>
+
+	<div class="empty60"></div>
+
+	<div class="btnSubmitBox">
+		<div class="displayInline"><button class="weight300 shine" type="submit">회원 일괄등록</button></div>		
+	</div>
+
+	<div class="empty60"></div>
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;회원정보 엑셀 작성 안내
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="54%" />	
+	</colgroup>
+	<tr> 
+		<td>이름 <i class="fas fa-pen-square masterTooltip" title="필수 입력사항 입니다."></i></td>
+		<td>홍길동</td>
+	</tr>	
+	<tr> 
+		<td>아이디 <i class="fas fa-pen-square masterTooltip" title="필수 입력사항 입니다."></i></td>
+		<td>test01&nbsp;&nbsp;<font class="colorBlue">기등록된 아이디가 있는 경우 회원가입이 되지 않습니다.</font></td>
+	</tr>
+	<tr> 
+		<td>비밀번호 <i class="fas fa-pen-square masterTooltip" title="필수 입력사항 입니다."></i></td>
+		<td>111111&nbsp;&nbsp;<font class="colorBlue">MD5로 암호화해서 등록 하거나 암호화 되지않았을 경우 위 설정의 '비밀번호 암호화'의  MD5로 암호화함에 체크를 하시기 바랍니다. </font></td>
+	</tr>
+	<tr> 
+		<td>이메일주소 <i class="fas fa-pen-square masterTooltip" title="필수 입력사항 입니다."></i></td>
+		<td>test@funcher.kr</td>
+	</tr>
+	<!-- DYNAMIC @is_tel@ -->
+	<tr> 
+		<td>전화번호 {{required}}</td>
+		<td>02-0000-0000&nbsp;&nbsp;<font class="colorBlue">'-'없이, 있는 경우 등록시 자동 삭제됨</font></td>
+	</tr>
+	<!-- DYNAMIC @is_tel@ -->
+	<!-- DYNAMIC @is_cell@ -->
+	<tr> 
+		<td>휴대폰번호 {{required}}</td>
+		<td>010-0000-0000&nbsp;&nbsp;<font class="colorBlue">'-'없이, 있는 경우 등록시 자동 삭제됨</font></td>
+	</tr>
+	<!-- DYNAMIC @is_cell@ -->
+	<!-- DYNAMIC @is_address@ -->
+	<tr> 
+		<td>우편번호 {{required}}</td>
+		<td>03048</td>
+	</tr>
+	<tr> 
+		<td>주소 {{required}}</td>
+		<td>서울특별시 종로구 청와대로 1 (세종로  1)</td>
+	</tr>
+	<tr> 
+		<td>상세주소</td>
+		<td>1층 101호</td>
+	</tr>
+	<!-- DYNAMIC @is_address@ -->
+	<!-- DYNAMIC @is_birth@ -->
+	<tr> 
+		<td>생년월일 {{required}}</td>
+		<td>19990101&nbsp;&nbsp;<font class="colorBlue">YYYYMMDD 형태로 입력</font></td>
+	</tr>
+	<tr> 
+		<td>양력/음력 {{required}}</td>
+		<td>양력&nbsp;&nbsp;<font class="colorBlue">양력 or 음력</font></td>
+	</tr>
+	<!-- DYNAMIC @is_birth@ -->
+	<!-- DYNAMIC @is_gender@ -->
+	<tr> 
+		<td>성별 {{required}}</td>
+		<td>남성&nbsp;&nbsp;<font class="colorBlue">남성 or 여성</font></td>
+	</tr>
+	<!-- DYNAMIC @is_gender@ -->
+	<!-- DYNAMIC @is_marry@ -->
+	<tr> 
+		<td>결혼여부 {{required}}</td>
+		<td>미혼&nbsp;&nbsp;<font class="colorBlue">미혼 or 기혼</font></td>
+	</tr>
+	<!-- DYNAMIC @is_marry@ -->
+	<!-- DYNAMIC @is_job@ -->
+	<tr> 
+		<td>직업 {{required}}</td>
+		<td>{{jobs}}<br /><font class="colorBlue">항목에 없는 경우 환경설정 > 회원정책설정 > 회원 가입 항목 설정 > 직업항목에 추가 해 주시면 됩니다. <a href="../conf/member_info.php" target="_blank" class="link"><i class="fas fa-link masterTooltip" title="환경설정 > 회원정책설정"></i></a></font></td>
+	</tr>
+	<!-- DYNAMIC @is_job@ -->
+	<!-- DYNAMIC @is_hobby@ -->
+	<tr> 
+		<td>취미 {{required}}</td>
+		<td>{{hobbys}}<br /><font class="colorBlue">항목에 없는 경우 환경설정 > 회원정책설정 > 회원 가입 항목 설정 > 취미항목에 추가 해 주시면 됩니다. <a href="../conf/member_info.php" target="_blank" class="link"><i class="fas fa-link masterTooltip" title="환경설정 > 회원정책설정"></i></a></font></td>
+	</tr>
+	<!-- DYNAMIC @is_hobby@ -->
+	<!-- DYNAMIC @is_comp@ -->
+	<tr> 
+		<td>회사명 {{required}}</td>
+		<td>모두복지몰</td>
+	</tr>
+	<!-- DYNAMIC @is_comp@ -->
+	<!-- DYNAMIC @is_comp_num@ -->
+	<tr> 
+		<td>사업자등록번호 {{required}}</td>
+		<td>0000000000&nbsp;&nbsp;<font class="colorBlue">'-'없이, 있는 경우 등록시 자동 삭제됨</font></td>
+	</tr>
+	<!-- DYNAMIC @is_comp_num@ -->
+	<!-- DYNAMIC @is_comp_owner@ -->
+	<tr> 
+		<td>대표자명 {{required}}</td>
+		<td>홍길동</td>
+	</tr>
+	<!-- DYNAMIC @is_comp_owner@ -->
+	<!-- DYNAMIC @is_comp_address@ -->
+	<tr> 
+		<td>사업장 우편번호 {{required}}</td>
+		<td>03048</td>
+	</tr>
+	<tr> 
+		<td>사업장 주소 {{required}}</td>
+		<td>서울특별시 종로구 청와대로 1 (세종로  1)</td>
+	</tr>
+	<tr> 
+		<td>사업장 상세주소</td>
+		<td>1층 101호</td>
+	</tr>
+	<!-- DYNAMIC @is_comp_address@ -->
+	<!-- DYNAMIC @is_comp_type@ -->
+	<tr> 
+		<td>업태 {{required}}</td>
+		<td>서비스</td>
+	</tr>
+	<!-- DYNAMIC @is_comp_type@ -->
+	<!-- DYNAMIC @is_comp_item@ -->
+	<tr> 
+		<td>업태 {{required}}</td>
+		<td>소프트웨어개발</td>
+	</tr>
+	<!-- DYNAMIC @is_comp_item@ -->
+	<!-- DYNAMIC @is_mailling@ -->
+	<tr> 
+		<td>메일 수신 동의</td>
+		<td>N&nbsp;&nbsp;<font class="colorBlue">'N' : 동의안함, 'Y' : 동의함</font></td>
+	</tr>
+	<!-- DYNAMIC @is_mailling@ -->
+	<!-- DYNAMIC @is_sms@ -->
+	<tr> 
+		<td>SMS 수신 동의</td>
+		<td>N&nbsp;&nbsp;<font class="colorBlue">'N' : 동의안함, 'Y' : 동의함</font></td>
+	</tr>
+	<!-- DYNAMIC @is_sms@ -->
+	<tr> 
+		<td>회원등급</td>
+		<td>1&nbsp;&nbsp;
+			<font class="colorBlue">
+				<!-- DYNAMIC @loop_level@ -->
+				{{levels}} : {{name}}
+				<!-- DYNAMIC @loop_level@ -->
+			</font>
+		</td>
+	</tr>
+	<!-- DYNAMIC @loop_add@ -->
+	<tr> 
+		<td>추가항목 {{i}} {{required}}</td>
+		<td>&nbsp;&nbsp;<font class="colorBlue">{{ADD_TITLE}}</font></td>
+	</tr>
+	<!-- DYNAMIC @loop_add@ -->	
+	</table>
+
+</div>
+
+</form>
+
+
+<script>
+<!--
+	$(function() {
+		
+		$('#sampleDwon').click(function(e){
+			window.location.href = "./member_excel_sample.xlsx";
+		});
+
+		$('.excelBtn').on('change', function(e){
+
+			if(!CommonCheckExcel($(this))) return;
+			
+			$("#btn_excel").hide();
+			$("#btn2_excel").fadeIn(100);
+			var name = $("form[name=memberForm] input[name='excel']").val().split('\\');		
+			$(".excel_name").html(name[name.length-1]);
+
+			$('.inputMessageBox').fadeOut('200').remove();
+						
+		});
+
+		$('#btn2_excel').find('.fa-edit').click(function(e){
+			$("form[name=memberForm] input[name='excel']").trigger('click');
+		});
+		
+	});
+
+
+	
+//-->
+</script>

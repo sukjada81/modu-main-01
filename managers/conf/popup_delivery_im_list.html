@@ -1,0 +1,270 @@
+<div class="content">
+	
+	<form name='searchForm' method='get' action='{{PHP_SELF}}'>	
+	<div class="searchBox">
+		<div class="floatLeft">
+			<select name="field">
+				<option value="multi">통합검색</option>
+				<option value="postcode">우편반호</option>
+				<option value="address">주소</option>
+			</select>			
+		</div>
+		<div class="searchBoxIn" style="width:74%">
+			<input type="text" name="keyword" value="{{keyword}}" data-search-btn="1" data-on-enter="1" />
+			<p class="resetIcon resetIconBtn"><i class="xi-undo masterTooltip" title="초기화"></i></p>
+		</div>	
+	
+		<div class="expensionArrow">
+			<div class="box"></div>
+			<i class="xi-arrow-down box_down"></i>			
+		</div>
+	</div>
+	<div class="searchDetail">
+		<div class="searchDetailBox">
+			<table class="search">
+			<colgroup>
+			<col width="33%" /> 
+			<col width="33%" />
+			<col width="33%" /> 
+			</colgroup>
+			<tr> 
+				<td>
+					<select name="base" style="display:none;">
+						<option value="">지역타입</option>
+						<option value="0">기본지역</option>
+						<option value="1">추가지역</option>
+					</select>							
+				</td>
+				<td>
+					<select name="exception" style="display:none;">
+						<option value="">제외여부</option>
+						<option value="1">제외</option>
+						<option value="2">미제외</option>
+					</select>							
+				</td>			
+				<td></td>
+			</tr>				
+			</table>					
+		</div>	
+		<div class="btnSearchSubmitBox alignCenter">
+			<div class="btnCircleSearch"><div class="btnCircleSearchTitle">검색</div><i class="xi-search xi-x"></i></div>
+			<div class="btnCircleReset"><div class="btnCircleResetTitle">초기화</div><i class="xi-undo xi-x"></i></div>						
+		</div>
+	</div>
+	</form>
+
+	<script>
+	<!--	
+		
+		$("form[name=searchForm] select[name='field']").val('{{field}}').heapbox({'width' : '200px'});		
+		$("form[name=searchForm] select[name='base']").val('{{base}}').show().heapbox({'width' : '91%', 'zindex':2});
+		$("form[name=searchForm] select[name='exception']").val('{{exception}}').show().heapbox({'width' : '91%', 'zindex':2});
+		$('.searchDetail').hide();
+	//-->
+	</script>
+
+	<div class="empty60"></div>
+
+	<div class="listTop">
+		<form name='listSearchForm' method='get' action='{{PHP_SELF}}?{{searchstring}}' />
+		<div class="listLeft size14">
+			전체 : <b class="orange">{{ATOTAL}}</b>건 
+			<!-- DYNAMIC @is_search@ -->
+			, 검색 : <b class="orange">{{TOTAL}}</b>건
+			<!-- DYNAMIC @is_search@ -->
+		</div>
+		<div class="listRight size10">
+			<div class="floatLeft">
+				<select name="sort">
+					<option value="uid DESC">등록일 역순</option>
+					<option value="uid ASC">등록일 순</option>
+					<option value="postcode DESC">우편번호 역순</option>
+					<option value="postcode ASC">우편번호 순</option>					
+					<option value="address DESC">지역 역순</option>
+					<option value="address ASC">지역 순</option>
+				</select>
+				&nbsp;&nbsp;
+			</div>
+			<div class="floatLeft">				
+				<select name="limit">
+					<option value="10">10개 보기</option>
+					<option value="20">20개 보기</option>
+					<option value="30">30개 보기</option>
+					<option value="40">40개 보기</option>
+					<option value="50">50개 보기</option>
+					<option value="60">60개 보기</option>
+					<option value="70">70개 보기</option>
+					<option value="80">80개 보기</option>
+					<option value="90">90개 보기</option>
+					<option value="100">100개 보기</option>
+				</select>
+			</div>
+		</div>
+		</form>
+	</div>
+
+	<div class="empty10"></div>
+	<div class="listLine"></div>
+	<div class="listSelect"></div>
+	<div class="listSelectR">
+		<button class="graident1 graButton btnAdd" type="button"><i class="xi-focus-frame xi-x"></i> 지역추기</button>
+	</div>
+
+	<div id="listArea">		
+		<!-- DYNAMIC @is_list_area@ -->
+		<form name="listForm">
+		<table class="listIn fixed-header-pop">
+		<colgroup>			
+			<col style="width:10%"  />		<!-- 번호 --> 
+			<col style="width:12%"  />		<!-- 우편번호 --> 
+			<col style=""  />				<!-- 주소 --> 	
+			<col style="width:10%"  />		<!-- 기본 --> 			
+			<col style="width:15%"  />		<!-- 등록일 --> 
+			<col style="width:8%"  />		<!-- 처리 --> 
+		</colgroup>
+		<thead> 
+		<tr> 
+			<th>번호</th>			
+			<th>우편번호</th>			
+			<th>주소</th>			
+			<th>제외</th>			
+			<th>등록일</th>
+			<th>처리</th>
+		</tr>
+		</thead>
+		<tbody>
+		<!-- DYNAMIC @loop_list@ -->
+		<tr>			
+			<td class="number">{{NUM}}</td>
+			<td>{{POSTCODE}}</td>
+			<td style="text-align:left">{{ADDRESS}}</td>
+			<td><label><input type="checkbox" name="exception_{{UID}}" class="exceptionConf" value="1" data-uid='{{UID}}' {{EXCEPTION}} /><span></span></label></td>
+			<td class="number">{{SIGNDATE}}</td>
+			<td>{{BASE}}</td>		
+		</tr>
+		<!-- DYNAMIC @loop_list@ -->
+		<!-- DYNAMIC @empty_list@ -->
+		<tr>
+			<td colspan="6" class="emptyList"><i class="fas fa-quote-left"></i>&nbsp;&nbsp;등록(검색)된 지역이 없습니다!&nbsp;&nbsp;<i class="fas fa-quote-right"></i></td>
+		<tr>
+		<!-- DYNAMIC @empty_list@ -->
+		</tbody>
+		</table>		
+		</form>
+		<!-- DYNAMIC @is_list_area@ -->		
+	</div>
+
+	<div class="listSelectB"></div>
+	<div class="listSelectRB"></div>
+	<div class="listLineB"></div>
+	<div class="paging">{{PAGING}}</div>
+
+</div>
+
+<form name='deliveryImForm' method='post' action='conf_post.php?mode=delivery_im__areas_exception' target='HFrm'>	
+<input type="hidden" name="uid" value="" />
+</form>
+
+<form name='deliveryImForm2' method='post' action='conf_post.php?mode=delivery_im__areas_del' target='HFrm'>	
+<input type="hidden" name="uid" value="" />
+</form>
+
+<iframe name="HFrm" style="display:none"></iframe>
+
+<script src="../../lib/jquery.timeliny.js?ver={{ver}}"></script>
+<script>
+<!--	
+	
+	var defaultUrl		= "{{PHP_SELF}}?{{searchstring}}";
+	var defaultSort		= "{{sort}}";
+	var defaultLimit	= "{{limit}}";
+	var defaultPage		= "{{page}}";
+	var pagingType		= '{{PAGING_TYPE}}';	
+	var lastPage		= '{{total_page}}';
+	var defaultTotal	= '{{TOTAL}}';
+
+// -->
+</script>
+<script src="../common/listProc.js?ver={{ver}}"></script>
+<script>
+<!--
+	
+	<!-- DYNAMIC @is_paging_type_0@ -->
+	if(listReset == 1) getListPage(defaultUrl + '&sort=' + sort + '&limit=' + limit + '&page=' + page);
+	pageClickReset();
+	<!-- DYNAMIC @is_paging_type_0@ -->
+
+	<!-- DYNAMIC @is_paging_type_1@ -->
+	if(limit != defaultLimit) listReset = 0;
+	$('.paging').timeliny({page: page, lastPage: lastPage, boundaries:'100', url:defaultUrl + '&sort=' + sort + '&limit=' + limit, listReset:listReset});
+	if(limit != defaultLimit) changeSL(1, page);
+	<!-- DYNAMIC @is_paging_type_1@ -->
+
+	function timelinyResetCallBackSub() {
+		$('.exceptionConf').unbind('click').bind('click',function(e) {	
+			var f = document.deliveryImForm;
+			var uid = $(this).attr("data-uid");
+			f.uid.value = uid;			
+			f.submit();							
+		});
+
+		$('.btnDel').unbind('click').bind('click',function(e) {	
+			var f = document.deliveryImForm2;
+			var uid = $(this).attr("data-uid");
+			f.uid.value = uid;			
+			f.submit();							
+		});
+
+		resetTooltip();
+	}
+
+	$(function() {
+		
+		if($("form[name=searchForm] input[name='keyword']").val().length) $(".resetIconBtn").show();
+
+		$('.listSelectB').html($('.listSelect').html());	
+		$('.listSelectRB').html($('.listSelectR').html());	
+
+		$('.expensionArrow').hover(function(e){
+			ckAnimateLoop1 = 0;
+			animateLoop1();
+		}, 
+		function() {
+			ckAnimateLoop1 = 1;	
+		});
+
+		$('.expensionArrow').click(function(e) {
+			if($('.box_down').hasClass("rotate180")) {
+				$('.box_down').removeClass('rotate180');
+				$('.box_down').addClass('rotate180r');
+				$('.box').animate({height:'4px'}, "fast");
+				$('.searchDetail').slideUp('fast');
+			}
+			else {
+				$('.box_down').removeClass('rotate180r');
+				$('.box_down').addClass('rotate180');
+				$('.box').animate({height:'34px'}, "fast");
+				$('.searchDetail').slideDown('fast');
+			}			
+		});
+
+
+		$('.btnAdd').click(function(e) {
+			iframeWidth = '850px';
+			iframeHeight = '.6';
+			iframeView("popup_delivery_im_add.php", "지역 추가");			
+		});	
+
+		<!-- DYNAMIC @is_search_open@ -->
+		$('.expensionArrow').trigger('click');
+		<!-- DYNAMIC @is_search_open@ -->	
+
+		timelinyResetCallBackSub();
+
+		
+	});
+	
+	checkAllRe();
+
+//-->
+</script>

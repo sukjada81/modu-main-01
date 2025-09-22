@@ -1,0 +1,194 @@
+<form name='goodsForm' method='post' action='goods_post.php?{{addstring}}' target='HFrm'>					
+<input type="hidden" name="item" />
+<input type="hidden" name="mode" value="cate" />
+<input type="hidden" name="cate_cnt" value="" required="required" data-msg="선택된 분류가 없습니다." data-fname=".cateSelect" />
+<input type="hidden" name="cate_max_cnt" value="" />
+
+<div class="content">
+	<table>
+	<colgroup>
+	<col width="24%" /> 
+	<col width="76%" />	
+	</colgroup>
+	<tr> 
+		<td>변경 범위 </td>
+		<td>
+			<label id="proc_type1"><input type='radio' name="proc_type1" value="1" /><span class="radio"></span> 선택내역</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="proc_type1" value="2" checked="checked" /><span class="radio"></span> 검색내역({{TOTALS1}}개 상품)</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="proc_type1" value="3" /><span class="radio"></span> 전체내역({{TOTALS2}}개 상품)</label>&nbsp;&nbsp;	
+		</td>
+	</tr>
+	<tr> 
+		<td>변경 방식 <i class="xi-help xi-x colorDGary masterTooltip" title="- 대표분류변경시 기존대표분류는 삭제 됩니다.[BR]- 분류변경시 기존분류는 삭제 됩니다.[BR]- 분류삭제시 대표분류는 삭제되지 않습니다"></i></td>
+		<td>
+			<label><input type='radio' name="proc_type2" value="1" checked="checked" /><span class="radio"></span> 대표분류변경</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="proc_type2" value="2" /><span class="radio"></span> 분류변경</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="proc_type2" value="3" /><span class="radio"></span> 분류추가</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="proc_type2" value="4" /><span class="radio"></span> 분류삭제</label>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" style="padding:20px; background-color:#fff;">
+
+			<table class="listIn">
+			<colgroup>
+			<col width="25%" /> 
+			<col width="25%" />
+			<col width="25%" /> 
+			<col width="25%" />	
+			</colgroup>
+			<thead>
+			<tr> 
+				<th>1차분류</th>
+				<th>2차분류</th>
+				<th>3차분류</th>
+				<th>4차분류</th>
+			</tr>
+			</thead>
+			<tbody class="cateSelect">
+			<tr>
+				<td>
+					<ul id="cateSelect1"></ul>
+				</td>
+				<td>
+					<div class="bgCircle" id="unLink2"><i class="fas fa-unlink"></i></div>
+					<ul id="cateSelect2"></ul>
+				</td>
+				<td>
+					<div class="bgCircle"  id="unLink3"><i class="fas fa-unlink"></i></div>
+					<ul id="cateSelect3"></ul>
+				</td>
+				<td>
+					<div class="bgCircle"  id="unLink4"><i class="fas fa-unlink"></i></div>
+					<ul id="cateSelect4"></ul>
+				</td>
+			</tr>	
+			</tbody>
+			</table>	
+			
+			<div class="empty30"></div>
+
+			<center>
+				<button id="cateAddBtn" class="graButton graident1" style="width:120px;" type="button"><i class="xi-plus-circle"></i> 추가하기</button>
+			</center>
+
+			<div class="empty30"></div>
+			
+			<table class="listIn" id="cateList">
+			<col width="10%" /> 
+			<col width="50%" />
+			<col width="20%" />
+			<col width="10%" />
+			<col width="10%" />
+			<thead>
+			<tr> 
+				<th>번호</th>
+				<th>상품분류</th>
+				<th>상품분류번호</th>
+				<th>대표설정</th>
+				<th>처리</th>
+			</tr>
+			</thead>
+			<tbody></tbody>
+			</table>
+			<div id="emptyCate">
+				선택된 분류가 없습니다!
+			</div>			
+
+			<div class="empty30"></div>
+
+		</td>
+	</tr>
+	</table>
+</div>
+
+<div class="empty100"></div>
+
+<div class="btnSubmitBoxPop">
+	<div class="displayInline"><button class="weight300 shine" type="submit">일괄변경</button></div>	
+</div>
+
+</form>
+
+<iframe name="HFrm" style="display:none"></iframe>
+
+<script>
+<!--
+	
+	{{tmps1}}
+	{{tmps2}}
+
+
+//-->
+</script>
+
+<script src="../../managers/goods/js_goods_cate.js?ver={{ver}}"></script>
+<script>
+<!--
+	
+	var cate_location_name1 = "";
+	var cate_location_name2 = "";
+	var cate_location_name3 = "";
+	var cate_location_name4 = "";
+	var cate_dep			= "";	
+	var cate				= "";	
+	var cateCnt				= 1;
+
+	$(function() {		
+		var ret = [];
+		$("form[name=listForm] input[name='item[]']:checkbox:checked", parent.document).each(function(i) {
+			ret.push($(this).val());
+		});
+
+		if(ret.length==0) {
+			$("#proc_type1").addClass('colorLLgray');
+			$("form[name=goodsForm] input:radio[name=proc_type1]:input[value=1]").attr('disabled',true);		
+		}		
+		else {
+			$("form[name=goodsForm] input[name='item']").val(ret);
+			$("form[name=goodsForm] input:radio[name=proc_type1]:input[value=1]").attr('checked',true);		
+		}
+
+		$('form[name=goodsForm] input[name=proc_type2]').click(function(e){
+			if($('form[name=goodsForm] input[name=proc_type2]:checked').val()=='3' || $('form[name=goodsForm] input[name=proc_type2]:checked').val()=='4') {
+				if($('form[name=goodsForm] input[name=cate_rep]:checked').val()) {
+					$('form[name=goodsForm] input[name=cate_rep]:checked').prop('checked', false);
+					for(i=1; i<=cateCnt; i++) {
+						cate_no = $("form[name=goodsForm] input:hidden[name=cate_no"+i+"]").val();
+						if(cate_no) {
+							$("form[name=goodsForm] input:radio[name=cate_rep]:input[value="+cate_no+"]").prop('disabled', true);						
+						}
+					}
+				}
+			}
+			else {
+				if(!$('form[name=goodsForm] input[name=cate_rep]:checked').val()) {
+					var ck = 0;
+					for(i=1; i<=cateCnt; i++) {
+						cate_no = $("form[name=goodsForm] input:hidden[name=cate_no"+i+"]").val();
+						if(cate_no) {
+							if(ck == 0) {
+								$("form[name=goodsForm] input:radio[name=cate_rep]:input[value="+cate_no+"]").prop('checked', true);
+								ck = i;
+							}
+							$("form[name=goodsForm] input:radio[name=cate_rep]:input[value="+cate_no+"]").prop('disabled', false);
+						}						
+					}
+				}			
+
+				if($('form[name=goodsForm] input[name=proc_type2]:checked').val()=='1') {					
+					for(i=1; i<=cateCnt; i++) {					
+						cate_no = $("form[name=goodsForm] input:hidden[name=cate_no"+i+"]").val();
+						if(cate_no) {														
+							if(!$("form[name=goodsForm] input:radio[name=cate_rep]:input[value="+cate_no+"]").prop('checked')) {								
+								$('form[name=goodsForm] input[name=cate_no'+i+']').parent('td').parent('tr').remove();
+							}
+						}
+					}
+				}
+			}
+		});
+	});
+
+//-->
+</script>

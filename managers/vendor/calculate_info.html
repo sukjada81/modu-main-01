@@ -1,0 +1,135 @@
+<form name='signForm' method='post' action='calculate_post.php?{{addstring}}' enctype="multipart/form-data" target='HFrm'>
+<input type="hidden" name="mode" value="{{mode}}" />
+<input type="hidden" name="uid" value="{{uid}}" />
+<input type='hidden' name='vendor_name' value='{{vendor_name}}' />
+
+<div class="content">
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;정산내역 {{TTL}}
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>
+	<tr> 
+		<td>판매사</td>
+		<td colspan="3">
+			<select name="vendor">
+				<option value="">판매사</option>
+				<!-- DYNAMIC @loop_vendor@ -->
+				<option value='{{vendor_id}}' data-name='{{vbank_name}}' data-num='{{vbank_num}}' data-owner='{{vbank_owner}}' data-vname='{{vendor_name}}'>{{vendor_name}} ({{vendor_id}})</option>
+				<!-- DYNAMIC @loop_vendor@ -->
+			</select>
+			<script>
+				$("form[name=signForm] select[name='vendor']").val('{{vendor}}').heapbox({
+					'width' : '300px',
+					'heapsize' : '400px',
+					'onChange':function(value){
+									if(value) {
+										var t = $("form[name=signForm] select[name='vendor'] option:selected");
+										$("form[name=signForm] input[name='bank_name']").val(t.attr('data-name'));
+										$("form[name=signForm] input[name='bank_num']").val(t.attr('data-num'));
+										$("form[name=signForm] input[name='bank_owner']").val(t.attr('data-owner'));
+										$("form[name=signForm] input[name='vendor_name']").val(t.attr('data-vname'));
+									}	
+									else {
+										$("form[name=signForm] input[name='bank_name']").val('');
+										$("form[name=signForm] input[name='bank_num']").val('');
+										$("form[name=signForm] input[name='bank_owner']").val('');
+									}									
+								}
+				});				
+
+			</script>
+		</td>	
+	</tr>
+	<tr> 
+		<td>정산계좌정보</td>
+		<td colspan="3">			
+			<div class="requireLeft" style="margin-left:0"><input type='text' name='bank_name' value='{{bank_name}}' placeholder="은행명" required="required" data-msg="은행명을" /></div>
+			<div class="requireLeft"><input type='text' name='bank_num' value='{{bank_num}}' placeholder="계좌번호" required="required" data-msg="계좌번호를" /></div>
+			<div class="requireLeft"><input type='text' name='bank_owner' value='{{bank_owner}}' placeholder="예금주" required="required" data-msg="예금주를" /></div>	
+		</td>		
+	</tr>
+	<tr> 
+		<td>정산기간</td>
+		<td colspan="3">
+			<div class="requireLeft" style="margin-left:0"><input type="text" name="s_date" value="{{s_date}}" class="ip3 dates" placeholder="시작일" required="required" data-msg="시작일을" data-date-picker='2'  /></div>
+			<div class="floatLeft" style="padding:0 0 0 15px;">~</div>
+			<div class="requireLeft"><input type="text" name="e_date" value="{{e_date}}" class="ip3 dates" placeholder="종료일" required="required" data-msg="종료일을" data-date-picker='2' /></div>
+			<div class="floatLeft" style="padding-left:15px;">
+		</td>		
+	</tr>
+	<tr> 
+		<td>정산합계</td>
+		<td>
+			<div style="position:relative">
+				<input type='text' name='sum' value='{{sum}}' class="only_num_format" style="font-size:14px;" />
+			</div>
+		</td>
+		<td>상품</td>
+		<td><input type='text' name='price1' value='{{price1}}' class="only_num_format" style="font-size:14px;" /></td>
+	</tr>
+	<tr>
+		<td>배송비</td>
+		<td><input type='text' name='price2' value='{{price2}}' class="only_num_format" style="font-size:14px;" /></td>
+		<td>수수료</td>
+		<td><input type='text' name='price3' value='{{price3}}' class="only_num_format" style="font-size:14px;" /></td>
+		</td>		
+	</tr>
+	<tr> 
+		<td>세금계산서</td>
+		<td>
+			<select name="tax_bill">
+				<option value="">세금계산서</option>
+				<option value="0">미발행</option>
+				<option value="1">발행</option>
+			</select>	
+			<script>
+				$("form[name=signForm] select[name='tax_bill']").val('{{tax_bill}}').heapbox({'width' : '150px', 'zindex':5});				
+
+			</script>
+		</td>	
+		<td>상태</td>
+		<td>
+			<select name="status">
+				<option value="">상태</option>
+				<option value="0">대기중</option>
+				<option value="1">정산완료</option>
+			</select>
+			<script>
+				$("form[name=signForm] select[name='status']").val('{{status}}').heapbox({'width' : '150px'});				
+
+			</script>
+		</td>	
+	</tr>
+	</table>
+
+	<div class="empty60"></div>
+
+	<div class="btnSubmitBox">
+		<div class="displayInline"><button class="weight300 shine" type="submit">정산내역 {{TTL}}하기</button></div>
+		<div class="btnPrev"><i class="xi-arrow-left xi-x"></i></div>
+		<div class="btnPrevTitle">이전페이지</div>		
+	</div>
+
+</div>
+
+</form>
+
+<script>
+<!--
+
+	$(function() {
+		
+		resetContent();
+
+	});
+
+//-->
+</script>

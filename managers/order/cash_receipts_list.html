@@ -1,0 +1,396 @@
+<div class="content">
+	
+	<form name='searchForm' method='get' action='{{PHP_SELF}}'>
+	<div class="searchBox">
+		<div class="floatLeft">
+			<select name="field">
+				<option value="name">신청인</option>
+				<option value="id">아이디</option>
+				<option value="order_num">주문번호</option>				
+				<option value="승인번호">승인번호</option>	
+			</select>			
+		</div>
+		<div class="searchBoxIn">
+			<input type="text" name="keyword" value="{{keyword}}" data-search-btn="1" data-on-enter="1" />
+			<p class="resetIcon resetIconBtn"><i class="xi-undo masterTooltip" title="초기화"></i></p>
+		</div>
+
+		<div class="expensionArrow">
+			<div class="box"></div>
+			<i class="xi-arrow-down box_down"></i>			
+		</div>
+	</div>
+	<div class="searchDetail">
+		<div class="searchDetailBox">
+			<table class="search">
+			<colgroup>
+			<col width="33%" /> 
+			<col width="33%" />
+			<col width="33%" /> 
+			</colgroup>
+			<tr> 
+				<td colspan="3">
+					<select name="date_type" style="display:none;">
+						<option value="signdate">신청일</option>
+						<option value="status_date">처리일</option>
+					</select>						
+					<div class="requireLeft"><input type="text" name="s_date" class="ip2 dates" value="{{s_date}}" data-date-picker='1' /></div>
+					<div class="floatLeft" style="padding:0 0 0 15px;">~</div>
+					<div class="requireLeft"><input type="text" name="e_date" class="ip2 dates" value="{{e_date}}" data-date-picker='1' /></div>
+					<div class="floatLeft" style="padding-left:15px;">
+						<button class="btns2" type="button" data-s_date='{{DATE1}}' data-e_date='{{DATE1}}'>오늘</button>
+						<button class="btns2" type="button" data-s_date='{{DATE2}}' data-e_date='{{DATE1}}'>3일</button>
+						<button class="btns2" type="button" data-s_date='{{DATE3}}' data-e_date='{{DATE1}}'>7일</button>
+						<button class="btns2" type="button" data-s_date='{{DATE4}}' data-e_date='{{DATE1}}'>1개월</button>
+						<button class="btns2" type="button" data-s_date='{{DATE5}}' data-e_date='{{DATE1}}'>3개월</button>
+						<button class="btns2" type="button" data-s_date='{{DATE6}}' data-e_date='{{DATE1}}'>6개월</button>
+						<button class="btns2" type="button" data-s_date='' data-e_date=''>전체</button>					
+					</div>
+				</td>
+			</tr>				
+			<tr> 
+				<td>
+					<select name="status" style="display:none;">
+						<option value="">처리상태</option>
+						<option value="0">발급요청</option>
+						<option value="1">발급거절</option>
+						<option value="2">발급실패</option>
+						<option value="3">발급완료</option>
+						<option value="4">발급취소</option>						
+					</select>
+				</td>
+				<td>
+					<select name="pay_type" style="display:none;">
+						<option value="">결제수단</option>
+						<option value="B">무통장</option>
+						<option value="R">실시간계좌이체</option>
+						<option value="V">가상계좌이체</option>
+					</select>
+				</td>
+				<td>
+					<select name="cash_type" style="display:none;">
+						<option value="">발행용도</option>
+						<option value="0">소득공제용 </option>
+						<option value="1">지출증빙용</option>									
+					</select>										
+				</td>	
+			</tr>				
+			</table>					
+		</div>	
+		<div class="btnSearchSubmitBox">
+			<div class="btnCircleSearch"><div class="btnCircleSearchTitle">검색</div><i class="xi-search xi-x"></i></div>
+			<div class="btnCircleReset"><div class="btnCircleResetTitle">초기화</div><i class="xi-undo xi-x"></i></div>						
+		</div>
+	</div>
+	</form>
+
+	<script>
+	<!--	
+		
+		$("form[name=searchForm] select[name='field']").val('{{field}}').heapbox({'width' : '200px'});
+		$("form[name=searchForm] select[name='date_type']").val('{{date_type}}').show().heapbox({'width' : '160px', 'zindex':7});
+		$("form[name=searchForm] select[name='status']").val('{{status}}').show().heapbox({'width' : '99%', 'zindex':6});
+		$("form[name=searchForm] select[name='cash_type']").val('{{cash_type}}').show().heapbox({'width' : '99%', 'zindex':6});
+		$("form[name=searchForm] select[name='pay_type']").val('{{pay_type}}').show().heapbox({'width' : '99%', 'zindex':6});
+		$('.searchDetail').hide();
+	//-->
+	</script>
+
+	<div class="empty60"></div>
+	
+	<div class="listTop">
+		<form name='listSearchForm' method='get' action='{{PHP_SELF}}?{{searchstring}}' />
+		<div class="listLeft size14">
+			전체 : <b class="orange">{{ATOTAL}}</b>건 
+			<!-- DYNAMIC @is_search@ -->
+			, 검색 : <b class="orange">{{TOTAL}}</b>건
+			<!-- DYNAMIC @is_search@ -->
+		</div>
+		<div class="listRight size10">
+			<div class="floatLeft">
+				<select name="sort">
+					<option value="uid DESC">신청일 역순</option>
+					<option value="uid ASC">신청일 순</option>
+					<option value="status_date DESC">처리일 역순</option>
+					<option value="status_date ASC">처리일 순</option>
+				</select>
+				&nbsp;&nbsp;
+			</div>
+			<div class="floatLeft">				
+				<select name="limit">
+					<option value="10">10개 보기</option>
+					<option value="20">20개 보기</option>
+					<option value="30">30개 보기</option>
+					<option value="40">40개 보기</option>
+					<option value="50">50개 보기</option>
+					<option value="60">60개 보기</option>
+					<option value="70">70개 보기</option>
+					<option value="80">80개 보기</option>
+					<option value="90">90개 보기</option>
+					<option value="100">100개 보기</option>
+				</select>
+			</div>
+		</div>
+		</form>
+	</div>
+
+	<div class="empty10"></div>
+	<div class="listLine"></div>
+	<div class="listSelect"></div>
+	<div class="listSelectR">
+		<button class="graident1 graButton btnWrite" type="button" style="width:200px;"><i class="fas fa-link"></i> 현금영수증 개별발급</button>
+	</div>
+	
+	<div id="listArea">
+		<!-- DYNAMIC @is_list_area@ -->
+		<table class="listIn fixed-header">
+		<colgroup>			
+			<col style="width:70px" />	<!-- 번호 --> 			
+			<col style="width:130px" />	<!-- 주문번호 --> 		
+			<col style="width:130px" />	<!-- 신청자 -->			
+			<col />	<!-- 상품정보 -->
+			<col style="width:100px" />	<!-- 발급금액 -->	
+			<col style="width:100px" />	<!-- 결제수단 -->
+			<col style="width:100px" />	<!-- 처리상태 -->
+			<col style="width:110px" />	<!-- 처리일 -->
+			<col style="width:110px" />	<!-- 신청일 -->
+			<col style="width:90px" />	<!-- 처리 -->
+		</colgroup>
+		<thead> 
+		<tr> 
+			<th>번호</th>	
+			<th>주문번호 <i class="xi-link"></i></th>
+			<th>신청자 <i class="xi-external-link"></i></th>
+			<th>상품정보 / 처리결과메세지</th>			
+			<th>발급금액</th>
+			<th>결제수단</th>			
+			<th>처리상태</th>	
+			<th>처리일</th>	
+			<th>신청일</th>	
+			<th>처리</th>	
+		</tr>
+		</thead>
+		<tbody>
+		<!-- DYNAMIC @loop_list@ -->
+		<tr>
+			<td class="number">{{NUM}}</td>
+			<td class="number"><a href="order_info.php?order_num={{ORDER_NUM}}{{addstring}}">{{ORDER_NUM}}</a></td>
+			<td>
+				{{NAME}}
+				<!-- DYNAMIC @is_member@ -->
+				<center>
+				<div class='btnCrm cursorPoint' data-id='{{MEMBER_ID}}'>
+					<div class="empty5"></div>
+					<div class='barId'>{{MEMBER_ID}}</div>
+					<div class="empty5"></div>
+					<div class='barName2'>{{MEMBER_LEVEL}}</div>
+				</div>
+				</center>
+				<!-- DYNAMIC @is_member@ -->
+			</td>			
+			<td style="text-align:left">
+				{{GOODS_NAME}}
+				<div class="empty5"></div>
+				{{RECEIPT_INFO}}			
+				<div class="empty5"></div>
+				{{RECEIPT_ERROR}}			
+			</td>
+			<td class="number">{{PRICE}}</td>	
+			<td>{{PAY_TYPE}}</td>				
+			<td>
+				{{STATUS}}
+				<!-- DYNAMIC @is_bill@ -->
+				<div class="empty5"></div>
+				<button class="btnsSmall btnBill" type="button"  data-no1='{{RECEIPT_NO}}' data-no2='{{ORDER_NUM}}' data-price='{{PRICE2}}'><span class="text">매출전표</span></button>				
+				<!-- DYNAMIC @is_bill@ -->
+				<!-- DYNAMIC @is_bill2@ -->
+				<div class="empty5"></div>
+				<button class="btnsSmall btnBill2" type="button"  data-no1='{{RECEIPT_CANCEL_NO}}' data-no2='{{ORDER_NUM}}' data-price='{{PRICE2}}'><span class="text">취소전표</span></button>				
+				<!-- DYNAMIC @is_bill2@ -->
+			</td>
+			<td class="number">{{STATUS_DATE}}</td>
+			<td class="number">{{SIGNDATE}}</td>
+			<td>
+				<!-- DYNAMIC @is_btn_cancel@ -->
+				<button class="btnsSmall btnCancel" style="width:70px" type="button" data-uid="{{UID}}"><span class="text">발급취소</span></button>
+				<!-- DYNAMIC @is_btn_cancel@ -->
+				<!-- DYNAMIC @is_btn_resend@ -->
+				<button class="btnsSmall btnResend" style="width:70px" type="button" data-uid="{{UID}}"><span class="text">재발급</span></button>
+				<!-- DYNAMIC @is_btn_resend@ -->
+				<!-- DYNAMIC @is_btn_apply@ -->
+				<button class="btnsSmall btnApply" style="width:70px" type="button" data-uid="{{UID}}"><span class="text">발급</span></button>
+				<!-- DYNAMIC @is_btn_apply@ -->
+				<!-- DYNAMIC @is_btn_reject@ -->
+				<div class="empty5"></div>
+				<button class="btnsSmall btnReject" style="width:70px" type="button" data-uid="{{UID}}"><span class="text">발급거절</span></button>
+				<!-- DYNAMIC @is_btn_reject@ -->
+				<!-- DYNAMIC @is_btn_delete@ -->
+				<div class="empty5"></div>
+				<button class="btnsSmall btnDelete" style="width:70px" type="button" data-uid="{{UID}}"><span class="text">삭제</span></button>
+				<!-- DYNAMIC @is_btn_delete@ -->
+			</td>
+		</tr>
+		<!-- DYNAMIC @loop_list@ -->
+		<!-- DYNAMIC @empty_list@ -->
+		<tr>
+			<td colspan="10" class="emptyList"><i class="fas fa-quote-left"></i>&nbsp;&nbsp;등록(검색)된 현금영수증 신청 내역이 없습니다!&nbsp;&nbsp;<i class="fas fa-quote-right"></i></td>
+		<tr>
+		<!-- DYNAMIC @empty_list@ -->
+		</tbody>
+		</table>
+		</form>
+		<!-- DYNAMIC @is_list_area@ -->	
+	</div>
+
+	<div class="listSelectB"></div>
+	<div class="listSelectRB"></div>
+	<div class="listLineB"></div>
+
+	<div class="paging">{{PAGING}}</div>
+
+</div>
+
+<form name="changeForm" method="post" action='cash_receipts_post.php?{{addstring}}' target='HFrm'>
+<input type="hidden" name="mode" />
+<input type="hidden" name="uid" />
+</form>
+
+<script src="../../lib/jquery.timeliny.js?ver={{ver}}"></script>
+<script>
+<!--	
+	
+	var defaultUrl		= "{{PHP_SELF}}?{{searchstring}}";
+	var defaultSort		= "{{sort}}";
+	var defaultLimit	= "{{limit}}";
+	var defaultPage		= "{{page}}";
+	var pagingType		= '{{PAGING_TYPE}}';	
+	var lastPage		= '{{total_page}}';
+	var defaultTotal	= '{{TOTAL}}';
+
+// -->
+</script>
+<script src="../common/listProc.js?ver={{ver}}"></script>
+<script>
+<!--
+
+	function timelinyResetCallBackSub() {
+
+		$('.btnCancel').unbind('click').bind('click',function(e) {
+			var self	= this;
+
+			alertify.confirm('현금영수증 발급취소', '정말로 현금영수증 발급취소처리를 하시겠습니까?', function() { 
+				$("form[name=changeForm] input[name='mode']").val("cancel");
+				$("form[name=changeForm] input[name='uid']").val($(self).attr("data-uid"));
+				$("form[name=changeForm]").submit(); }
+				, function(){ } );
+			
+		});	
+
+		$('.btnResend').unbind('click').bind('click',function(e) {
+			var self	= this;
+
+			alertify.confirm('현금영수증 재발급', '정말로 현금영수증 재발급처리를 하시겠습니까?', function() { 
+				$("form[name=changeForm] input[name='mode']").val("resend");
+				$("form[name=changeForm] input[name='uid']").val($(self).attr("data-uid"));
+				$("form[name=changeForm]").submit(); }
+				, function(){ } );
+			
+		});	
+
+		$('.btnApply').unbind('click').bind('click',function(e) {
+			var self	= this;
+
+			alertify.confirm('현금영수증 발급', '정말로 현금영수증 발급처리를 하시겠습니까?', function() { 
+				$("form[name=changeForm] input[name='mode']").val("apply");
+				$("form[name=changeForm] input[name='uid']").val($(self).attr("data-uid"));
+				$("form[name=changeForm]").submit(); }
+				, function(){ } );
+			
+		});	
+
+		$('.btnReject').unbind('click').bind('click',function(e) {
+			var self	= this;
+
+			alertify.confirm('현금영수증 발급거절', '정말로 현금영수증 발급거절처리를 하시겠습니까?', function() { 
+				$("form[name=changeForm] input[name='mode']").val("reject");
+				$("form[name=changeForm] input[name='uid']").val($(self).attr("data-uid"));
+				$("form[name=changeForm]").submit(); }
+				, function(){ } );
+			
+		});
+		
+		$('.btnDelete').unbind('click').bind('click',function(e) {
+			var self	= this;
+
+			alertify.confirm('현금영수증 삭제', '정말로 현금영수증 삭제처리를 하시겠습니까?', function() { 
+				$("form[name=changeForm] input[name='mode']").val("delete");
+				$("form[name=changeForm] input[name='uid']").val($(self).attr("data-uid"));
+				$("form[name=changeForm]").submit(); }
+				, function(){ } );
+			
+		});
+		
+		$('.btnBill, .btnBill2').unbind('click').bind('click',function(e) {
+			
+			var no1		= $(this).attr("data-no1");
+			var no2		= $(this).attr("data-no2");
+			var price	= $(this).attr("data-price");
+
+			cashBill(no1, no2, price);
+		});	
+		
+	}
+
+	function cashBill(no1, no2, price) {
+		
+		<!-- DYNAMIC @is_cash_bill_kcp@ -->
+		window.open('https://{{bill_url}}admin8.kcp.co.kr/assist/bill.BillActionNew.do?cmd=cash_bill&cash_no=' + no1 + '&order_no=' + no2 + '&trade_mony=' + price, 'cashBill','width=420, height=670');
+		<!-- DYNAMIC @is_cash_bill_kcp@ -->
+		
+		<!-- DYNAMIC @is_cash_bill_nicepay@ -->
+		window.open('https://npg.nicepay.co.kr/issue/IssueLoader.do?type=1&TID=' + no1, 'cashBill','width=420, height=670');
+		<!-- DYNAMIC @is_cash_bill_nicepay@ -->
+
+		<!-- DYNAMIC @is_cash_bill_inicis@ -->
+		window.open('https://iniweb.inicis.com/DefaultWebApp/mall/cr/cm/Cash_mCmReceipt.jsp?clpaymethod=22&noTid=' + no1, 'cashBill','width=420, height=670');
+		<!-- DYNAMIC @is_cash_bill_inicis@ -->
+	}
+	
+	$(function() {
+		
+		$('.listSelectB').html($('.listSelect').html());
+		$('.listSelectRB').html($('.listSelectR').html());
+				
+		$(".btnVCrm").each(function(i) {
+			if(!$(this).find('.barId').html()) $(this).find('.barId').hide();
+		});
+
+		$('.btns2').click(function(e) {
+			$("form[name=searchForm] input[name='s_date']").val($(this).attr('data-s_date'));
+			$("form[name=searchForm] input[name='e_date']").val($(this).attr('data-e_date'));			
+			return;
+		});
+		
+		$('.btnCrm').click(function(e) {
+			var id = $(this).attr("data-id");
+			iframeWidth = '950px';
+			iframeHeight = '.8';
+			iframeView("../member/popup_member_crm.php?id=" + id, "회원 CRM보기");			
+		});
+		
+		$('.btnWrite').click(function(e){
+			window.location.href = "cash_receipts_info.php";
+		});
+
+		timelinyResetCallBackSub();
+
+		<!-- DYNAMIC @is_search_open@ -->
+		$('.expensionArrow').trigger('click');
+		<!-- DYNAMIC @is_search_open@ -->	
+
+	});
+	
+	checkAllRe();
+
+//-->
+</script>

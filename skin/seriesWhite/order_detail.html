@@ -1,0 +1,372 @@
+<div id="contents">	
+
+	{{SUB_MENUS}}
+
+	<h2 class="contentTitle">주문상세</h2>
+	
+	<div class="empty10"></div>
+	
+	<form name="orderForm" method="post" action="php/order_status_post.php?{{addstring}}" target='HFrm'>
+	<input type="hidden" name="order_num" value="{{order_num}}" />
+	<input type="hidden" name="mode" value="" />
+	
+	<div>
+		<div class="orderContent">
+			<div class="empty10"></div>
+			<div class="sub_title">주문상품 ({{TOTAL}}개)</div>
+			<div class="empty20"></div>	
+			<div class="cartListIn">
+				<div class="cartList">
+					<!-- DYNAMIC @loop_order@ -->
+					<div class="cartVendorList" data-vendor='{{VENDOR}}'>						
+						<div class="listInfo" style="padding:10px; font-size:14px;">
+							<b class="store cursorPoint">{{VENDOR_NAME}}</b>
+							<span class="delivery" style="font-size:12px;line-height:16px;">배송비 : {{DELIVERY_MESSAGE}} {{DELIVERY_ADD_MESSAGE}}</span>
+						</div>
+						<!-- DYNAMIC @loop_order_goods@ -->					
+						<div class="listItem" style="height:80px; padding:10px;" data-uid="{{G_UID}}" data-qty="{{QTY}}" data-option="{{OPTION}}" data-opt_name="{{G_NAME}} {{G_OPTION}}">
+							<div class="listItemImg" style="width:100px"><a href="{{G_LINK}}"><img src="{{G_IMAGE}}" alt="{{G_NAME}}" width="80" /></a></div>
+							<div class="listItemDetail">
+								<div><a href="{{G_LINK}}" class="size14">{{G_NAME}}</a></div>
+								<!-- DYNAMIC @is_option@ -->
+								<div style="padding-top:4px;"><b class="option_name size12">{{G_OPTION}}</b></div>	
+								<!-- DYNAMIC @is_option@ -->
+								
+								<div style="padding-top:4px;">
+									<b class="option_name size12">
+									배송비 : {{DELIVERY}}
+									<!-- DYNAMIC @is_delivery_add@ -->
+									&nbsp;&nbsp;|&nbsp;&nbsp;추가배송비 : {{DELIVERY_ADD}}
+									<!-- DYNAMIC @is_delivery_add@ -->
+									<!-- DYNAMIC @is_discount_info@ -->
+									&nbsp;&nbsp;|&nbsp;&nbsp;{{DISCOUNT_INFO}}
+									<!-- DYNAMIC @is_discount_info@ -->
+									<!-- DYNAMIC @is_coupon@ -->	
+									&nbsp;&nbsp;|&nbsp;&nbsp;쿠폰할인 : {{USE_COUPON}}원
+									<!-- DYNAMIC @is_coupon@ -->	
+									</b>
+								</div>
+							</div>
+							<div class="listItemStatus">	
+								{{STATUS}}
+							</div>
+							<div class="listItemPrice">						
+								<div style="font-size:14px;">								
+									<span class='total_price' style="font-size:16px">{{SUM_PRICE}}</span>원
+								</div>
+								<!-- DYNAMIC @is_orig_price@ -->
+								<div class="empty1"></div>
+								<div style="font-size:13px;"><s><span class='total_orig_price' style="font-size:14px">{{SUM_ORIG_PRICE}}</span>원</s></div>
+								<!-- DYNAMIC @is_orig_price@ -->
+
+								<!-- DYNAMIC @is_mileage@ -->
+								<div class="empty1"></div>
+								<p class="fontMontserrat size14" style="padding-top:5px;">{{MILEAGESONE}}P</p>
+								<!-- DYNAMIC @is_mileage@ -->
+							</div>			
+							<div class="listItemQty" style="float:right; text-align:right; width:60px;">{{QTY}}개</div>
+						</div>			
+						<!-- DYNAMIC @loop_order_goods@ -->
+						<div class="listSum" style="height:40px;">
+							<div>상품금액 <span  style="font-size:14px;"><b class="listItemPrices" style="font-size:16px;">{{VENDOR_PRICE}}</b>원</span></div>
+							<div><i class="xi-minus-thin xi-x"></i></div>
+							<div>할인금액 <span style="font-size:14px;"><b class="listItemDiscount" style="font-size:16px;">{{VENDOR_DISCOUNT}}</b>원</span></div>
+							<div><i class="xi-plus-thin xi-x"></i></div>
+							<div>배송비 <span style="font-size:14px;"><b class="listItemDelivery" style="font-size:16px;">{{VENDOR_DELIVERY}}</b>원</span></div>
+							<div><i class="xi-drag-handle xi-x"></i></div>
+							<div>주문금액 <span style="font-size:14px;"><b class="listItemTotal" style="font-size:16px;">{{VENDOR_TOTAL}}</b>원</span></div>			
+						</div>
+						<div class="empty30"></div>
+					</div>
+					<!-- DYNAMIC @loop_order@ -->				
+				</div>
+
+				<div class="sub_title">결제정보</div>
+				<div class="registBox inputBox" style="width:880px">
+					<!-- DYNAMIC @is_pay_type_B@ -->
+					<div class="orderOkBox" style="border:0; width:880px; padding:0;">
+						<!-- DYNAMIC @is_pay_ing@ -->
+						<p>{{BANK_INFO1}} 계좌에 {{BANK_INFO2}} 으로 <b>{{SUM_TOTAL}}</b>원을 입금 해 주시면 됩니다.</p>
+						<!-- DYNAMIC @is_bank_date@ -->
+						<span class="msg">{{BANK_DATE}}까지 미입금시 자동으로 주문이 취소됩니다.</span>
+						<!-- DYNAMIC @is_bank_date@ -->
+						<!-- DYNAMIC @is_pay_ing@ -->
+
+						<!-- DYNAMIC @is_pay_ok@ -->
+						<p>{{PAY_DATE}}에 <b>{{FIRST_PAY_TOTAL}}</b>원 입금을 확인 하였습니다.</p>
+						<!-- DYNAMIC @is_pay_ok@ -->					
+					</div>
+					<!-- DYNAMIC @is_pay_type_B@ -->
+					
+					<!-- DYNAMIC @is_pay_type_V@ -->
+					<div class="orderOkBox" style="border:0; width:880px; padding:0;">
+						<!-- DYNAMIC @is_pay_ing2@ -->
+						<p>{{BANK_INFO1}} {{BANK_INFO2}} {{BANK_INFO3}} 계좌에 <b>{{SUM_TOTAL}}</b>원을 입금 해 주시면 됩니다.</p>
+						<!-- DYNAMIC @is_bank_date2@ -->
+						<span class="msg">{{BANK_DATE}}까지 미입금시 자동으로 주문이 취소됩니다.</span>
+						<!-- DYNAMIC @is_bank_date2@ -->
+						<!-- DYNAMIC @is_pay_ing2@ -->
+
+						<!-- DYNAMIC @is_pay_ok2@ -->
+						<p>{{PAY_DATE}}에 <b>{{FIRST_PAY_TOTAL}}</b>원 입금을 확인 하였습니다.</p>
+						<!-- DYNAMIC @is_pay_ok2@ -->
+					</div>
+					<!-- DYNAMIC @is_pay_type_V@ -->
+
+					<!-- DYNAMIC @is_pay_type_CP@ -->
+					<div class="orderOkBox" style="border:0; width:880px; padding:0;">
+						<p>{{PAY_DATE}}에 <b>{{FIRST_PAY_TOTAL}}</b>원 결제가 완료 되었습니다.</p>	
+						<div class="empty10"></div>
+						<p>{{PAY_INFO}}</p>
+						<!-- DYNAMIC @loop_cancel_ok0@ -->
+						<div class="empty10"></div>
+						<p>{{CANCEL_DATE}}에 <b>{{CANCEL_PRICE}}</b>원 결제가 취소 되었습니다.</p>
+						<!-- DYNAMIC @loop_cancel_ok0@ -->
+
+						<!-- DYNAMIC @loop_cancel_ok1@ -->
+						<div class="empty10"></div>
+						<p>{{CANCEL_DATE}}에 <b>{{CANCEL_PRICE}}</b>원 결제취소가 실패하였습니다. 관리자에게 문의 바랍니다.</p>
+						<!-- DYNAMIC @loop_cancel_ok1@ -->
+
+						<!-- DYNAMIC @is_btn_card_bill@ -->
+						<button class="shineButtonSmall btnCardBill" style="margin-top:10px; height:40px; width:100px;" data-order_num="{{order_num}}" data-tno="{{tno}}" data-amount="{{sum_total_orig}}" type="button">영수증확인</button>
+						<!-- DYNAMIC @is_btn_card_bill@ -->
+												
+					</div>
+					<!-- DYNAMIC @is_pay_type_CP@ -->
+
+					<div class="empty20"></div>
+				</div>
+				
+				<!-- DYNAMIC @is_cash_info@ -->	
+				<div class="sub_title">현금영수증 정보</div>
+				<div class="registBox inputBox" style="width:880px">
+					<div class="orderOkBox" style="border:0; width:880px; padding:0;">
+						<!-- DYNAMIC @is_cash_status0@ -->	
+						<p>현금영수증 발급요청 상태 입니다.</p>	
+						<!-- DYNAMIC @is_cash_status0@ -->	
+						<!-- DYNAMIC @is_cash_status1@ -->	
+						<p>현금영수증 발급이 거부 되었습니다. 관리자에게 문의 바랍니다.</p>	
+						<!-- DYNAMIC @is_cash_status1@ -->	
+						<!-- DYNAMIC @is_cash_status2@ -->	
+						<p>현금영수증 발급이 실패 되었습니다. 관리자에게 문의 바랍니다.</p>	
+						<!-- DYNAMIC @is_cash_status2@ -->	
+						<!-- DYNAMIC @is_cash_status3@ -->	
+						<p>현금영수증이 {{cash_date}}에 <strong>발급완료</strong>되었습니다.</p>	
+						<!-- DYNAMIC @is_cash_status3@ -->	
+						<!-- DYNAMIC @is_cash_status4@ -->	
+						<p>현금영수증 발급이 취소 되었습니다.</p>	
+						<!-- DYNAMIC @is_cash_status4@ -->	
+						
+						<!-- DYNAMIC @is_btn_cash_bill@ -->	
+						<button class="shineButtonSmall btnCashBill" style="margin-top:10px; height:40px; width:100px;" data-order_num="{{order_num}}" data-tno="{{cash_tno}}" data-amount="{{sum_total_orig}}" type="button">매출전표</button>
+						<!-- DYNAMIC @is_btn_cash_bill@ -->
+					</div>
+				</div>
+				<!-- DYNAMIC @is_cash_info@ -->	
+
+				<div class="sub_title">배송지정보 
+					<!-- DYNAMIC @is_add_delivery@ -->
+					<span class="addDelivery">추가 배송비 <b class="add_delivery fontMontserrat">{{ADD_DELIVERY}}</b>원</span>
+					<!-- DYNAMIC @is_add_delivery@ -->
+				</div>
+				<div class="registBox inputBox" style="width:880px">
+					<ul>				
+						<li class="separation2">
+							<input type="text" maxlength="20" readonly="readonly" value="{{name2}}" data-title="이름" />
+						</li>
+						<li class="separation3">
+							<input type="text" name="cell2" maxlength="11" readonly="readonly" class="only_num"  value="{{cell2}}" data-title="연락처" />
+						</li>
+						<li class="separation" style="width:28%">
+							<input type="text" name="postcode" value="{{postcode}}" readonly="readonly" data-title="우편번호" />
+						</li>
+						<li class="separation" style="width:2%"></li>
+						<li class="separation" style="width:70%">
+							<input type="text" name="address1" value="{{address1}}" readonly="readonly" data-title="주소" />
+						</li>
+						<li style="clear:both">
+							<input type="text" name="address2" value="{{address2}}" readonly="readonly" data-title="상세주소" />
+						</li>
+						<!-- DYNAMIC @is_message@ -->
+						<li>
+							<textarea name="message" placeholder="요청사항" style="height:40px">{{message}}</textarea>
+						</li>				
+						<!-- DYNAMIC @is_message@ -->
+					</ul>
+				</div>
+				<div class="empty30"></div>
+			</div>
+		</div>
+
+		<div class="cartSum">
+			<div class="priceInfo">
+				<div>상품금액 <span><b class="itemPrice">{{SUM_PRICES}}</b>원</span></div>
+				<div>상품할인금액 <span> - <b class="itemDiscount">{{SUM_DISCOUNT}}</b>원</span></div>
+				<div>장바구니쿠폰할인 <span> - <b class="itemDiscount2">{{SUM_COUPON}}</b>원</span></div>
+				<div>마일리지사용 <span> - <b class="itemMileage2">{{SUM_MILEAGE2}}</b>원</span></div>
+				<div>배송비 <span> + <b class="itemDelivery">{{SUM_DELIVERY}}</b>원</span></div>
+				<div>취소금액 <span> - <b class="itemCancel">{{SUM_CANCEL}}</b>원</span></div>
+			</div>
+			<div class="priceTotal">
+				결제금액 <span><b class="itemSum">{{SUM_TOTAL}}</b>원</span>
+			</div>
+			<div class="mileageTotal">적립혜택 <span><b class="itemMileage">{{SUM_MILEAGE}}</b>P</span></div>
+			<div class="empty10"></div>	
+			<div>
+				<button class="shineButton btnCarts" type="button" style="width:100%">동일상품 장바구니담기</button>	
+			</div>
+			<div class="empty10"></div>	
+			<div>
+				<button class="shineButton btnPrev" type="button" style="width:100%">이전페이지</button>	
+			</div>
+		</div>
+	</div>	
+	
+	</form>
+	
+</div>	
+
+<script>
+<!--
+	var sumPositionTop		= $(".cartSum").offset().top - 60;
+	var sumPositionLeft		= $('.cartSum').position().left;
+	var default_required	= $(".cash_receipts_num").prop("required");
+	
+	$(function() {
+
+		
+		$(".btnCancel2").click(function(e){
+			iframeWidth = '850px';
+			iframeHeight = '.65';
+			iframeView("php/popup_order_status_change.php?order_num={{order_num}}&status=9", "주문취소요청");
+		});	
+		
+		$(".btnPrev").click(function(e){
+			window.history.back();
+		});	
+
+		$(".btnCarts").click(function(e) {
+			
+			var data	= new FormData();
+
+			$(".listItem").each(function(i){
+				
+				var uid			= $(this).attr("data-uid");
+				var qty			= $(this).attr("data-qty");
+				var option		= $(this).attr("data-option");
+				var opt_name	= $(this).attr("data-opt_name");
+
+				data.append('uid',		uid);
+				data.append('qty',		qty);	
+				data.append('option',	option);
+				data.append('opt_name', opt_name);
+
+				if(i == 0)	data.append('start', 1);
+				else		data.append('start', 0);
+				
+				$.ajax({
+					url: 'php/goods_cart_json.php', 
+					type: 'POST',	
+					data: data, 
+					cache: false,
+					dataType: 'json',
+					processData: false, 
+					contentType: false, 
+					success: function(data, textStatus, jqXHR) {
+						if(typeof(data.error) === 'undefined') {
+							if(data[0].ok == 1) {
+								alertify.success(data[0].opt_name + " 상품이 장바구니에 담겼습니다.");
+								$("#btnQuickCart .cart_cnt").html(parseInt($("#btnQuickCart .cart_cnt").html()) + 1);
+							}
+							else if(data[0].ok == 2) {
+								alertify.success(data[0].opt_name + "상품의 장바구니 수량이 " + data[0].qty + "개로 변경 되었습니다.");
+							}
+
+							if($(".listItem").length - 1 == i) {
+								alertify.confirm('장바구니확인', '장바구니로 이동 하시겠습니까?', function() { window.location.href = "index.php?channel=cart"; },	function() { } );
+							}
+						}
+						else {
+							alertify.error(data.error);
+						}
+					},
+					error: function(jqXHR, textStatus, errorThrown) {
+						alertify.error(textStatus);
+					}
+				});
+				
+				sleep(50);
+			});
+
+			return false;
+
+		});
+
+		$(".store").click(function(e) {
+			var vendor			= $(this).parents('.cartVendorList').attr("data-vendor");
+			if(vendor) {
+				window.location.href = "{{Main}}?channel=store&vendor=" + vendor;
+			}
+		});
+
+		$(".btnCardBill").click(function(e) {
+			var tno			= $(this).attr("data-tno");
+			var order_num	= $(this).attr("data-order_num");
+			var amount		= $(this).attr("data-amount");
+
+			<!-- DYNAMIC @is_card_bill_kcp@ -->
+            receiptWin = "https://{{bill_url}}admin8.kcp.co.kr/assist/bill.BillActionNew.do?cmd=card_bill&tno=";
+            receiptWin += tno + "&";
+            receiptWin += "order_no=" + order_num + "&"; 
+            receiptWin += "trade_mony=" + amount ;
+			<!-- DYNAMIC @is_card_bill_kcp@ -->
+
+			<!-- DYNAMIC @is_card_bill_nicepay@ -->
+            receiptWin = "https://npg.nicepay.co.kr/issue/IssueLoader.do?type=0&TID=" + tno;
+			<!-- DYNAMIC @is_card_bill_nicepay@ -->
+
+			<!-- DYNAMIC @is_card_bill_inicis@ -->
+            receiptWin = "https://iniweb.inicis.com/app/publication/apReceipt.jsp?noMethod=1&noTid=" + tno;
+			<!-- DYNAMIC @is_card_bill_inicis@ -->	
+
+            window.open(receiptWin, "", "width=455, height=815"); 
+        });		
+
+		$('.btnCashBill').click(function(e) {
+			var tno			= $(this).attr("data-tno");
+			var order_num	= $(this).attr("data-order_num");
+			var amount		= $(this).attr("data-amount");
+			
+			<!-- DYNAMIC @is_cash_bill_kcp@ -->
+			receiptWin = "https://{{bill_url}}admin8.kcp.co.kr/assist/bill.BillActionNew.do?cmd=cash_bill&cash_no=";
+            receiptWin += tno + "&";
+            receiptWin += "order_no=" + order_num + "&"; 
+            receiptWin += "trade_mony=" + amount ;
+			<!-- DYNAMIC @is_cash_bill_kcp@ -->
+
+			<!-- DYNAMIC @is_cash_bill_nicepay@ -->
+            receiptWin = "https://npg.nicepay.co.kr/issue/IssueLoader.do?type=1&TID=" + tno;
+			<!-- DYNAMIC @is_cash_bill_nicepay@ -->
+
+			<!-- DYNAMIC @is_cash_bill_inicis@ -->
+            receiptWin = "https://iniweb.inicis.com/DefaultWebApp/mall/cr/cm/Cash_mCmReceipt.jsp?clpaymethod=22&noTid=" + tno;
+			<!-- DYNAMIC @is_cash_bill_inicis@ -->	
+
+            window.open(receiptWin, "", "width=455, height=815"); 		
+			
+		});	
+
+	});
+	
+	$(window).resize(function(){ 
+		
+		if($('.cartSum').css("position") == "fixed") {
+			left = parseInt($('#contents').css('margin-left')) + sumPositionLeft;
+			$('.cartSum').css("left", left);
+		}
+		
+	});
+
+// -->
+</script>

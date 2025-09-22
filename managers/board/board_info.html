@@ -1,0 +1,447 @@
+<link href="../../lib/summernote-lite.css?ver={{ver}}" rel="stylesheet">
+<script src="../../lib/summernote-lite.js?ver={{ver}}"></script>
+<script src="../../lib/summernote-ko-KR.js"></script>
+
+<form name='goodsForm' method='post' action='board_post.php?{{addstring}}' enctype="multipart/form-data" target='HFrm'>
+<input type="hidden" name="mode" value="{{mode}}" />
+<input type="hidden" name="uid" value="{{uid}}" />
+<input type="hidden" name="cate_order" />
+<input type="hidden" name="cate_max_num" />
+
+<div class="content">
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp기본설정
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>
+	<tr> 
+		<td>게시판명</td>
+		<td colspan="3">
+			<p style="position:relative"><input type='text' value='{{name}}' style="width:98%" required="required" data-msg="게시판명을" data-toname="name" /></p>
+		</td>		
+	</tr>
+	<tr> 
+		<td>게시판아이디 <i class="xi-help xi-x colorDGary masterTooltip" title="- 게시판아이디는 영문시작, 영소문자, 숫자로 3~12자로 입력 하시기 바랍니다.[BR]- 게시판아이디는 수정이 불가능 합니다."></i></td>
+		<td colspan="3">
+			<p style="position:relative"><input type='text' name="id" value='{{id}}' style="width:98%" required="required" class="only_eng_num" placeholder="영문시작, 영소문자, 숫자로 3~12자" {{readonly}} data-msg="게시판아이디를" data-check-bo_id=1 /></p>
+		</td>		
+	</tr>	
+	<tr> 
+		<td>스킨 <i class="xi-help xi-x colorDGary masterTooltip" title="게시판 스킨은 사용하는 스긴의 board폴더 및 managers/board/skin 폴더에 게시판스킨폴더가 있어야 됩니다."></i></td>
+		<td colspan="3">
+			<select name="skin">
+				<!-- DYNAMIC @loop_skin@ -->
+				<option value="{{SKIN_NAME}}">{{SKIN_NAME}}</option>
+				<!-- DYNAMIC @loop_skin@ -->
+			</select>			
+			<script>
+				$("form[name=goodsForm] select[name='skin']").val('{{skin}}').heapbox({'width' : '300px'});
+			</script>
+		</td>
+	</tr>
+	<tr> 
+		<td>게시판 분류 <i class="xi-help xi-x colorDGary masterTooltip" title="게시판에서 분류를 생성하면 분류별로 게시물을 보여 줄 수 있습니다."></i> <i class="xi-arrows xi-x colorDGary masterTooltip" title="등록된 항목을 마우스로 누르고 아래 위로 이동하시면 순서를 변경 하실 수 있습니다."></i></td>
+		<td colspan="3" style="padding:20px;">
+			<table class="listIn fixed-header" id="cateSortable">
+			<colgroup>
+			<col width="10%" /> 
+			<col width="10%" />
+			<col width="70%" /> 			
+			<col width="10%" />
+			</colgroup>
+			<thead>
+			<tr> 
+				<th>번호</th>
+				<th>분류번호</th>
+				<th>분류명</th>
+				<th>처리</th>
+			</tr>
+			</thead>
+			<tbody></tbody>
+			</table>
+		</td>		
+	</tr>
+	<tr> 
+		<td>페이지당 게시물수</td>
+		<td colspan="3">
+			<div style="position:relative; width:250px;"><input type="text" name="record_num" value="{{record_num}}" class="only_num_format" style="width:80px; font-size:14px;" required="required" data-msg="페이지당 게시물수를" /> 개</div>
+		</td>		
+	</tr>
+	<tr > 
+		<td>게시판 타입 <i class="xi-help xi-x colorDGary masterTooltip" title="- 게시판 타입을 선택 하시면 됩니다.[BR]- 일반은 일반적인 형태의 게시판 입니다.[BR]- FAQ는 자주찾는질문처럼 리스트페이지에서 글내용이 노출 됩니다.[BR]- 1:1문의는 자신이 등록한 글만 노출이 됩니다.[BR]- 갤러리는 목록페이지에서 이미지가 노출 됩니다.[BR]- 상품문의/후기는 상품과연결되고 리스트에서 글내용 및 답변이 노출 됩니다."></i></td>
+		<td colspan="3">
+			<div>
+				<label><input type='radio' name="types" value="0" {{checked_types_0}} /><span class="radio"></span> 일반</label>&nbsp;&nbsp;
+				<label><input type='radio' name="types" value="1" {{checked_types_1}} /><span class="radio"></span> FAQ</label>&nbsp;&nbsp;
+				<label><input type='radio' name="types" value="2" {{checked_types_2}} /><span class="radio"></span> 1:1문의</label>&nbsp;&nbsp;
+				<label><input type='radio' name="types" value="3" {{checked_types_3}} /><span class="radio"></span> 갤러리</label>&nbsp;&nbsp;				
+			</div>
+		</td>		
+	</tr>
+	<tr > 
+		<td>시작페이지 <i class="xi-help xi-x colorDGary masterTooltip" title="- 게시판 접속시 페이지를 지정 하실 수 있습니다.[BR]- 글보기일 경우 블로그형태로 최근글 보기로 시작 됩니다."></i></td>
+		<td>
+			<div>
+				<label><input type='radio' name="start_page" value="0" {{checked_start_page_0}} /><span class="radio"></span> 글목록</label>&nbsp;&nbsp;
+				<label><input type='radio' name="start_page" value="1" {{checked_start_page_1}} /><span class="radio"></span> 글보기</label>&nbsp;&nbsp;
+				<label><input type='radio' name="start_page" value="2" {{checked_start_page_2}} /><span class="radio"></span> 글쓰기</label>
+			</div>
+		</td>
+		<td>글보기시 글목록 <i class="xi-help xi-x colorDGary masterTooltip" title=""></i></td>
+		<td>
+			<div>
+				<label><input type='radio' name="view_type" value="0" {{checked_view_type_0}} /><span class="radio"></span> 노출안함</label>&nbsp;&nbsp;
+				<label><input type='radio' name="view_type" value="1" {{checked_view_type_1}} /><span class="radio"></span> 노출함</label>
+			</div>
+		</td>
+	</tr>
+	<tr > 
+		<td>작성자표시보호 <i class="xi-help xi-x colorDGary masterTooltip" title="작성자표시보호 사용시 이름의 두번째 자리가 *로 표시 됩니다. 예)홍*동"></i></td>
+		<td>
+			<div>
+				<label><input type='radio' name="privacy_type" value="0" {{checked_privacy_type_0}} /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;
+				<label><input type='radio' name="privacy_type" value="1" {{checked_privacy_type_1}} /><span class="radio"></span> 사용함</label>
+			</div>
+		</td>
+		<td>새글 표시시간</td>
+		<td>
+			글 등록 후 <input type="text" name="new_icon" value="{{new_icon}}" class="only_num" style="width:50px; font-size:14px;" /> 시간까지 새글 아이콘 노출
+		</td>
+	</tr>
+	<tr> 
+		<td>첨부파일 <i class="xi-help xi-x colorDGary masterTooltip" title="첨부파일 사용함일 경우 이미지, 문서, 압축파일등을 업로드 하실 수 있습니다."></i></td>
+		<td>
+			<div>
+				<label><input type='radio' name="upload_file" value="0" {{checked_upload_file_0}} /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;
+				<label><input type='radio' name="upload_file" value="1" {{checked_upload_file_1}} /><span class="radio"></span> 사용함</label>
+			</div>
+		</td>		
+		<td>파일업로드 최대크기 <i class="xi-help xi-x colorDGary masterTooltip" title="파일업로드 최대크기는 첨부파일 및 이미지업로드시 적용됩니다."></i></td>
+		<td>
+			<div style="position:relative;">
+				<input type="text" name="upload_size" value="{{upload_size}}" class="only_num_format" style="width:60px; font-size:14px;" /> MB  ( 0일 경우 서버에 설정된 최대크기 적용 )
+			</div>
+		</td>		
+	</tr>
+	<tr> 
+		<td>관련링크</td>
+		<td>
+			<div>
+				<label><input type='radio' name="links" value="0" {{checked_links_0}} /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;
+				<label><input type='radio' name="links" value="1" {{checked_links_1}} /><span class="radio"></span> 사용함</label>
+			</div>
+		</td>
+		<td>비밀글</td>
+		<td>
+			<div>
+				<label><input type='radio' name="secret_type" value="0" {{checked_secret_type_0}} /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;
+				<label><input type='radio' name="secret_type" value="1" {{checked_secret_type_1}} /><span class="radio"></span> 비밀글</label>&nbsp;&nbsp;
+				<label><input type='radio' name="secret_type" value="2" {{checked_secret_type_2}} /><span class="radio"></span> 사용자 선택</label>
+			</div>
+		</td>
+	</tr>
+	</table>
+	
+	<div class="empty60"></div>
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;권한설정
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>
+	<tr> 
+		<td>글목록 권한</td>
+		<td colspan="3">
+			<div>
+				<label><input type='radio' name="access_list" value="0" {{checked_access_list_0}} /><span class="radio"></span> 전체</label>&nbsp;&nbsp;
+				<label><input type='radio' name="access_list" value="1" {{checked_access_list_1}} /><span class="radio"></span> 관리자전용</label>&nbsp;&nbsp;
+				<label><input type='radio' name="access_list" value="2" {{checked_access_list_2}} /><span class="radio"></span> 회원전용</label>&nbsp;&nbsp;
+				<label><input type='radio' name="access_list" value="3" {{checked_access_list_3}} /><span class="radio"></span> 특정회원</label>&nbsp;&nbsp;
+				<label><input type='radio' name="access_list" value="4" {{checked_access_list_4}} /><span class="radio"></span> 입점사전용</label>
+			</div>
+		</td>					
+	</tr>
+	<tr id="listLevel" class="displayNone"> 
+		<td>글목록 회원등급</td>
+		<td colspan="3">
+			<!-- DYNAMIC @loop_list_level@ -->
+			<label for="checkbox-list-{{M_UID}}">&nbsp;{{M_NAME}}</label>
+			<input type="checkbox" name="access_list_level[]" id="checkbox-list-{{M_UID}}" class="inputSearch" value="{{M_LEVEL}}" {{M_CHECKED}} />
+			<!-- DYNAMIC @loop_list_level@ -->			
+		</td>
+	</tr>
+	<tr> 
+		<td>글보기 권한</td>
+		<td colspan="3">
+			<div>
+				<label><input type='radio' name="access_view" value="0" {{checked_access_view_0}} /><span class="radio"></span> 전체</label>&nbsp;&nbsp;
+				<label><input type='radio' name="access_view" value="1" {{checked_access_view_1}} /><span class="radio"></span> 관리자전용</label>&nbsp;&nbsp;
+				<label><input type='radio' name="access_view" value="2" {{checked_access_view_2}} /><span class="radio"></span> 회원전용</label>&nbsp;&nbsp;
+				<label><input type='radio' name="access_view" value="3" {{checked_access_view_3}} /><span class="radio"></span> 특정회원</label>&nbsp;&nbsp;
+				<label><input type='radio' name="access_view" value="4" {{checked_access_view_4}} /><span class="radio"></span> 입점사전용</label>
+			</div>
+		</td>					
+	</tr>
+	<tr id="viewLevel" class="displayNone"> 
+		<td>글보기 회원등급</td>
+		<td colspan="3">
+			<!-- DYNAMIC @loop_view_level@ -->
+			<label for="checkbox-view-{{M_UID}}">&nbsp;{{M_NAME}}</label>
+			<input type="checkbox" name="access_view_level[]" id="checkbox-view-{{M_UID}}" class="inputSearch" value="{{M_LEVEL}}" {{M_CHECKED}} />
+			<!-- DYNAMIC @loop_view_level@ -->			
+		</td>
+	</tr>
+	<tr> 
+		<td>글쓰기 권한</td>
+		<td colspan="3">
+			<div>
+				<label><input type='radio' name="access_write" value="0" {{checked_access_write_0}} /><span class="radio"></span> 전체</label>&nbsp;&nbsp;
+				<label><input type='radio' name="access_write" value="1" {{checked_access_write_1}} /><span class="radio"></span> 관리자전용</label>&nbsp;&nbsp;
+				<label><input type='radio' name="access_write" value="2" {{checked_access_write_2}} /><span class="radio"></span> 회원전용</label>&nbsp;&nbsp;
+				<label><input type='radio' name="access_write" value="3" {{checked_access_write_3}} /><span class="radio"></span> 특정회원</label>&nbsp;&nbsp;
+				<label><input type='radio' name="access_write" value="4" {{checked_access_write_4}} /><span class="radio"></span> 입점사전용</label>
+			</div>
+		</td>					
+	</tr>
+	<tr id="writeLevel" class="displayNone"> 
+		<td>글쓰기 회원등급</td>
+		<td colspan="3">
+			<!-- DYNAMIC @loop_write_level@ -->
+			<label for="checkbox-write-{{M_UID}}">&nbsp;{{M_NAME}}</label>
+			<input type="checkbox" name="access_write_level[]" id="checkbox-write-{{M_UID}}" class="inputSearch" value="{{M_LEVEL}}" {{M_CHECKED}} />
+			<!-- DYNAMIC @loop_write_level@ -->			
+		</td>
+	</tr>
+	<tr> 
+		<td>답글쓰기 권한</td>
+		<td colspan="3">
+			<div>
+				<label><input type='radio' name="access_reply" value="0" {{checked_access_reply_0}} /><span class="radio"></span> 전체</label>&nbsp;&nbsp;
+				<label><input type='radio' name="access_reply" value="1" {{checked_access_reply_1}} /><span class="radio"></span> 관리자전용</label>&nbsp;&nbsp;
+				<label><input type='radio' name="access_reply" value="2" {{checked_access_reply_2}} /><span class="radio"></span> 회원전용</label>&nbsp;&nbsp;
+				<label><input type='radio' name="access_reply" value="3" {{checked_access_reply_3}} /><span class="radio"></span> 특정회원</label>&nbsp;&nbsp;
+				<label><input type='radio' name="access_reply" value="4" {{checked_access_reply_4}} /><span class="radio"></span> 입점사전용</label>
+			</div>
+		</td>					
+	</tr>
+	<tr id="replyLevel" class="displayNone"> 
+		<td>답글쓰기 회원등급</td>
+		<td colspan="3">
+			<!-- DYNAMIC @loop_reply_level@ -->
+			<label for="checkbox-reply-{{M_UID}}">&nbsp;{{M_NAME}}</label>
+			<input type="checkbox" name="access_reply_level[]" id="checkbox-reply-{{M_UID}}" class="inputSearch" value="{{M_LEVEL}}" {{M_CHECKED}} />
+			<!-- DYNAMIC @loop_reply_level@ -->			
+		</td>
+	</tr>
+	<tr> 
+		<td>댓글쓰기 권한</td>
+		<td colspan="3">
+			<div>
+				<label><input type='radio' name="access_comment" value="0" {{checked_access_comment_0}} /><span class="radio"></span> 전체</label>&nbsp;&nbsp;
+				<label><input type='radio' name="access_comment" value="1" {{checked_access_comment_1}} /><span class="radio"></span> 관리자전용</label>&nbsp;&nbsp;
+				<label><input type='radio' name="access_comment" value="2" {{checked_access_comment_2}} /><span class="radio"></span> 회원전용</label>&nbsp;&nbsp;
+				<label><input type='radio' name="access_comment" value="3" {{checked_access_comment_3}} /><span class="radio"></span> 특정회원</label>&nbsp;&nbsp;
+				<label><input type='radio' name="access_comment" value="4" {{checked_access_comment_4}} /><span class="radio"></span> 입점사전용</label>
+			</div>
+		</td>					
+	</tr>
+	<tr id="commentLevel" class="displayNone"> 
+		<td>댓글쓰기 회원등급</td>
+		<td colspan="3">
+			<!-- DYNAMIC @loop_comment_level@ -->
+			<label for="checkbox-comment-{{M_UID}}">&nbsp;{{M_NAME}}</label>
+			<input type="checkbox" name="access_comment_level[]" id="checkbox-comment-{{M_UID}}" class="inputSearch" value="{{M_LEVEL}}" {{M_CHECKED}} />
+			<!-- DYNAMIC @loop_comment_level@ -->			
+		</td>
+	</tr>
+	</table>
+
+	<div class="empty60"></div>
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;추가설정
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>
+	<!-- DYNAMIC @loop_add@ -->
+	<tr> 
+		<td>추가 항목 #{{i}}</td>
+		<td colspan="3">
+			<input type='text' id="form_add{{i}}_title" name='form_add{{i}}_title' value='{{form_add_title}}' style="width:30%" placeholder="추가항목 타이틀을 입력 하세요." />&nbsp;&nbsp;&nbsp;&nbsp;
+			<label><input type='radio' name="form_add{{i}}" value="0" {{checked_form_add_0}} /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="form_add{{i}}" value="1" {{checked_form_add_1}} /><span class="radio"></span> 사용함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="form_add{{i}}" value="2" {{checked_form_add_2}} /><span class="radio"></span> 필수항목</label>	
+		</td>
+	</tr>
+	<!-- DYNAMIC @loop_add@ -->
+	<tr> 
+		<td>상단 디자인 <i class="xi-help xi-x colorDGary masterTooltip" title="게시판의 상단 디자인 영역을 에디터를 통해 꾸밀 수 있습니다."></td>
+		<td colspan="3" style="padding:0 20px 0px 20px;">
+			<div class="headerType">
+				<label><input type='radio' name="header" value="0" {{checked_header_0}} /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;
+				<label><input type='radio' name="header" value="1" {{checked_header_1}} /><span class="radio"></span> 사용함</label>
+			</div>
+
+			<div class="headerEditer">
+				<div class="sn_header_content">{{header_content}}</div>	
+				<input type="hidden" name="header_content" data-notefor=".sn_header_content" value= "" />
+			</div>
+		</td>
+	</tr>
+	<tr> 
+		<td>하단 디자인 <i class="xi-help xi-x colorDGary masterTooltip" title="게시판의 하단 디자인 영역을 에디터를 통해 꾸밀 수 있습니다."></td>
+		<td colspan="3" style="padding:0 20px 0px 20px;">
+			<div class="footerType">
+				<label><input type='radio' name="footer" value="0" {{checked_footer_0}} /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;
+				<label><input type='radio' name="footer" value="1" {{checked_footer_1}} /><span class="radio"></span> 사용함</label>
+			</div>
+
+			<div class="footerEditer">
+				<div class="sn_footer_content">{{footer_content}}</div>	
+				<input type="hidden" name="footer_content" data-notefor=".sn_footer_content" value= "" />
+			</div>
+		</td>
+	</tr>
+	</table>
+	
+	<div class="empty60"></div>
+
+	<div class="btnSubmitBox">
+		<div class="displayInline"><button class="weight300 shine" type="submit">게시판 {{TTL}}하기</button></div>
+		<div class="btnPrev"><i class="xi-arrow-left xi-x"></i></div>
+		<div class="btnPrevTitle">이전페이지</div>		
+	</div>
+
+</div>
+
+</form>
+
+<script>
+<!--
+	
+	var ck_cate_num		= '{{cate_max_num}}';
+	
+	function accessType(type){
+		if(!type) return;
+		if($("form[name=goodsForm] input:radio[name=access_" + type + "]:checked").val()=='3') $("#" + type + "Level").show();
+		else $("#" + type + "Level").hide();
+	}
+
+	function ckHeader() {
+		if($('form[name=goodsForm] input[name=header]:checked').val() == '0') {
+			$('.headerEditer').slideUp("fast", function() { resetContent(); });
+		}
+		else {
+			$('.headerEditer').slideDown("slow", function() { resetContent(); });		
+		}
+	}
+
+	function ckfooter() {
+		if($('form[name=goodsForm] input[name=footer]:checked').val() == '0') {
+			$('.footerEditer').slideUp("fast", function() { resetContent(); });
+		}
+		else {
+			$('.footerEditer').slideDown("slow", function() { resetContent(); });
+		}
+	}
+
+	$(function() {
+
+		$("#cateSortable").multiBox({'sortable':'1','order':'form[name=goodsForm] input[name=cate_order]','focus':'3','list' : [{'name':'','width':'10','type':'','enter':0},{'name':'cate_num','width':'10','type':'hidden','enter':0},{'name':'cate_name','width':'70','type':'text','enter':1},{'name':'','width':'10','type':'icon','enter':0}]});
+
+		$('.sn_header_content').summernote({						
+			'lang' : 'ko-KR',
+			'height' : '200px',
+			'dialogsFade' : true,
+			callbacks: {
+				onImageUpload:function( files,editor,welEditable) {
+					snUpImage(files, this, 'board/header' );
+				}
+			}
+		});	
+
+		$('.sn_footer_content').summernote({						
+			'lang' : 'ko-KR',
+			'height' : '200px',
+			'dialogsFade' : true,
+			callbacks: {
+				onImageUpload:function( files,editor,welEditable) {
+					snUpImage(files, this, 'board/footer' );
+				}
+			}
+		});	
+
+		<!-- DYNAMIC @loop_cate@ -->
+		$("#cateSortable").multiBox('add', [{'name' : 'cate_num', 'value' : '{{cate_num}}'},{'name' : 'cate_name', 'value' : '{{cate_name}}'}]);
+		<!-- DYNAMIC @loop_cate@ -->
+		
+		$("form[name=goodsForm] input:radio[name=access_list]").click(function(e){
+			accessType('list');
+		});	
+		
+		$("form[name=goodsForm] input:radio[name=access_view]").click(function(e){
+			accessType('view');
+		});
+		
+		$("form[name=goodsForm] input:radio[name=access_write]").click(function(e){
+			accessType('write');
+		});
+
+		$("form[name=goodsForm] input:radio[name=access_reply]").click(function(e){
+			accessType('reply');
+		});
+
+		$("form[name=goodsForm] input:radio[name=access_comment]").click(function(e){
+			accessType('comment');
+		});
+
+		$('form[name=goodsForm] input[name=header]').click(function(e){
+			ckHeader();
+		});
+
+		$('form[name=goodsForm] input[name=footer]').click(function(e){
+			ckfooter();
+		});
+
+		$('form[name=goodsForm] input[name=types]').click(function(e){
+			if($('form[name=goodsForm] input[name=types]:checked').val()=='2') {				
+				$('form[name=goodsForm] input[name=secret_type]:radio[value=1]').prop('checked', true);
+				$('form[name=goodsForm] input[name=start_page]:radio[value=2]').prop('checked', true);
+			}
+			else if($('form[name=goodsForm] input[name=types]:checked').val()=='3') {				
+				$('form[name=goodsForm] input[name=view_type]:radio[value=0]').prop('checked', true);
+				$('form[name=goodsForm] input[name=upload_file]:radio[value=1]').prop('checked', true);
+			}
+		});
+
+		ckHeader();
+		ckfooter();
+		accessType('list');
+		accessType('view');
+		accessType('write');
+		accessType('reply');
+		accessType('comment');
+		
+	});	
+
+//-->
+</script>

@@ -1,0 +1,120 @@
+<style>
+body { min-width:940px; background-color:#fff; }
+#contentBox { min-width:940px; min-height:300px; top:20px; background-color:#fff; border:0; box-shadow: none; -webkit-box-shadow: none; }
+#contentBox .content { min-width:940px; margin:20px; clear:both; }
+</style>
+
+<div class="content">	
+
+	<div class="helpPrint">
+		인쇄가이드
+		<div class="empty10"></div>
+		<div class="size08">인터넷 익스플로러 : 브라우저의 [도구 메뉴]-[인터넷옵션]-[고급]-[인쇄] 에서 [배경색 및 이미지 인쇄] 체크</div>
+		<div class="empty5"></div>
+		<div class="size08">크롬 or 엣지&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: 인쇄창 - [기타설정] - [배경그래픽] 체크</div>
+	</div>
+
+	<div style="page-break-before: always;">
+		<div class="gapLine"></div>
+
+		<div class="contentTitle">
+			<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;디비 테이블 정보
+		</div>
+
+		<table>
+		<colgroup>
+		<col width="16%" /> 
+		<col width="34%" />
+		<col width="16%" /> 
+		<col width="34%" />	
+		</colgroup>
+		<tr> 
+			<td>테이블명</td>
+			<td>{{table_name}}</td>		
+			<td>셜명</td>
+			<td>{{TABLE_COMMENT}}</td>		
+		</tr>
+		<tr> 
+			<td>엔진</td>
+			<td>{{ENGINE}}</td>		
+			<td>버전</td>
+			<td class="number">{{VERSION}}</td>		
+		</tr>
+		<tr> 
+			<td>Rows</td>
+			<td class="number">{{TABLE_ROWS}}</td>		
+			<td>Collation</td>
+			<td>{{TABLE_COLLATION}}</td>	
+		</tr>
+		</table>
+		
+		<div class="empty60" ></div>
+
+		<div class="contentTitle">
+			<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;디비 테이블 필드 정보
+		</div>
+
+		<table class="listIn fixed-header">
+		<colgroup>
+		<col width="5%" /> 
+		<col width="19%" />
+		<col width="15%" />
+		<col width="7%" />
+		<col width="7%" />
+		<col width="7%" />
+		<col width="9%" />
+		<col width="30%" />			
+		</colgroup>
+		<thead>
+		<tr> 
+			<th>번호</th>
+			<th>필드명</th>
+			<th>속성</th>
+			<th>NULL</th>
+			<th>KEY</th>
+			<th>자동증가</th>
+			<th>기본값</th>
+			<th>설명</th>				
+		</tr>
+		</thead>
+		<tbody>
+		<!-- DYNAMIC @loop_columns@ -->		
+		<tr>
+			<td class="number">{{ORDINAL_POSITION}}</td>
+			<td style="text-align:left">{{COLUMN_NAME}}</td>
+			<td>{{COLUMN_TYPE}}</td>
+			<td>{{IS_NULLABLE}}</td>
+			<td>{{COLUMN_KEY}}</td>
+			<td>{{EXTRA}}</td>
+			<td>{{COLUMN_DEFAULT}}</td>
+			<td style="text-align:left">{{COLUMN_COMMENT}}</td>
+		</tr>
+		<!-- DYNAMIC @loop_columns@ -->		
+		</tbody>
+		</table>
+	</div>	
+	
+</div>
+
+<div class="empty100"></div>	
+	
+<div class="btnSubmitBoxPop">
+	<div class="displayInline"><button class="weight300 shine" type="submit">인쇄하기</button></div>		
+</div>
+
+
+
+<script>
+<!--
+	$(".btnSubmitBoxPop .displayInline .shine").click(function(e){
+		$(".helpPrint").hide();
+		$(".gapLine").hide();
+		$(".btnSubmitBoxPop").hide();
+		window.print();
+		$(".btnSubmitBoxPop").show();
+		$(".helpPrint").show();
+		$(".gapLine").show();
+	});	
+
+//-->
+</script>

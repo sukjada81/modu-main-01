@@ -1,0 +1,70 @@
+<form name='mobileForm' method='post' action='mobile_post.php' enctype="multipart/form-data" target='HFrm'>
+<input type="hidden" name="mode" value="common" />
+
+<div class="content">
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;모바일샵 설정
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>
+	<tr> 
+		<td>사용여부 </td>
+		<td colspan="3">
+			<label><input type='radio' name="mobile_yn" value="N" {{checked_mobile_yn_N}} /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="mobile_yn" value="Y" {{checked_mobile_yn_Y}} /><span class="radio"></span> 사용함</label>
+		</td>
+	</tr>
+	<tr> 
+		<td>홈 화면 아이콘<i class="xi-help xi-x colorDGary masterTooltip" title="홈 화면 바로가기시 사용되는 아이콘 입니다."></i></td>
+		<td colspan="3">
+			<div class="btnBox2 floatLeft" >
+				<div id="btn_image" class="btnBoxIcon">
+					<i class="fas fa-plus-circle fa-2x"></i>											
+				</div>												
+				<input type="file" name="image1" class="imageBtn" data-num="1" />
+				<img id="image1" alt="목록이미지" src="../common/img/blank.gif" />
+				<div id="btn2_image1" class="btnBoxIcon2" data-num="1">
+					<i class="fas fa-edit masterTooltip btnImgEdit" title="변경하기"></i>
+					<i class="xi-close masterTooltip btnImgDel" title="삭제하기"></i>
+				</div>
+			</div>
+			<div class="floatLeft" style="padding:25px 0 0 20px;">
+				<span class="size09">권장 이미지 사이즈 : <span id="oimgSize1">100px x 100px</span></span><br />
+				<span class="size09">등록 이미지 사이즈 : <span id="imgSize1"></span></span>
+			</div>
+		</td>
+	</tr>
+	</table>
+	
+	<div class="empty60"></div>
+
+	<div class="btnSubmitBox">
+		<div class="displayInline"><button class="weight300 shine" type="submit">저장하기</button></div>
+		<div class="btnPrev"><i class="xi-arrow-left xi-x"></i></div>
+		<div class="btnPrevTitle">이전페이지</div>		
+	</div>
+
+</div>
+
+</form>
+
+<script>
+<!--
+		
+	$(function() {
+		
+		<!-- DYNAMIC @loop_image@ -->
+		putImage('{{image}}', '{{i}}');
+		<!-- DYNAMIC @loop_image@ -->
+		
+	});	
+
+//-->
+</script>

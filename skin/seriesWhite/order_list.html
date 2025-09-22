@@ -1,0 +1,354 @@
+<link type="text/css" rel="stylesheet" href="lib/datepicker.css" />
+<script src="lib/datepicker.js"></script>
+
+<div id="contents">	
+	
+	{{SUB_MENUS}}
+	
+	<h2 class="contentTitle">{{GUEST}} 주문내역</h2>
+	
+	<div class="empty40"></div>
+	
+	<div class="orderList">
+		<div>
+			<div class="listTopTitle fontSCDream">
+				전체 <b id="listTotal">{{TOTAL}}</b>
+			</div>
+			<div class="listTopSelect">
+				<form name='searchForm' method='get' action='{{Main}}'>
+				<input type="hidden" name="channel" value="{{channel}}" />
+				
+				<div class="floatLeft" style="padding:0 10px 0 0;">
+					<div class="floatLeft" style="padding-right:15px;">
+						<button class="shineButtonSmall btns2" style="height:32px;" type="button" data-s_date='{{DATE1}}' data-e_date='{{DATE1}}'>오늘</button>
+						<button class="shineButtonSmall btns2" style="height:32px;" type="button" data-s_date='{{DATE4}}' data-e_date='{{DATE1}}'>1개월</button>
+						<button class="shineButtonSmall btns2" style="height:32px;" type="button" data-s_date='{{DATE5}}' data-e_date='{{DATE1}}'>3개월</button>
+						<button class="shineButtonSmall btns2" style="height:32px;" type="button" data-s_date='{{DATE6}}' data-e_date='{{DATE1}}'>6개월</button>
+						<button class="shineButtonSmall btns2" style="height:32px;" type="button" data-s_date='' data-e_date=''>전체</button>					
+					</div>
+					<div class="floatLeft positionRelative"><input type="text" name="s_date" class="dates" value="{{s_date}}" /></div>
+					<div class="floatLeft" style="padding:4px 10px 0 10px;">~</div>
+					<div class="floatLeft positionRelative"><input type="text" name="e_date" class="dates" value="{{e_date}}" /></div>
+				</div>
+				<div class="floatLeft" style="padding:0 20px 0 0px;">
+					<button class="shineButtonSmall btnSearch2" style="height:32px;" type="button">조회</button>	
+				</div>
+				<div class="floatLeft" style="padding:0 10px 0 0;">
+					<select name="status">
+						<option value="">주문상태</option>					
+						<option value="0">입금대기중</option>
+						<option value="1">결제완료</option>
+						<option value="2">배송준비중</option>
+						<option value="3">배송중</option>
+						<option value="4">배송완료</option>
+						<option value="5">구매확정</option>
+						<option value="7">교환</option>
+						<option value="8">반품</option>
+						<option value="9">취소</option>
+					</select>
+				</div>
+				<div class="floatLeft">
+					<select name="limit">
+						<option value="10">10개 보기</option>
+						<option value="20">20개 보기</option>
+						<option value="40">40개 보기</option>
+						<option value="100">100개 보기</option>
+					</select>
+				</div>
+				</form>
+			</div>
+		</div>	
+	
+		<div class="empty20"></div>
+
+		<div class="content_list">
+			<div id="listArea">
+				<!-- DYNAMIC @is_list_area@ -->
+				<table class="listIn fixed-header">
+				<colgroup>
+					<col width="14%" />
+					<col width="51%" />
+					<col width="10%" />
+					<col width="10%" />
+					<col width="15%" />
+				</colgroup>
+				<thead> 
+				<tr> 
+					<th>주문시간</th>
+					<th>상품정보</th>
+					<th>상품금액</th>										
+					<th>주문상태</th>	
+					<th>처리</th>
+				</tr>
+				</thead>
+				<tbody>				
+				<!-- DYNAMIC @loop_list@ -->							
+				<tr style="height:110px">
+					<!-- DYNAMIC @is_order_info@ -->
+					<td rowspan="{{ROWSPAN}}">
+						<div class="fontMontserrat">{{SIGNDATE}}</div>
+						<button class="shineButtonSmallBlack btnOrderDetail" style="margin-top:10px; width:100px;" type="button" data-num="{{ORDER_NUM2}}">주문상세보기</button>	
+						<!-- DYNAMIC @is_btn_cancel_all@ -->						
+						<button class="shineButtonSmall btnCancelAll" style="margin-top:10px; width:100px;" data-num="{{ORDER_NUM2}}" data-status2="{{proc_status}}" type="button">전체주문취소</button>
+						<!-- DYNAMIC @is_btn_cancel_all@ -->
+						<!-- DYNAMIC @is_btn_cancel_all2@ -->						
+						<button class="shineButtonSmall btnCancelAll2" style="margin-top:10px; width:100px;" data-num="{{ORDER_NUM2}}" type="button">전체취소요청</button>
+						<!-- DYNAMIC @is_btn_cancel_all2@ -->
+					</td>
+					<!-- DYNAMIC @is_order_info@ -->				
+					<td>
+						<div class="listItem">
+							<div class="listItemImg"><a href="{{G_LINK}}" target="_blank"><img src="{{G_IMAGE}}" alt="{{G_NAME}}" width="60" /></a></div>
+							<div class="listItemDetail">
+								<div><a href="{{G_LINK}}" class="size14" target="_blank">{{G_NAME}}</a></div>
+								<!-- DYNAMIC @is_option@ -->
+								<div style="padding-top:4px;"><b class="size12">{{G_OPTION}}</b></div>	
+								<!-- DYNAMIC @is_option@ -->
+								<!-- DYNAMIC @is_coupon@ -->
+								<div style="padding-top:4px;"><b class="size12">쿠폰할인 {{USE_COUPON}}원</b></div>	
+								<!-- DYNAMIC @is_coupon@ -->
+								<!-- DYNAMIC @is_delivery_price@ -->
+								<div style="padding-top:4px;">
+									<b class="size12">배송비 {{DELIVERY_PRICE}}원</b>
+									<!-- DYNAMIC @is_delivery_add_price@ -->
+									<b class="size12">, 추가배송비 {{DELIVERY_ADD_PRICE}}원</b>
+									<!-- DYNAMIC @is_delivery_add_price@ -->	
+								</div>	
+								<!-- DYNAMIC @is_delivery_price@ -->
+							</div>
+						<div>
+					</td>
+					<td><b class="fontMontserrat">{{PRICE}}</b>원<div class="orderListQty">({{QTY}}개)</div></td>
+					<td>{{STATUS}}</td>
+					<td data-uid="{{UID}}" data-num="{{ORDER_NUM2}}">
+						<!-- DYNAMIC @is_btn_cancel@ -->
+						<button class="shineButtonSmall btnCancel" type="button">주문취소</button>
+						<!-- DYNAMIC @is_btn_cancel@ -->
+						<!-- DYNAMIC @is_btn_cancel3@ -->
+						<button class="shineButtonSmall btnCancel3" type="button">주문취소</button>
+						<!-- DYNAMIC @is_btn_cancel3@ -->
+						<!-- DYNAMIC @is_btn_cancel2@ -->
+						<button class="shineButtonSmall btnCancel2" type="button" data-status='9'  data-ttl='취소'>취소요청</button>
+						<!-- DYNAMIC @is_btn_cancel2@ -->
+						<!-- DYNAMIC @is_btn_delivery@ -->
+						<button class="shineButtonSmall btnDelivery" type="button" data-url="{{delivery_url}}" data-num="{{delivery_number}}">배송조회</button>
+						<!-- DYNAMIC @is_btn_delivery@ -->
+						<!-- DYNAMIC @is_btn_recipiency@ -->						
+						<button class="shineButtonSmallBlack btnRecipiency" type="button">수취확인</button>
+						<!-- DYNAMIC @is_btn_recipiency@ -->
+						<!-- DYNAMIC @is_btn_confirmation@ -->
+						<button class="shineButtonSmallBlack btnConfirmation" type="button">구매확정</button>
+						<!-- DYNAMIC @is_btn_confirmation@ -->
+						<!-- DYNAMIC @is_btn_review@ -->
+						<button class="shineButtonSmallBlack btnReview" type="button" data-uid="{{UID}}" data-g-uid='{{G_UID2}}'>후기등록</button>
+						<!-- DYNAMIC @is_btn_review@ -->						
+						<!-- DYNAMIC @is_btn_exchange@ -->
+						<div class="empty1"></div>
+						<button class="shineButtonSmall btnExchange" style="margin-top:10px" type="button" data-status='7' data-ttl='교환'>교환요청</button>
+						<!-- DYNAMIC @is_btn_exchange@ -->
+						<!-- DYNAMIC @is_btn_return@ -->
+						<button class="shineButtonSmall btnReturn"  style="margin-top:10px" type="button" data-status='8' data-ttl='반품'>반품요청</button>
+						<!-- DYNAMIC @is_btn_return@ -->
+						<!-- DYNAMIC @is_btn_status_cancel@ -->
+						<button class="shineButtonSmall btnStatusCancel" type="button" data-ttl="{{TTL_STATUS}}">{{TTL_STATUS}}철회</button>
+						<!-- DYNAMIC @is_btn_status_cancel@ -->
+						<!-- DYNAMIC @is_date_confirmation@ -->
+						<div class="empty5"></div>
+						<span class="size11">구매확정{{TTL4}}일 : <span class="fontMontserrat weight500">{{CONFIRM_DATE}}</span></span>
+						<!-- DYNAMIC @is_date_confirmation@ -->												
+					</td>
+				</tr>
+				<!-- DYNAMIC @loop_list@ -->
+				<!-- DYNAMIC @empty_list@ -->
+				<tr>
+					<td colspan="5" class="emptyList">등록된 주문내역이 없거나 선택한 조건에 맞는 주문내역이 없습니다.</td>
+				</tr>
+				<!-- DYNAMIC @empty_list@ -->
+				</tbody>
+				</table>			
+				<!-- DYNAMIC @is_list_area@ -->
+			</div>			
+		</div>
+	</div>
+
+	<div class="empty40"></div>
+
+	<div class="paging">{{PAGING}}</div>
+	
+</div>	
+
+<form name="listForm" method="post" action='php/order_status_post.php?{{addstring}}' target='HFrm'>
+<input type="hidden" name="mode" />
+<input type="hidden" name="uid" />
+<input type="hidden" name="order_num" />
+</form>
+
+<script src="lib/jquery.timeliny.js?ver={{ver}}"></script>
+<script>
+<!--	
+	
+	var defaultUrl		= "{{Main}}?channel={{channel}}";
+	var defaultSort		= "{{sort}}";
+	var defaultLimit	= "{{limit}}";
+	var defaultPage		= "{{page}}";
+	var defaultStatus	= "{{status}}";
+	var pagingType		= '{{PAGING_TYPE}}';
+	var lastPage		= '{{total_page}}';
+
+// -->
+</script>
+<script src="{{skin}}/js/listDefaultProc.js?ver={{ver}}"></script>
+<script>
+<!--
+
+	<!-- DYNAMIC @is_paging_type_0@ -->
+	if(listReset == 1) getListPage(defaultUrl + '&sort=' + sort + '&limit=' + limit + '&page=' + page);
+	pageClickReset();
+	<!-- DYNAMIC @is_paging_type_0@ -->
+
+	<!-- DYNAMIC @is_paging_type_1@ -->
+	if(limit != defaultLimit) listReset = 0;
+	$('.paging').timeliny({page: page, lastPage: lastPage, boundaries:'100', url: defaultUrl + '&sort=' + sort + '&limit=' + limit, listReset:listReset});
+	if(limit != defaultLimit || status) changeSL(1, page);
+	<!-- DYNAMIC @is_paging_type_1@ -->
+
+	function timelinyResetCallBackSub() {
+
+		$(".btnOrderDetail").unbind('click').bind('click',function(e) {
+			var num	= $(this).attr("data-num");
+			window.location.href = "{{Main}}?channel=order_detail&order_num=" + num;
+		});
+		
+		$(".btnDelivery").unbind('click').bind('click',function(e) {
+			var url = $(this).attr("data-url");
+			var num	= $(this).attr("data-num");
+
+			if(!url || !num) {
+				alertify.error("배송정보가 입력되지 않았거나 잘못 되었습니다. 고객센테에 문의 하시기 바랍니다.");
+				return false;
+			}
+		
+			window.open(url + num, "");
+		});
+
+		$(".btnCancelAll").unbind('click').bind('click',function(e) {
+			var self	= this;
+			var status2	= $(self).attr("data-status2");
+
+			alertify.confirm('전체상품 주문취소', '정말로 전체상품을 주문취소 하시겠습니까?', function() { 
+				$("form[name=listForm] input[name='mode']").val("status9" + status2);
+				$("form[name=listForm] input[name='uid']").val('');
+				$("form[name=listForm] input[name='order_num']").val($(self).attr("data-num"));
+				$("form[name=listForm]").submit(); }
+				, function(){ });			
+		});	
+
+		$(".btnCancelAll2").unbind('click').bind('click',function(e) {
+			var num		= $(this).attr("data-num");
+
+			iframeWidth = '850px';
+			iframeHeight = '.65';
+			iframeView("php/popup_order_status_change.php?order_num=" + num + "&status=9", "주문취소요청");
+		});	
+
+		$('.btnCancel').unbind('click').bind('click',function(e) {
+			var self = this;
+			alertify.confirm('선택상품 주문취소', '정말로 선택된상품 주문취소를 하시겠습니까?<br />취소로 인한 배송비, 마일리지, 쿠폰사용이 재계산됩니다.', function() { 
+				$("form[name=listForm] input[name='mode']").val("status9s");
+				$("form[name=listForm] input[name='uid']").val($(self).parent().attr("data-uid"));
+				$("form[name=listForm] input[name='order_num']").val($(self).parent().attr("data-num"));
+				$("form[name=listForm]").submit(); }
+				, function(){ });
+		});	
+
+		$('.btnCancel3').unbind('click').bind('click',function(e) {
+			var self = this;
+			alertify.confirm('선택상품 주문취소', '정말로 선택된상품 주문취소를 하시겠습니까?', function() { 
+				$("form[name=listForm] input[name='mode']").val("status95");
+				$("form[name=listForm] input[name='uid']").val($(self).parent().attr("data-uid"));
+				$("form[name=listForm] input[name='order_num']").val($(self).parent().attr("data-num"));
+				$("form[name=listForm]").submit(); }
+				, function(){ });
+		});	
+
+		$(".btnCancel2, .btnExchange, .btnReturn").unbind('click').bind('click',function(e) {
+			var uid		= $(this).parent().attr("data-uid");
+			var num		= $(this).parent().attr("data-num");
+			var status	= $(this).attr("data-status");
+			var ttl		= $(this).attr("data-ttl");
+
+			iframeWidth = '850px';
+			iframeHeight = '.65';
+			iframeView("php/popup_order_status_change.php?order_num=" + num + "&uid=" + uid + "&status=" + status, ttl + "요청");
+		});	
+
+		$('.btnStatusCancel').unbind('click').bind('click',function(e) {
+			var self	= this;
+			var ttl		= $(self).attr("data-ttl")
+			alertify.confirm('선택상품 ' + ttl + '철회', '정말로 선택된상품 ' + ttl + '철회를 하시겠습니까?', function() { 
+				$("form[name=listForm] input[name='mode']").val("status_cancel");
+				$("form[name=listForm] input[name='uid']").val($(self).parent().attr("data-uid"));
+				$("form[name=listForm] input[name='order_num']").val($(self).parent().attr("data-num"));
+				$("form[name=listForm]").submit(); }
+				, function(){ });
+		});	
+
+		$('.btnRecipiency').unbind('click').bind('click',function(e) {
+			var self	= this;
+			alertify.confirm('선택상품 수취확인', '상품을 받으셨나요?<br />상품을 받으신 분만 수취확인을 해주세요.', function() { 
+				$("form[name=listForm] input[name='mode']").val('recipiency');
+				$("form[name=listForm] input[name='uid']").val($(self).parent().attr("data-uid"));
+				$("form[name=listForm] input[name='order_num']").val($(self).parent().attr("data-num"));
+				$("form[name=listForm]").submit(); }
+				, function(){ });		
+		});	
+
+		$('.btnConfirmation').unbind('click').bind('click',function(e) {
+			var self	= this;
+			alertify.confirm('선택상품 구매확정', '구매확정을 하시겠습니까?<br />구매확정 후 교환/반품은 고객센터에 문의 해주세요.', function() { 
+				$("form[name=listForm] input[name='mode']").val('confirmation');
+				$("form[name=listForm] input[name='uid']").val($(self).parent().attr("data-uid"));
+				$("form[name=listForm] input[name='order_num']").val($(self).parent().attr("data-num"));
+				$("form[name=listForm]").submit(); }
+				, function(){ });
+		});	
+
+		$('.btnReview').unbind('click').bind('click',function(e) {
+			var og_uid	= $(this).attr("data-uid");
+			var g_uid	= $(this).attr("data-g-uid");
+					
+			iframeWidth = '850px';
+			iframeHeight = '.85';
+			iframeView("php/popup_review_write.php?og_uid=" + og_uid + "&g_uid=" + g_uid, "구매후기 등록");			
+		});	
+	}
+
+	$(function() {
+
+		$('.dates').each(function(i) {
+			$t = jQuery(this);
+			$t.parent().append('<p class="dateIcon2"><i class="xi-calendar-check xi-x" title="날자검색"></i></p>');
+			$t.datepicker();
+		});
+
+		$('.dateIcon2').click(function(e){
+			i = $(this).parent().children('input');
+			$(i).trigger('focus');
+		});	
+
+		$('.btns2').click(function(e) {
+			$("form[name=searchForm] input[name='s_date']").val($(this).attr('data-s_date'));
+			$("form[name=searchForm] input[name='e_date']").val($(this).attr('data-e_date'));			
+			return;
+		});
+
+		$('.btnSearch2').click(function(e) {
+			$("form[name=searchForm]").submit();		
+		});	
+
+		timelinyResetCallBackSub();
+
+	});
+
+// -->
+</script>

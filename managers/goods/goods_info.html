@@ -1,0 +1,1058 @@
+<link href="../../lib/summernote-lite.css?ver={{ver}}" rel="stylesheet">
+<script src="../../lib/summernote-lite.js?ver={{ver}}"></script>
+<script src="../../lib/summernote-ko-KR.js?ver={{ver}}"></script>
+
+<form name='goodsForm' method='post' action='goods_post.php?{{addstring}}' enctype="multipart/form-data" onkeydown="" target='HFrm'>
+<input type="hidden" name="mode" value="{{mode}}" />
+<input type="hidden" name="uid" value="{{uid}}" />
+<input type="hidden" name="temp_upload" value="{{temp_upload}}" />
+<input type="hidden" name="cate_cnt" value="" required="required" data-msg="선택된 분류가 없습니다." data-fname=".cateSelect" />
+<input type="hidden" name="cate_max_cnt" value="" />
+<input type="hidden" name="commission_type" value="{{commission_type}}" />
+<input type="hidden" name="other_image_order" />
+<input type="hidden" name="detail_image_order" />
+<input type="hidden" name="option_order" />
+<input type="hidden" name="optionList_order" />
+<input type="hidden" name="require_order" required="required" data-msg="상품정보 제공고시 설정을 선택 하시기 바랍니다." />
+<input type="hidden" name="making_order" />
+<input type="hidden" name="related_goods_order" />
+
+<div class="goodsIng"><div><i class="xi-spinner-2 xi-spin xi-5x colorWhite"></i></div></div>
+
+<div class="content">
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;상품 기본정보 입력
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>
+	<tr> 
+		<td>상품분류 선택 <i class="xi-help xi-x colorDGary masterTooltip" title="상품분류는 한개 또는 여러개를 선택 하실 수 있으며 여래개 선택시 대표 상품분류를 선택 하실 수 있습니다."></i> </td>
+		<td colspan="3" style="padding:20px;">
+			
+			<table class="listIn">
+			<colgroup>
+			<col width="25%" /> 
+			<col width="25%" />
+			<col width="25%" /> 
+			<col width="25%" />	
+			</colgroup>
+			<thead>
+			<tr> 
+				<th>1차분류</th>
+				<th>2차분류</th>
+				<th>3차분류</th>
+				<th>4차분류</th>
+			</tr>
+			</thead>
+			<tbody class="cateSelect">
+			<tr>
+				<td>
+					<ul id="cateSelect1"></ul>
+				</td>
+				<td>
+					<div class="bgCircle" id="unLink2"><i class="fas fa-unlink"></i></div>
+					<ul id="cateSelect2"></ul>
+				</td>
+				<td>
+					<div class="bgCircle"  id="unLink3"><i class="fas fa-unlink"></i></div>
+					<ul id="cateSelect3"></ul>
+				</td>
+				<td>
+					<div class="bgCircle"  id="unLink4"><i class="fas fa-unlink"></i></div>
+					<ul id="cateSelect4"></ul>
+				</td>
+			</tr>	
+			</tbody>
+			</table>	
+			
+			<div class="empty30"></div>
+
+			<center>
+				<button class="graButton graident1" style="width:120px;" type="button" id="cateAddBtn"><span class="text"><i class="xi-plus-circle xi-x"></i> 추가하기</span></button>
+			</center>
+
+			<div class="empty30"></div>
+			
+			<table class="listIn" id="cateList">
+			<col width="10%" /> 
+			<col width="50%" />
+			<col width="20%" />
+			<col width="10%" />
+			<col width="10%" />
+			<thead>
+			<tr> 
+				<th>번호</th>
+				<th>상품분류</th>
+				<th>상품분류번호</th>
+				<th>대표설정</th>
+				<th>처리</th>
+			</tr>
+			</thead>
+			<tbody></tbody>
+			</table>
+			<div id="emptyCate">
+				선택된 분류가 없습니다!
+			</div>			
+
+			<div class="empty30"></div>
+
+		</td>		
+	</tr>		
+	<tr> 
+		<td>판매자</td>
+		<td colspan="3">
+			<select name="vendor">
+				<option value="">본사</option>	
+				<!-- DYNAMIC @loop_vendor@ -->
+				<option value='{{vendor_id}}'>{{vendor_name}} ({{vendor_id}})</option>
+				<!-- DYNAMIC @loop_vendor@ -->				
+			</select>			
+			<script>
+				$("form[name=goodsForm] select[name='vendor']").val('{{vendor}}').heapbox({
+					'width' : '500px',
+					'heapsize' : '400px',
+					'onChange':function(value){
+									if(value) {
+										 vendorChange(value);										
+									}
+									else {
+										$('#orig_price').html('매입가 <i class="xi-help xi-x colorDGary masterTooltip" title="매입가를 입력 하시면 마진 및 마진률을 확인 할 수 있습니다."></i>');
+										$('#commission_won').html("마진");
+										$('#commission').html("마진률");
+										$("form[name=goodsForm] input[name='orig_price']").attr('readonly',false).removeClass('darks');
+										$("form[name=goodsForm] input[name='commission']").addClass('darks');	
+										$('#commi_individual').hide();
+										$('#commi_public').hide();
+										$(".conf_delivery").html("{{conf_delivery}}");
+										if('{{delivery_type_disable1}}' != '')	$(".delivery_disable1").addClass("{{delivery_type_disable1}}");
+										else									$(".delivery_disable1").removeClass("{{delivery_type_disable1}}");
+										if('{{delivery_type_disable1}}' != '')	$(".delivery_disable2").prop("disabled", true);
+										else									$(".delivery_disable2").prop("disabled", false);
+										hqPrice();
+									}									
+									resetTooltip();
+								}
+				});				
+			</script>
+		</td>		
+	</tr>
+	<!-- DYNAMIC @is_goods_link@ -->
+	<tr> 
+		<td>상품주소</td>
+		<td colspan="3">
+			<a href="{{SHOP_URL}}index.php?channel=view&uid={{uid}}" class="underLineThin colorBlack" target="_blank">{{SHOP_URL}}index.php?channel=view&uid={{uid}}</a>&nbsp;&nbsp;<i class="fas fa-clipboard-check size12 masterTooltip btnUrl1" title="링크복사"></i>
+			<script>
+			var clipboard1 = new ClipboardJS('.btnUrl1', {
+				text: function(trigger) {							
+					return '{{SHOP_URL}}index.php?channel=view&uid={{uid}}';
+				}
+			});
+
+			clipboard1.on('success', function(e) {
+				alertify.success('클립보드에 복사 되었습니다.');						
+				clipboard1.destroy();
+			});	
+			</script>
+		</td>		
+	</tr>
+	<!-- DYNAMIC @is_goods_link@ -->
+	<tr> 
+		<td>상품명</td>
+		<td colspan="3" id="air_pos_name">
+			<XMP class="sn_name" style="display:none">{{name_code_able}}</XMP>	
+			<input type="hidden" name="name" value= "" required="required" data-msg="상품명을 입력하세요." data-notefor=".sn_name" />
+		</td>		
+	</tr>
+	<tr> 
+		<td>가격</td>
+		<td colspan="3" style="padding:20px;">
+			<table class="listIn noOver">
+			<col width="16%" /> 
+			<col width="16%" />
+			<col width="16%" />
+			<col width="13%" />
+			<col width="16%" />
+			<col width="23%" />
+			<thead>
+			<tr> 
+				<th>판매가</th>
+				<th id="orig_price">매입가 <i class="xi-help xi-x colorDGary masterTooltip" title="매입가를 입력 하시면 마진 및 마진률을 확인 할 수 있습니다."></i></th>
+				<th id="commission_won">마진</th>
+				<th id="commission">마진률</th>
+				<th>소비자가</th>
+				<th>가격 대체 문구 <i class="xi-help xi-x colorDGary masterTooltipR" title="가격 대체 문구 입력 시 해당 상품의 판매가 중단되고 가격 대신 입력 문구가 노출됩니다."></i></th>
+			</tr>			
+			</thead>
+			<tbody>
+			<tr>
+				<td style="text-align:left"><div style="position:relative"><input type="text" name="price" value="{{price}}" style="width:75%; font-size:16px;" required="required" class="only_num_format" data-msg="판매가를" /> 원</div></td>
+				<td><input type="text" name="orig_price" value="{{orig_price}}" style="width:75%; font-size:16px;" class="only_num_format" /> 원</td>
+				<td><input type="text" name="commission_won" value="{{commission_won}}" style="width:75%; font-size:16px;" class="only_num_format darks" readonly /> 원</td>
+				<td>
+					<i id="commi_individual" class="xi-pen colorDGary masterTooltip" title="상품개별 수수료율 적용 (소수 2자리까지)"></i>
+					<i id="commi_public" class="xi-undo colorDGary masterTooltip" title="상품개별 수수료율 해제"></i>
+					<input type="text" name="commission" value="{{commission}}" style="width:50%; font-size:16px;" class="only_num_jum darks" readonly /> %
+				</td>
+				<td><input type="text" name="consumer_price" value="{{consumer_price}}" style="width:75%; font-size:16px;" class="only_num_format" /> 원</td>
+				<td><input type="text" name="price_ment" value="{{price_ment}}" data-next-focus="1" /></td>
+			</tr>
+			</tbody>
+			</table>
+		</td>		
+	</tr>
+	<tr> 
+		<td>이미지 <i class="xi-help xi-x colorDGary masterTooltip" title="- 상세이미지(대표)만 등록 하시면 목록이미지, 작은목록이미지 미등록시 사이즈가 변경되어 자동 등록 됩니다.[BR]- 상품수정일 경우 대표이미지 변경시 목록이미지, 작은목록이미지를 삭제 하시면 사이즈가 변경되어 자동 등록 됩니다."></i></td>
+		<td colspan="3" style="padding:20px;">
+			<table class="listIn noOver">
+			<col width="17%" /> 
+			<col width="17%" /> 
+			<col width="17%" /> 
+			<col width="49%" />
+			<thead>
+			<tr> 
+				<th>상세이미지(대표) <i class="fas fa-pen-square masterTooltip" title="필수 입력사항 입니다."></i></th>
+				<th>목록이미지</th>
+				<th>작은목록이미지</th>				
+				<th>
+					추가이미지 <i class="xi-help xi-x colorDGary masterTooltipR" title="- 상품 상세페이지에서 노출이되며 상세이미지와 동일한 사이즈로 등록 하시면 됩니다.[BR]- 최대 10개까지 등록 가능 합니다."></i> <i class="xi-arrows xi-x colorDGary masterTooltipR" title="등록된 항목을 마우스로 누르고 이동하시면 순서를 변경 하실 수 있습니다."></i>
+					<button class="fileinput-button btns" style="float:right" type="button">
+						<span class="text"><i class="xi-upload xi-x"></i> 추가이미지 업로드</span>
+						<input type="file" name="other_image" id="other_image" multiple />
+					</button>
+				</th>				
+			</tr>			
+			</thead>
+			<tbody>
+			<tr>
+				<td align="center">				
+					<div class="btnBox">						
+						<div id="btn_image1" class="btnBoxIcon">
+							<i class="fas fa-plus-circle fa-2x"></i>											
+						</div>												
+						<input type="file" name="image1" class="imageBtn" {{write_require}} data-msg="대표이미지를" data-num="1" />
+						<img id="image1" alt="상세이미지" src="../common/img/blank.gif" />
+						<div id="btn2_image1" class="btnBoxIcon2" data-num="1">
+							<i class="fas fa-edit masterTooltip" title="변경하기"></i>
+						</div>
+					</div>
+					<span class="size08">{{image_size1}}</span>
+				</td>
+				<td>
+					<div class="btnBox">						
+						<div id="btn_image2" class="btnBoxIcon">
+							<i class="fas fa-plus-circle fa-2x"></i>											
+						</div>												
+						<input type="file" name="image2" class="imageBtn" data-num="2" />
+						<input type="hidden" name="del_image2" value="0" />
+						<img id="image2" alt="목록이미지" src="../common/img/blank.gif" />
+						<div id="btn2_image2" class="btnBoxIcon2" data-num="2">
+							<i class="fas fa-edit masterTooltip" title="변경하기"></i>&nbsp;
+							<i class="xi-close masterTooltip" title="삭제하기"></i>
+						</div>
+					</div>
+					<span class="size08">{{image_size2}}</span>
+				</td>
+				<td>
+					<div class="btnBox">						
+						<div id="btn_image3" class="btnBoxIcon">
+							<i class="fas fa-plus-circle fa-2x"></i>											
+						</div>												
+						<input type="file" name="image3" class="imageBtn" data-num="3" />
+						<input type="hidden" name="del_image3" value="0" />
+						<img id="image3" alt="작은목록이미지" src="../common/img/blank.gif" />
+						<div id="btn2_image3" class="btnBoxIcon2" data-num="3">
+							<i class="fas fa-edit masterTooltip" title="변경하기"></i>&nbsp;
+							<i class="xi-close masterTooltip" title="삭제하기"></i>
+						</div>
+					</div>
+					<span class="size08">{{image_size3}}</span>
+				</td>
+				<td valign="top">
+					<ul id="otherImageSortable">
+						<div id="otherImageEmpty">
+							추가이미지 업로드 버튼을 누르거나 윈도우 파일 탐색기에서 이미지를 마우스로 드래그하여<br /> 이미지를 등록 해 주시면 됩니다.
+							<div class="empty20"></div>						
+							<i class="xi-mouse xi-2x"></i> <i class="xi-ellipsis-h xi-2x"></i> <i class="xi-file-add-o xi-2x"></i>
+						</div>
+					</ul>
+				</td>
+			</tr>
+			</tbody>
+			</table>
+		</td>		
+	</tr>
+	<tr> 
+		<td>상품 상세설명 <i class="xi-help xi-x colorDGary masterTooltip" title="- 이미지로만 등록에 등록된 이미지는 설명직접 등록시에도 사용할 수 있습니다.[BR]- 쇼핑몰 상세피이지 설명 가로사이즈는 {{SHOP_WIDTH}}입니다."></i> <i class="xi-arrows xi-x colorDGary masterTooltip" title="등록된 이미지를 마우스로 누르고 아래 위, 좌 우로 이동하시면 순서를 변경 하실 수 있습니다."></i></td>
+		<td colspan="3" style="padding:20px;">
+			<div class="contentMenuDetail">		
+				<ul>
+					<li class="contentMenuDetailSub selected" id="contentMenuDetailSub1">이미지로만 등록</li>
+					<li class="contentMenuDetailSub" id="contentMenuDetailSub2">설명직접 등록</li>
+				</ul>
+				<div class="contentBarDetail left"></div>
+				<div class="contentBarDetail right"></div>
+
+				<input type="hidden" name="detail_image_only" value="{{detail_image_only}}" />
+
+				<script>
+					var a = 100 / parseInt($(".contentMenuDetail ul li").length);
+					$(".contentMenuDetailSub").css({'width':'calc('+a+'% - 2px)'});
+				
+					$('.contentMenuDetailSub').hover(function(e){		
+						var left = $(this).position().left;
+						var right = parseInt(left + parseInt($(this).css('width'))) + 1; 
+
+						$(".contentMenuDetail .left").css({left:left}).show();
+						$(".contentMenuDetail .right").css({left:right}).show();						
+					}, 
+					function() {
+						$(".contentMenuDetail .left").hide();
+						$(".contentMenuDetail .right").hide();
+					});			
+					
+					$('.contentMenuDetailSub').click(function(e){						
+						if(!$(this).hasClass('selected')) {
+							$('.contentMenuDetailSub').removeClass('selected');
+							$(this).addClass('selected');
+							if($(this).prop('id')=='contentMenuDetailSub1'){
+								$('.detailEditer').slideUp("fast", function() { $('.sn_detail').summernote('airObject'); resetContent(); });
+								$(".detailBtn").hide();
+								$('.detailImageType').show();
+								$("form[name=goodsForm] input[name='detail_image_only']").val('1');
+							}
+							else {
+								$('.detailImageType').hide();
+								$('.detailEditer').slideDown("slow", function() { $('.sn_detail').summernote('airObject'); resetContent(); });
+								$(".detailBtn").show();
+								$("form[name=goodsForm] input[name='detail_image_only']").val('0');
+							}
+						}						
+					})
+				</script>
+			</div>
+			
+			<div class="detailImage">
+				<div class="detailImageType">
+					<select name="detail_image_type">
+						<option value="1">이미지간 공백 있게 출력</option>
+						<option value="2">이미지간 공백 없이 출력</option>					
+					</select>			
+					<script>
+						$("form[name=goodsForm] select[name='detail_image_type']").val('{{detail_image_type}}').heapbox({'width' : '300px'});
+					</script>
+				</div>
+				<div class="floatRight">
+					<button class="fileinput-button btns" style="float:right" type="button">
+						<span class="text"><i class="xi-upload xi-x"></i> 상세이미지 업로드</span>
+						<input type="file" name="detail_image" id="detail_image" multiple />
+					</button>
+				</div>
+
+				<div class="empty20"></div>
+				<ul id="detailImageSortable">
+					<div id="detailImageEmpty">
+						상세이미지 업로드 버튼을 누르거나 윈도우 파일 탐색기에서 이미지를 마우스로 드래그하여 상세설명에 사용할 이미지를 등록 해 주시면 됩니다.
+						<div class="empty20"></div>						
+						<i class="xi-mouse xi-2x"></i> <i class="xi-ellipsis-h xi-2x"></i> <i class="xi-file-add-o xi-2x"></i>
+					</div>
+				</ul>				
+			</div>
+
+			<div class="detailEditer">
+				<XMP class="sn_explains" style="display:none">{{explains}}</XMP>
+				<input type="hidden" name="explains" required="required" value= "" data-notefor=".sn_explains" />
+			</div>
+		</td>
+	</tr>
+	<tr> 
+		<td>상품 옵션 <i class="xi-help xi-x colorDGary masterTooltip" title="옵션이 있는 경우 사용함을 선택 하시면 옵션을 등록 할 수 있는 항목이 노출 됩니다."></i><i class="xi-arrows xi-x colorDGary masterTooltip" title="등록된 항목을 마우스로 누르고 아래 위로 이동하시면 순서를 변경 하실 수 있습니다."></i></td>
+		<td colspan="3" style="padding:20px;">			
+			<div>
+				<label><input type='radio' name="option_use" value="1" {{checked_option_use_1}} /><span class="radio"></span> 사용함</label>&nbsp;&nbsp;
+				<label><input type='radio' name="option_use" value="0" {{checked_option_use_0}} /><span class="radio"></span> 사용안함</label>
+			</div>
+			<div class="optionConf">
+				<div class="floatLeft">
+					<select name="option_select">
+						<option value="">옵션선택</option>
+						<option value="goods">등록된 상품에서 가져오기</option>
+						<!-- DYNAMIC @loop_option_select@ -->
+						<option value='{{option_name}}|{{option_info}}'>{{option_name}}</option>
+						<!-- DYNAMIC @loop_option_select@ -->
+					</select>							
+					<script>							
+						$("form[name=goodsForm] select[name='option_select']").heapbox({
+							'width' : '300px',
+							'onChange': function(value){
+											if(!value) return;
+											if(value=='goods') {
+												iframeView("popup_goods_search.php?type=option", "상품검색");
+												return;
+											}
+											value = value.split('|');
+											$("#optionTable").multiBox('add2', [{'name' : 'option_name', 'value' : value[0]},{'name' : 'option_info', 'value' : value[1]}]);
+											$("form[name=goodsForm] select[name='option_select']").val('').heapbox('update');
+										}
+						});
+					</script>
+					&nbsp;&nbsp;<a href="../conf/goods_info.php" target="_blank" class="link"><i class="fas fa-link masterTooltip" title="환경설정 > 상품환경설정 > 옵션설정"></i></a>
+				</div>				
+				
+				<div class="empty20"></div>
+
+				<table class="listIn fixed-header" id="optionTable">
+				<col width="7%" /> 
+				<col width="26%" />
+				<col width="60%" />
+				<col width="7%" /> 
+				<thead>
+				<tr> 
+					<th>번호</th>
+					<th>옵션명</th>
+					<th>옵션항목 <i class="xi-info xi-x colorDGary masterTooltip" title="쉼표(,) 또는 세미콜론(;) 또는 Enter키를 통해 값을 연속적으로 입력 하시면 됩니다."></i></th>
+					<th>처리</th>
+				</tr>
+				</thead>
+				<tbody></tbody>
+				</table>
+
+				<div class="empty20"></div>
+				<button class="graButtonWhite floatRight" type="button" style="width:150px; margin-left:10px;" id="op_reset"><span class="text"><i class="fas fa-undo"></i> 옵션품목 초기화</span></button>
+				<button class="btns floatRight" type="button" style="width:150px" id="op_set"><span class="text"><i class="fas fa-th-list"></i> 옵션품목 만들기</span></button>
+				<div class="empty20"></div>
+
+				<div id="optionDiv"></div>
+			</div>
+		</td>
+	</tr>
+	<tr id='qtyTr'> 
+		<td>재고관리 <i class="xi-help xi-x colorDGary masterTooltip" title="- 무제한 아이콘을 클릭하면 무제한으로 설정 됩니다.[BR]- 옵션이 있는 경우 옵션 재고가 적용 됩니다."></i></td>
+		<td colspan="3" style="padding-left:20px;">
+			<input type="hidden" name="qty_type" value="{{qty_type}}" /><i class="xi-all xi-x colorGray masterTooltip" id="qty_type" title="무제한"></i>&nbsp;&nbsp;<input type="text" name="qty" value="{{qty}}" class="only_num_format" style="width:50px; font-size:16px;" /> 개
+		</td>		
+	</tr>
+	<tr> 
+		<td>상품정보 제공고시 설정 <i class="xi-help xi-x colorDGary masterTooltip" title="전자상거래법 개정안에 따른 품목별 상품정보제공에 관한 고시항목을 설정할 수 있습니다."></i><i class="xi-arrows xi-x colorDGary masterTooltip" title="등록된 항목을 마우스로 누르고 아래 위로 이동하시면 순서를 변경 하실 수 있습니다."></i></td>
+		<td colspan="3" style="padding:20px;">			
+			<div class="floatLeft" style="line-height:2em">
+				<select name="require_select">
+					<option value="">품목분류 선택</option>
+					<option value="goods">등록된 상품에서 가져오기</option>
+					<!-- DYNAMIC @loop_require@ -->
+					<option value='{{require_value}}'>{{require_title}}</option>
+					<!-- DYNAMIC @loop_require@ -->
+				</select>			
+				<script>
+					$("form[name=goodsForm] select[name='require_select']").heapbox({
+						'width' : '500px', 
+						'heapsize' : '335px',
+						'onChange': function(value){
+											if(!value) return;
+											if(value=='goods') {
+												iframeView("popup_goods_search.php?type=require", "상품검색");
+												return;
+											}
+											value = value.split("[BR]");
+											$("#requireGSortable").multiBox('reset');
+											
+											if($('#require_autofill').prop("checked")) {
+												var info = "상품상세 참조";
+											}
+											else var info = "";
+
+											for(i=0; i<value.length; i++) {
+												value2 = value[i].split('-');
+												$("#requireGSortable").multiBox('add2', [{'name' : 'require_name', 'value' : value2[0]},{'name' : 'require_info', 'value' : info},{'name' : 'require_info_help', 'value' : value2[1]}]);
+											};												
+											$("form[name=goodsForm] select[name='require_select']").val('').heapbox('update');
+										}
+					});
+				</script>
+				&nbsp;&nbsp;<a href="../conf/goods_info.php" target="_blank" class="link"><i class="fas fa-link masterTooltip" title="환경설정 > 상품환경설정 > 아이콘설정"></i></a>
+			</div>
+			<div class="floatRight" style="line-height:2em">
+				<label><input type='checkbox' name="require_view" id="require_view" value="1" checked /><span></span> 입력창 숨기기</label>&nbsp;&nbsp;
+				<label><input type='checkbox' name="require_autofill" id="require_autofill" value="1" checked /><span></span> 내용 문구 '상품상세 참조' 입력</label>
+			</div>
+
+			<div class="requireConf displayNone clearboth">
+				<div class="empty20"></div>
+				<table class="listIn fixed-header" id="requireGSortable">
+				<col width="7%" /> 
+				<col width="26%" />
+				<col width="60%" />
+				<col width="7%" /> 
+				<thead>
+				<tr> 
+					<th>번호</th>
+					<th>항목</th>
+					<th>내용</th>
+					<th>처리</th>
+				</tr>
+				</thead>
+				<tbody></tbody>
+				</table>
+			</div>
+		</td>
+	</tr>
+	</tbody>
+	</table>
+
+	<div class="empty60"></div>
+
+	<div class="contentTitle"> 
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;쇼핑몰 진열설정
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>
+	<tr> 
+		<td>진열상태</td>
+		<td colspan="3">			
+			<label><input type='radio' name="display_use" value="1" {{checked_display_use_1}} /><span class="radio"></span> 진열함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="display_use" value="0" {{checked_display_use_0}} /><span class="radio"></span> 진열안함</label>			
+		</td>
+	</tr>
+	<tr> 
+		<td>판매상태 <i class="xi-help xi-x colorDGary masterTooltip" title="판매안함을 선택 할 경우 구매 할 수 없으며 품절로 표시 됩니다."></i></td>
+		<td colspan="3">			
+			<label><input type='radio' name="sale_use" value="1" {{checked_sale_use_1}} checked="checked" /><span class="radio"></span> 판매함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="sale_use" value="0" {{checked_sale_use_0}} /><span class="radio"></span> 판매안함</label>			
+		</td>
+	</tr>
+	<tr> 
+		<td>진열 우선순위 <i class="xi-help xi-x colorDGary masterTooltip" title="- 진열 우선순위는 우선순위가 낮은 상품이 기본 정렬에서 먼저 노출이 됩니다. [BR]- 진열 우선순위가 0인 상품은 별도로 진열 순서를 지정 할 수 있습니다."></i></td>
+		<td colspan="3">			
+			<select name="order_priority">
+				<option value="0">0</option>	
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6">6</option>
+				<option value="7">7</option>
+				<option value="8">8</option>
+				<option value="9">9</option>				
+			</select>			
+			<script>
+				$("form[name=goodsForm] select[name='order_priority']").val('{{order_priority}}').heapbox({'width' : '10%', zindex:7});
+			</script>
+		</td>
+	</tr>
+	<tr> 
+		<td>메인진열 <i class="xi-help xi-x colorDGary masterTooltip" title="메인상품을 사용할 경우에만 적용이 됩니다."></i></td>
+		<td colspan="3">			
+			<label><input type='checkbox' name="main1_display1" value="1" {{checked_main1_display1_1}} /><span></span> 인기상품</label>&nbsp;&nbsp;
+			<label><input type='checkbox' name="main1_display2" value="1" {{checked_main1_display2_1}} /><span></span> 추천상품</label>&nbsp;&nbsp;
+			<label><input type='checkbox' name="main1_display3" value="1" {{checked_main1_display3_1}} /><span></span> 신상품</label>&nbsp;&nbsp;
+		</td>
+	</tr>
+	<tr> 
+		<td>분류 메인진열 <i class="xi-help xi-x colorDGary masterTooltip" title="- 분류 메인상품을 사용할 경우에만 적용이 됩니다.[BR]- 대표분류에만 적용이 됩니다."></i></td>
+		<td colspan="3">			
+			<label><input type='checkbox' name="main2_display1" value="1" {{checked_main2_display1_1}} /><span></span> 인기상품</label>&nbsp;&nbsp;
+			<label><input type='checkbox' name="main2_display2" value="1" {{checked_main2_display2_1}} /><span></span> 추천상품</label>&nbsp;&nbsp;
+			<label><input type='checkbox' name="main2_display3" value="1" {{checked_main2_display3_1}} /><span></span> 신상품</label>&nbsp;&nbsp;
+		</td>
+	</tr>
+	<tr> 
+		<td>아이콘 <a href="../conf/goods_info.php" target="_blank" class="link"><i class="fas fa-link masterTooltip" title="환경설정 > 상품환경설정 > 아이콘설정"></i></a></td>
+		<td colspan="3">
+			<ul class="iconSelect2">
+				<!-- DYNAMIC @loop_icon@ -->
+				<li class="{{class_icon}}">
+					<input type="checkbox" name="icon_arr[]" value="{{icon_name}}" class="displayNone" {{checked_icon}} />
+					<img src='{{icon}}' alt="{{icon_name}}" />
+				</li>
+				<!-- DYNAMIC @loop_icon@ -->
+			</ul>
+		</td>
+	</tr>
+	</tbody>
+	</table>
+
+	<div class="empty60"></div>
+
+	<div class="contentTitle"> 
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;상품 추가정보 입력
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>
+	<tr> 
+		<td>자체 상품코드 <i class="xi-help xi-x colorDGary masterTooltip" title="자체 관리용 상품코드가 있는 경우 입력 하시면 됩니다."></i></td>
+		<td colspan="3">			
+			<input type="text" name="goods_code" value="{{goods_code}}" style="width:200px" data-next-focus="2" />
+		</td>
+	</tr>
+	<tr> 
+		<td>상품간략설명 <i class="xi-help xi-x colorDGary masterTooltip" title="상품간략설명 미지원 스킨 사용시 노출이 되지 않습니다."></i></td>
+		<td colspan="3" id="air_pos_detail">
+			<XMP class="sn_detail" style="display:none">{{detail}}</XMP>
+			<input type="hidden" name="detail" data-notefor=".sn_detail" value= "" />
+		</td>		
+	</tr>
+	<tr> 
+		<td>구매제한수량 <i class="xi-help xi-x colorDGary masterTooltip" title="- 구매수량 제한시 회원일 경우에만 구매가 가능 합니다.[BR]- 구매수량 제한은 기주문수량 및 장바구니에 담긴 수량을 포함해서 체크가 됩니다.[BR]- 0경우 구매수량이 제한 되지 않습니다."></i></td>
+		<td colspan="3" style="padding-left:20px;">
+			<input type="text" name="limit_qty" value="{{limit_qty}}" class="only_num_format" style="width:50px; font-size:16px;" /> 개
+		</td>		
+	</tr>
+	<tr> 
+		<td>제작정보 <i class="xi-help xi-x colorDGary masterTooltip" title="기본정보외 추가되는 정보는 항목과 내용을 입력 하시면 계속해서 추가 하실 수 있습니다."></i><i class="xi-arrows xi-x colorDGary masterTooltip" title="기본정보외 추가된 정보는 항목을 마우스로 누르고 아래 위로 이동하시면 순서를 변경 하실 수 있습니다."></i></td>
+		<td colspan="3" style="padding:20px;">						
+			<table class="listIn fixed-header2" id="makingSortable">
+			<col width="25%" />
+			<col width="65%" />
+			<col width="10%" /> 
+			<thead>
+			<tr> 
+				<th>항목</th>
+				<th>내용</th>
+				<th>처리</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td style="width:25%">브랜드</td>
+				<td style="width:65%">
+					<div class="floatLeft">
+						<input type="text" name="brand" value="{{brand}}" class="ckEnter" style="width:200px;" />
+					</div>
+					<div class="floatLeft makingDiv">
+						<select name="brand_select">
+							<option value="">브랜드 선택</option>
+							<!-- DYNAMIC @loop_brand@ -->
+							<option value='{{brand_name}}'>{{brand_name}}</option>
+							<!-- DYNAMIC @loop_brand@ -->
+						</select>			
+						<script>
+							$("form[name=goodsForm] select[name='brand_select']").heapbox({
+								'width' : '90%', 
+								'heapsize' : '335px',
+								'onChange': function(value){
+													if(!value) return;
+													$("form[name=goodsForm] input[name='brand']").val(value);
+													$("form[name=goodsForm] select[name='brand_select']").val('').heapbox('update');
+												}
+							});
+						</script>
+					</div>
+					<div class="floatLeft" style="padding-left:10px;">
+						<a href="../conf/goods_info.php" target="_blank" class="link"><i class="fas fa-link masterTooltip" title="환경설정 > 상품환경설정 > 브랜드설정"></i></a>
+						<i class="xi-info xi-x colorDGary masterTooltip" title="설정에 없는 브랜드 등록시 자동으로 설정에 추가 됩니다."></i>
+					</div>
+				</td>
+				<td style="width:10%"></td>
+			</tr>
+			<tr>
+				<td style="width:25%">제조사</td>
+				<td style="width:65%">
+					<div class="floatLeft">
+						<input type="text" name="make" value="{{make}}" class="ckEnter" style="width:200px;" />
+					</div>
+					<div class="floatLeft makingDiv">
+						<select name="make_select">
+							<option value="">제조사 선택</option>
+							<!-- DYNAMIC @loop_make@ -->
+							<option value='{{make_name}}'>{{make_name}}</option>
+							<!-- DYNAMIC @loop_make@ -->
+						</select>			
+						<script>
+							$("form[name=goodsForm] select[name='make_select']").heapbox({
+								'width' : '90%', 
+								 'zindex' : '7',
+								'heapsize' : '335px',
+								'onChange': function(value){
+													if(!value) return;
+													$("form[name=goodsForm] input[name='make']").val(value);
+													$("form[name=goodsForm] select[name='make_select']").val('').heapbox('update');
+												}
+							});
+						</script>
+					</div>
+					<div class="floatLeft" style="padding-left:10px;">
+						<a href="../conf/goods_info.php" target="_blank" class="link"><i class="fas fa-link masterTooltip" title="환경설정 > 상품환경설정 > 제조사설정"></i></a>
+						<i class="xi-info xi-x colorDGary masterTooltip" title="설정에 없는 제조사 등록시 자동으로 설정에 추가 됩니다."></i>
+					</div>
+				</td>
+				<td style="width:10%"></td>
+			</tr>
+			<tr>
+				<td style="width:25%">원산지</td>
+				<td style="width:65%">
+					<div class="floatLeft">
+						<input type="text" name="origin" value="{{origin}}" class="ckEnter" style="width:200px;" />
+					</div>
+					<div class="floatLeft makingDiv">
+						<select name="origin_select">
+							<option value="">원산지 선택</option>
+							<!-- DYNAMIC @loop_origin@ -->
+							<option value='{{origin_name}}'>{{origin_name}}</option>
+							<!-- DYNAMIC @loop_origin@ -->
+						</select>			
+						<script>
+							$("form[name=goodsForm] select[name='origin_select']").heapbox({
+								'width' : '90%', 
+								 'zindex' : '6',
+								'heapsize' : '335px',
+								'onChange': function(value){
+													if(!value) return;
+													$("form[name=goodsForm] input[name='origin']").val(value);
+													$("form[name=goodsForm] select[name='origin_select']").val('').heapbox('update');
+												}
+							});
+						</script>
+					</div>
+					<div class="floatLeft" style="padding-left:10px;">
+						<a href="../conf/goods_info.php" target="_blank" class="link"><i class="fas fa-link masterTooltip" title="환경설정 > 상품환경설정 > 원산지설정"></i></a>
+						<i class="xi-info xi-x colorDGary masterTooltip" title="설정에 없는 원산지 등록시 자동으로 설정에 추가 됩니다."></i>
+					</div>
+				</td>
+				<td style="width:10%"></td>
+			</tr>
+			<tr>
+				<td style="width:25%">모델명</td>
+				<td style="width:65%">
+					<input type="text" name="model" value="{{model}}" class="ckEnter" />
+				</td>
+				<td style="width:10%"></td>
+			</tr>
+			</tbody>
+			</table>
+		</td>
+	</tr>
+	<tr> 
+		<td>마일리지 </td>
+		<td colspan="3">			
+			<div class="floatLeft">
+				<label><input type='radio' name="mileage_type" value="1" {{checked_mileage_type_1}} /><span class="radio"></span> 환경설정 사용({{conf_mileage}}%)</label> 
+				<a href="../conf/member_info.php" target="_blank" class="link"><i class="fas fa-link masterTooltip" title="환경설정 > 회원정책설정 > 회원정책설정"></i></a>&nbsp;&nbsp;
+				<label><input type='radio' name="mileage_type" value="2" {{checked_mileage_type_2}} /><span class="radio"></span> 없음</label>&nbsp;&nbsp;
+				<label><input type='radio' name="mileage_type" value="3" {{checked_mileage_type_3}} /><span class="radio"></span> 별도설정(회원등급별)</label>&nbsp;&nbsp;
+				<label><input type='radio' name="mileage_type" value="4" {{checked_mileage_type_4}} /><span class="radio"></span> 별도설정(회원공통)</label>&nbsp;&nbsp;
+			</div>
+			<div class="requireLeft" style="width:220px;">
+				<input type="text" name="mileage_common" value="{{mileage_common}}" style="width:60px; font-size:16px;" class="only_num darks" data-msg="별도설정 마일리지를"  /> %
+			</div>
+		</td>
+	</tr>
+	<tr id="level_mileage"> 
+		<td>회원등급별 마일리지 </td>
+		<td colspan="3">			
+			<!-- DYNAMIC @loop_level@ -->
+			<div class="member_level_mileage">
+				<div class="member_level_name">{{level_name}}</div>
+				<div class="member_level_input"><input type="text" name="mileage_level_{{level}}" value="{{level_mileage}}" style="width:40px; font-size:16px;" class="only_num level_mileage" readonly /> %</div>
+			</div>
+			<!-- DYNAMIC @loop_level@ -->
+		</td>
+	</tr>
+	<tr> 
+		<td>배송비 <i class="xi-help xi-x colorDGary masterTooltip" title="환경설정이 무료배송, 착불인 경우 개별 설정의 무료, 착불 설정은 적용되지 않습니다."></i></td>
+		<td colspan="3">	
+			<div>
+				<label><input type='radio' name="delivery_type" value="1" {{checked_delivery_type_1}} /><span class="radio"></span> 환경설정 사용(<font class="conf_delivery">{{conf_delivery}}</font>)</label> 
+				<a href="../conf/delivery_info.php" target="_blank" class="link"><i class="fas fa-link masterTooltip" title="환경설정 > 배송정책설정"></i></a>&nbsp;&nbsp;
+				<label class="delivery_disable1 {{delivery_type_disable1}}"><input type='radio' name="delivery_type" value="2" class="delivery_disable2" {{checked_delivery_type_2}} {{delivery_type_disable2}} /><span class="radio"></span> 무료배송</label>&nbsp;&nbsp;
+				<label class="delivery_disable1 {{delivery_type_disable1}}"><input type='radio' name="delivery_type" value="3" class="delivery_disable2" {{checked_delivery_type_3}} {{delivery_type_disable2}} /><span class="radio"></span> 착불</label>
+			</div>
+			<div class="empty20"></div>
+			<div class="floatLeft">
+				<label><input type='radio' name="delivery_type" value="4" {{checked_delivery_type_4}} /><span class="radio"></span> 별도책정(고정)</label>&nbsp;&nbsp;
+				<label><input type='radio' name="delivery_type" value="5" {{checked_delivery_type_5}} /><span class="radio"></span> 별도책정(<input type="text" name="delivery_type_qty" value="{{delivery_type_qty}}" style="width:40px; font-size:16px;" class="only_num_format darks" /> 개당)</label>&nbsp;&nbsp;
+			</div>
+			<div class="requireLeft" style="width:200px;">
+				<input type="text" name="delivery_price" value="{{delivery_price}}" style="width:100px; font-size:16px;" class="only_num_format darks" data-msg="별도책정 배송비를" /> 원
+			</div>
+
+			<div class="delivery_im_areas floatLeft" style="clear:both; padding-top:20px; display:none;">
+				<label><input type="checkbox" name="delivery_im_areas1_used" value="1" {{checked_delivery_im_areas1_used_1}} /><span></span> 제주도 추가 배송비</label>  <input type='text' name='delivery_im_areas1_price' style="width:100px; font-size:16px;" class="only_num_format" value="{{delivery_im_areas1_price}}" />원&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;
+				<label><input type="checkbox" name="delivery_im_areas2_used" value="1" {{checked_delivery_im_areas2_used_1}} /><span></span> 제주도외 도서산간 추가 배송비</label>  <input type='text' name='delivery_im_areas2_price' style="width:100px; font-size:16px;" class="only_num_format" value="{{delivery_im_areas2_price}}" />원
+			</div>
+		</td>
+	</tr>
+	<tr> 
+		<td>검색 키워드 <i class="xi-help xi-x colorDGary masterTooltip" title="상품상세 페이지의 메타태그와 상품 검색시 키워드로 사용하실 수 있습니다."></i><i class="xi-info xi-x colorDGary masterTooltip" title="쉼표(,) 또는 세미콜론(;) 또는 Enter키를 통해 값을 연속적으로 입력 하시면 됩니다."></i></td>
+		<td colspan="3">			
+			<input id="keyword" name="keyword" type="text" value="{{keyword}}" class='taginput' />
+			<script>$('#keyword').tagsInput({ 'placeholder' : '입력 하세요!', 'delimiter': [',', ';'] });</script>			
+		</td>
+	</tr>
+	<tr> 
+		<td>연관상품 <i class="xi-help xi-x colorDGary masterTooltip" title="최적상품 자동추천은 동시구매상품과 같은분류상품 중에서 가중치 적용 후 최적상품을 자동으로 노출 합니다."></i></td>
+		<td colspan="3">			
+			<div>
+				<div>
+					<select name="related_goods_type">
+						<option value="0">사용안함</option>
+						<option value='1'>최적상품 자동추천</option>
+						<option value='2'>동시구매상품 자동추천</option>
+						<option value='3'>같은분류상품 자동추천</option>
+						<option value='4'>직접등록</option>
+					</select>			
+					<script>
+						$("form[name=goodsForm] select[name='related_goods_type']").val('{{related_goods_type}}').heapbox({
+							'width' : '25%', 
+							'onChange': function(value){
+											if(value=='4') $('#relatedGoods').slideDown("fast");
+											else $('#relatedGoods').slideUp("fast");
+										}
+						});
+					</script>	
+				</div>
+				<div id="relatedGoods">
+					<div class="floatRight">
+						<button class="btns" style="float:right" type="button" id="addGoods">
+							<span class="text"><i class="xi-focus-frame"></i> 상품추가하기</span>
+						</button>
+					</div>
+
+					<div class="empty20 clearboth"></div>
+					<ul id="relatedGoodsSortable"></ul>
+					<div id="relatedGoodsEmpty">상품추가하기를 이용하여 연관상품을 등록 해 주시면 됩니다.</div>
+				</div>
+			</div>
+		</td>
+	</tr>
+	<tr> 
+		<td>이용안내 <a href="../conf/goods_info.php" target="_blank" class="link"><i class="fas fa-link masterTooltip" title="환경설정 > 상품환경설정 > 이용안내설정"></i></a></td>
+		<td colspan="3">
+			<div>
+				<select name="information_use">					
+					<option value='1'>환경설정 사용</option>
+					<option value='2'>등록된 상품에서 가져오기</option>
+					<option value='3'>직접등록</option>
+				</select>			
+				<script>
+					$("form[name=goodsForm] select[name='information_use']").val('{{information_use}}').heapbox({
+						'width' : '25%', 
+						'zindex' : 7,
+						'onChange': function(value){
+											if(!value) return;
+											if(value==1) {
+												$('.infoMenuDetail').slideUp("fast");
+												$('.infoDisplayNone').hide();
+											}
+											else if(value==2) {
+												iframeView("popup_goods_search.php?type=information", "상품검색");
+												return;
+											}
+											else {
+												$('.infoMenuDetail').slideDown("fast");
+												$('#delivery_info').show();
+											}
+										}
+					});
+				</script>
+			</div>
+
+			<div class="infoMenuDetail">		
+				<div class="empty20"></div>
+				<ul>
+					<li class="infoMenuDetailSub selected" id="infoMenuDetailSub1">배송안내</li>
+					<li class="infoMenuDetailSub" id="infoMenuDetailSub2">환불안내</li>
+					<li class="infoMenuDetailSub" id="infoMenuDetailSub3">교환안내</li>
+					<li class="infoMenuDetailSub" id="infoMenuDetailSub4">AS안내</li>
+				</ul>
+				<div class="infoBarDetail left"></div>
+				<div class="infoBarDetail right"></div>
+				
+				<script>
+					var a = 100 / parseInt($(".infoMenuDetail ul li").length);
+					$(".infoMenuDetail .infoMenuDetailSub").css({'width':'calc('+a+'% - 2px)'});
+				
+					$('.infoMenuDetail .infoMenuDetailSub').hover(function(e){		
+						var left = $(this).position().left;
+						var right = parseInt(left + parseInt($(this).css('width'))) + 1; 
+
+						$(".infoMenuDetail .left").css({left:left}).show();
+						$(".infoMenuDetail .right").css({left:right}).show();						
+					}, 
+					function() {
+						$(".infoMenuDetail .left").hide();
+						$(".infoMenuDetail .right").hide();
+					});								
+							
+					$('.infoMenuDetail .infoMenuDetailSub').click(function(e){
+						if(!$(this).hasClass('selected')) {
+							$('.infoMenuDetail .infoMenuDetailSub').removeClass('selected');
+							$(this).addClass('selected');							
+							$('.infoDisplayNone').hide();
+							
+							if($(this).prop('id')=='infoMenuDetailSub1') $('#delivery_info').show();
+							else if($(this).prop('id')=='infoMenuDetailSub2') $('#refund_info').show();
+							else if($(this).prop('id')=='infoMenuDetailSub3') $('#exchange_info').show();
+							else if($(this).prop('id')=='infoMenuDetailSub4') $('#as_info').show();
+						}						
+					})
+
+				</script>				
+			</div>
+
+			<div id="delivery_info" class="infoDisplayNone">
+				<div class="empty20"></div>
+				<XMP class="sn_delivery_info" style="display:none">{{delivery_info}}</XMP>
+				<input type="hidden" name="delivery_info" value= "" data-notefor=".sn_delivery_info" />
+			</div>
+
+			<div id="refund_info" class="infoDisplayNone">
+				<div class="empty20"></div>
+				<XMP class="sn_refund_info" style="display:none">{{refund_info}}</XMP>
+				<input type="hidden" name="refund_info" value= "" data-notefor=".sn_refund_info" />
+			</div>
+
+			<div id="exchange_info" class="infoDisplayNone">
+				<div class="empty20"></div>
+				<XMP class="sn_exchange_info" style="display:none">{{exchange_info}}</XMP>
+				<input type="hidden" name="exchange_info" value= "" data-notefor=".sn_exchange_info" />
+			</div>
+
+			<div id="as_info" class="infoDisplayNone">
+				<div class="empty20"></div>
+				<XMP class="sn_as_info" style="display:none">{{as_info}}</XMP>
+				<input type="hidden" name="as_info" value= "" data-notefor=".sn_as_info" />
+			</div>
+		</td>
+	</tr>
+	<tr> 
+		<td>상품외부 연동 <i class="xi-help xi-x colorDGary masterTooltip" title="네이버지식쇼핑, 다음쇼핑하우 연동시 사용함으로 선택된 상품만 연동이 됩니다."></i></td>
+		<td colspan="3">			
+			<label><input type='radio' name="engine_use" value="1" {{checked_engine_use_1}} /><span class="radio"></span> 사용함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="engine_use" value="0" {{checked_engine_use_0}} /><span class="radio"></span> 사용안함</label>			
+		</td>
+	</tr>	
+	</tbody>
+	</table>
+
+	<div class="empty60"></div>
+
+	<div class="btnSubmitBox">
+		<div class="displayInline"><button class="weight300 shine" type="submit">상품{{TTL}}하기</button></div>
+		<div class="btnPrev"><i class="xi-arrow-left xi-x"></i></div>
+		<div class="btnPrevTitle">이전페이지</div>
+	</div>
+
+</div>
+
+</form>
+
+
+<script>
+<!--
+	
+	var {{tmps1}}
+	var {{tmps2}}
+	
+	var cate_location_name1 = "";
+	var cate_location_name2 = "";
+	var cate_location_name3 = "";
+	var cate_location_name4 = "";
+	var cate_dep			= "";	
+	var cate				= "";
+	var other_image_cnt		= 0;
+	var cateCnt				= 1;
+	var otherImageCnt		= 1;
+	var detailImageCnt		= 1;
+	var temp_upload			= "{{temp_upload}}";
+	var goods_price_limit1  = '{{goods_price_limit1}}';
+	var goods_price_limit2  = '{{goods_price_limit2}}';
+
+
+	function tplProcInit() {
+	
+		<!-- DYNAMIC @loop_option@ -->
+		$("#optionTable").multiBox('add', [{'name' : 'option_name', 'value' : '{{option_name}}'},{'name' : 'option_info', 'value' : '{{option_info}}'}]);
+		<!-- DYNAMIC @loop_option@ -->
+
+		$("#requireGSortable").multiBox('add');
+
+		<!-- DYNAMIC @loop_making@ -->
+		$("#makingSortable").multiBox('add', [{'name' : 'making_name', 'value' : '{{making_name}}'},{'name' : 'making_info', 'value' : '{{making_info}}'}]);
+		<!-- DYNAMIC @loop_making@ -->
+
+		<!-- DYNAMIC @loop_making_info@ -->
+		$("#makingSortable").multiBox('add2', [{'name' : 'making_name', 'value' : '{{making_name}}'},{'name' : 'making_info', 'value' : '{{making_value}}'}]);
+		<!-- DYNAMIC @loop_making_info@ -->			
+
+		<!-- DYNAMIC @loop_cate@ -->
+		cateInsert('{{cate_no}}', '{{cate_name}}', '{{cate_rep}}');
+		<!-- DYNAMIC @loop_cate@ -->
+
+		<!-- DYNAMIC @loop_image@ -->
+		putImage('{{image}}','{{i}}');
+		<!-- DYNAMIC @loop_image@ -->
+		
+		<!-- DYNAMIC @loop_other_image@ -->
+		otherImageInsert('{{image}}', '{{image_name}}');
+		<!-- DYNAMIC @loop_other_image@ -->
+
+		<!-- DYNAMIC @loop_detail_image@ -->
+		detailImageInsert('{{image}}', '{{image_name}}');
+		<!-- DYNAMIC @loop_detail_image@ -->
+
+		<!-- DYNAMIC @loop_option_info@ -->
+		$("#optionTable").multiBox('add2', [{'name' : 'option_name', 'value' : '{{option_name}}'},{'name' : 'option_info', 'value' : '{{option_value}}'}]);
+		<!-- DYNAMIC @loop_option_info@ -->
+		
+		<!-- DYNAMIC @is_related_goods@ -->
+		relatedGoodsGet('{{related_goods}}');
+		<!-- DYNAMIC @is_related_goods@ -->	
+
+		<!-- DYNAMIC @is_option_table@ -->
+		var op_order_def = $('form[name=goodsForm] input[name=option_order]').val().split(',');
+		var op_cnt_def = op_order_def.length; 
+		optionTableCreate(op_order_def, op_cnt_def);
+		
+		<!-- DYNAMIC @loop_option_table@ -->
+		optionBox = [];
+		<!-- DYNAMIC @loop_option_table_value@ -->
+		optionBox.push({'name':'option_value{{i}}','value':'{{option_value2}}'});
+		<!-- DYNAMIC @loop_option_table_value@ -->
+		optionBox.push({'name' : 'option_price', 'value' : '{{option_price}}'}, {'name' : 'option_qty_type', 'value' : '{{option_qty_type}}'}, {'name' : 'option_qty', 'value' : '{{option_qty}}'}, {'name' : 'option_used', 'value' : '{{option_used}}'}, {'name' : 'option_code', 'value' : '{{option_code}}'}, {'name' : 'option_uid', 'value' : '{{option_uid}}'});
+
+		$("#optionListTable").multiBox('add_option', optionBox);
+		<!-- DYNAMIC @loop_option_table@ -->
+
+		$("#optionListTable").multiBox('reset_option');
+		
+		$('.optionConf').slideDown("slow", function() { $('.sn_detail').summernote('airObject'); });
+		$('#qtyTr').hide();
+		$('.sn_detail').summernote('airObject');
+		<!-- DYNAMIC @is_option_table@ -->
+		
+		resetContent();
+		only_num_formatCk();
+
+		$(".goodsIng").hide();
+
+		<!-- DYNAMIC @loop_require_info@ -->
+		$("#requireGSortable").multiBox('add2', [{'name' : 'require_name', 'value' : '{{require_name}}'},{'name' : 'require_info', 'value' : '{{require_value}}'},{'name' : 'require_info_help', 'value' : '{{require_help}}'}]);
+		<!-- DYNAMIC @loop_require_info@ -->				
+	}
+	
+//-->
+</script>
+
+<script src="js_goods_cate.js?ver={{ver}}"></script>
+<script src="js_goods_info.js?ver={{ver}}"></script>
+<script src="js_goods_option.js?ver={{ver}}"></script>
+<script src="js_goods_detail_image.js?ver={{ver}}"></script>

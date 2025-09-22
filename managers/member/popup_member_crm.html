@@ -1,0 +1,298 @@
+<style>
+body { min-width:930px; background-color:#fff; }
+#contentBox { min-width:930px; min-height:400px; top:20px; background-color:#fff; border:0; box-shadow: none; -webkit-box-shadow: none; }
+#contentBox .content { min-width:900px; margin:20px; clear:both; }
+</style>
+
+<form name='crmForm' method='post' action='member_post.php' enctype="multipart/form-data" target='HFrm'>
+<input type="hidden" name="id" value="{{id}}" />
+<input type="hidden" name="mode" value="memo" />
+
+<div id="rightBoxHold" style="top:90px">
+	<ul></ul>
+</div>
+
+<div class="content">
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;회원 기본정보
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="20%" /> 
+	<col width="30%" />
+	<col width="20%" /> 
+	<col width="30%" />	
+	</colgroup>
+	<tr> 
+		<td>이름</td>
+		<td>{{name}}</td>		
+		<td>아이디</td>
+		<td>{{id}}</td>
+	</tr>	
+	<tr> 
+		<td>회원등급</td>
+		<td>{{level}}</td>		
+		<td>가입승인</td>
+		<td>{{auth}}</td>		
+	</tr>
+	<tr> 
+		<td>전화번호</td>
+		<td class="number">{{tel}}</td>		
+		<td>휴대폰번호</td>
+		<td class="number">{{cell}}</td>		
+	</tr>
+	<tr> 
+		<td>이메일주소</td>
+		<td>{{email}}</td>		
+		<td>추천인</td>
+		<td>{{reference}}</td>		
+	</tr>	
+	<tr> 
+		<td>주소</td>
+		<td colspan="3"><span class="colorGray">{{postcode}}</span> {{address1}} {{address2}}</td>		
+	</tr>
+	<tr> 
+		<td>생년월일</td>
+		<td class="number">{{birth}} {{birth_sl}}</td>		
+		<td>성별</td>
+		<td>{{gender}}</td>		
+	</tr>
+	<tr> 
+		<td>결혼여부</td>
+		<td>{{marry}}</td>		
+		<td>직업</td>
+		<td>{{job}}</td>		
+	</tr>
+	<tr> 
+		<td>관심분야</td>
+		<td colspan="3">{{hobby}}</td>		
+	</tr>
+	<tr> 
+		<td>메일수신 동의</td>
+		<td>{{mailling}}</td>		
+		<td>메일수신 동의 변경일</td>
+		<td class="number">{{mailling_date}}</td>		
+	</tr>
+	<tr> 
+		<td>SMS수신 동의</td>
+		<td>{{sms}}</td>		
+		<td>SMS수신 동의 변경일</td>
+		<td class="number">{{sms_date}}</td>		
+	</tr>
+	<tr> 
+		<td>가입경로</td>
+		<td>{{mobile}}</td>		
+		<td>방문횟수</td>
+		<td class="number">{{cnts}}</td>		
+	</tr>	
+	<tr> 
+		<td>최종로그인일시</td>
+		<td class="number">{{login_time}}</td>		
+		<td>회원가입일시</td>
+		<td class="number">{{signdate}}</td>		
+	</tr>
+	</table>
+
+	<!-- DYNAMIC @is_comp_info@ -->
+	<div class="empty40" ></div>
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;회원 사업자정보
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="20%" /> 
+	<col width="30%" />
+	<col width="20%" /> 
+	<col width="30%" />	
+	</colgroup>
+	<!-- DYNAMIC @is_comp@ -->
+	<tr> 
+		<td>회사명</td>
+		<td colspan="3">{{comp}}</td>		
+	</tr>	
+	<!-- DYNAMIC @is_comp@ -->
+	<!-- DYNAMIC @is_comp_num@ -->
+	<tr> 
+		<td>사업자번호</td>
+		<td colspan="3">{{comp_num}}</td>		
+	</tr>
+	<!-- DYNAMIC @is_comp_num@ -->
+	<!-- DYNAMIC @is_comp_owner@ -->
+	<tr> 
+		<td>대표자명</td>
+		<td colspan="3">{{comp_owner}}</td>		
+	</tr>
+	<!-- DYNAMIC @is_comp_owner@ -->
+	<!-- DYNAMIC @is_comp_address@ -->
+	<tr> 
+		<td>사업장주소</td>
+		<td colspan="3"><span class="gray">{{comp_postcode}}</span> {{comp_address1}} {{comp_address2}}</td>		
+	</tr>
+	<!-- DYNAMIC @is_comp_address@ -->
+	<!-- DYNAMIC @is_comp_type@ -->
+	<tr> 
+		<td>업태</td>
+		<td colspan="3">{{comp_type}}</td>		
+	</tr>
+	<!-- DYNAMIC @is_comp_type@ -->
+	<!-- DYNAMIC @is_comp_item@ -->
+	<tr> 
+		<td>종목</td>
+		<td colspan="3">{{comp_item}}</td>		
+	</tr>	
+	<!-- DYNAMIC @is_comp_item@ -->
+	</table>
+	<!-- DYNAMIC @is_comp_info@ -->
+
+	<div class="empty40"></div>
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;회원 주문정보
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="20%" /> 
+	<col width="30%" />
+	<col width="20%" /> 
+	<col width="30%" />	
+	</colgroup>
+	<tr> 
+		<td>총주문건수 <i class="xi-external-link"></i></td>
+		<td colspan="3" class="number"><a href="../order/order_list.php?field=id&keyword={{id}}&pay_status=C" target="_blank" class="underLine">{{order_cnt}}</a></td>		
+	</tr>
+	<tr> 
+		<td>총주문금액</td>
+		<td class="number">{{order_price}}</td>		
+		<td>평균주문금액</td>
+		<td class="number">{{average_order_price}}</td>		
+	</tr>
+	<tr> 
+		<td>주결제수단</td>
+		<td>{{main_pay_type}}</td>
+		<td>마지막주문일</td>
+		<td class="number">{{order_time}}</td>			
+	</tr>
+	</table>
+
+	<div class="empty40"></div>
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;회원 마일리지 & 쿠폰
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="20%" /> 
+	<col width="30%" />
+	<col width="20%" /> 
+	<col width="30%" />	
+	</colgroup>
+	<tr> 
+		<td>보유 마일리지 <i class="xi-external-link"></i></td>
+		<td colspan="3" class="number"><a href="mileage_list.php?id={{id}}" target="_blank" class="underLine">{{mileage}}</a></td>		
+	</tr>
+	<tr> 
+		<td>적립 마일리지</td>
+		<td class="number">{{save_mileage}}</td>		
+		<td>사용 마일리지</td>
+		<td class="number">{{use_mileage}}</td>		
+	</tr>
+	<tr> 
+		<td>보유 쿠폰 <i class="xi-external-link"></i></td>
+		<td colspan="3" class="number"><a href="coupon_down_list.php?field=id&keyword={{id}}" target="_blank" class="underLine">{{coupon}}</a></td>		
+	</tr>
+	<tr> 
+		<td>사용한 쿠폰</td>
+		<td class="number">{{use_coupon}}</td>		
+		<td>사용 쿠폰할인금액</td>
+		<td class="number">{{use_coupon_price}}</td>		
+	</tr>
+	</table>
+
+	<div class="empty40"></div>
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;회원 등록글 & 메모
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="20%" /> 
+	<col width="30%" />
+	<col width="20%" /> 
+	<col width="30%" />	
+	</colgroup>
+	<tr> 
+		<td>구매후기 <i class="xi-external-link"></i></td>
+		<td class="number"><a href="../etcs/review_list.php?field=id&keyword={{id}}" target="_blank" class="underLine">{{review}}</a></td>		
+		<td>상품문의 <i class="xi-external-link"></i></td>
+		<td class="number"><a href="../etcs/inquiry_list.php?field=id&keyword={{id}}" target="_blank" class="underLine">{{inquiry}}</a></td>		
+	</tr>	
+	<tr> 
+		<td>1:1 문의 <i class="xi-external-link"></i></td>
+		<td colspan="3" class="number"><a href="../board/board.php?b_id=counsel&field=I&keyword={{id}}" target="_blank" class="underLine">{{counsel}}</a></td>					
+	</tr>
+	<tr> 
+		<td>메모</td>
+		<td colspan="3">
+			<textarea name="memo" style="height:60px;">{{memo}}</textarea>
+			<div style="padding-top:10px;"><button class="btns" type="button" id="memo"><span class="text"><i class="xi-check-circle xi-x"></i> 메모저장</span></button></div>
+		</td>
+	</tr>	
+	</table>
+
+	<div class="empty40"></div>	
+
+</div>
+
+</form>
+
+<iframe name="HFrm" style="display:none"></iframe>
+
+<script>
+<!--
+	$('#memo').click(function(e) {		
+		$("form[name=crmForm]").submit();			
+	});
+
+	$('.content').find('.contentTitle').each(function(i) {
+		var $t = jQuery(this);		
+		var position = $t.position();
+		var title = $t.text(); 
+
+		contentPosition[i] = position.top + 10;
+
+		$("#rightBoxHold > ul").append('<li id="contentTitle'+i+'" class="subTooltip" title="'+title+'"><i class="fas fa-dice-' + contentIcon[i] + '"></i></li>');
+
+		$('#contentTitle' + i).click(function(e){		
+			$("html, body").animate({ scrollTop: contentPosition[i] }, 100);
+		});
+
+	});	
+
+	$('.subTooltip').hover(function(e){
+		var title = $(this).attr('title');
+		$(this).addClass("hover");		
+		$(this).data('tipText', title).removeAttr('title');
+		if(typeof($(this).find('p')[0])=='undefined') $(this).append('<p>' + title + '</p>');
+		$(this).find('p').css({opacity:0.1, display:"block"}).stop().animate({width:'show', opacity:1.0}, 'fast');			
+	}, 
+	function() {
+		$(this).removeClass("hover");	
+		$(this).attr('title', $(this).data('tipText'));
+		$(this).find('p').stop().animate({width:'hide', opacity:0.1}, 'fast');		
+		ckScrollContent();	
+	});
+
+
+	$(window).scroll(function () {
+		ckScrollContent();		
+	});
+	
+
+//-->
+</script>

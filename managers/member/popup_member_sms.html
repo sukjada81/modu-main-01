@@ -1,0 +1,138 @@
+<style>
+body { min-width:840px; background-color:#fff; }
+#contentBox { min-width:840px; min-height:400px; top:20px; background-color:#fff; border:0; box-shadow: none; -webkit-box-shadow: none; }
+#contentBox .content { min-width:800px; margin:20px; clear:both; }
+</style>
+
+<form name='smsForm' method='post' action='member_post.php?{{addstring}}' target='HFrm'>					
+<input type="hidden" name="item" />
+<input type="hidden" name="mode" value="sms_send" />
+
+<div class="content">
+	<table>
+	<colgroup>
+	<col width="24%" /> 
+	<col width="26%" /> 
+	<col width="24%" /> 
+	<col width="26%" /> 
+	</colgroup>
+	<tr> 
+		<td>발송 범위 </td>
+		<td colspan="3">
+			<label id="proc_type1"><input type='radio' name="proc_type1" value="1" /><span class="radio"></span> 선택내역</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="proc_type1" value="2" checked="checked" /><span class="radio"></span> 검색내역({{TOTALS1}}명)</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="proc_type1" value="3" /><span class="radio"></span> 전체내역({{TOTALS2}}명)</label>&nbsp;&nbsp;	
+		</td>
+	</tr>
+	<tr> 
+		<td>보유 캐시</td>
+		<td>{{coolsms_cash}}원</td>
+		<td>보유 포인트</td>
+		<td>{{coolsms_point}}P</td>
+	</tr>
+	<tr> 
+		<td>발송 방식 </td>
+		<td colspan="3">
+			<label id="proc_type2"><input type='radio' name="proc_type2" value="1" checked="checked" /><span class="radio"></span> 즉시발송</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="proc_type2" value="2" disabled /><span class="radio"></span> 예약발송</label>
+		</td>
+	</tr>	
+	<tr id="times"> 
+		<td>예약 시간 </td>
+		<td colspan="3">
+			<div class="requireLeft" style="margin-left:0"><input type="text" name="day" value="{{this_day}}" class="ip3" placeholder="예약일" data-msg="예약일을" data-date-picker='2'  /></div>
+			<div class="requireLeft">
+				<select name="hour">
+					<!-- DYNAMIC @loop_hour@ -->
+					<option value="{{hour}}">{{hour}}시</option>				
+					<!-- DYNAMIC @loop_hour@ -->
+				</select>		
+				<script>
+					$("form[name=smsForm] select[name='hour']").val('{{this_hour}}').heapbox({'width' : '150px', 'heapsize' : '335px', 'searchUsed' : false});
+				</script>
+			</div>
+			<div class="requireLeft">
+				<select name="minute">
+					<!-- DYNAMIC @loop_minute@ -->
+					<option value="{{minute}}">{{minute}}분</option>				
+					<!-- DYNAMIC @loop_minute@ -->
+				</select>		
+				<script>
+					$("form[name=smsForm] select[name='minute']").val('{{this_minute}}').heapbox({'width' : '150px', 'heapsize' : '335px', 'searchUsed' : false});
+				</script>
+			</div>
+		</td>
+	</tr>	
+	<tr> 
+		<td>발송 내용 </td>
+		<td colspan="3">
+			<div class="sms_box">
+				<div class="sms_auto_box" >		
+					<div class="item" style="width:222px;">
+						<textarea name="message"></textarea>						
+						<p style="width:200px"><span class="colorOrange message_cnt">0</span> / 2000</p>
+					</div>
+				</div>				
+			</div>
+		</td>
+	</tr>	
+	</table>
+</div>
+
+<div class="empty100"></div>
+
+<div class="btnSubmitBoxPop">
+	<div class="displayInline"><button class="weight300 shine" type="submit">일괄발송</button></div>	
+</div>
+
+</form>
+
+<iframe name="HFrm" style="display:none"></iframe>
+
+<script>
+<!--
+
+	function ckprocType2ck() {
+		if($('form[name=smsForm] input[name=proc_type2]:checked').val()=='1') {
+			$("#times").hide();
+			dipslayDarkHide('form[name=smsForm] input[name=date]');		
+		}
+		else {
+			$("#times").show();
+			dipslayDarkShow('form[name=smsForm] input[name=date]');		
+		}
+	}
+
+	$(function() {		
+		var ret = [];
+		$("form[name=listForm] input[name='item[]']:checkbox:checked", parent.document).each(function(i) {
+			ret.push($(this).val());
+		});
+
+		if(ret.length==0) {
+			$("#proc_type1").addClass('colorLLgray');
+			$("form[name=smsForm] input:radio[name=proc_type1]:input[value=1]").attr('disabled',true);		
+		}		
+		else {
+			$("form[name=smsForm] input[name='item']").val(ret);
+			$("form[name=smsForm] input:radio[name=proc_type1]:input[value=1]").attr('checked',true);		
+		}
+
+		$('form[name=smsForm] textarea').keyup(function(event){
+			$('.message_cnt').html(rtnBite($(this).val()));
+		});	
+
+		$('form[name=smsForm] textarea').each(function(i){
+			$('.message_cnt').html(rtnBite($(this).val()));		
+		});
+		
+		$('form[name=smsForm] input[name=proc_type2]').click(function(e){
+			ckprocType2ck();
+		});
+
+		ckprocType2ck();
+	});
+	
+
+//-->
+</script>

@@ -1,0 +1,330 @@
+<link rel="stylesheet" href="../../lib/toastui-chart.min.css" />
+<script src="../../lib/toastui-chart.min.js"></script>
+
+<div class="content">	
+	
+	<div class="listLine"></div>	
+	<div class="listSelect size09">		
+		<form name='modifyForm1' method="get" action='{{PHP_SELF}}' />
+		<input type="hidden" name="mode" value="{{mode}}" />
+		<!-- DYNAMIC @is_year1@ -->
+		<div class="firstLine selectYear" style="padding-left:0">
+			<select name="year">
+				<!-- DYNAMIC @is_year_all@ -->
+				<option value="all">전체</option>
+				<!-- DYNAMIC @is_year_all@ -->
+				<!-- DYNAMIC @loop_year1@ -->
+				<option value="{{i}}">{{i}}년</option>
+				<!-- DYNAMIC @loop_year1@ -->
+			</select>		
+			<script>
+				$("form[name=modifyForm1] select[name='year']").val('{{year}}').heapbox({'width' : '150px', 'onChange':function(value) { $("form[name=modifyForm1]").submit(); } });
+			</script>
+		</div>
+		<!-- DYNAMIC @is_year1@ -->
+		<!-- DYNAMIC @is_month1@ -->
+		<div class="line selectMonth">
+			<select name="month">
+				<!-- DYNAMIC @is_month_all@ -->
+				<option value="all">전체</option>
+				<!-- DYNAMIC @is_month_all@ -->				
+				<!-- DYNAMIC @loop_month1@ -->
+				<option value="{{i2}}">{{i2}}월</option>
+				<!-- DYNAMIC @loop_month1@ -->
+			</select>		
+			<script>
+				$("form[name=modifyForm1] select[name='month']").val('{{month}}').heapbox({'width' : '150px', 'onChange':function(value) { $("form[name=modifyForm1]").submit(); } });
+			</script>
+		</div>
+		<!-- DYNAMIC @is_month1@ -->
+		<!-- DYNAMIC @is_week1@ -->
+		<div class="line selectWeek">
+			<select name="week">
+				<!-- DYNAMIC @is_week_all@ -->
+				<option value="all">전체</option>
+				<!-- DYNAMIC @is_week_all@ -->				
+				<!-- DYNAMIC @loop_week1@ -->
+				<option value="{{DATES}}">{{cnt}}주 ( {{DATES}} )</option>
+				<!-- DYNAMIC @loop_week1@ -->
+			</select>		
+			<script>
+				$("form[name=modifyForm1] select[name='week']").val('{{week}}').heapbox({'width' : '280px', 'onChange':function(value) { $("form[name=modifyForm1]").submit(); } });
+			</script>
+		</div>
+		<!-- DYNAMIC @is_week1@ -->
+		<!-- DYNAMIC @is_day1@ -->
+		<div class="line  selectDay">
+			<select name="day">
+				<!-- DYNAMIC @loop_day1@ -->
+				<option value="{{i2}}">{{i2}}일</option>
+				<!-- DYNAMIC @loop_day1@ -->
+			</select>		
+			<script>
+				$("form[name=modifyForm1] select[name='day']").val('{{day}}').heapbox({'width' : '150px', 'heapsize' : '335px', 'searchUsed' : false, 'onChange':function(value) { $("form[name=modifyForm1]").submit(); } });
+			</script>
+		</div>
+		<!-- DYNAMIC @is_day1@ -->		
+		</form>
+	</div>
+	<div class="listSelectR">
+		<div class="contentMenu">		
+			<ul>			
+				<li class="contentMenuSub {{select_year}}" data-mode="year">년별통계</li>
+				<li class="contentMenuSub {{select_month}}" data-mode="month">월별통계</li>
+				<li class="contentMenuSub {{select_day}}" data-mode="day">일별통계</li>
+				<li class="contentMenuSub {{select_week}}" data-mode="week">요일별통계</li>
+				<li class="contentMenuSub {{select_time}}" data-mode="time">시간별통계</li>				
+			</ul>
+			<div class="contentBar left"></div>
+			<div class="contentBar right"></div>
+
+			<script>
+				var a = 100 / parseInt($(".content .listSelectR .contentMenu ul li").length);
+				$(".content .listSelectR .contentMenuSub").css({'width':'calc('+a+'% - 2px)'});
+			</script>
+		</div>		
+	</div>	
+
+	<div id="listArea">
+
+		<table class="listIn">
+		<colgroup>		
+		<col width="16%" />		<!-- 마일리지합계 --> 
+		<col width="14%" />		<!-- 지급건수 --> 
+		<col width="14%" />		<!-- 지급마일리지 --> 
+		<col width="14%" />		<!-- 차감건수 --> 
+		<col width="14%" />		<!-- 차감마일리지 --> 
+		<col width="14%" />		<!-- 소멸건수 --> 
+		<col width="14%" />		<!-- 소멸마일리지 --> 
+		</colgroup>
+		<thead> 
+		<tr> 
+			<th>마일리지합계</th>			
+			<th>지급마일리지</th>
+			<th>지급건수</th>			
+			<th>차감마일리지</th>
+			<th>차감건수</th>			
+			<th>소멸마일리지</th>
+			<th>소멸건수</th>
+		</tr>
+		</thead>
+		<tbody class="statistics">
+		<tr>
+			<!-- DYNAMIC @loop_type_sales_total@ -->
+			<td>
+				<div class="nums">{{SALES_TOTAL}}</div>				
+			</td>
+			<!-- DYNAMIC @loop_type_sales_total@ -->
+			<!-- DYNAMIC @loop_type_total@ -->
+			<td>
+				<div class="nums">{{TOTAL}}</div>
+			</td>
+			<!-- DYNAMIC @loop_type_total@ -->			
+		</tr>
+		</tbody>
+		</table>
+
+		<div class="empty10">&nbsp;</div>
+		<div id="chart-area"></div>
+		<div class="empty10">&nbsp;</div>
+
+		<table class="listIn fixed-header">
+		<colgroup>		
+		<col width="14%" />		<!-- 닐자 --> 
+		<col width="14%" />		<!-- 마일리지합계 --> 
+		<col width="12%" />		<!-- 지급건수 --> 
+		<col width="12%" />		<!-- 지급마일리지 --> 
+		<col width="12%" />		<!-- 차감건수 --> 
+		<col width="12%" />		<!-- 차감마일리지 --> 
+		<col width="12%" />		<!-- 소멸건수 --> 
+		<col width="12%" />		<!-- 소멸마일리지 --> 
+		</colgroup>
+		<thead> 
+		<tr> 
+			<th>{{TTL}}</th>
+			<th>마일리지합계</th>			
+			<th>지급마일리지</th>
+			<th>지급건수</th>			
+			<th>차감마일리지</th>
+			<th>차감건수</th>			
+			<th>소멸마일리지</th>
+			<th>소멸건수</th>
+		</tr>
+		</thead>
+		<tbody class="count_per" id="count_all">
+		<!-- DYNAMIC @loop_count@ -->
+		<tr>
+			<td class="number">{{DATES}}</td>
+			<td class="number">{{COUNT0}} <span>{{PER0}}%</span></td>
+			<td class="number">{{COUNT1}} <span>{{PER1}}%</span></td>
+			<td class="number">{{COUNT2}} <span>{{PER2}}%</span></td>
+			<td class="number">{{COUNT3}} <span>{{PER3}}%</span></td>
+			<td class="number">{{COUNT4}} <span>{{PER4}}%</span></td>
+			<td class="number">{{COUNT5}} <span>{{PER5}}%</span></td>
+			<td class="number">{{COUNT6}} <span>{{PER6}}%</span></td>
+		</tr>
+		<!-- DYNAMIC @loop_count@ -->
+		</tbody>		
+		</table>
+	</div>
+
+	<div class="listSelectB size09">		
+		<form name='modifyForm2' method="get" action='{{PHP_SELF}}' />
+		<input type="hidden" name="mode" value="{{mode}}" />
+		<!-- DYNAMIC @is_year2@ -->
+		<div class="firstLine selectYear" style="padding-left:0">
+			<select name="year">
+				<!-- DYNAMIC @loop_year2@ -->
+				<option value="{{i}}">{{i}}년</option>
+				<!-- DYNAMIC @loop_year2@ -->
+			</select>		
+			<script>
+				$("form[name=modifyForm2] select[name='year']").val('{{year}}').heapbox({'width' : '150px', 'onChange':function(value) { $("form[name=modifyForm2]").submit(); } });
+			</script>
+		</div>
+		<!-- DYNAMIC @is_year2@ -->
+		<!-- DYNAMIC @is_month2@ -->
+		<div class="line selectMonth">
+			<select name="month">
+				<!-- DYNAMIC @loop_month2@ -->
+				<option value="{{i2}}">{{i2}}월</option>
+				<!-- DYNAMIC @loop_month2@ -->
+			</select>		
+			<script>
+				$("form[name=modifyForm2] select[name='month']").val('{{month}}').heapbox({'width' : '150px', 'onChange':function(value) { $("form[name=modifyForm2]").submit(); } });
+			</script>
+		</div>
+		<!-- DYNAMIC @is_month2@ -->
+		<!-- DYNAMIC @is_week2@ -->
+		<div class="line selectWeek">
+			<select name="week">
+				<!-- DYNAMIC @loop_week2@ -->
+				<option value="{{DATES}}">{{cnt}}주 ( {{DATES}} )</option>
+				<!-- DYNAMIC @loop_week2@ -->
+			</select>		
+			<script>
+				$("form[name=modifyForm2] select[name='week']").val('{{week}}').heapbox({'width' : '280px', 'onChange':function(value) { $("form[name=modifyForm2]").submit(); } });
+			</script>
+		</div>
+		<!-- DYNAMIC @is_week2@ -->
+		<!-- DYNAMIC @is_day2@ -->
+		<div class="line  selectDay">
+			<select name="day">
+				<!-- DYNAMIC @loop_day2@ -->
+				<option value="{{i2}}">{{i2}}일</option>
+				<!-- DYNAMIC @loop_day2@ -->
+			</select>		
+			<script>
+				$("form[name=modifyForm2] select[name='day']").val('{{day}}').heapbox({'width' : '150px', 'heapsize' : '335px', 'searchUsed' : false, 'onChange':function(value) { $("form[name=modifyForm2]").submit(); } });
+			</script>
+		</div>
+		<!-- DYNAMIC @is_day2@ -->
+		<!-- DYNAMIC @is_detail2@ -->
+		<div class="firstLine selectDetail" style="padding-left:0; font-size:1.05em">
+			<div class="requireLeft" style="padding-left:0;"><input type="text" name="s_date" class="ip2" datePicker='1' value="{{s_date}}" /></div>
+			<div class="floatLeft" style="padding:0 0 0 15px;">~</div>
+			<div class="requireLeft"><input type="text" name="e_date" class="ip2" datePicker='1' value="{{e_date}}" /></div>
+			<div class="floatLeft" style="padding-left:5px;">
+				<button class="graButtonWhite btnSubmit floatLeft" type="button" style=" width:74px"><span class="text"><i class="xi-search xi-x"></i> 검색</span></button>
+				<button class="btns2" type="button" data-s_date='{{DATE1}}' data-e_date='{{DATE1}}'>오늘</button>
+				<button class="btns2" type="button" data-s_date='{{DATE2}}' data-e_date='{{DATE1}}'>3일</button>
+				<button class="btns2" type="button" data-s_date='{{DATE3}}' data-e_date='{{DATE1}}'>7일</button>
+				<button class="btns2" type="button" data-s_date='{{DATE4}}' data-e_date='{{DATE1}}'>1개월</button>				
+			</div>
+		</div>
+		<!-- DYNAMIC @is_detail2@ -->
+		</form>
+	</div>
+	<div class="listSelectRB"></div>
+	<div class="listLineB"></div>
+	
+</div>
+
+<script>
+<!--
+	
+	var mode				= '{{mode}}';
+	var count_str			= [[{{COUNTSTR7}}], [{{COUNTSTR1}}], [{{COUNTSTR2}}], [{{COUNTSTR3}}], [{{COUNTSTR4}}], [{{COUNTSTR5}}], [{{COUNTSTR6}}]];
+	
+	var el = document.getElementById('chart-area');
+	var data = {
+		categories: ['{{DATESTR}}'],
+		series:		[ {	name: '마일리지합계',	data: count_str[0] },
+					  {	name: '지급마일리지',	data: count_str[1] },
+					  {	name: '지급건수', data: count_str[2] },
+					  {	name: '차감마일리지', data: count_str[3] },
+					  {	name: '차감건수', data: count_str[4] },
+					  {	name: '소멸마일리지', data: count_str[5] },
+					  {	name: '소멸건수', data: count_str[6] },
+					],
+	};
+	var options = {
+		chart:		{ width: parseInt($("#listArea").css('width')), height: 400, title: '' },
+		yAxis:		{ min: 0, title: '' },
+		xAxis:		{ title: '' },
+		series:		{ hasDot: false },
+		tooltip:	{ suffix: '' },
+		legend:		{ align: 'bottom' },	
+	};
+	const chart = toastui.Chart.lineChart({ el, data, options });
+
+	$(function() {
+
+		$('.listSelectRB').html($('.listSelectR').html());
+
+		var a = 100 / parseInt($(".content .listSelectRB .contentMenu ul li").length);
+		$(".content .listSelectRB .contentMenuSub").css({'width':'calc('+a+'% - 2px)'});
+	
+		$('.listSelectR .contentMenuSub').hover(function(e){		
+			if(!$(this).hasClass('selected')) {
+				var left = $(this).position().left;
+				var right = parseInt(left + parseInt($(this).css('width'))) + 1; 
+
+				$(".listSelectR .contentMenu .left").css({left:left}).show();
+				$(".listSelectR .contentMenu .right").css({left:right}).show();
+			}
+		}, 
+		function() {
+			$(".listSelectR .contentMenu .left").hide();
+			$(".listSelectR .contentMenu .right").hide();
+		});
+
+		$('.listSelectRB .contentMenuSub').hover(function(e){		
+			if(!$(this).hasClass('selected')) {
+				var left = $(this).position().left;
+				var right = parseInt(left + parseInt($(this).css('width'))) + 1; 
+
+				$(".listSelectRB .contentMenu .left").css({left:left}).show();
+				$(".listSelectRB .contentMenu .right").css({left:right}).show();
+			}
+		}, 
+		function() {
+			$(".listSelectRB .contentMenu .left").hide();
+			$(".listSelectRB .contentMenu .right").hide();
+		});
+
+		$('.content .contentMenuSub').click(function(e){
+			mode = $(this).attr('data-mode');
+			window.location.href = "{{PHP_SELF}}?mode=" + mode;
+		});
+				
+		$('.btns2').click(function(e) {
+			$("form[name=modifyForm1] input[name='s_date']").val($(this).attr('data-s_date'));
+			$("form[name=modifyForm1] input[name='e_date']").val($(this).attr('data-e_date'));
+			$("form[name=modifyForm2] input[name='s_date']").val($(this).attr('data-s_date'));
+			$("form[name=modifyForm2] input[name='e_date']").val($(this).attr('data-e_date'));
+			return;
+		});
+
+		$('.btnSubmit').click(function(e) {			
+			$(this).parents('form').submit();
+		});
+		
+		$('.statistics div.nums').each(function(i) {
+			$(this).animateNumber({number : $(this).text(), numberStep: $.animateNumber.numberStepFactories.separator(',')});
+
+		});		
+	});	
+
+//-->
+</script>

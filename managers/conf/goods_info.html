@@ -1,0 +1,565 @@
+<link href="../../lib/summernote-lite.css?ver={{ver}}" rel="stylesheet">
+<script src="../../lib/summernote-lite.js?ver={{ver}}"></script>
+<script src="../../lib/summernote-ko-KR.js"></script>
+
+<div class="content">
+	
+	<form name='goodsForm' method='post' action='conf_post.php?mode=goods' target='HFrm'>					
+	<input type="hidden" name="option_order" />
+	<input type="hidden" name="brand_order" />
+	<input type="hidden" name="make_order" />
+	<input type="hidden" name="origin_order" />	
+	<input type="hidden" name="icon_order" />
+	<input type="hidden" name="require_order" />
+	<input type="hidden" name="icon_name" />
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;상품 환경 설정
+	</div>	
+	
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>
+	<tr> 
+		<td>상품금액 절사 기준 설정 <i class="xi-help xi-x colorDGary masterTooltip" title="- 상품 등록이나 할인(회원할인, 이벤트할인, 쿠폰할인)사용 시 적용되는 절사 기준입니다.[BR]- 변경 후 이미 등록된 상품가에는 적용이 되지 않으며 재등록시 적용됩니다."></i
+		></td>
+		<td colspan="3">
+			<div class="floatLeft">
+				<select name="goods_price_limit1">
+					<option value="0">사용안함</option>
+					<option value="1">1</option>
+					<option value="10">10</option>
+					<option value="100">100</option>
+					<option value="1000">1000</option>
+				</select>			
+				<script>
+					$("form[name=goodsForm] select[name='goods_price_limit1']").val('{{goods_price_limit1}}').heapbox({'width' : '120px'});
+				</script>
+			</div>
+			<div class="floatLeft" style="padding:4px 10px 0 10px;">단위</div>			
+			<div class="floatLeft">
+				<select name="goods_price_limit2">
+					<option value="1">버림</option>
+					<option value="2">반올림</option>
+					<option value="3">올림</option>
+				</select>			
+				<script>
+					$("form[name=goodsForm] select[name='goods_price_limit2']").val('{{goods_price_limit2}}').heapbox({'width' : '100px'});
+				</script>			
+			</div>			
+		</td>
+	</tr>
+	<tr>
+		<td>품절상품 설정 </td>
+		<td colspan="3">
+			<label><input type='radio' name="goods_soldout" value="0" {{checked_soldout_0}} /><span class="radio"></span> 노출함</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="goods_soldout" value="1" {{checked_soldout_1}} /><span class="radio"></span> 리스트 마지막에 노출함</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="goods_soldout" value="2" {{checked_soldout_2}} /><span class="radio"></span> 노출안함</label>
+		</td>
+	</tr>
+	<tr> 
+		<td>상품 외부연동 설정 <i class="xi-help xi-x colorDGary masterTooltip" title="네이버 지식쇼핑이나 다음 쇼핑하우에 상품이 노출이 되길 원하시면 먼저 입점 신청후 사용함으로 선택 하시면 됩니다. 노출되는 상품은 상품등록시 외부연동노출에 체크된 상품만 노출이 됩니다."></i></td>
+		<td colspan="3">
+			<label><input type='checkbox' name="goods_engine_naver" value="1" {{checked_engine_naver_1}} /><span></span> 네이버 지식쇼핑</label>&nbsp;&nbsp;
+			<button class="btns" type="button" style="width:15%" id="naverInfo"><span class="text"><i class="xi-external-link xi-x"></i> 네이버 지식쇼핑</span></button>&nbsp;&nbsp;&nbsp;&nbsp;
+			<label><input type='checkbox' name="goods_engine_daum" value="1" {{checked_engine_daum_1}} /><span></span> 다음 쇼핑하우</label>&nbsp;&nbsp;
+			<button class="btns" type="button" style="width:15%" id="daumInfo"><span class="text"><i class="xi-external-link xi-x"></i> 다음 쇼핑하우</span></button>
+			
+		</td>		
+	</tr>
+	<tr> 
+		<td>연동 URL 정보 <i class="xi-help xi-x colorDGary masterTooltip" title="네이버 지식쇼핑이나 다음 쇼핑하우에 연동 URL을 등록 시켜 주시면 됩니다."></i></td>
+		<td colspan="3">
+			<table class="listIn fixed-header">
+			<col width="30%" /> 
+			<col width="70%" />
+			<thead>
+			<tr> 
+				<th>연동명</th>
+				<th>연동 URL</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>네이버 지식쇼핑 전체상품</td>
+				<td>{{SHOP_URL}}plugin/engine/naver.php&nbsp;&nbsp;<i class="fas fa-clipboard-check size12 masterTooltip btnUrl1" title="링크복사"></i></td>
+			</tr>
+			<tr>
+				<td>네이버 지식쇼핑 요약상품</td>
+				<td>{{SHOP_URL}}plugin/engine/naver.php?mode=summ&nbsp;&nbsp;<i class="fas fa-clipboard-check size12 masterTooltip btnUrl2" title="링크복사"></i></td>
+			</tr>
+			<tr>
+				<td>다음 쇼핑하우 전체상품</td>
+				<td>{{SHOP_URL}}plugin/engine/daum.php&nbsp;&nbsp;<i class="fas fa-clipboard-check size12 masterTooltip btnUrl3" title="링크복사"></i></td>
+			</tr>
+			<tr>
+				<td>다음 쇼핑하우 요약상품</td>
+				<td>{{SHOP_URL}}plugin/engine/daum.php?mode=summ&nbsp;&nbsp;<i class="fas fa-clipboard-check size12 masterTooltip btnUrl4" title="링크복사"></i></td>
+			</tr>
+
+			</tbody>
+			</table>
+		</td>
+	</tr>	
+	<tr> 
+		<td>옵션명 설정 <i class="xi-help xi-x colorDGary masterTooltip" title="상품등록에 사용되는 옵션명을 미리 등록해 놓으면 상품등록시 편하게 선택만 하면 됩니다."></i> <i class="xi-arrows xi-x colorDGary masterTooltip" title="등록된 항목을 마우스로 누르고 아래 위로 이동하시면 순서를 변경 하실 수 있습니다."></i></td>
+		<td colspan="3" style="padding:20px;">
+			<table class="listIn fixed-header" id="optionSortable">
+			<col width="10%" /> 
+			<col width="14%" />
+			<col width="56%" />
+			<col width="10%" />
+			<col width="10%" />
+			<thead>
+			<tr> 
+				<th>번호</th>
+				<th>옵션명</th>
+				<th>옵션항목 <i class="xi-info xi-x colorDGary masterTooltip" title="쉼표(,) 또는 세미콜론(;) 또는 Enter키를 통해 값을 연속적으로 입력 하시면 됩니다."></i></th>
+				<th>사용</th>
+				<th>처리</th>
+			</tr>
+			</thead>
+			<tbody></tbody>
+			</table>
+		</td>		
+	</tr>
+	<tr> 
+		<td>브랜드 설정 <i class="xi-help xi-x colorDGary masterTooltip" title="상품등록에 사용되는 브랜드를 미리 등록해 놓으면 상품등록시 편하게 선택만 하면 됩니다."></i> <i class="xi-arrows xi-x colorDGary masterTooltip" title="등록된 항목을 마우스로 누르고 아래 위로 이동하시면 순서를 변경 하실 수 있습니다."></i></td>
+		<td colspan="3" style="padding:20px;">
+			<table class="listIn fixed-header" id="brandSortable">
+			<col width="10%" /> 
+			<col width="70%" />
+			<col width="10%" />
+			<col width="10%" />
+			<thead>
+			<tr> 
+				<th>번호</th>
+				<th>브랜드명</th>
+				<th>사용</th>
+				<th>처리</th>
+			</tr>
+			</thead>
+			<tbody></tbody>
+			</table>
+		</td>		
+	</tr>
+	<tr> 
+		<td>제조사 설정 <i class="xi-help xi-x colorDGary masterTooltip" title="상품등록에 사용되는 제조사를 미리 등록해 놓으면 상품등록시 편하게 선택만 하면 됩니다."></i> <i class="xi-arrows xi-x colorDGary masterTooltip" title="등록된 항목을 마우스로 누르고 아래 위로 이동하시면 순서를 변경 하실 수 있습니다."></i></td>
+		<td colspan="3" style="padding:20px;">
+			<table class="listIn fixed-header" id="makeSortable">
+			<col width="10%" /> 
+			<col width="70%" />
+			<col width="10%" />
+			<col width="10%" />
+			<thead>
+			<tr> 
+				<th>번호</th>
+				<th>제조사명</th>
+				<th>사용</th>
+				<th>처리</th>
+			</tr>
+			</thead>
+			<tbody></tbody>
+			</table>
+		</td>		
+	</tr>
+	<tr> 
+		<td>원산지 설정 <i class="xi-help xi-x colorDGary masterTooltip" title="상품등록에 사용되는 원산지를 미리 등록해 놓으면 상품등록시 편하게 선택만 하면 됩니다."></i> <i class="xi-arrows xi-x colorDGary masterTooltip" title="등록된 항목을 마우스로 누르고 아래 위로 이동하시면 순서를 변경 하실 수 있습니다."></i></td>
+		<td colspan="3" style="padding:20px;">
+			<table class="listIn fixed-header" id="originSortable">
+			<col width="10%" /> 
+			<col width="70%" />
+			<col width="10%" />
+			<col width="10%" />
+			<thead>
+			<tr> 
+				<th>번호</th>
+				<th>원산지명</th>
+				<th>사용</th>
+				<th>처리</th>
+			</tr>
+			</thead>
+			<tbody></tbody>
+			</table>
+		</td>		
+	</tr>	
+	<tr> 
+		<td>아이콘 설정 <i class="xi-help xi-x colorDGary masterTooltip" title="상품등록에 사용되는 아이콘을 미리 등록해 놓으면 상품등록시 편하게 선택만 하면 됩니다."></i> <i class="xi-arrows xi-x colorDGary masterTooltip" title="등록된 항목을 마우스로 누르고 좌우로 이동하시면 순서를 변경 하실 수 있습니다."></i></td>
+		<td colspan="3" style="padding:20px;">
+			<button class="fileinput-button btns" type="button">
+				<span class="text"><i class="fas fa-upload"></i> 아이콘 업로드
+				<input type="file" name="icon2" id="icon2" />
+				<input type="file" name="icon" id="icon" multiple />
+			</button>	
+			
+			<div class="empty10" ></div>
+			
+			<ul id="iconSortable"></ul>
+		</td>		
+	</tr>
+	</table>	
+
+	<div class="empty60" ></div>
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;이용안내 설정 <i class="xi-help xi-x colorDGary masterTooltip" title="상품등록에 사용되는 이용안내 입니다."></i>
+	</div>	
+	
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>
+	<tr> 
+		<td>배송안내 설정 </td>
+		<td colspan="3">
+			<XMP class="sn_delivery_info" style="display:none">{{goods_delivery_info}}</XMP>
+			<input type="hidden" name="goods_delivery_info" data-notefor=".sn_delivery_info" value= "" />
+		</td>	
+	</tr>
+	<tr> 
+		<td>환불안내 설정 </td>
+		<td colspan="3">
+			<XMP class="sn_refund_info" style="display:none">{{goods_refund_info}}</XMP>
+			<input type="hidden" name="goods_refund_info" data-notefor=".sn_refund_info" value= "" />
+		</td>	
+	</tr>
+	<tr> 
+		<td>교환안내 설정 </td>
+		<td colspan="3">
+			<XMP class="sn_exchange_info" style="display:none">{{goods_exchange_info}}</XMP>
+			<input type="hidden" name="goods_exchange_info" data-notefor=".sn_exchange_info" value= "" />
+		</td>	
+	</tr>
+	<tr> 
+		<td>AS안내 설정 </td>
+		<td colspan="3">
+			<XMP class="sn_as_info" style="display:none">{{goods_as_info}}</XMP>
+			<input type="hidden" name="goods_as_info" data-notefor=".sn_as_info" value= "" />
+		</td>	
+	</tr>
+	</table>	
+
+	<div class="empty60" ></div>
+
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;상품정보 제공고시 설정 <i class="xi-help xi-x colorDGary masterTooltip" title="상품등록에 사용되는 상품정보 제공고시를 품목별로 미리 등록해 놓으면 상품등록시 편하게 선택하면 됩니다."></i> <i class="xi-arrows xi-x colorDGary masterTooltip" title="등록된 항목을 마우스로 누르고 아래 위로 이동하시면 순서를 변경 하실 수 있습니다."></i>
+	</div>
+	
+	<table class="listIn fixed-header" id="requireSortable">
+	<col width="8%" /> 
+	<col width="20%" />
+	<col width="56%" />
+	<col width="8%" />
+	<col width="8%" />
+	<thead>
+	<tr> 
+		<th>번호</th>
+		<th>품목명</th>
+		<th>필수정보 항목 <i class="xi-help xi-x colorDGary masterTooltip" title="등록된 항목을 클릭하시면 수정 하실 수 있습니다."></i></th>
+		<th>사용</th>
+		<th>처리</th>
+	</tr>
+	</thead>
+	<tbody></tbody>
+	</table>
+	
+	<div class="empty60" ></div>
+
+	<div class="btnSubmitBox btnCenter">
+		<div class="displayInline"><button class="weight300 shine" type="submit">저장하기</button></div>
+	</div>
+
+	</form>	
+	
+</div>
+
+<script>
+<!--
+
+	var iconCnt =1;
+
+	$("#optionSortable").multiBox({'sortable':'1','order':'form[name=goodsForm] input[name=option_order]','focus':'2','list' : [{'name':'','width':'10','type':'','enter':0},{'name':'goods_option_name','width':'14','type':'text','enter':0},{'name':'goods_option_info','width':'56','type':'tag','enter':1},{'name':'goods_option_used','width':'10','type':'checkbox','enter':0},{'name':'','width':'10','type':'icon','enter':0}]});
+
+	$("#makeSortable").multiBox({'sortable':'1','order':'form[name=goodsForm] input[name=make_order]','focus':'2','list' : [{'name':'','width':'10','type':'','enter':0},{'name':'goods_make_name','width':'70','type':'text','enter':1},{'name':'goods_make_used','width':'10','type':'checkbox','enter':0},{'name':'','width':'10','type':'icon','enter':0}]});
+
+	$("#originSortable").multiBox({'sortable':'1','order':'form[name=goodsForm] input[name=origin_order]','focus':'2','list' : [{'name':'','width':'10','type':'','enter':0},{'name':'goods_origin_name','width':'70','type':'text','enter':1},{'name':'goods_origin_used','width':'10','type':'checkbox','enter':0},{'name':'','width':'10','type':'icon','enter':0}]});
+
+	$("#brandSortable").multiBox({'sortable':'1','order':'form[name=goodsForm] input[name=brand_order]','focus':'2','list' : [{'name':'','width':'10','type':'','enter':0},{'name':'goods_brand_name','width':'70','type':'text','enter':1},{'name':'goods_brand_used','width':'10','type':'checkbox','enter':0},{'name':'','width':'10','type':'icon','enter':0}]});
+
+	$("#requireSortable").multiBox({'sortable':'1','order':'form[name=goodsForm] input[name=require_order]','focus':'2','list' : [{'name':'','width':'10','type':'','enter':0},{'name':'goods_require_name','width':'14','type':'text','enter':0},{'name':'goods_require_info','width':'56','type':'textarea2','enter':1},{'name':'goods_require_used','width':'10','type':'checkbox','enter':0},{'name':'','width':'10','type':'icon','enter':0}]});
+
+	function iconInsert(img, img_name, reset) {
+		if(!img) return;
+
+		if(!reset) reset = 0;	
+		var orig_iconCnt = iconCnt;
+		var insertCode = '	<li data-idx="'+img_name+'">';
+		var img_name2 = img_name.split(".");
+		insertCode += '			<img id="'+img_name2[0]+'" src='+img+' alt="icon'+iconCnt+'" />&nbsp;&nbsp;';
+		insertCode += '			<span id="iconIcon1_'+iconCnt+'"><i class="fas fa-edit masterTooltip" title="수정하기"></i>&nbsp;&nbsp;&nbsp;<i class="xi-close masterTooltip" title="삭제하기"></i></span><span id="iconIcon2_'+iconCnt+'" class="iconHide"></span>';
+		insertCode += '		</li>';
+
+		$('#iconSortable').append(insertCode);
+		
+		$('#iconIcon1_'+orig_iconCnt).find('.fa-edit').click(function(e){
+			$('form[name=goodsForm] input[name=icon_name]').val($(this).parent('span').parent('li').attr('data-idx'));
+			$('#icon2').click();
+		});
+
+		$('#iconIcon1_'+orig_iconCnt).find('.xi-close').click(function(e){
+			$('form[name=goodsForm] input[name=icon_name]').val($(this).parent('span').parent('li').attr('data-idx'));
+			iconDelete($(this).parent('span').parent('li'));
+		});
+
+		iconCnt++;		
+		resetTooltip();
+		if(reset==0) resetContent();
+
+		$('#iconSortable').sortable({
+			placeholder: "highlight",
+			cursor : "move",
+			update : function(e, ui) {
+				$('form[name=goodsForm] input[name=icon_order]').val($(this).sortable("toArray", { attribute : 'data-idx' }));
+			}
+		});
+		
+		$('form[name=goodsForm] input[name=icon_order]').val($('#iconSortable').sortable("toArray", { attribute : 'data-idx' }));
+		
+		$("#iconSortable").disableSelection();
+	}
+
+	function iconDelete($t) {		
+		var data = new FormData();
+		data.append('icon_order',$('form[name=goodsForm] input[name=icon_order]').val());
+
+		$.ajax({
+			url: 'icon_post_json.php?mode=delete&name='+$('input[name=icon_name]').val(), 
+			type: 'POST',	
+			data: data, 
+			cache: false,
+			dataType: 'json',
+			processData: false, 
+			contentType: false, 
+			success: function(data, textStatus, jqXHR) {
+				if(typeof(data.error) === 'undefined') {														
+					alertify.success($('form[name=goodsForm] input[name=icon_name]').val() + ' 아이콘이 삭제 되었습니다');															
+					$t.remove();
+					resetContent();
+					$('form[name=goodsForm] input[name=icon_order]').val($('#iconSortable').sortable("toArray", { attribute : 'data-idx' }));				
+				}
+				else {
+					alertify.error(data.error);
+				}
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				alertify.error(textStatus);
+			}		
+		});
+	}
+	
+	
+	$(function() {
+		
+		<!-- DYNAMIC @loop_multi@ -->
+		$("#{{ttl}}Sortable").multiBox('add', [{'name' : 'goods_{{ttl}}_name', 'value' : '{{title}}'},{'name' : 'goods_{{ttl}}_info', 'value' : '{{info}}'},{'name' : 'goods_{{ttl}}_used', 'value' : '{{used}}'}]);
+		<!-- DYNAMIC @loop_multi@ -->
+		
+		<!-- DYNAMIC @loop_icon@ -->
+		iconInsert('{{img}}', '{{img_name}}',1);
+		<!-- DYNAMIC @loop_icon@ -->	
+
+		$('#naverInfo').click(function(e){
+			window.open("https://join.shopping.naver.com/index.nhn");
+		});
+
+		$('#daumInfo').click(function(e){
+			window.open("https://shopping.biz.daum.net/join/main");
+		});
+
+
+		$('#icon').on('change', function(e){			
+			var files = e.target.files;
+			var data = new FormData();
+
+			$.each(files, function(key, value) {
+				data.append(key, value);
+			});
+
+			data.append('icon_order',$('form[name=goodsForm] input[name=icon_order]').val());
+
+			$.ajax({
+				url: 'icon_post_json.php?files', 
+				type: 'POST',
+				data: data, 
+				cache: false,
+				dataType: 'json',
+				processData: false, 
+				contentType: false, 
+				success: function(data, textStatus, jqXHR) {
+					if(typeof(data.error) === 'undefined') {				
+					
+						$.each(data, function(key, value) {							
+							iconInsert(data[key].img, data[key].img_name);
+							alertify.success(data[key].img_name + ' 아이콘이 등록 되었습니다');							
+						});
+
+					}
+					else {
+						alertify.error(data.error);
+					}
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+					alertify.error(textStatus);
+				}		
+			});
+			
+		});
+
+		$('#icon2').on('change', function(e){		
+			
+			var files = e.target.files;			
+			var data = new FormData();
+			var blobURL = window.URL.createObjectURL($('#icon2').prop("files")[0]);
+
+			$.each(files, function(key, value) {
+				data.append(key, value);
+			});
+
+			data.append('icon_order',$('form[name=goodsForm] input[name=icon_order]').val());
+
+			$.ajax({
+				url: 'icon_post_json.php?name='+$('form[name=goodsForm] input[name=icon_name]').val()+'&files', 
+				type: 'POST',
+				data: data, 
+				cache: false,
+				dataType: 'json',
+				processData: false, 
+				contentType: false, 
+				success: function(data, textStatus, jqXHR) {
+					if(typeof(data.error) === 'undefined') {				
+					
+						$.each(data, function(key, value) {							
+							img_name2 = $('form[name=goodsForm] input[name=icon_name]').val().split(".");
+							$('#'+img_name2[0]).attr("src", blobURL);
+							alertify.success(data[key].img_name + ' 아이콘이 변경 되었습니다');															
+						});
+
+					}
+					else {
+						alertify.error(data.error);
+					}
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+					alertify.error(textStatus);
+				}		
+			});
+			
+		});
+
+		$('.sn_delivery_info').summernote({						
+			'lang' : 'ko-KR',
+			'height' : '200px',
+			'dialogsFade' : true,
+			'imgSync' : false,
+			callbacks: {
+				onImageUpload:function( files,editor,welEditable) {
+					snUpImage(files, this, 'information_use/1' );
+				}
+			}
+		});	
+
+		$('.sn_refund_info').summernote({						
+			'lang' : 'ko-KR',
+			'height' : '200px',
+			'dialogsFade' : true,
+			'imgSync' : false,
+			callbacks: {
+				onImageUpload:function( files,editor,welEditable) {
+					snUpImage(files, this, 'information_use/2' );
+				}
+			}
+		});	
+
+		$('.sn_exchange_info').summernote({						
+			'lang' : 'ko-KR',
+			'height' : '200px',
+			'dialogsFade' : true,
+			'imgSync' : false,
+			callbacks: {
+				onImageUpload:function( files,editor,welEditable) {
+					snUpImage(files, this, 'information_use/3' );
+				}
+			}
+		});	
+
+		$('.sn_as_info').summernote({						
+			'lang' : 'ko-KR',
+			'height' : '200px',
+			'dialogsFade' : true,
+			'imgSync' : false,
+			callbacks: {
+				onImageUpload:function( files,editor,welEditable) {
+					snUpImage(files, this, 'information_use/4' );
+				}
+			}
+		});	
+
+		
+		var clipboard1 = new ClipboardJS('.btnUrl1', {
+			text: function(trigger) {							
+				return '{{SHOP_URL}}plugin/engine/naver.php';
+			}
+		});
+
+		clipboard1.on('success', function(e) {
+			alertify.success('클립보드에 복사 되었습니다.');						
+			clipboard1.destroy();
+		});	
+
+		var clipboard2 = new ClipboardJS('.btnUrl2', {
+			text: function(trigger) {							
+				return '{{SHOP_URL}}plugin/engine/naver.php?mode=summ';
+			}
+		});
+
+		clipboard2.on('success', function(e) {
+			alertify.success('클립보드에 복사 되었습니다.');						
+			clipboard2.destroy();
+		});	
+
+		var clipboard3 = new ClipboardJS('.btnUrl3', {
+			text: function(trigger) {							
+				return '{{SHOP_URL}}plugin/engine/daum.php';
+			}
+		});
+
+		clipboard3.on('success', function(e) {
+			alertify.success('클립보드에 복사 되었습니다.');						
+			clipboard3.destroy();
+		});	
+
+		var clipboard4 = new ClipboardJS('.btnUrl4', {
+			text: function(trigger) {							
+				return '{{SHOP_URL}}plugin/engine/daum.php?mode=summ';
+			}
+		});
+
+		clipboard4.on('success', function(e) {
+			alertify.success('클립보드에 복사 되었습니다.');						
+			clipboard4.destroy();
+		});	
+
+		resetContent();
+
+	});
+
+//-->
+</script>

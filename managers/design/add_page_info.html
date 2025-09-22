@@ -1,0 +1,167 @@
+<link href="../../lib/summernote-lite.css?ver={{ver}}" rel="stylesheet">
+<script src="../../lib/summernote-lite.js?ver={{ver}}"></script>
+<script src="../../lib/summernote-ko-KR.js"></script>
+
+<form name='goodsForm' method='post' action='add_page_post.php?{{addstring}}' enctype="multipart/form-data" target='HFrm'>
+<input type="hidden" name="mode" value="{{mode}}" />
+<input type="hidden" name="uid" value="{{uid}}" />
+<input type="hidden" name="temp_upload" value="{{temp_upload}}" />
+<input type="hidden" name="detail_image_order" />
+
+<div class="content">
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;추가페이지 {{TTL}}
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>
+	<tr> 
+		<td>페이지명</td>
+		<td colspan="3"><p style="position:relative"><input type='text' value='{{title}}' style="width:98%" required="required" data-msg="추가페이지명을" data-toname="title" /></p></td>
+	</tr>
+	<tr> 
+		<td>상태</td>
+		<td colspan="3">
+			<div>
+				<label><input type='radio' name="status" value="0" {{checked_status_0}} /><span class="radio"></span> 사용함</label>&nbsp;&nbsp;
+				<label><input type='radio' name="status" value="1" {{checked_status_1}} /><span class="radio"></span> 사용안함</label>
+			</div>
+		</td>
+	</tr>
+	<tr> 
+		<td>페이지 내용 <i class="xi-help xi-x colorDGary masterTooltip" title="- 이미지로만 등록에 등록된 이미지는 내용직접 등록시에도 사용할 수 있습니다.[BR]- 쇼핑몰 가로사이즈는 {{SHOP_WIDTH}}입니다."></i> <i class="xi-arrows xi-x colorDGary masterTooltip" title="등록된 이미지를 마우스로 누르고 아래 위, 좌 우로 이동하시면 순서를 변경 하실 수 있습니다."></i></td>
+		<td colspan="3" style="padding:20px;">
+			<div class="contentMenuDetail">		
+				<ul>
+					<li class="contentMenuDetailSub selected" id="contentMenuDetailSub1">이미지로만 등록</li>
+					<li class="contentMenuDetailSub" id="contentMenuDetailSub2">내용직접 등록</li>
+				</ul>
+				<div class="contentBarDetail left"></div>
+				<div class="contentBarDetail right"></div>
+
+				<input type="hidden" name="detail_image_only" value="{{detail_image_only}}" />
+
+				<script>
+					var a = 100 / parseInt($(".contentMenuDetail ul li").length);
+					$(".contentMenuDetailSub").css({'width':'calc('+a+'% - 2px)'});
+				
+					$('.contentMenuDetailSub').hover(function(e){		
+						var left = $(this).position().left;
+						var right = parseInt(left + parseInt($(this).css('width'))) + 1; 
+
+						$(".contentMenuDetail .left").css({left:left}).show();
+						$(".contentMenuDetail .right").css({left:right}).show();						
+					}, 
+					function() {
+						$(".contentMenuDetail .left").hide();
+						$(".contentMenuDetail .right").hide();
+					});			
+					
+					$('.contentMenuDetailSub').click(function(e){						
+						if(!$(this).hasClass('selected')) {
+							$('.contentMenuDetailSub').removeClass('selected');
+							$(this).addClass('selected');
+							if($(this).prop('id')=='contentMenuDetailSub1'){
+								$('.detailEditer').slideUp("fast", function() { resetContent(); });
+								$(".detailBtn").hide();
+								$('.detailImageType').show();
+								$("form[name=goodsForm] input[name='detail_image_only']").val('1');
+							}
+							else {
+								$('.detailImageType').hide();
+								$('.detailEditer').slideDown("slow", function() { resetContent(); });
+								$(".detailBtn").show();
+								$("form[name=goodsForm] input[name='detail_image_only']").val('0');
+							}
+						}							
+					})
+				</script>
+			</div>
+			
+			<div class="detailImage">
+				<div class="detailImageType">
+					<select name="detail_image_type">
+						<option value="1">이미지간 공백 있게 출력</option>
+						<option value="2">이미지간 공백 없이 출력</option>					
+					</select>			
+					<script>
+						$("form[name=goodsForm] select[name='detail_image_type']").val('{{detail_image_type}}').heapbox({'width' : '300px'});
+					</script>
+				</div>
+				<div class="floatRight">
+					<button class="fileinput-button btns" style="float:right" type="button">
+						<span class="text"><i class="xi-upload"></i> 이미지 업로드</span>
+						<input type="file" name="detail_image" id="detail_image" multiple />
+					</button>
+				</div>
+
+				<div class="empty20"></div>
+				<ul id="detailImageSortable">
+					<div id="detailImageEmpty">
+						이미지 업로드 버튼을 누르거나 윈도우 파일 탐색기에서 이미지를 마우스로 드래그하여 설명에 사용할 이미지를 등록 해 주시면 됩니다.
+						<div class="empty20"></div>						
+						<i class="xi-file-add-o xi-3x"></i>
+					</div>
+				</ul>
+			</div>
+
+			<div class="detailEditer">
+				<XMP class="sn_explains" style="display:none">{{explains}}</XMP>	
+				<input type="hidden" name="explains" data-notefor=".sn_explains" value= "" />
+			</div>
+		</td>
+	</tr>
+	</table>
+	
+	<div class="empty60" ></div>
+
+	<div class="btnSubmitBox">
+		<div class="displayInline"><button class="weight300 shine" type="submit">추가페이지 {{TTL}}하기</button></div>
+		<div class="btnPrev"><i class="xi-arrow-left xi-x"></i></div>
+		<div class="btnPrevTitle">이전페이지</div>		
+	</div>
+
+</div>
+
+</form>
+
+<script>
+<!--
+
+	var detailImageCnt		= 1;
+	var temp_upload			= "{{temp_upload}}";
+
+	$(function() {
+		
+		$('.sn_explains').summernote({						
+			'lang' : 'ko-KR',
+			'height' : '300px',
+			'dialogsFade' : true,
+			'imgSync' : true,
+			callbacks: {
+				onBlur: function() {
+					imageStatus();
+				}    
+			}
+		});	
+
+		<!-- DYNAMIC @loop_detail_image@ -->
+		detailImageInsert('{{image}}', '{{image_name}}');
+		<!-- DYNAMIC @loop_detail_image@ -->
+		
+		if($("form[name=goodsForm] input[name='detail_image_only']").val()==0) $('#contentMenuDetailSub2').trigger('click');
+
+		imageStatus();
+		
+	});	
+
+//-->
+</script>
+
+<script src="../goods/js_goods_detail_image.js?ver={{ver}}"></script>

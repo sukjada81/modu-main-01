@@ -1,0 +1,782 @@
+<script>
+<!--
+	var vendorCommi			=  { {{vendor_commission}} };
+	var goods_price_limit1  = '{{goods_price_limit1}}';
+	var goods_price_limit2  = '{{goods_price_limit2}}';
+
+
+	function commissionChange(uid) {
+		var vendor = $('form[name=listForm] input[name=vendor_'+uid+']').val();
+		if(!vendor) return;
+		if($('form[name=listForm] input[name=commission_type_'+uid+']').val()==0) {
+			$('form[name=listForm] input[name=commission_'+uid+']').val(vendorCommi[vendor]);
+			$('#commi_individual_'+uid).show();
+			$('#commi_public_'+uid).hide();
+		}
+		else {
+			$('form[name=listForm] input[name=commission_'+uid+']').attr('readonly',false).removeClass('darks');	
+			$('#commi_individual_'+uid).hide();
+			$('#commi_public_'+uid).show();
+		}
+		//$('form[name=listForm] input[name=orig_price_'+uid+']').attr('readonly',true).addClass('darks');		
+	}
+
+	function vendorPrice(uid, price2) {
+		var commission = $('form[name=listForm] input[name=commission_' + uid + ']').val();
+		if(price2) 	{
+			var price2 = parseInt(str_replace(",", "", price2));
+			if(price2 > 0) {			
+				var price = (price2 * 100) / (100 - commission);
+				price = priceLimit2(price);
+				$('form[name=listForm] input[name=price_' + uid + ']').val(number_format(price));			
+			}
+		}
+		else {		
+			var price = parseInt(str_replace(",","",$('form[name=listForm] input[name=price_' + uid + ']').val()));			
+			if(price > 0) {				
+				var orig_price = price * ((100 - commission) / 100);
+				orig_price = priceLimit2(orig_price);
+				$('form[name=listForm] input[name=orig_price_' + uid + ']').val(number_format(orig_price));
+			}
+		}
+	}
+
+	function hqPrice(uid) {
+		var price1 = parseInt(str_replace(",","",$('form[name=listForm] input[name=price_'+uid+']').val()));		
+
+		if(price1 > 0) {
+			var price2 = parseInt(str_replace(",","",$('form[name=listForm] input[name=orig_price_'+uid+']').val()));
+			var margin_won = number_format(price1 - price2);
+			var margin = number_format(((price1 - price2) * 100) / price1, 2);
+			$('form[name=listForm] input[name=commission_'+uid+']').val(margin);
+		}
+	}
+
+	function qtyChange(uid) {
+		if($('form[name=listForm] input[name=qty_type_'+uid+']').val()==1) {			
+			qtyClick(uid);
+		}
+	}
+
+	function qtyClick(uid) {
+		var ckLimit = $('form[name=listForm] input[name=qty_type_'+uid+']');
+		var ckQty	= $('form[name=listForm] input[name=qty_'+uid+']');
+		var $v = $('#qty_type_'+uid); 
+		if($v.hasClass('colorOrange')) {					
+			ckLimit.val('0');
+			ckQty.attr('readonly',false);
+			ckQty.removeClass('darks');
+			$v.removeClass('colorOrange');
+		}
+		else {
+			ckLimit.val('1');
+			ckQty.attr('readonly',true);					
+			ckQty.addClass('darks');
+			$v.addClass('colorOrange');					
+		}
+	}	
+
+//-->
+</script>
+
+<div class="content">
+	
+	<form name='searchForm' method='get' action='{{PHP_SELF}}'>
+	<input type="hidden" name="cate" value="{{cate}}"  data-param="1" />
+	<div class="searchBox">
+		<div class="floatLeft">
+			<select name="field">
+				<option value="multi">통합검색</option>
+				<option value="name">상품명</option>
+				<option value="uid">상품번호</option>
+				<option value="model">모델명</option>
+				<option value="keyword">검색키워드</option>
+				<option value="goods_code">자체상품코드</option>				
+			</select>			
+		</div>
+		<div class="searchBoxIn">
+			<input type="text" name="keyword" value="{{keyword}}" data-search-btn="1" data-on-enter="1" />
+			<p class="resetIcon resetIconBtn"><i class="xi-undo masterTooltip" title="초기화"></i></p>
+		</div>
+
+		<div class="expensionArrow">
+			<div class="box"></div>
+			<i class="xi-arrow-down box_down"></i>			
+		</div>
+	</div>
+	<div class="searchDetail">
+		<div class="searchDetailBox">
+			<table class="search">
+			<colgroup>
+			<col width="33%" /> 
+			<col width="33%" />
+			<col width="33%" /> 
+			</colgroup>
+			<tr> 
+				<td colspan="3">
+					<div class="cate">
+						<select name="cate1" style="display:none;">
+							<option value="">1차분류 선택</option>
+							<!-- DYNAMIC @loop_cate1@ -->
+							<option value="{{cate}}">{{cate_name}}</option>
+							<!-- DYNAMIC @loop_cate1@ -->
+						</select>	
+					</div>
+					<div class="cate">
+						<select name="cate2" style="display:none;">
+							<option value="">2차분류 선택</option>							
+						</select>	
+					</div>
+					<div class="cate">
+						<select name="cate3" style="display:none;">
+							<option value="">3차분류 선택</option>							
+						</select>	
+					</div>
+					<div class="cateLast">
+						<select name="cate4" style="display:none;">
+							<option value="">4차분류 선택</option>							
+						</select>	
+					</div>
+				</td>
+			</tr>	
+			<tr> 
+				<td colspan="3">
+					<select name="date_type" style="display:none;">
+						<option value="">상품등록일</option>
+						<option value="moddate">상품수정일</option>
+					</select>						
+					<div class="requireLeft"><input type="text" name="s_date" class="ip2 dates" value="{{s_date}}" data-date-picker='1' /></div>
+					<div class="floatLeft" style="padding:0 0 0 15px;">~</div>
+					<div class="requireLeft"><input type="text" name="e_date" class="ip2 dates" value="{{e_date}}" data-date-picker='1' /></div>
+					<div class="floatLeft" style="padding-left:15px;">
+						<button class="btns2" type="button" data-s_date='{{DATE1}}' data-e_date='{{DATE1}}'>오늘</button>
+						<button class="btns2" type="button" data-s_date='{{DATE2}}' data-e_date='{{DATE1}}'>3일</button>
+						<button class="btns2" type="button" data-s_date='{{DATE3}}' data-e_date='{{DATE1}}'>7일</button>
+						<button class="btns2" type="button" data-s_date='{{DATE4}}' data-e_date='{{DATE1}}'>1개월</button>
+						<button class="btns2" type="button" data-s_date='{{DATE5}}' data-e_date='{{DATE1}}'>3개월</button>
+						<button class="btns2" type="button" data-s_date='{{DATE6}}' data-e_date='{{DATE1}}'>6개월</button>
+						<button class="btns2" type="button" data-s_date='' data-e_date=''>전체</button>					
+					</div>
+				</td>
+			</tr>	
+			<tr> 
+				<td>
+					<select name="field2" style="display:none;">
+						<option value="multi">통합검색</option>
+						<option value="name">상품명</option>
+						<option value="uid">상품번호</option>
+						<option value="model">모델명</option>
+						<option value="keyword">검색키워드</option>
+						<option value="goods_code">자체상품코드</option>				
+					</select>	
+					<input type="text" name="keyword2" class="ip" value="{{keyword2}}" />
+				</td>
+				<td>
+					<select name="field3" style="display:none;">
+						<option value="multi">통합검색</option>
+						<option value="name">상품명</option>
+						<option value="uid">상품번호</option>
+						<option value="model">모델명</option>
+						<option value="keyword">검색키워드</option>
+						<option value="goods_code">자체상품코드</option>				
+					</select>	
+					<input type="text" name="keyword3" class="ip" value="{{keyword3}}" />										
+				</td>			
+				<td>
+					<select name="field4" style="display:none;">
+						<option value="multi">통합검색</option>
+						<option value="name">상품명</option>
+						<option value="uid">상품번호</option>
+						<option value="model">모델명</option>
+						<option value="keyword">검색키워드</option>
+						<option value="goods_code">자체상품코드</option>				
+					</select>	
+					<input type="text" name="keyword4" class="ip" value="{{keyword4}}" />					
+				</td>
+			</tr>	
+			<tr> 
+				<td>
+					<select name="display_use" style="display:none;">
+						<option value="">진열상태</option>
+						<option value="1">진열함</option>
+						<option value="0">진열안함</option>
+						<option value="2">분류숨김</option>
+					</select>							
+				</td>
+				<td>
+					<select name="sale_use" style="display:none;">
+						<option value="">판매상태</option>
+						<option value="1">판매함</option>
+						<option value="0">판매안함</option>
+					</select>						
+				</td>			
+				<td>
+					<select name="option_use" style="display:none;">
+						<option value="">옵션유무</option>
+						<option value="1">사용함</option>
+						<option value="0">사용안함</option>
+					</select>						
+				</td>
+			</tr>	
+			<tr> 
+				<td>
+					<select name="mileage_type" style="display:none;">
+						<option value="">마일리지</option>
+						<option value="1">환경설정 사용</option>
+						<option value="2">없음</option>		
+						<option value="3">별도설정(회원등급별)</option>		
+						<option value="4">별도설정(회원공통)</option>		
+					</select>							
+				</td>
+				<td>
+					<select name="delivery_type" style="display:none;">
+						<option value="">배송비</option>
+						<option value="1">환경설정 사용</option>
+						<option value="2">무료배송</option>		
+						<option value="3">착불</option>		
+						<option value="4">별도책정(고정)</option>	
+						<option value="5">별도책정(개당)</option>	
+					</select>						
+				</td>			
+				<td>
+					<select name="engine_use" style="display:none;">
+						<option value="">상품외부 연동</option>
+						<option value="1">사용함</option>
+						<option value="0">사용안함</option>
+					</select>						
+				</td>
+			</tr>	
+			<tr> 
+				<td>
+					<select name="order_priority" style="display:none;">
+						<option value="">진열 우선순위</option>
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>						
+					</select>							
+				</td>
+				<td>
+					<select name="qty_type" style="display:none;">
+						<option value="">재고</option>
+						<option value="0">한정판매</option>		
+						<option value="1">무제한</option>						
+					</select>						
+				</td>			
+				<td>
+					<select name="vendor" style="display:none;">
+						<option value="">판매사</option>
+						<option value="X">본사</option>
+						<!-- DYNAMIC @loop_vendor@ -->
+						<option value='{{vendor_id}}'>{{vendor_name}} ({{vendor_id}})</option>
+						<!-- DYNAMIC @loop_vendor@ -->
+					</select>						
+				</td>
+			</tr>
+			<tr> 
+				<td colspan="3" style="background-color:#fff">
+					<label><input type='checkbox' name="limit_qty" value="1" {{checked_limit_qty_1}} /><span></span> 구매수량제한상품</label>&nbsp;&nbsp;&nbsp;&nbsp;
+					<label><input type='checkbox' name="cate_hide" value="1" {{checked_cate_hide_1}} /><span></span> 분류숨김상품</label>&nbsp;&nbsp;&nbsp;&nbsp;
+					<label><input type='checkbox' name="soldout" value="1" {{checked_soldout_1}} /><span></span> 품절상품</label>&nbsp;&nbsp;&nbsp;&nbsp;
+					<label><input type='checkbox' name="option_soldout" value="1" {{checked_option_soldout_1}} /><span></span> 옵션중품절인상품</label>&nbsp;&nbsp;&nbsp;&nbsp;
+					<label><input type='checkbox' name="commission_type" value="1" {{checked_commission_type_1}} /><span></span> 판매사개별수수료상품</label>&nbsp;&nbsp;&nbsp;&nbsp;
+					<label><input type='checkbox' name="information_use" value="3" {{checked_information_use_3}} /><span></span> 이용안내직접등록상품</label>&nbsp;&nbsp;&nbsp;&nbsp;
+				</td>
+			</tr>
+			</table>					
+		</div>	
+		<div class="btnSearchSubmitBox">
+			<div class="btnCircleSearch"><div class="btnCircleSearchTitle">검색</div><i class="xi-search xi-x"></i></div>
+			<div class="btnCircleReset"><div class="btnCircleResetTitle">초기화</div><i class="xi-undo xi-x"></i></div>						
+		</div>
+	</div>
+	</form>
+
+	<script>
+	<!--	
+		
+		$("form[name=searchForm] select[name='field']").val('{{field}}').heapbox({'width' : '200px'});
+		$("form[name=searchForm] select[name='cate1']").val('{{cate1}}').show().heapbox({
+			'width' : '100%',
+			'zindex': 8,
+			'heapsize' : '452px',
+			'onChange': function(value){ cateChange(value, 1); }
+		});
+		$("form[name=searchForm] select[name='cate2']").val('{{cate2}}').show().heapbox({
+			'width' : '100%',
+			'zindex': 8,
+			'heapsize' : '452px',
+			'onChange': function(value){ cateChange(value, 2); }
+		});
+		$("form[name=searchForm] select[name='cate3']").val('{{cate3}}').show().heapbox({
+			'width' : '100%',
+			'zindex': 8,
+			'heapsize' : '452px',
+			'onChange': function(value){ cateChange(value, 3); }
+		});
+		$("form[name=searchForm] select[name='cate4']").val('{{cate4}}').show().heapbox({
+			'width' : '100%',
+			'zindex': 8,
+			'heapsize' : '452px',
+			'onChange': function(value){
+							$("form[name=searchForm] input[name='cate']").val(value);
+						}
+		});
+		$("form[name=searchForm] select[name='date_type']").val('{{date_type}}').show().heapbox({'width' : '170px', 'zindex':7});
+		$("form[name=searchForm] select[name='field2']").val('{{field2}}').show().heapbox({'width' : '170px', 'zindex':6});
+		$("form[name=searchForm] select[name='field3']").val('{{field3}}').show().heapbox({'width' : '170px', 'zindex':6});
+		$("form[name=searchForm] select[name='field4']").val('{{field4}}').show().heapbox({'width' : '170px', 'zindex':6});
+		$("form[name=searchForm] select[name='display_use']").val('{{display_use}}').show().heapbox({'width' : '91%', 'zindex':5});
+		$("form[name=searchForm] select[name='sale_use']").val('{{sale_use}}').show().heapbox({'width' : '91%', 'zindex':5});
+		$("form[name=searchForm] select[name='option_use']").val('{{option_use}}').show().heapbox({'width' : '91%', 'zindex':5});
+		$("form[name=searchForm] select[name='mileage_type']").val('{{mileage_type}}').show().heapbox({'width' : '91%', 'zindex':4});
+		$("form[name=searchForm] select[name='delivery_type']").val('{{delivery_type}}').show().heapbox({'width' : '91%', 'zindex':4});
+		$("form[name=searchForm] select[name='engine_use']").val('{{engine_use}}').show().heapbox({'width' : '91%', 'zindex':4});
+		$("form[name=searchForm] select[name='order_priority']").val('{{order_priority}}').show().heapbox({'width' : '91%', 'zindex':3});
+		$("form[name=searchForm] select[name='qty_type']").val('{{qty_type}}').show().heapbox({'width' : '91%', 'zindex':3});
+		$("form[name=searchForm] select[name='vendor']").val('{{vendor}}').show().heapbox({'width' : '91%', 'heapsize' : '400px', 'zindex':3});
+		
+
+		$('.searchDetail').hide();
+	//-->
+	</script>
+
+	<div class="empty60"></div>
+	
+	<div class="listTop">
+		<form name='listSearchForm' method='get' action='{{PHP_SELF}}?{{searchstring}}' />
+		<div class="listLeft size14">
+			전체 : <b class="orange">{{ATOTAL}}</b>건 
+			<!-- DYNAMIC @is_search@ -->
+			, 검색 : <b class="orange">{{TOTAL}}</b>건
+			<!-- DYNAMIC @is_search@ -->
+		</div>
+		<div class="listRight size10">
+			<div class="floatLeft">
+				<select name="sort">
+					<option value="uid DESC">등록일 역순</option>
+					<option value="uid ASC">등록일 순</option>
+					<option value="moddate DESC">수정일 역순</option>
+					<option value="moddate ASC">수정일 순</option>
+					<option value="name DESC">상품명 역순</option>
+					<option value="name ASC">상품명 순</option>
+					<option value="price DESC">판매가 역순</option>
+					<option value="price ASC">판매가 순</option>
+				</select>
+				&nbsp;&nbsp;
+			</div>
+			<div class="floatLeft">				
+				<select name="limit">
+					<option value="10">10개 보기</option>
+					<option value="20">20개 보기</option>
+					<option value="30">30개 보기</option>
+					<option value="40">40개 보기</option>
+					<option value="50">50개 보기</option>
+					<option value="60">60개 보기</option>
+					<option value="70">70개 보기</option>
+					<option value="80">80개 보기</option>
+					<option value="90">90개 보기</option>
+					<option value="100">100개 보기</option>
+				</select>
+			</div>			
+		</div>
+		</form>
+	</div>
+
+	<div class="empty10"></div>	
+	<div class="listLine"></div>
+	<div class="listSelect" style="width:470px;">
+		<div class="floatLeft">
+			<button class="graButtonWhite secSave" type="button"><span class="text"><i class="xi-file-check-o xi-x"></i> 선택저장</span></button>
+			<button class="graButtonWhite allSave" type="button"><span class="text"><i class="xi-documents-o xi-x"></i> 전체저장</span></button>
+		</div>
+		<form name='modifyForm1' />
+		<div class="firstLine">			
+			<select name="order_priority">					
+				<option value=''>선택 진열 우선순위변경</option>
+				<option value="0">0</option>	
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6">6</option>
+				<option value="7">7</option>
+				<option value="8">8</option>
+				<option value="9">9</option>				
+			</select>			
+			<script>
+				$("form[name=modifyForm1] select[name='order_priority']").heapbox({
+					'width' : '200px', 
+					'zindex' : 2,
+					'onChange': function(value){
+										if(!value) return;
+										orderPriority(value);
+									}
+				});
+			</script>
+		</div>		
+		</form>
+	</div>
+
+	<div class="listSelectR">
+		<button class="graident1 graButton btnmileage" type="button"><i class="xi-focus-frame xi-x"></i> 마일리지변경</button>
+		<button class="graident2 graButton btnDelivery" type="button"><i class="xi-focus-frame xi-x"></i> 배송비변경</button>
+		<button class="graident3 graButton btnName" type="button"><i class="xi-focus-frame xi-x"></i> 상품명변경</button>
+		<button class="graident4 graButton btnPrice" type="button"><i class="xi-focus-frame xi-x"></i> 가격변경</button>
+		<button class="graident5 graButton btnImage" style="width:160px;" type="button"><i class="xi-focus-frame xi-x"></i> 이미지사이즈변경</button>
+	</div>
+	
+	<div id="listArea">		
+		<!-- DYNAMIC @is_list_area@ -->
+		<form name="listForm" method="post" action='goods_post.php' target='HFrm'>
+		<input type="hidden" name="mode" />
+		<input type="hidden" name="value" />
+
+		<table class="listIn fixed-header">
+		<colgroup>			
+			<col style="width:40px"  />		<!-- 선택 -->
+			<col style="width:70px"  />		<!-- 번호 -->
+			<col style="width:80px"  />		<!-- 상품번호 -->
+			<col style="width:80px"  />		<!-- 이미지 -->
+			<col />							<!-- 상품명/대표분류 -->
+			<col style="width:50px"  />		<!-- 진열상태 -->
+			<col style="width:50px"  />		<!-- 판매상태 -->	
+			<col style="width:98px"  />		<!-- 판매가 -->
+			<col style="width:98px"  />		<!-- 매입가 -->
+			<col style="width:125px"  />	<!-- 마진률 -->
+			<col style="width:98px"  />		<!-- 소비자가 -->
+			<col style="width:105px"  />	<!-- 재고 -->		
+			<col style="width:50px"  />		<!-- 처리 -->
+		</colgroup>
+		<thead> 
+		<tr>
+			<th><label><input type='checkbox' name="check_all" id="check_all" value="1" /><span></span></label></th>
+			<th data-sortas="numeric">번호</th>
+			<th>상품번호</th>
+			<th>이미지 <i class="xi-external-link"></i></th>
+			<th>상품명 <i class="xi-link"></i> / 판매사 <i class="xi-focus-frame"></i> / 대표분류 <i class="xi-link"></i></th>
+			<th>진열</th>
+			<th>판매</th>	
+			<th>판매가</th>
+			<th>매입가</th>
+			<th>마진(수수료)률</th>
+			<th>소비자가</th>
+			<th>재고</th>		
+			<th>처리</th>
+		</tr>
+		</thead>
+		<tbody>
+		<!-- DYNAMIC @loop_list@ -->
+		<tr>
+			<td><label><input type='checkbox' name="item[]" value="{{UID}}" class="ckeckItem" /><span></span></label></td>
+			<td class="number">{{NUM}}</td>
+			<td class="number">{{UID}}</td>
+			<td><a href="{{SMain}}?channel=view&uid={{UID}}" title="사용자페이지상품보기" target="_blank"><img src="../../image/goods/img{{IMAGE3}}" alt="{{NAME}} 이미지" width="60" /></a></td>
+			<td style="text-align:left">
+				<div><a href="goods_info.php?mode=modify&uid={{UID}}&back=_modify{{addstring}}" title="상품정보수정"  class="underLine">{{NAME}}</a> {{ICON}}</div>
+				<div class="empty10"></div>
+				<!-- DYNAMIC @is_vendor@ -->
+				<div class='btnVCrm cursorPoint center' data-id='{{VENDOR_ID}}'>					
+					<div class='barId' style="width:140px; float:left;">{{VENDOR_ID}}</div>
+					<div class='barName2' style="width:140px; float:left;">{{VENDOR}}</div>
+					<div class="empty10"></div>
+				</div>	
+				<!-- DYNAMIC @is_vendor@ -->
+				<div class="size08">{{CATE}}</div>
+			</td>
+			<td>{{DISPLAY_USE}}</td>
+			<td>{{SALE_USE}}</td>
+			<td><input type="text" name="price_{{UID}}" value="{{PRICE}}" style="width:85%; font-size:14px;" class="only_num_format price" data-uid='{{UID}}' /></td>
+			<td><input type="text" name="orig_price_{{UID}}" value="{{ORIG_PRICE}}" style="width:85%; font-size:14px;" class="only_num_format orig_price" data-uid='{{UID}}' /></td>
+			<td>				
+				<i id="commi_individual_{{UID}}" class="xi-pen colorDGary masterTooltip commi_individual" style="display:none;" data-uid='{{UID}}' title="상품개별 수수료율 적용 (소수 2자리까지)"></i>
+				<i id="commi_public_{{UID}}" class="xi-undo colorDGary masterTooltip commi_public" style="display:none;" data-uid='{{UID}}' data-vendor='{{VENDOR_ID}}' title="상품개별 수수료율 해제"></i>
+				<input type="text" name="commission_{{UID}}" value="{{COMMISSION}}" style="width:50%; font-size:14px;" class="only_num_jum darks commission" readonly data-uid='{{UID}}' /> %
+				<input type="hidden" name="commission_type_{{UID}}" value="{{COMMISSION_TYPE}}" />
+				<input type="hidden" name="vendor_{{UID}}" value="{{VENDOR_ID}}" />
+				<script>commissionChange('{{UID}}');</script>
+			</td>
+			<td><input type="text" name="consumer_price_{{UID}}" value="{{CONSUMER_PRICE}}" style="width:85%; font-size:14px;" class="only_num_format" /></td>			
+			<td>
+				<input type="hidden" name="qty_type_{{UID}}" value="{{QTY_TYPE}}" />
+				<!-- DYNAMIC @is_qty_type1@ -->
+				<input type="hidden" name="qty_{{UID}}" value="0" />
+				<span class='optionView underLine size09' data-uid='{{UID}}' gname='{{NAME}}' title='{{NAME}} 옵션보기'>옵션</span> <i class='xi-link'></i><br />{{QTYS}}
+				<!-- DYNAMIC @is_qty_type1@ -->
+				<!-- DYNAMIC @is_qty_type2@ -->
+				<i class="xi-all xi-x colorGray masterTooltip qty_type" id="qty_type_{{UID}}" data-uid='{{UID}}' title="무제한"></i>&nbsp;<input type="text" name="qty_{{UID}}" value="{{QTY}}" class="only_num_format" style="width:45px; font-size:14px;" />
+				<script>qtyChange('{{UID}}');</script>
+				<!-- DYNAMIC @is_qty_type2@ -->				
+			</td>
+			<td><i class="fas fa-save masterTooltip btnSave" title="저장하기" data-uid='{{UID}}'></i></td>		
+		</tr>
+		<!-- DYNAMIC @loop_list@ -->
+		<!-- DYNAMIC @empty_list@ -->
+		<tr>
+			<td colspan="11" class="emptyList"><i class="fas fa-quote-left"></i>&nbsp;&nbsp;등록(검색)된 상품이 없습니다!&nbsp;&nbsp;<i class="fas fa-quote-right"></i></td>
+		<tr>
+		<!-- DYNAMIC @empty_list@ -->
+		</tbody>
+		</table>		
+		</form>
+		<!-- DYNAMIC @is_list_area@ -->		
+	</div>
+
+	<div class="listSelectB" style="width:470px;">
+		<div class="floatLeft">
+			<button class="graButtonWhite secSave" type="button"><span class="text"><i class="xi-file-check-o xi-x"></i> 선택저장</span></button>
+			<button class="graButtonWhite allSave" type="button"><span class="text"><i class="xi-documents-o xi-x"></i> 전체저장</span></button>
+		</div>
+		<form name='modifyForm2' />
+		<div class="firstLine">			
+			<select name="order_priority">					
+				<option value=''>선택 진열 우선순위변경</option>
+				<option value="0">0</option>	
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6">6</option>
+				<option value="7">7</option>
+				<option value="8">8</option>
+				<option value="9">9</option>				
+			</select>			
+			<script>
+				$("form[name=modifyForm2] select[name='order_priority']").heapbox({
+					'width' : '200px', 
+					'zindex' : 2,
+					'onChange': function(value){
+										if(!value) return;
+										orderPriority(value);
+									}
+				});
+			</script>
+		</div>		
+		</form>
+	</div>
+	<div class="listSelectRB"></div>
+	<div class="listLineB"></div>
+	<div class="paging">{{PAGING}}</div>
+
+</div>
+
+<form name="saveForm" method="post" action="goods_post.php" target='HFrm'>
+<input type="hidden" name="mode" value="modOne" />
+<input type="hidden" name="uid" />
+<input type="hidden" name="price" />
+<input type="hidden" name="orig_price" />
+<input type="hidden" name="commission_type" />
+<input type="hidden" name="commission" />
+<input type="hidden" name="consumer_price" />
+<input type="hidden" name="qty_option" />
+<input type="hidden" name="qty_type" />
+<input type="hidden" name="qty" />
+</form>
+
+<script src="../../lib/jquery.timeliny.js?ver={{ver}}"></script>
+<script>
+<!--	
+	
+	var defaultUrl		= "{{PHP_SELF}}?{{searchstring}}";
+	var defaultSort		= "{{sort}}";
+	var defaultLimit	= "{{limit}}";
+	var defaultPage		= "{{page}}";
+	var pagingType		= '{{PAGING_TYPE}}';	
+	var lastPage		= '{{total_page}}';
+	var defaultTotal	= '{{TOTAL}}';
+
+// -->
+</script>
+<script src="../common/listProc.js?ver={{ver}}"></script>
+<script>
+<!--
+	
+	function orderPriority(vls) {
+		if(!vls) return;
+		var ret = listFormCheck();
+		if(!ret) {			
+			$("form[name=modifyForm1] select[name='order_priority']").val('').heapbox('update');
+			$("form[name=modifyForm2] select[name='order_priority']").val('').heapbox('update');
+			return;
+		}
+
+		$("form[name=listForm] input[name='mode']").val('order_priority');
+		$("form[name=listForm] input[name='value']").val(vls);
+		$("form[name=listForm]").submit();	
+	}
+
+	function timelinyResetCallBackSub() {
+
+		$('.only_num_jum').unbind('keypress').bind('keypress',function(event) {
+			if(event.which && (event.which < 46 || event.which > 57) ) {
+				event.preventDefault();
+			}		
+		}).unbind('keyup').bind('keyup',function(e) {
+			if( $(this).val() != null && $(this).val() != '' ) {
+				$(this).val( $(this).val().replace(/[^0-9.]/g, '') );
+			}
+		});
+
+		$('.only_num_format').unbind('keyup').bind('keyup',function(e) {
+			var position = $(this).caret();
+			var length	 = $(this).val().length;
+			if(jQuery.trim($(this).val()) != null && jQuery.trim($(this).val()) != '' ) {
+				$(this).val($(this).val().replace(/[^0-9]/g, '').replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,'));
+				if(length!=$(this).val().length) $(this).caret(position+1);
+				else $(this).caret(position);
+			}		
+		});
+
+		$('.price').unbind('blur').bind('blur',function(e) {
+			var uid = $(this).attr('data-uid');
+			var vendor = $('form[name=listForm] input[name=vendor_'+uid+']').val();
+			
+			$(this).val(priceLimit($(this).val()));		
+			
+			if(vendor) vendorPrice(uid);
+			else hqPrice(uid);
+		});
+
+		$('.orig_price').unbind('blur').bind('blur',function(e) {
+			var uid = $(this).attr('data-uid');
+			var vendor = $('form[name=listForm] input[name=vendor_'+uid+']').val();
+			
+			$(this).val(priceLimit($(this).val()));		
+			
+			if(vendor) vendorPrice(uid, $(this).val());
+			else hqPrice(uid);
+		});
+
+		$('.commission').unbind('blur').bind('blur',function(e) {
+			if(!$(this).val()) $(this).val('0');
+			$(this).val( parseFloat($(this).val()).toFixed(2) );
+
+			var uid = $(this).attr('data-uid');
+			var vendor = $('form[name=listForm] input[name=vendor_'+uid+']').val();
+			
+			if(vendor) vendorPrice(uid);
+			else hqPrice(uid);
+		});
+
+		$('.commi_individual').unbind('click').bind('click',function(e) {
+			var uid = $(this).attr('data-uid');
+			$("form[name=listForm] input[name='commission_"+uid+"']").attr('readonly',false).removeClass('darks');
+			$("form[name=listForm] input[name='commission_type_"+uid+"']").val(1);
+			$('#commi_individual_'+uid).hide();
+			$('#commi_public_'+uid).show();
+		});
+
+		$('.commi_public').unbind('click').bind('click',function(e) {
+			var uid		= $(this).attr('data-uid');
+			var vendor	= $(this).attr('data-vendor');
+			$("form[name=listForm] input[name='commission_"+uid+"']").val(vendorCommi[vendor]).attr('readonly',true).addClass('darks');
+			$("form[name=listForm] input[name='commission_type_"+uid+"']").val(0);
+			$('#commi_public_'+uid).hide();
+			$('#commi_individual_'+uid).show();
+			if(vendor) vendorPrice(uid);
+		});
+		
+		$('.qty_type').unbind('click').bind('click',function(e) {
+			var uid		= $(this).attr('data-uid');
+			qtyClick(uid);
+		});
+
+		$('.btnSave').unbind('click').bind('click',function(e) {
+			var uid		= $(this).attr('data-uid');
+			if(!uid) return;
+			var fieldArr = new Array('price','orig_price','commission_type','commission','consumer_price','qty_type','qty');
+
+			$('form[name=saveForm] input[name=uid]').val(uid);		
+			for(i=0, cnt=fieldArr.length; i<cnt; i++) {
+				$('form[name=saveForm] input[name='+fieldArr[i]+']').val($('form[name=listForm] input[name='+fieldArr[i]+'_'+uid+']').val());
+			}
+			$('form[name=saveForm]').submit();
+		});
+
+		$('.btns2').unbind('click').bind('click',function(e) {
+			$("form[name=searchForm] input[name='s_date']").val($(this).attr('data-s_date'));
+			$("form[name=searchForm] input[name='e_date']").val($(this).attr('data-e_date'));			
+			return;
+		});		
+	}
+
+	$(function() {
+		
+		$('.listSelectRB').html($('.listSelectR').html());
+
+		$('.secSave').click(function(e){
+			var ret = listFormCheck();
+			if(!ret) return false;
+
+			$("form[name=listForm] input[name='mode']").val('modAll');
+			$("form[name=listForm]").submit();			
+		});
+
+		$('.allSave').click(function(e){
+			$("form[name=listForm]").find("input:checkbox").each(function(i) {
+				$t = jQuery(this);
+				$t.prop("checked",true);				
+			});
+			$("form[name=listForm] input[name='mode']").val('modAll');
+			$("form[name=listForm]").submit();			
+		});
+
+		$('.optionView').click(function(e){
+			iframeWidth = '1058px';
+			iframeHeight = '.9';			
+			iframeView("popup_goods_option.php?uid="+$(this).attr('data-uid'), "["+$(this).attr('gname')+"] 옵션 설정");			
+		});		
+
+		$('.btnmileage').click(function(e){
+			iframeWidth = '1058px';
+			iframeHeight = '.6';	
+			iframeView("./popup_goods_batch.php?mode=mileage{{addstring}}", "마일리지 변경");
+		});
+		
+		$('.btnDelivery').click(function(e){
+			iframeWidth = '1058px';
+			iframeHeight = '.6';	
+			iframeView("./popup_goods_batch.php?mode=delivery{{addstring}}", "배송비 변경");
+		});
+
+		$('.btnName').click(function(e){
+			iframeWidth = '1058px';
+			iframeHeight = '.7';	
+			iframeView("./popup_goods_batch.php?mode=name{{addstring}}", "상품명 변경");	
+		});
+
+		$('.btnPrice').click(function(e){
+			iframeWidth = '1058px';
+			iframeHeight = '.6';	
+			iframeView("./popup_goods_batch.php?mode=price{{addstring}}", "가격 변경");	
+		});
+
+		$('.btnImage').click(function(e){
+			iframeWidth = '1058px';
+			iframeHeight = '.7';	
+			iframeView("./popup_goods_batch.php?mode=image{{addstring}}", "이미지 사이즈 변경");
+		});
+
+		timelinyResetCallBackSub();
+
+		<!-- DYNAMIC @is_search_open@ -->
+		$('.expensionArrow').trigger('click');
+		
+		if(cate_select[1]) cateChange(cate_select[1], 1);
+		<!-- DYNAMIC @is_search_open@ -->	
+
+	});
+	
+	var cate_select = new Array('','{{cate1}}','{{cate2}}','{{cate3}}','{{cate4}}');	
+	checkAllRe();
+
+//-->
+</script>

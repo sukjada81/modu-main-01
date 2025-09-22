@@ -1,0 +1,247 @@
+<style>
+body { min-width:930px; background-color:#fff; }
+#contentBox { min-width:930px; min-height:400px; top:20px; background-color:#fff; border:0; box-shadow: none; -webkit-box-shadow: none; }
+#contentBox .content { min-width:900px; margin:20px; clear:both; }
+</style>
+
+<form name='crmForm' method='post' action='vendor_post.php' enctype="multipart/form-data" target='HFrm'>
+<input type="hidden" name="id" value="{{id}}" />
+<input type="hidden" name="mode" value="memo" />
+
+<div id="rightBoxHold" style="top:90px">
+	<ul></ul>
+</div>
+
+<div class="content">
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;판매자 기본 정보
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="20%" /> 
+	<col width="30%" />
+	<col width="20%" /> 
+	<col width="30%" />	
+	</colgroup>
+	<tr> 
+		<td>업체명</td>
+		<td>{{comp_name}}</td>		
+		<td>아이디</td>
+		<td>{{id}}</td>
+	</tr>	
+	<tr> 
+		<td>승인상태</td>
+		<td>{{auth}}</td>		
+		<td>판매상태</td>
+		<td>{{sell}}</td>		
+	</tr>
+	<tr> 
+		<td>상품승인</td>
+		<td>{{goods_auth}}</td>		
+		<td>배송주체</td>
+		<td>{{delivery_type}}</td>		
+	</tr>
+	<tr> 
+		<td>판매수수료율</td>
+		<td class="number">{{commission}}%</td>		
+		<td>정산주기</td>
+		<td>{{account_cycle}}</td>		
+	</tr>	
+	<tr> 
+		<td>정산계좌정보</td>
+		<td colspan="3">{{bank_name}} {{bank_num}} {{bank_owner}}</td>		
+	</tr>
+	<tr> 
+		<td>사업자등록증사본</td>
+		<td>{{image1}}</td>		
+		<td>통장사본</td>
+		<td>{{image2}}</td>		
+	</tr>	
+	<tr> 
+		<td>최종로그인일시</td>
+		<td class="number">{{login_time}}</td>		
+		<td>가입일시</td>
+		<td class="number">{{signdate}}</td>		
+	</tr>
+	</table>
+
+	
+	<div class="empty40" ></div>
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;업체 정보 및 담당자 정보
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="20%" /> 
+	<col width="30%" />
+	<col width="20%" /> 
+	<col width="30%" />	
+	</colgroup>
+	<tr> 
+		<td>사업자번호</td>
+		<td class="number">{{comp_license_no}}</td>
+		<td>대표자명</td>
+		<td>{{comp_owner}}</td>
+	</tr>	
+	<tr> 
+		<td>업태</td>
+		<td>{{comp_type}}</td>		
+		<td>종목</td>
+		<td>{{comp_item}}</td>		
+	</tr>
+	<tr> 
+		<td>사업장주소</td>
+		<td colspan="3"><span class="gray">{{comp_zipcode}}</span> {{comp_address1}} {{comp_address2}}</td>		
+	</tr>
+	<tr> 
+		<td>대표전화</td>
+		<td class="number">{{comp_tel}}</td>
+		<td>대표팩스</td>
+		<td class="number">{{comp_fax}}</td>
+	</tr>
+	<tr> 
+		<td>담당자명</td>
+		<td>{{cont_name}}</td>
+		<td>담당자 번호</td>
+		<td class="number">{{cont_cell}}</td>
+	</tr>
+	<tr> 
+		<td>담당자 이메일</td>
+		<td colspan="3">{{cont_email}}</td>
+	</tr>
+	<tr> 
+		<td>담당자 부서</td>
+		<td>{{cont_part}}</td>
+		<td>담당자 직위</td>
+		<td>{{cont_position}}</td>
+	</tr>
+	</table>
+
+	<div class="empty40"></div>
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;판매정보
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="20%" /> 
+	<col width="30%" />
+	<col width="20%" /> 
+	<col width="30%" />	
+	</colgroup>
+	<tr> 
+		<td>총상품수 <i class="xi-external-link"></i></td>
+		<td colspan="3" class="number"><a href="../vendor/vendor_goods_list.php?vendor={{id}}" target="_blank" class="underLine">{{goods_cnt}}</a></td>				
+	</tr>
+	<tr> 
+		<td>승인 상품수 <i class="xi-external-link"></i></td>
+		<td class="number"><a href="../vendor/vendor_goods_list.php?vendor={{id}}&auth_ck=Y" target="_blank" class="underLine">{{goods_cnt1}}</a></td>		
+		<td>미승인 상품수 <i class="xi-external-link"></i></td>
+		<td class="number"><a href="../vendor/vendor_goods_list.php?vendor={{id}}&auth_ck=N" target="_blank" class="underLine">{{goods_cnt2}}</a></td>		
+	</tr>
+	<tr> 
+		<td>총주문건수 <i class="xi-external-link"></i></td>
+		<td class="number"><a href="../order/order_status_list.php?status=&vendor={{id}}" target="_blank" class="underLine">{{order_cnt}}</a></td>		
+		<td>마지막주문일</td>
+		<td class="number">{{last_order_date}}</td>
+	</tr>
+	<tr> 
+		<td>총매출금액 <i class="xi-external-link"></i></td>
+		<td colspan="3" class="number"><a href="../vendor/calculate_statistics.php?mode=year&vendor={{id}}" target="_blank" class="underLine">{{order_price}}</a></td>				
+	</tr>
+	<tr> 
+		<td>정산금액  <i class="xi-external-link"></i></td>
+		<td class="number"><a href="../vendor/calculate_list.php?vendor={{id}}" target="_blank" class="underLine">{{calculate_price2}}</a></td>		
+		<td>미정산금액</td>
+		<td class="number">{{calculate_price1}}</td>		
+	</tr>
+	</table>
+
+	<div class="empty40"></div>
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;게시물 & 메모
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="20%" /> 
+	<col width="30%" />
+	<col width="20%" /> 
+	<col width="30%" />	
+	</colgroup>
+	<tr> 
+		<td>구매후기 <i class="xi-external-link"></i></td>
+		<td class="number"><a href="../etcs/review_list.php?vendor={{id}}" target="_blank" class="underLine">{{review}}</a></td>		
+		<td>상품문의 <i class="xi-external-link"></i></td>
+		<td class="number"><a href="../etcs/inquiry_list.php?vendor={{id}}" target="_blank" class="underLine">{{inquiry}}</a></td>		
+	</tr>	
+	<tr> 
+		<td>판매사 1:1 문의 <i class="xi-external-link"></i></td>
+		<td colspan="3" class="number"><a href="../board/board.php?b_id=vcounsel&field=I&keyword={{id}}" target="_blank" class="underLine">{{counsel}}</a></td>					
+	</tr>
+	<tr> 
+		<td>메모</td>
+		<td colspan="3">
+			<textarea name="memo" style="height:60px;">{{memo}}</textarea>
+			<div style="padding-top:10px;"><button class="btns" type="button" id="memo"><span class="text"><i class="xi-check-circle xi-x"></i> 메모저장</span></button></div>
+		</td>
+	</tr>	
+	</table>
+
+	<div class="empty40"></div>	
+
+</div>
+
+</form>
+
+<iframe name="HFrm" style="display:none"></iframe>
+
+<script>
+<!--
+	
+	$('#memo').click(function(e) {		
+		$("form[name=crmForm]").submit();			
+	});
+
+	$('.content').find('.contentTitle').each(function(i) {
+		var $t = jQuery(this);		
+		var position = $t.position();
+		var title = $t.text(); 
+
+		contentPosition[i] = position.top + 10;
+
+		$("#rightBoxHold > ul").append('<li id="contentTitle'+i+'" class="subTooltip" title="'+title+'"><i class="fas fa-dice-' + contentIcon[i] + '"></i></li>');
+
+		$('#contentTitle' + i).click(function(e){		
+			$("html, body").animate({ scrollTop: contentPosition[i] }, 100);
+		});
+
+	});	
+
+	$('.subTooltip').hover(function(e){
+		var title = $(this).attr('title');
+		$(this).addClass("hover");		
+		$(this).data('tipText', title).removeAttr('title');
+		if(typeof($(this).find('p')[0])=='undefined') $(this).append('<p>' + title + '</p>');
+		$(this).find('p').css({opacity:0.1, display:"block"}).stop().animate({width:'show', opacity:1.0}, 'fast');			
+	}, 
+	function() {
+		$(this).removeClass("hover");	
+		$(this).attr('title', $(this).data('tipText'));
+		$(this).find('p').stop().animate({width:'hide', opacity:0.1}, 'fast');		
+		ckScrollContent();	
+	});
+
+
+	$(window).scroll(function () {
+		ckScrollContent();		
+	});
+	
+
+//-->
+</script>

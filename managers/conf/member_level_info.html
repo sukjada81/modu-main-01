@@ -1,0 +1,206 @@
+<div class="content">
+	
+	<div class="contentTitle">
+		<i class="xi-paper xi-x"></i>&nbsp;&nbsp;회원 등급 설정
+	</div>
+
+	<form name='memberLevelForm' method='post' action='conf_post.php?mode=member_level' onkeydown="if(event.keyCode==13) return false;" target='HFrm'>	
+	<input type="hidden" name="mode2" value="add" />
+
+	<table>
+	<col width="10%" /> 
+	<col width="20%" />
+	<col width="10%" />
+	<col width="10%" />
+	<col width="10%" /> 
+	<col width="10%" />	
+	<col width="10%" /> 
+	<col width="10%" />	
+	<col width="10%" />
+	<tr> 
+		<td>등급명</td>
+		<td><div style="position:relative"><input type='text' name='name' required="required" data-msg="등급명을" /></div></td>
+		<td>제공할인률</td>
+		<td><input type='text' name='discount' value="0" style="width:65%; font-size:15px" class="only_num" />%</td>
+		<td>추가적립률</td>
+		<td><input type='text' name='mileage' value="0" style="width:65%; font-size:15px" class="only_num" data-on-enter="1" />%</td>		
+		<td>배송비무료</td>
+		<td align="center"><label><input type='checkbox' name="delivery_free" value="1" /><span></span></label></td>
+		<td align="center"><button class="btnsOrange" style="width:100px;" type="submit"><span class="text"><i class="xi-plus-circle"></i> 추가하기</span></button></td>
+	</tr>
+	</table>
+
+	</form>
+
+	<form name='memberLevelForm3' onsubmit="return false;">
+
+	<div class="empty30" ></div>
+
+	<table class="listIn fixed-header" id="memberLevel">
+	<col width="10%" /> 
+	<col width="25%" />
+	<col width="15%" />
+	<col width="15%" />
+	<col width="10%" />
+	<col width="15%" />
+	<col width="10%" />
+	<thead> 
+	<tr> 
+		<th data-sortas="numeric">레벨</th>
+		<th>등급명</th>
+		<th>제공할인률(%)</th>
+		<th>추가적립률(%)</th>
+		<th >배송비무료</th>
+		<th>회원수(명)</th>
+		<th data-sortas="no">처리</th>
+	</tr>
+	</thead>
+	<tbody>
+	<!-- DYNAMIC @loop_level@ -->
+	<tr id="level_{{uid}}">
+		<td class="number">{{level}}</td>
+		<td><div style="position:relative"><input type="text" name="name_{{uid}}" value="{{name}}" required="required" data-msg="등급명을" /></div></td>
+		<td><input type="text" style="width:65%; font-size:15px" class="only_num" name="discount_{{uid}}" value="{{discount}}" /></td>
+		<td><input type="text" style="width:65%; font-size:15px" class="only_num" name="mileage_{{uid}}" value="{{mileage}}" /></td>
+		<td><label><input type="checkbox" name="delivery_free_{{uid}}" value="1" {{checked}} /><span></span></label></td>
+		<td class="number">{{member}}</td>
+		<td>
+			<span id="levelIcon1_{{uid}}"><i class="fas fa-edit masterTooltip levelModify" title="수정하기" data-uid="{{uid}}"></i>
+			<!-- DYNAMIC @is_del_icon@ -->
+			&nbsp;&nbsp;&nbsp;<i class="xi-close masterTooltip levelDel" title="삭제하기" data-uid="{{uid}}"></i>
+			<!-- DYNAMIC @is_del_icon@ -->
+			</span>
+		</td>
+	</tr>
+	<!-- DYNAMIC @loop_level@ -->	
+	</tbody>
+	</table>
+
+	</form>
+
+	<form name='memberLevelForm2' method='post' action='conf_post.php?mode=member_level' target='HFrm'>	
+	<input type="hidden" name="mode2" value="" />
+	<input type="hidden" name="uid" value="" />
+	<input type="hidden" name="name" value="" />
+	<input type="hidden" name="discount" value="" />
+	<input type="hidden" name="mileage" value="" />
+	<input type="hidden" name="delivery_free" value="" />
+	</form>
+
+</div>
+
+<script src="../../lib/fancyTable.js"></script>
+<script>
+<!--
+	var fancyTableObj = null;
+	var fancyElm = null;
+
+	$("#memberLevel").fancyTable({
+		sortColumn:0, // column number for initial sorting
+		sortable: true,
+		pagination: true, // default: false
+		perPage: 100,
+		searchable: false,
+		globalSearch: false
+	});
+
+	function memberLevelInsert(uid, level) {
+		if(!uid || !level) return;
+
+		if($('form[name=memberLevelForm] input[name=delivery_free]:checked').val()==1) delivery_free = "checked='checked'";
+		else delivery_free = "";
+		
+		var insertCode = '	<tr id="level_'+uid+'">';
+		insertCode += '			<td class="number">'+level+'</td>';
+		insertCode += '			<td><input type="text" name="name_'+uid+'" value="'+$('form[name=memberLevelForm] input[name=name]').val()+'" ttls="등급명을" required="required" iconPos="10px,5%" /></td>';
+		insertCode += '			<td><input type="text" style="width:65%; font-size:15px" class="only_num" name="discount_'+uid+'" value="'+$('form[name=memberLevelForm] input[name=discount]').val()+'" /></td>';
+		insertCode += '			<td><input type="text" style="width:65%; font-size:15px" class="only_num" name="mileage_'+uid+'" value="'+$('form[name=memberLevelForm] input[name=mileage]').val()+'" /></td>';
+		insertCode += '			<td><label><input type="checkbox" name="delivery_free_'+uid+'" value="1" '+delivery_free+' /><span></span></label></td>';
+		insertCode += '			<td class="number">0</td>';
+		insertCode += '			<td><span><i class="fas fa-edit masterTooltip levelModify" title="수정하기" uid="'+uid+'"></i>&nbsp;&nbsp;&nbsp;<i class="xi-close masterTooltip levelDel" title="삭제하기" data-uid="'+uid+'"></i></span></td>';
+		insertCode += '		</tr>';
+
+		$("#memberLevel tbody").append(insertCode);
+
+		$('form[name=memberLevelForm] input[name=name]').val('');
+		$('form[name=memberLevelForm] input[name=discount]').val('0');
+		$('form[name=memberLevelForm] input[name=mileage]').val('0');		
+		$('form[name=memberLevelForm] input[name=delivery_free]').attr("checked", false);
+		$('form[name=memberLevelForm] input[name=name]').focus();
+
+		$('#level_'+uid).find("input:text").each(function(i) {
+			$t = jQuery(this);
+			if($t.prop("required")) {
+				if($t.attr("iconPos")) $t.parent('td, div').append('<p class="requireIcon" style="top:' + $t.attr("iconPos").split(",")[0] + '; right:' + $t.attr("iconPos").split(",")[1] + ';"><i class="fas fa-pen-square masterTooltip" title="필수 입력사항 입니다."></i></p>');		
+				else $t.parent('td, idv').append('<p class="requireIcon"><i class="fas fa-pen-square masterTooltip" title="필수 입력사항 입니다."></i></p>');		
+			}			
+		});			
+		
+		fancyTableObj.tableSort(fancyElm);
+		fancyTableObj.tableUpdate(fancyElm);	
+	}
+
+	function memberLevelReset() {
+		resetTooltip();
+		defInit();	
+	}
+
+	function defInit() {
+		$('.levelDel').unbind('click').bind('click',function(e) {
+	
+			var f = document.memberLevelForm2;
+			var uid = $(this).attr("data-uid");
+			
+			$(this).parent('span').parent('td').parent('tr').remove();
+
+			f.mode2.value = "del";
+			f.uid.value = uid;
+			f.submit();
+		});
+
+		$('.levelModify').unbind('click').bind('click',function(e) {
+	
+			var f = document.memberLevelForm2;
+			var uid = $(this).attr("data-uid");
+			
+			f.mode2.value = "mod";
+			f.uid.value = uid;
+
+			
+			$t =  $('form[name=memberLevelForm3] input[name=name_'+uid+']');
+			if(!jQuery.trim($t.val())) {
+				displayMessage($t);
+				return false;
+			}
+
+			f.name.value = $('form[name=memberLevelForm3] input[name=name_'+uid+']').val();
+			if(!jQuery.trim($('form[name=memberLevelForm3] input[name=discount_'+uid+']').val())) $('form[name=memberLevelForm3] input[name=discount_'+uid+']').val('0');
+			f.discount.value = $('form[name=memberLevelForm3] input[name=discount_'+uid+']').val();
+			if(!jQuery.trim($('form[name=memberLevelForm3] input[name=mileage_'+uid+']').val())) $('form[name=memberLevelForm3] input[name=mileage_'+uid+']').val('0');
+			f.mileage.value = $('form[name=memberLevelForm3] input[name=mileage_'+uid+']').val();
+			if(typeof($('form[name=memberLevelForm3] input[name=delivery_free_'+uid+']:checked').val())!='undefined') f.delivery_free.value = 1;
+			else f.delivery_free.value = 0;
+
+			$(this).css({"color":"#333"});
+			
+			f.submit();
+		});
+
+		$("form[name=memberLevelForm3]").find("input").each(function(i) {
+			var $t = jQuery(this);			
+			$t.change(function(){
+				if($(this).attr("type")=='checkbox') $o = $(this).parent('label').parent('td').parent('tr').children("td:last-child").find('.levelModify');
+				else $o = $(this).parent('td').parent('tr').children("td:last-child").find('.levelModify');
+				$o.css({"color":"#ff6600"});
+			});
+		});
+	}
+	
+	$(function() {	
+
+		
+		
+	});
+
+//-->
+</script>

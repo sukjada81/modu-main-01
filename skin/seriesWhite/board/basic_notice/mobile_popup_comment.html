@@ -1,0 +1,71 @@
+<link href="../lib/summernote-lite.css?ver={{ver}}" rel="stylesheet">
+<script src="../lib/summernote-lite.js?ver={{ver}}"></script>
+<script src="../lib/summernote-ko-KR.js"></script>
+
+<div id="popup_contents">
+	
+	<form name='writeForm' method='post' action='board_post.php?{{addstring}}' enctype="multipart/form-data" target='HFrm'>
+	<input type="hidden" name="mypages" value="{{mypages}}" />
+	<input type="hidden" name="b_id" value="{{b_id}}" />
+	<input type="hidden" name="b_uid" value="{{uid}}" />		
+	<input type="hidden" name="b_mode" value="{{mode}}" />
+	<input type="hidden" name="c_uid" value="{{c_uid}}" />
+	<input type="hidden" name="ck_w1" value="{{ck_w1}}" />
+	<input type="hidden" name="ck_w2" value="{{ck_w2}}" />		
+	<div class="loginBox loginBoxWide">	
+		<div class="inputBox">
+			<ul>	
+				<!-- DYNAMIC @is_guest@ -->
+				<li>
+					<input type="text" name="" value="{{name}}" required="required" data-title="이름" data-msg="이름을" data-toname="name" />
+				</li>
+				<li>
+					<input type='password' name='passwd' required="required" data-title="비밀번호" data-msg="비밀번호를" />
+				</li>
+				<!-- DYNAMIC @is_guest@ -->
+				<li style="text-align:left">
+					<XMP class="sn_content" style="display:none">{{content}}</XMP>
+					<input type="hidden" name="content" value= ""  required="required" data-notefor=".sn_content" />
+				</li>
+			</ul>	
+			
+			<div class="btnShineBox" style="background:#fff;">
+				<div class="displayInline width100"><button class="fontSCDream weight300 shine black" type="submit">댓글 등록</button></div>		
+			</div>
+		</div>				
+	</div>
+	
+	</form>
+
+</div>	
+
+</body>
+</html>
+
+<iframe name="HFrm" style="display:none;"></iframe>
+
+<script>
+<!--
+	
+	$(function() {
+		
+		$('.sn_content').summernote({						
+			'lang' : 'ko-KR',
+			'height' : '200px',
+			'placeholder' : '내용을 입력해 주세요.',		
+			'dialogsFade' : true,
+			toolbar: [
+				['style', ['style']],
+				['font', ['bold', 'underline', 'clear']],
+				['fontsize', ['fontsize']],
+			]				
+		});	
+
+		$('#summernote').summernote({
+		  
+		});
+
+	});
+
+//-->
+</script>

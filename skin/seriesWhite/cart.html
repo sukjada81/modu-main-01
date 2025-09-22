@@ -1,0 +1,177 @@
+<div id="contents">	
+	<h2 class="contentTitle">장바구니</h2>
+	
+	<div class="empty10"></div>
+	
+	<form name="cartForm" action="" data-submit-proc="cartPost">
+	<div>
+		<div class="orderContent">			
+			<div class="cartList">			
+				<div class="listTopTitle">
+					전체 <b class="total_cnt">{{TOTAL}}</b>
+				</div>
+				<div class="listTopSelect">
+					<label><input type='checkbox' name="select_all" value="1" /><span></span>전체선택</label>
+					<span class="bar">|</span> <b class="cursorPoint btnSecDelete underLine">선택삭제</b>
+					<span class="bar">|</span> <b class="cursorPoint btnAllDelete underLine">전체삭제</b>
+				</div>
+				<div class="empty30"></div>
+				<div class="cartListIn">
+					<!-- DYNAMIC @loop_cart@ -->
+					<div class="cartVendorList cartVendorList_{{VENDOR}}" data-vendor='{{VENDOR}}' data-delivery-type="{{DELIVERY_TYPE}}" data-delivery-price1='{{DELIVERY_PRICE1}}' data-delivery-price2='{{DELIVERY_PRICE2}}'>						
+						<div class="listInfo">
+							<label><input type='checkbox' name="select_{{VENDOR}}" value="1" class="selectAll" {{VENDOR_CHECKED}} /><span></span></label> <b class="store cursorPoint">{{VENDOR_NAME}}</b>
+							<span class="delivery">배송비 : {{DELIVERY_MESSAGE}} {{DELIVERY_ADD_MESSAGE}}</span>
+						</div>
+						<!-- DYNAMIC @loop_cart_goods@ -->
+						<div class="listItem listItem{{UID}}" data-uid="{{UID}}" data-guid="{{G_UID}}" data-delivery-type="{{G_DELIVERY_TYPE}}" data-delivery-type-qty="{{G_DELIVERY_TYPE_QTY}}" data-delivery-price="{{G_DELIVERY_PRICE}}" data-mileage="{{MILEAGE}}" data-price="{{PRICE}}" data-orig-price="{{ORIG_PRICE}}" data-mileage="{{MILEAGE}}" data-option-use="{{OPTION_USE}}">
+							<div class="floatLeft"><label><input type='checkbox' name="item[]" value="{{UID}}" class="selectAll select_{{VENDOR}}" {{CHECKED}} {{DISABLED}} /><span></span></label></div>
+							<div class="listItemImg"><a href="{{G_LINK}}"><img src="{{G_IMAGE}}" alt="{{G_NAME}}" width="100" /></a></div>
+							<div class="listItemDetail">
+								<div><a href="{{G_LINK}}">{{G_NAME}}</a></div>
+								<!-- DYNAMIC @is_option@ -->
+								<div><b class="option_name">{{G_OPTION}}</b><button class="shineButtonSmall btnOption" style="margin-left:10px;" type="button">옵션변경</button></div>	
+								<!-- DYNAMIC @is_option@ -->
+								<div>배송비 : {{DELIVERY}}
+									<!-- DYNAMIC @is_delivery_add@ -->
+									<div class="empty10"></div>추가배송비 : {{DELIVERY_ADD}}
+									<!-- DYNAMIC @is_delivery_add@ -->							
+								</div>	
+								
+							</div>
+							<div class="listItemQty">
+								<div class="item_minus"><i class="xi-minus-thin xi-x"></i></div>
+								<div class="item_input"><input type="text" name="qty_{{UID}}" value="{{QTY}}" class="qty_ only_num" /></div>
+								<div class="item_plus"><i class="xi-plus-thin xi-x"></i></div>
+								<div class="empty30"></div>
+								<p class="btn btnFavGoods" style="margin-right:10px;" data-guid="{{G_UID}}"><i class="xi-heart-o xi-x {{WISH_SELECT}} wish_{{G_UID}}"></i></p>
+								<button class="shineButtonSmallBlack btnDirectOrder" type="button">바로구매</button>	
+								<!-- DYNAMIC @is_soldout@ -->
+								<script>$(".listItem{{UID}}").find(".listItemQty").html("품절된 상품 입니다.");</script>
+								<!-- DYNAMIC @is_soldout@ -->
+							</div>
+							<div class="listItemX">
+								<i class="xi-close-thin xi-x"></i>
+							</div>
+							<div class="listItemPrice">
+								<div><span class='total_price'>{{SUM_PRICE}}</span>원</div>
+								<!-- DYNAMIC @is_orig_price@ -->
+								<div><s><span class='total_orig_price'>{{SUM_ORIG_PRICE}}</span>원</s></div>
+								<!-- DYNAMIC @is_orig_price@ -->
+								<!-- DYNAMIC @is_coupon@ -->	
+								<div class="couponIconS">C</div>
+								<!-- DYNAMIC @is_coupon@ -->
+								<!-- DYNAMIC @is_discount@ -->	
+								<div class="discountIconS">{{DISCOUNT}}%&nbsp;<i class="xi-arrow-down"></i></div>
+								<!-- DYNAMIC @is_discount@ -->
+								<!-- DYNAMIC @is_mileage@ -->
+								<div class="empty1"></div>
+								<p class="fontMontserrat mileage_price" style="padding-top:5px;">{{MILEAGES}}P</p>
+								<!-- DYNAMIC @is_mileage@ -->
+							</div>
+							<div class="empty10"></div>
+						</div>			
+						<!-- DYNAMIC @loop_cart_goods@ -->
+						<div class="listSum listSum_{{VENDOR}}">
+							<div>상품금액 <span><b class="listItemPrices">0</b>원</span></div>
+							<div><i class="xi-minus-thin xi-x"></i></div>
+							<div>할인금액 <span><b class="listItemDiscount">0</b>원</span></div>
+							<div><i class="xi-plus-thin xi-x"></i></div>
+							<div>배송비 <span><b class="listItemDelivery">0</b>원</span></div>
+							<div><i class="xi-drag-handle xi-x"></i></div>
+							<div>주문금액 <span><b class="listItemTotal">0</b>원</span></div>			
+						</div>
+						<div class="empty30"></div>
+					</div>
+					<!-- DYNAMIC @loop_cart@ -->
+				</div>
+				<div class="empty30"></div>
+			</div>
+		</div>
+
+		<div class="cartSum">
+			<div class="priceInfo">
+				<div>상품수 <span><b class="itemCnt">0</b>개</span></div>
+				<div>상품금액 <span><b class="itemPrice">0</b>원</span></div>
+				<div>할인금액 <span> - <b class="itemDiscount">0</b>원</span></div>
+				<div>배송비 <span> + <b class="itemDelivery">0</b>원</span></div>
+			</div>
+			<div class="priceTotal">
+				전체주문금액 <span><b class="itemSum">0</b>원</span>
+			</div>
+			<div class="mileageTotal">적립혜택 <span><b class="itemMileage">0</b>P</span></div>
+			<div class="empty10"></div>
+			<div>
+				<button class="shineButtonBlack" style="width:100%" type="submit">주문하기</button>	
+			</div>
+
+			<!-- DYNAMIC @is_naver_pay@ -->			
+			<div class="empty20"></div>
+			<div>
+				<script src="//pay.naver.com/customer/js/naverPayButton.js"></script>
+				<script>//<![CDATA[
+					naver.NaverPayButton.apply({
+					BUTTON_KEY:"{{naver_pay_key2}}", //네이버 페이에서 할당받은 버튼 KEY 를 입력하세요.
+					TYPE: "C", // 템플릿을 확인하시고 원하는 타입의 버튼을 선택
+					COLOR: 1, // 버튼의 색 설정
+					COUNT: 1, // 버튼 개수 설정. 구매하기 버튼(장바구니 페이지)만 있으면 1, 찜하기 버튼(상품 상세 페이지)과 함께 있으면 2 를 입력한다.
+					ENABLE: "{{naver_enable}}", // 품절등과 같은 이유에 따라 버튼을 비활성화할 필요가 있을 경우
+					BUY_BUTTON_HANDLER: cart_nc, // 구매하기 버튼 이벤트 Handler 함수 등록, 품절인 경우 not_buy_nc 함수 사용
+					"":""
+					});
+				//]]></script>
+			</div>
+			<!-- DYNAMIC @is_naver_pay@ -->
+		</div>
+	</div>
+	
+	<div class="empty1"></div>
+	<div class="emptyList fontSCDream weight300 displayNone">
+		<i class="xi-cart-o xi-5x colorLgray"></i><br /><br />
+		장바구니에 담긴 상품이 없습니다.
+	</div>	
+	</form>
+
+	<div class="empty50"></div>
+	
+</div>	
+
+<script>
+<!--
+	var sumPositionTop	= $(".cartSum").offset().top - 60;
+	var sumPositionLeft	= $('.cartSum').position().left;
+
+	var isLogin				= 1;
+	<!-- DYNAMIC @is_login@ -->
+	isLogin					= 0;
+	<!-- DYNAMIC @is_login@ -->
+
+	<!-- DYNAMIC @empty_list@ -->
+	$(".listTopSelect").hide();
+	$(".cartSum").hide();
+	$(".emptyList").show();
+	<!-- DYNAMIC @empty_list@ -->
+
+	<!-- DYNAMIC @loop_chnage_qty@ -->
+	alertify.error('{{msg}}');
+	<!-- DYNAMIC @loop_chnage_qty@ -->	
+
+	$(function() {
+
+		$(".wishSelect").addClass("colorOrange");		
+
+	});
+
+	$(window).resize(function(){ 
+		
+		if($('.cartSum').css("position") == "fixed") {
+			left = parseInt($('#contents').css('margin-left')) + sumPositionLeft;
+			$('.cartSum').css("left", left);
+		}
+		
+	});
+
+// -->
+</script>
+
+<script src="{{skin}}/js/cartProc.js?ver={{ver}}"></script>

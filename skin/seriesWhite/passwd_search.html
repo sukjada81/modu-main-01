@@ -1,0 +1,159 @@
+<div id="contents">		
+	<h2 class="contentTitle">비밀번호 찾기</h2>
+
+	<form name='loginForm' method='post' action='' target='HFrm' data-submit-proc='submitProc'>
+	<input type="hidden" name="step" value="1" />
+	<div class="loginBox">
+		
+		<div class="inputBox">
+			<ul>
+				<li>
+					<input type="text" maxlength="20" value="" required="required" data-title="이름" data-msg="이름을" data-icon-no=1 data-toname="name" />
+				</li>
+				<li>
+					<input type="text" name="id" maxlength="12" value="" required="required" data-title="아이디" data-msg="아이디를" data-icon-no=1 data-on-enter=1 />
+				</li>				
+			</ul>
+		</div>
+
+		<div class="authSelect">
+			<p><label><input type='radio' name="auth" value="1" checked="checked" /><span class="radio"></span>이메일인증 (<b id="authEmail"></b>)</label></p>
+			<p class="help">가입시 등록한 이메일로 인증번호가 발송됩니다.</p>
+			<p class="cells"><label><input type='radio' name="auth" value="2" /><span class="radio"></span>휴대폰인증 (<b id="authCell"></b>)</label></p>
+			<p class="cells help">가입시 등록한 휴대폰번호로 인증번호가 발송됩니다.</p>			
+		</div>
+
+		<div class="inputBox authCode">
+			<ul>
+				<li>
+					<input type="text" name="auth_code" maxlength="10" value="" data-title="인증번호" data-msg="인증번호를" data-icon-no=1 data-on-enter=1 />
+					<p class="auth_code_time">남은시간 : <span class="auth_code_times"></span></p>
+				</li>	
+			</ul>
+		</div>
+
+		<div class="inputBox passwdInfo">
+			<ul>
+				<li>
+					<input type='password' name='passwd' data-title="신규비밀번호" data-detail='영문, 숫자, 특수문자(!@#$%^&+=_) 2가지 이상 조합 8~20자' data-msg="신규 비밀번호를" data-check-password='1' />
+				</li>
+				<li>
+					<input type='password' name='re_passwd' data-title="비밀번호확인" data-detail='영문, 숫자, 특수문자(!@#$%^&+=_) 2가지 이상 조합 8~20자' data-msg="비밀번호확인을" data-check-password='2' data-check-field='document.loginForm.passwd' data-on-enter=1 />
+				</li>
+			</ul>
+		</div>
+
+		<div>			
+			<div class="floatRight">
+				<ul>
+					<li class="line"><a href='{{Main}}?channel=login' class="underLine">로그인</a></li>
+					<li class="last"><a href='{{Main}}?channel=id_search' class="underLine">아이디 찾기</a></li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="empty20"></div>
+
+		<div class="btnShineBox" style="background:#fff">
+			<div class="displayInline width100"><button class="fontSCDream weight300 shine black" type="submit">다음</button></div>		
+		</div>
+	</div>
+	
+	</form>
+
+</div>	
+
+<script>
+<!--
+	var countTime1		= "";
+	var countTime2		= "";
+	var countObj		= ".auth_code_times";
+	var countCallBack	= "authCodeEnd";
+	var countStop		= 0;
+
+	function authCodeEnd() {
+		$('form[name=loginForm] input[name=auth_code]').attr('required', false);
+		$(".authCode").hide();
+		$('form[name=loginForm] input[name=step]').val(2);
+	}
+
+	function submitProc() {
+		
+		var step = $('form[name=loginForm] input[name=step]');
+		var data = new FormData();
+		
+		if(step.val() == 2) {			
+			data.append('auth', $('form[name=loginForm] input[name=auth]:checked').val());
+		}
+		else if(step.val() == 3) {
+			data.append('auth_code', $('form[name=loginForm] input[name=auth_code]').val());
+		}
+		data.append('id',	$('form[name=loginForm] input[name=id]').val());
+		data.append('name', $('form[name=loginForm] input[name=name]').val());
+		data.append('step',	$('form[name=loginForm] input[name=step]').val());
+
+		$.ajax({
+			url: 'php/passwd_search_step_json.php', 
+			type: 'POST',	
+			data: data, 
+			cache: false,
+			dataType: 'json',
+			processData: false, 
+			contentType: false, 
+			success: function(data, textStatus, jqXHR) {
+				if(typeof(data.error) === 'undefined') {
+					$(".displayInline .shine").removeClass('shineSend');
+					if(step.val() == 1) {
+						$.each(data, function(key, value) {
+							$("#authEmail").html(data[key].email);
+							if(data[key].cell) {
+								$("#authCell").html(data[key].cell);
+								$(".cell01").show();
+							}
+							$(".inputBox").hide();
+							$(".authSelect").show();
+							step.val(2);
+						});
+					}
+					else if(step.val() == 2) {
+						$.each(data, function(key, value) {
+							countTime1	= data[key].auth_time1;
+							countTime2	= data[key].auth_time2;
+							$(".authCode").show();
+							$('form[name=loginForm] input[name=auth_code]').attr('required', true);
+							step.val(3);
+							countTime();
+							alertify.success("인증번호가 발송 되었습니다.");
+						});
+					}
+					else if(step.val() == 3) {
+						$.each(data, function(key, value) {
+							if(data[key].success == 1) {
+								countStop = 1;
+								$(".authCode").hide();
+								$(".authSelect").hide();
+								$(".passwdInfo").show();
+								$('form[name=loginForm] input[name=passwd]').attr('required', true);
+								$('form[name=loginForm] input[name=re_passwd]').attr('required', true);
+								$('form[name=loginForm]').attr('action', 'php/passwd_search_post.php');
+								$('.displayInline .shine').html("비밀번호 변경");
+								step.val(4);
+								alertify.success("인증성공 했습니다.<br />신규 비밀번호로 변경 하시기 바랍니다.");
+							}
+							else alertify.error('인증실패 했습니다.<br />다시 인증요청후 진행 하시기 바랍니다.');
+						});
+					}
+				}
+				else {
+					alertify.error(data.error);
+				}
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				alertify.error(textStatus);
+			}		
+		});
+
+	}
+
+//-->
+</script>

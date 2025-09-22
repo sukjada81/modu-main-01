@@ -1,0 +1,63 @@
+<form name='basicForm' method='post' action='store_post.php?mode=basic' target='HFrm'>					
+
+<div class="content">
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;스토어 정보 설정
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>
+	<tr>
+		<td>스토어명</td>
+		<td colspan="3"><input type='text' name='basic_name' value='{{basic_name}}' style="width:98%" placeholder="미동록시 업체명으로 노출 됩니다." /></td>
+	</tr>
+	<tr> 
+		<td>고객센터 운영시간</td>
+		<td colspan="3">
+			평일 <input type='text' name='basic_cs_time1' value='{{basic_cs_time1}}' placeholder="미등록시 : 09:00 ~ 18:00" style="width:43%" />
+			&nbsp;&nbsp;토&nbsp;&nbsp;요&nbsp;&nbsp;일 <input type='text' name='basic_cs_time2' value='{{basic_cs_time2}}' placeholder="미등록시 : 휴무" style="width:43%" />
+			<div class="empty20"></div>
+			휴일 <input type='text' name='basic_cs_time3' value='{{basic_cs_time3}}' placeholder="미등록시 : 휴무" style="width:43%" />
+			&nbsp;&nbsp;점심시간 <input type='text' name='basic_cs_time4' value='{{basic_cs_time4}}' placeholder="미등록시 : 12:00 ~ 13:00" style="width:43%" />		
+		</td>		
+	</tr>	
+	<tr> 
+		<td>교환/반품지 주소</td>
+		<td colspan="3">
+			<div style="position:relative"><input type='text' name='comp_rtn_postcode_search' style="width:98%" placeholder="경대로 144 (도로명 + 건물번호) or 신암동 645-1 (지역명(동/리) + (번지, 건물명, 아파트명)) + 엔터키" data-zip-search='1' /></div>
+			<div class="empty10"></div>
+			<div class="floatLeft" style="width:8%"><input type='text' name='comp_rtn_postcode' value='{{comp_rtn_postcode}}' style="width:80%" placeholder="우편번호" /></div>
+			<div class="floatLeft" style="width:42%"><input type='text' name='comp_rtn_address1' value='{{comp_rtn_address1}}' placeholder="교환/반품지 주소" /></div>
+			<div class="floatLeft" style="width:50%"><input type='text' name='comp_rtn_address2' value='{{comp_rtn_address2}}' placeholder="교환/반품지 상세주소" /></div>
+		</td>
+	</tr>
+	</table>		
+
+	<div class="empty60" ></div>
+
+	<div class="btnSubmitBox">
+		<div class="displayInline"><button class="weight300 shine" type="submit">저장하기</button></div>
+	</div>
+
+</div>
+
+</form>
+
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+<!--
+	
+	$(function() {	
+		
+		zipSearch('comp');
+		zipSearch('comp_rtn');
+	});
+
+//-->
+</script>

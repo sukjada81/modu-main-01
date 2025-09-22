@@ -1,0 +1,237 @@
+<form name='memberForm' method='post' action='member_post.php?{{addstring}}' target='HFrm'>
+<input type="hidden" name="mode" value="{{mode}}" />
+<input type="hidden" name="uid" value="{{uid}}" />
+
+<div class="content">
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;회원 기본정보
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>
+	<tr> 
+		<td>이름</td>
+		<td colspan="3"><p style="position:relative"><input type='text' name="name" value='{{name}}' style="width:98%" required="required" data-msg="이름을" /></p></td>
+	</tr>	
+	<tr> 
+		<td>아이디</td>
+		<td colspan="3">
+			{{id}}
+			<button class="btns" type="button" style="width:180px" id="btnLogin"><span class="text"><i class="xi-log-in xi-x"></i> 회원아이디로 로그인</span></button>
+		</td>		
+	</tr>
+	<tr> 
+		<td>회원등급</td>
+		<td colspan="3">
+			<select name="level">				
+				<!-- DYNAMIC @loop_level@ -->
+				<option value="{{levels}}">{{name}}</option>
+				<!-- DYNAMIC @loop_level@ -->						
+			</select>	
+			<script>
+				$("form[name=memberForm] select[name='level']").val('{{level}}').show().heapbox({'width' : '250'});
+			</script>
+		</td>		
+	</tr>
+	<tr> 
+		<td>가입승인</td>
+		<td colspan="3">
+			<select name="auth">				
+				<option value="Y">승인완료</option>
+				<option value="N">미승인</option>
+			</select>	
+			<script>
+				$("form[name=memberForm] select[name='auth']").val('{{auth}}').show().heapbox({'width' : '250', 'zindex' : 7});
+			</script>
+		</td>		
+	</tr>
+	<tr> 
+		<td>변경할 비밀번호 <i class="xi-help xi-x colorDGary masterTooltip" title="영문, 숫자, 특수문자(!@#$%^&+=_) 2가지 이상 조합 8~20자만 가능합니다."></i></td>
+		<td><input type='password' name='passwd' placeholder="영문, 숫자, 특수문자 2가지 이상 조합 8~20자" data-ck-password='1' /></td>
+		<td>변경할 비밀번호 확인</td>
+		<td><input type='password' name='re_passwd' data-msg="변경할 비밀번호 확인을" data-ck-password='2' data-ck-field='document.memberForm.passwd' /></td>
+	</tr>
+	<!-- DYNAMIC @is_tel@ -->
+	<tr> 
+		<td>전화번호</td>
+		<td colspan="3" class="number">{{tel}}</td>		
+	</tr>
+	<!-- DYNAMIC @is_tel@ -->
+	<!-- DYNAMIC @is_cell@ -->
+	<tr> 
+		<td>휴대폰번호</td>
+		<td colspan="3" class="number">{{cell}}</td>		
+	</tr>
+	<!-- DYNAMIC @is_cell@ -->	
+	<tr> 
+		<td>이메일주소</td>
+		<td colspan="3">{{email}}</td>		
+	</tr>
+	<!-- DYNAMIC @is_address@ -->
+	<tr> 
+		<td>주소</td>
+		<td colspan="3"><span class="colorGray">{{postcode}}</span> {{address1}} {{address2}}</td>
+	</tr>
+	<!-- DYNAMIC @is_address@ -->
+	<!-- DYNAMIC @is_birth@ -->
+	<tr> 
+		<td>생년월일</td>
+		<td colspan="3">{{birth}} {{birth_sl}}</td>		
+	</tr>
+	<!-- DYNAMIC @is_birth@ -->
+	<!-- DYNAMIC @is_gender@ -->
+	<tr> 
+		<td>성별</td>
+		<td colspan="3">{{gender}}</td>		
+	</tr>
+	<!-- DYNAMIC @is_gender@ -->
+	<!-- DYNAMIC @is_marry@ -->
+	<tr> 
+		<td>결혼여부</td>
+		<td colspan="3">{{marry}}</td>		
+	</tr>
+	<!-- DYNAMIC @is_marry@ -->
+	<!-- DYNAMIC @is_job@ -->
+	<tr> 
+		<td>직업</td>
+		<td colspan="3">{{job}}</td>		
+	</tr>
+	<!-- DYNAMIC @is_job@ -->
+	<!-- DYNAMIC @is_hobby@ -->
+	<tr> 
+		<td>관심분야</td>
+		<td colspan="3">{{hobby}}</td>		
+	</tr>
+	<!-- DYNAMIC @is_hobby@ -->
+	<!-- DYNAMIC @loop_add@ -->
+	<tr> 
+		<td>{{add_title}}</td>
+		<td colspan="3">{{add_value}}</td>		
+	</tr>
+	<!-- DYNAMIC @loop_add@ -->
+	<tr> 
+		<td>메일수신 동의</td>
+		<td>{{mailling}}</td>		
+		<td>메일수신 동의 변경일</td>
+		<td class="number">{{mailling_date}}</td>		
+	</tr>
+	<tr> 
+		<td>SMS수신 동의</td>
+		<td>{{sms}}</td>		
+		<td>SMS수신 동의 변경일</td>
+		<td class="number">{{sms_date}}</td>		
+	</tr>
+	<tr> 
+		<td>가입경로</td>
+		<td colspan="3">{{mobile}}</td>		
+	</tr>
+	<tr> 
+		<td>방문횟수</td>
+		<td colspan="3" class="number">{{cnts}}</td>		
+	</tr>
+	<tr> 
+		<td>최종로그인일시</td>
+		<td colspan="3" class="number">{{login_time}}</td>		
+	</tr>	
+	<tr> 
+		<td>회원가입일시</td>
+		<td colspan="3" class="number">{{signdate}}</td>		
+	</tr>
+	</table>
+	
+	<!-- DYNAMIC @is_comp_info@ -->
+	<div class="empty30" ></div>
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;회원 사업자정보
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>
+	<!-- DYNAMIC @is_comp@ -->
+	<tr> 
+		<td>회사명</td>
+		<td colspan="3">{{comp}}</td>		
+	</tr>	
+	<!-- DYNAMIC @is_comp@ -->
+	<!-- DYNAMIC @is_comp_num@ -->
+	<tr> 
+		<td>사업자번호</td>
+		<td colspan="3">{{comp_num}}</td>		
+	</tr>
+	<!-- DYNAMIC @is_comp_num@ -->
+	<!-- DYNAMIC @is_comp_owner@ -->
+	<tr> 
+		<td>대표자명</td>
+		<td colspan="3">{{comp_owner}}</td>		
+	</tr>
+	<!-- DYNAMIC @is_comp_owner@ -->
+	<!-- DYNAMIC @is_comp_address@ -->
+	<tr> 
+		<td>사업장주소</td>
+		<td colspan="3"><span class="gray">{{comp_postcode}}</span> {{comp_address1}} {{comp_address2}}</td>		
+	</tr>
+	<!-- DYNAMIC @is_comp_address@ -->
+	<!-- DYNAMIC @is_comp_type@ -->
+	<tr> 
+		<td>업태</td>
+		<td colspan="3">{{comp_type}}</td>		
+	</tr>
+	<!-- DYNAMIC @is_comp_type@ -->
+	<!-- DYNAMIC @is_comp_item@ -->
+	<tr> 
+		<td>종목</td>
+		<td colspan="3">{{comp_item}}</td>		
+	</tr>	
+	<!-- DYNAMIC @is_comp_item@ -->
+	</table>
+	<!-- DYNAMIC @is_comp_info@ -->
+	
+	<div class="empty60" ></div>
+
+	<div class="btnSubmitBox">
+		<div class="displayInline"><button class="weight300 shine" type="submit">회원정보 수정하기</button></div>
+		<div class="btnPrev"><i class="xi-arrow-left xi-x"></i></div>
+		<div class="btnPrevTitle">이전페이지</div>		
+	</div>
+
+</div>
+
+</form>
+
+<script>
+<!--
+
+	$(function() {
+
+		$("#btnLogin").click(function(e) {
+			window.location.href = "member_login_post.php?id={{id}}";
+		});
+		
+		$('form[name=memberForm] input[name=passwd]').blur(function(e) {
+			if($(this).val()) {
+				$('form[name=memberForm] input[name=re_passwd]').attr('required', true);
+				$('form[name=memberForm] input[name=re_passwd]').parent().append('<p class="requireIcon"><i class="fas fa-pen-square masterTooltip" title="필수 입력사항 입니다."></i></p>');	
+			}
+			else {
+				$('form[name=memberForm] input[name=re_passwd]').attr('required', false);
+				$('form[name=memberForm] input[name=re_passwd]').parent().children('p').remove();
+			}
+		});
+		
+		
+	});	
+
+//-->
+</script>

@@ -1,0 +1,38 @@
+<form name='cateForm' method='post' action='cate_post.php' target='HFrm'>					
+<input type="hidden" name="mode" value="match" />
+
+<div class="content">
+	<table class="listIn">
+	<colgroup>
+	<col width="50%" /> 
+	<col width="25%" /> 
+	<col width="25%" />	
+	</colgroup>
+	<thead>
+	<tr> 
+		<th>최종분류</th>
+		<th>분류코드</th>
+		<th>엑셀 매칭코드</th>
+	</tr>
+	</thead>	
+	<tbody>
+	<!-- DYNAMIC @loop_cate@ -->
+	<tr> 
+		<td style="text-align:left">{{CATE_LOCATION}}</td>
+		<td>{{CATE}}</td>
+		<td><input type='text' name='cate_{{CATE}}' value='{{MATCH}}' /></td>		
+	</tr>
+	<!-- DYNAMIC @loop_cate@ -->
+	<tbody>
+	</table>
+</div>
+
+<div class="empty100"></div>
+
+<div class="btnSubmitBoxPop">
+	<div class="displayInline"><button class="weight300 shine" type="submit">저장하기</button></div>		
+</div>
+
+</form>
+
+<iframe name="HFrm" style="display:none"></iframe>

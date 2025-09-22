@@ -1,0 +1,91 @@
+<!doctype html> 
+<html lang="ko">
+
+<head>
+	<title>댓글 등록</title>
+	
+	<link rel="StyleSheet" href="../managers/common/style.css?ver={{ver}}" type="text/css" title="style" />
+	<link type="text/css" rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css" />
+	<link type="text/css" rel="stylesheet" href="../lib/alertify.css?ver={{ver}}" />
+	<link href="../lib/summernote-lite.css?ver={{ver}}" rel="stylesheet">
+	
+	<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+	<script src="../lib/jquery-ui.js?ver={{ver}}"></script>
+	<script src="../lib/jquery.heapbox.js?ver={{ver}}"></script>
+	<script src="../lib/alertify.js?ver={{ver}}"></script>
+	
+	<script src="../lib/clipboard.js?ver={{ver}}"></script>
+	<script src="../lib/lib.Function.js?ver={{ver}}"></script>
+	<script src="../lib/lib.CheckForm.js?ver={{ver}}"></script>	
+	
+	<script src="../lib/summernote-lite.js?ver={{ver}}"></script>
+	<script src="../lib/summernote-ko-KR.js"></script>
+
+</head> 
+
+<script>
+<!--
+
+alertify.defaults.glossary.title = "{{SERVER_NAME}}";
+
+// -->
+</script>
+
+<body style="min-width:600px; background-color:#fff;">
+	<center style="padding:20px 0;">
+		<form name='writeForm' method='post' action='board_post.php?{{addstring}}' enctype="multipart/form-data" target='HFrm'>
+		<input type="hidden" name="b_id" value="{{b_id}}" />
+		<input type="hidden" name="b_uid" value="{{uid}}" />		
+		<input type="hidden" name="b_mode" value="{{mode}}" />
+		<input type="hidden" name="c_uid" value="{{c_uid}}" />
+		<input type="hidden" name="ck_w1" value="{{ck_w1}}" />
+		<input type="hidden" name="ck_w2" value="{{ck_w2}}" />
+		<input type="hidden" name="managers" value="1" />
+		<div class="loginBox" style="padding-bottom:10px">	
+			<div class="inputBox">
+				<ul>	
+					<li style="text-align:left">
+						<XMP class="sn_content" style="display:none">{{content}}</XMP>
+						<input type="hidden" name="content" value= ""  required="required" data-notefor=".sn_content" />
+					</li>
+				</ul>		
+			</div>		
+		</div>
+
+		<div class="btnShineBox" style="background:#fff; padding-top:0">
+			<div class="displayInline"><button class="fontSCDream weight300 shine black" type="submit">댓글 등록</button></div>		
+		</div>
+		</form>
+	</center>
+</body>
+</html>
+
+<iframe name="HFrm" style="display:none;width:100%; "></iframe>
+
+<script>
+<!--
+	
+	$(function() {
+		
+		$('.sn_content').summernote({						
+			'lang' : 'ko-KR',
+			'height' : '200px',
+			'placeholder' : '내용을 입력해 주세요.',		
+			'dialogsFade' : true,
+			toolbar: [
+				['font', ['bold', 'underline', 'clear']],
+				['fontname', ['fontname']],
+				['fontsize', ['fontsize']],
+				['color', ['color']]				
+			]
+		});	
+
+		$('#summernote').summernote({
+		  
+		});
+
+	});
+
+//-->
+</script>

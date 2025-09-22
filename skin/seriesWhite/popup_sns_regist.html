@@ -1,0 +1,154 @@
+<style>
+.alertify .ajs-dialog { width: 400px; }
+</style>
+
+<div id="popup_contents">		
+	<h3 class="contentTitle">SNS 간편가입</h2>
+
+	<form name='registForm' method='post' action='popup_sns_regist_post.php' enctype="multipart/form-data" target='HFrm'>
+	<input type="hidden" name="mode" value="new" />
+	<input type="hidden" name="sns_id" value="{{sns_id}}" />
+	<input type="hidden" name="sns_type" value="{{sns_type}}" />
+	<div class="snsRegistBox">
+		<div class="inputBox">
+			<ul>
+				<li>
+					<input type="text" maxlength="20" value="{{name}}" required="required" readonly="readonly" data-title="이름" data-msg="이름을" data-toname="name" />
+				</li>
+				<!-- DYNAMIC @is_cell@ -->
+				<li>
+					<input type="text" name="cell" maxlength="11" value="{{cell}}" {{required}} class="only_num" data-title="휴대폰번호" data-detail="('-'없이)" data-msg="휴대폰번호를" data-check-cell='1' />
+				</li>
+				<!-- DYNAMIC @is_cell@ -->
+				<li>
+					<input type="text" name="email" value="{{email}}" required="required" data-title="이메일주소" data-msg="이메일주소를" data-toname="email" data-check-email="1" />
+				</li>
+				<!-- DYNAMIC @is_birth@ -->
+				<li class="separation" style="width:50%">
+					<input type="text" name="birth" maxlength="8" value="{{birth}}" {{required}} class="only_num" data-title="생년월일" data-detail="ex)19990101" data-msg="생년월일을" data-check-birth='1' />
+				</li>
+				<li class="separation" style="width:3%"></li>
+				<li class="separation" style="width:47%">
+					<label><input type='radio' name="birth_sl" value="S" {{required}} data-msg="음력 또는 양력을" /><span class="radio">양력</span></label>
+					<label><input type='radio' name="birth_sl" value="L" /><span class="radio">음력</span></label>
+				</li>
+				<!-- DYNAMIC @is_birth@ -->
+				<!-- DYNAMIC @is_gender@ -->
+				<li class="separation" style="width:50%">
+					<label><input type='radio' name="gender" value="M" {{checked_gender_M}} {{required}} data-msg="성별을" /><span class="radio">남성</span></label>
+					<label><input type='radio' name="gender" value="F" {{checked_gender_F}} /><span class="radio">여성</span></label>
+				</li>
+				<!-- DYNAMIC @is_gender@ -->	
+			</ul>		
+		</div>				
+	</div>
+
+	<div class="empty20"></div>
+
+	<div class="title">약관동의</div>
+	<div class="agreeBox" style="padding:20px 10px; width:420px;">		
+		<button class="graButton checkAll" style="width:100%" type="button"><span class="text">전체 약관에 동의</button>		
+		<div class="empty10"></div>
+		<div class="empty20"></div>
+		<p>
+			<label><input type='checkbox' name="agree1" value="1" class="checkAllItem" required="required" data-alert="1" data-msg-done="'만 14세 이상입니다.'<br />에 체크하셔야 회원가입이 가능 합니다.<br />만 14세 미만의 경우 회원가입이 제한되오니 이점 참고바랍니다." /><span class="checkbox"></span>[필수] 만 14세 이상입니다.</label>
+		</p>
+		<div class="empty10"></div>
+		<p>
+			<label><input type='checkbox' name="agree2" value="1" class="checkAllItem" required="required" data-alert="1" data-msg="이용약관동의는 필수 동의 사항입니다.<br />약관에 동의하셔야 회원가입이 가능합니다." /><span class="checkbox"></span>[필수] 이용약관 동의</label>
+			<div class="cursorPoint documentAll1">전문보기 <i class='xi-angle-right-thin'></i></div>
+			<div class="popup_documentAll1Info" style="display:none">
+				<div>{{AGREEMENT}}</div>
+			</div>
+		</p>
+		<div class="empty10"></div>
+		<p>
+			<label><input type='checkbox' name="agree3" value="1" class="checkAllItem" required="required" data-alert="1" data-msg="개인정보 수집 및 이용에 대한 동의는 필수 동의 사항입니다.<br />개인정보 수집 및 이용에 대해 동의하셔야 회원가입이 가능합니다." /><span class="checkbox"></span>[필수] 개인정보 수집 및 이용에 대한 동의</label>
+			<div class="cursorPoint documentAll2">전문보기 <i class='xi-angle-right-thin'></i></div>
+			<div class="popup_documentAll2Info" style="display:none">
+				<div>{{PRIVACY}}</div>
+			</div>
+		</p>
+		<div class="empty10"></div>
+		<!-- DYNAMIC @is_sms@ -->
+		<p><label><input type='checkbox' name="sms" value="Y" class="checkAllItem" /><span class="checkbox"></span>[선택] 이벤트 및 쇼핑혜택 SMS 수신 동의</label></p>
+		<div class="empty10"></div>
+		<!-- DYNAMIC @is_sms@ -->
+		<!-- DYNAMIC @is_mailling@ -->
+		<p><label><input type='checkbox' name="mailling" value="Y" class="checkAllItem" /><span class="checkbox"></span>[선택] 이벤트 및 쇼핑혜택 이메일 수신 동의</label></p>
+		<div class="empty10"></div>
+		<!-- DYNAMIC @is_mailling@ -->
+		<div class="empty10"></div>
+		<p class="fontSCDream size11 weight200">수신거부와 상관없이 반드시 고지의무가 있는 사항은 이메일 및 SMS가 발송됩니다.</p>
+	</div>
+
+	<div class="empty50"></div>
+	
+	<center>
+		<div class="btnShineBox">
+			<div class="displayInline width100"><button class="fontSCDream weight300 shine fixWidth" type="submit">간편회원가입</button></div>		
+		</div>
+	</center>	
+	
+	</form>
+
+</div>	
+
+</body>
+</html>
+
+<iframe name="HFrm" style="display:none;"></iframe>
+
+<script>
+<!--
+	
+	var contentBtnHeight = 75;
+	if($('.btnShineBox').length) btnShineBoxPositionTop = $('.btnShineBox').offset().top;
+	else btnShineBoxPositionTop = 0;
+	var naviTop = 100;
+
+	$('.checkAll').click(function(e) {	
+		$('.checkAllItem').prop('checked', true);
+	});
+
+	$('.documentAll1').click(function(e) {	
+		$('.popup_documentAll1Info').toggle();
+	});	
+
+	$('.documentAll2').click(function(e) {	
+		$('.popup_documentAll2Info').toggle();
+	});	
+
+	$(window).scroll(function () {
+		if(!naviTop) naviTop = 100;
+	
+		var scrollTop = $(window).scrollTop();
+	
+		if($('.btnShineBox').length) {
+				
+			if(typeof(btnShineBoxPositionTop) == 'undefined') return;
+
+			if(btnShineBoxPositionTop +  contentBtnHeight < parseInt(scrollTop + innerHeight)) {
+				$('.btnShineBox').css({opacity : 1});
+				$('.btnShineBox').removeClass("bottomHoldFix");	
+				return;
+			}
+
+			if(scrollTop > naviTop) {		
+				if(!$('.btnShineBox').hasClass("bottomHoldFix")) {
+					$('.btnShineBox').addClass("bottomHoldFix");	
+					$('.btnShineBox').css({opacity:0}).stop().animate({opacity : 0.8}, 'fast');					
+				}		
+				return;	
+			}
+			else {
+				if($('.btnShineBox').css("opacity") >= 0.8) {
+					$('.btnShineBox').stop().animate({opacity : 0}, 'fast',(function(){ $('.btnShineBox').css({opacity : 1}); $('.btnShineBox').removeClass("bottomHoldFix");}));						
+				}
+				return;		
+			}
+		}	
+	});
+
+//-->
+</script>

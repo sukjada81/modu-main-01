@@ -1,0 +1,56 @@
+<!-- DYNAMIC @is_list_area@ -->
+<div>	
+	<div class="widgetTitle">오늘의 매출 <span data-id="sales"><i class="xi-renew masterTooltipWidget" title="새로고침"></i></span></div>
+	<a href="../order/sales_statistics.php">
+	<div class="widgetStatistics sales">
+		<p>{{TOTAL}}</p>
+		<div class="empty1"></div>
+		<span><i class="xi-desktop masterTooltipWidget" title="PC"></i> {{PTOTAL}}</span>
+		<span class="sales"><i class="xi-tablet masterTooltipWidget" title="모바일"></i> {{MTOTAL}}</span>
+	</div>
+	<div class="widgetDetail">
+		<div>상품 <span>{{CNT1}}</span></div>
+		<div>배송비 <span>{{CNT2}}</span></div>		
+		<div>쿠폰 <span>{{CNT4}}</span></div>	
+		<div>마일리지 <span>{{CNT3}}</span></div>			
+		<div>할인 <span>{{CNT5}}</span></div>		
+		<div>수수료 <span>{{CNT6}}</span></div>		
+	</div>
+	</a>	
+	<div style="height:3px; overflow:hidden;"></div>
+	<div id="chart_sales" style="width: 100%; height: 90px;"></div>	
+</div>	
+
+<script>
+	
+	google.charts.load('current', {'packages':['corechart']});
+	google.charts.setOnLoadCallback(drawChartSales);
+
+	function drawChartSales() {
+		var data = google.visualization.arrayToDataTable([
+			['Year', ''],
+			['{{date1}}', {{value1}}],
+			['{{date2}}', {{value2}}],
+			['{{date3}}', {{value3}}],
+			['{{date4}}', {{value4}}],
+			['{{date5}}', {{value5}}]
+		]);
+
+		var options = {
+			title: '',		  
+			animation: { startup: true, duration: 200, easing: 'linear', },
+			chartArea: {width: '100%', height: '96%', backgroundColor:'transparent', },
+			pointSize: 3,
+			tooltip: { textStyle : {fontSize:12, fontColor: '#fff', fontName:'fontMontserrat' ,}, trigger: 'both', },
+			hAxis: {title: '', textPosition: 'none', },
+			vAxis: { textPosition: 'none', gridlines : {count : 0}, baselineColor : 'transparent',},
+			backgroundColor : { 'fill': 'transparent', 'opacity': 100 }, 
+			colors:['#efefef'],
+			legend : {position: 'top', textStyle: { fontSize: 0.1} },		  	 
+		};
+
+		var chart = new google.visualization.AreaChart(document.getElementById('chart_sales'));
+		chart.draw(data, options);				
+	}
+</script>
+<!-- DYNAMIC @is_list_area@ -->

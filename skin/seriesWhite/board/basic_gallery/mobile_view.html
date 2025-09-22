@@ -1,0 +1,243 @@
+<div class="content_view">
+	
+	<div class="title">
+		<!-- DYNAMIC @is_cate_name@ -->
+		[{{cate_name}}]
+		<!-- DYNAMIC @is_cate_name@ -->
+		<!-- DYNAMIC @is_notice@ -->
+		<i class="xi-lightbulb-o xi-x" title="공지"></i>
+		<!-- DYNAMIC @is_notice@ -->
+		{{subject}}
+		<span><font class="fontSCDream size12">{{name}}</font>&nbsp;&nbsp;|&nbsp;&nbsp;{{count}}&nbsp;&nbsp;|&nbsp;&nbsp;{{date}}</span>
+	</div>
+	<div class="line"></div>
+	<!-- DYNAMIC @loop_adds@ -->
+	<div class="adds">
+		<span>{{add_title}}</span>{{add_value}}
+	</div>	
+	<!-- DYNAMIC @loop_adds@ -->
+	
+	<!-- DYNAMIC @is_attach@ -->
+	<div class="attach">
+		<!-- DYNAMIC @loop_attach@ -->
+		<span data-name='{{{{attach_name}}'>{{attach_name}} ({{attach_size}}) <i class="xi-download xi-x"></i></span>
+		<!-- DYNAMIC @loop_attach@ -->
+	</div>
+	<form name='downForm' method='post' action='board/download.php' target='HFrm'>
+	<input type="hidden" name="b_id" value="{{b_id}}" />
+	<input type="hidden" name="uid" value="{{uid}}" />
+	<input type="hidden" name="name" value="" />
+	</form>
+	<!-- DYNAMIC @is_attach@ -->
+
+	<!-- DYNAMIC @is_links@ -->
+	<div class="links">
+		<!-- DYNAMIC @loop_links@ -->
+		<span><a href="{{link_url}}" target="_blank">{{link_url}} <i class="xi-external-link xi-x"></i></a></span>
+		<!-- DYNAMIC @loop_links@ -->
+	</div>	
+	<!-- DYNAMIC @is_links@ -->
+
+	<!-- DYNAMIC @is_image@ -->
+	<div class="content" style="border:0; padding-bottom:0">
+		<!-- DYNAMIC @loop_image@ -->
+		<img src="{{images}}" />
+		<!-- DYNAMIC @loop_image@ -->
+	</div>
+	<!-- DYNAMIC @is_image@ -->
+	<div class="content">{{content}}</div>
+	<div class="line"></div>
+	<div class="comment_title">
+		<i class="xi-message xi-x"></i> 댓글 <span>{{count_comment}}</span>
+		<!-- DYNAMIC @is_comment@ -->
+		<a href="#iframeView" class="btnComment"><span class="underLineThinSelected"><i class="xi-message-o xi-x"></i>댓글 쓰기</span></a>
+		<!-- DYNAMIC @is_comment@ -->
+	</div>
+
+	<div class="comment_list">
+		<ul>
+			<!-- DYNAMIC @loop_comment@ -->
+			<!-- DYNAMIC @loop_empty@ -->
+			<li class="empty"></li>
+			<!-- DYNAMIC @loop_empty@ -->
+			<!-- DYNAMIC @is_co_reply@ -->
+			<li class="reply"><i class="xi-subdirectory xi-x"></i></li>
+			<!-- DYNAMIC @is_co_reply@ -->
+			<li class="comment_title floatLeft width{{CO_DEPTH}}" data-uid='{{CO_UID}}'>
+				{{CO_NAME}}				
+				<!-- DYNAMIC @is_comment_delete@ -->
+				<span class="underLineThin btnCoDelete"><i class="xi-close"></i>삭제</span>
+				<!-- DYNAMIC @is_comment_delete@ -->
+				<!-- DYNAMIC @is_comment_reply@ -->
+				<span class="underLineThin btnCoReply"><i class="xi-subdirectory-arrow"></i>대댓글</span>
+				<!-- DYNAMIC @is_comment_reply@ -->
+				<span class="date">{{CO_DATE}}</span>
+			</li>
+			<li class="comment_content padding{{CO_DEPTH}}">
+				<!-- DYNAMIC @is_delete_comment@ -->
+				삭제된 댓글입니다.
+				<!-- DYNAMIC @is_delete_comment@ -->
+				{{CO_CONTENT}}
+			</li>
+			<!-- DYNAMIC @loop_comment@ -->
+		</ul>
+	</div>
+
+	<div class="line"></div>
+
+	<div class="listBtnL">
+		<button class="graButton btnList" type="button"><span class="text"><i class="xi-list xi-x"></i> 글목록</span></button>
+		<!-- DYNAMIC @is_write@ -->
+		<button class="graButton btnWrite" type="button"><span class="text"><i class="xi-document xi-x"></i> 글쓰기</span></button>
+		<!-- DYNAMIC @is_write@ -->
+		<!-- DYNAMIC @is_reply@ -->
+		<button class="graButton btnReply" type="button"><span class="text"><i class="xi-subdirectory-arrow xi-x"></i> 답글쓰기</span></button>
+		<!-- DYNAMIC @is_reply@ -->
+	</div>
+	
+	<!-- DYNAMIC @is_modify@ -->	
+	<div class="listBtnR">
+		<button class="graButton btnModify" type="button"><span class="text"><i class="xi-eraser-o xi-x"></i> 글수정</span></button>
+		<button class="graButton btnDelete" type="button"><span class="text"><i class="xi-trash-o xi-x"></i> 글삭제</span></button>
+	</div>	
+	<!-- DYNAMIC @is_modify@ -->
+	
+	<!-- DYNAMIC @is_pn_article@ -->
+	<div class="line"></div>
+	<div class="listPN">
+		<!-- DYNAMIC @is_prev_article@ -->
+		<div class="list">
+			<span>이전글 <i class="xi-angle-up-thin xi-x"></i></span>
+			<!-- DYNAMIC @is_pnotice@ -->
+			<i class="xi-lightbulb-o xi-x" title="공지"></i>
+			<!-- DYNAMIC @is_pnotice@ -->
+			<!-- DYNAMIC @is_psecret@ -->
+			<i class="xi-lock-o xi-x" title="비밀글"></i>
+			<!-- DYNAMIC @is_psecret@ -->
+			<!-- DYNAMIC @is_pdepth@ -->
+			{{EMPTY}}<i class="xi-subdirectory-arrow xi-x"></i>
+			<!-- DYNAMIC @is_pdepth@ -->
+			<span class="underLineThin listSubject" data-uid="{{p_uid}}" data-secret="{{p_secret}}">{{p_subject}}</span>
+		</div>
+		<!-- DYNAMIC @is_prev_article@ -->
+		<!-- DYNAMIC @is_next_article@ -->
+		<div class="list">
+			<span>다음글 <i class="xi-angle-down-thin xi-x"></i></span>
+			<!-- DYNAMIC @is_nnotice@ -->
+			<i class="xi-lightbulb-o xi-x" title="공지"></i>
+			<!-- DYNAMIC @is_nnotice@ -->
+			<!-- DYNAMIC @is_nsecret@ -->
+			<i class="xi-lock-o xi-x" title="비밀글"></i>
+			<!-- DYNAMIC @is_nsecret@ -->
+			<!-- DYNAMIC @is_ndepth@ -->
+			{{EMPTY}}<i class="xi-subdirectory-arrow xi-x"></i>
+			<!-- DYNAMIC @is_ndepth@ -->			
+			<span class="underLineThin listSubject" data-uid="{{n_uid}}" data-secret="{{n_secret}}">{{n_subject}}</span>
+		</div>
+		<!-- DYNAMIC @is_next_article@ -->
+	</div>
+	<!-- DYNAMIC @is_pn_article@ -->
+
+	<!-- DYNAMIC @is_empty@ -->
+	<div class="empty80"></div>
+	<!-- DYNAMIC @is_empty@ -->
+	
+</div>	
+
+<script>
+<!--	
+	var ck_w1			= '{{ck_w1}}';
+	var ck_w2			= '{{ck_w2}}';
+
+	$(".btnList").click(function(e) {
+		window.location.href = "{{DEFAULT_LINK}}{{addstring}}";
+	});
+
+	$(".btnWrite").click(function(e) {
+		window.location.href = "{{DEFAULT_LINK}}&b_mode=write{{addstring}}&ck_w1=" + ck_w1 + "&ck_w2=" + ck_w2;
+	});
+
+	$(".btnReply").click(function(e) {
+		window.location.href = "{{DEFAULT_LINK}}&b_mode=reply&uid={{uid}}{{addstring}}&ck_w1=" + ck_w1 + "&ck_w2=" + ck_w2;
+	});
+
+	<!-- DYNAMIC @is_modify_guest@ -->
+	$('.btnModify').click(function(e) {	
+		iframeWidth = '100%';
+		iframeHeight = '.52';
+		iframeView("board/popup_passwd.php?b_id={{b_id}}&uid={{uid}}&mypages={{mypages}}&type=modify{{addstring}}", "비밀번호 확인");			
+	});	
+
+	$('.btnDelete').click(function(e) {	
+		iframeWidth = '100%';
+		iframeHeight = '.52';
+		iframeView("board/popup_passwd.php?b_id={{b_id}}&uid={{uid}}&mypages={{mypages}}&type=delete{{addstring}}", "글삭제 확인");			
+	});	
+	<!-- DYNAMIC @is_modify_guest@ -->
+
+	<!-- DYNAMIC @is_modify_member@ -->
+	$(".btnModify").click(function(e) {
+		window.location.href = "{{DEFAULT_LINK}}&b_mode=modify&uid={{uid}}{{addstring}}";
+	});
+
+	$('.btnDelete').click(function(e) {	
+		iframeWidth = '100%';
+		iframeHeight = '.52';
+		iframeView("board/popup_passwd.php?b_id={{b_id}}&uid={{uid}}&mypages={{mypages}}&type=delete", "글삭제 확인");			
+	});	
+	<!-- DYNAMIC @is_modify_member@ -->
+
+	$('.btnComment').click(function(e) {	
+		iframeWidth = '100%';
+		iframeHeight = '.8';
+		iframeView("board/popup_comment.php?b_id={{b_id}}&uid={{uid}}&mypages={{mypages}}{{addstring}}&ck_w1=" + ck_w1 + "&ck_w2=" + ck_w2, "댓글 등록");			
+	});	
+	
+	$('.btnCoReply').click(function(e) {
+		var uid = $(this).parents("li").attr("data-uid");
+		iframeWidth = '100%';
+		iframeHeight = '.8';
+		iframeView("board/popup_comment.php?b_id={{b_id}}&uid={{uid}}&mypages={{mypages}}&c_uid=" + uid + "{{addstring}}&ck_w1=" + ck_w1 + "&ck_w2=" + ck_w2, "대댓글 등록");			
+	});
+
+	$('.btnCoDelete').click(function(e) {
+		var uid		= $(this).parents("li").attr("data-uid");
+	
+		iframeWidth = '100%';
+		iframeHeight = '.52';
+		iframeView("board/popup_passwd.php?b_id={{b_id}}&uid={{uid}}&mypages={{mypages}}&c_uid=" + uid + "&type=comment_delete{{addstring}}", "댓글 삭제");	
+		
+	});	
+
+	$(".attach span").click(function(e) {
+		var name = $(this).attr('data-name');		
+		$("form[name=downForm] input[name='name']").val(name);
+		$("form[name=downForm]").submit();
+	});
+
+	$('.listSubject').click(function(e) {	
+		var uid		= $(this).attr("data-uid");
+		var secret	= $(this).attr("data-secret");
+		
+		if(secret == 1) {			
+			iframeWidth = '100%';
+			iframeHeight = '.52';
+			iframeView("board/popup_passwd.php?b_id={{b_id}}&uid=" + uid + "&type=view{{addstring}}", "비밀번호 확인");
+		}
+		else if(!secret) window.location.href = "{{DEFAULT_LINK}}&b_mode=view&uid=" + uid + "{{addstring}}";		
+	});	
+
+	$(function() {
+		$(".content_view .content").find('img').each(function(i) {
+			var width = parseInt($(this).css("width"));
+			var w = Math.min(screen.width, window.innerWidth, document.documentElement.clientWidth);
+			if(width > w) $(this).css({'width' : '100%'});
+		});
+
+		<!-- DYNAMIC @is_focus@ -->
+		$(".comment_list").focus();	
+		<!-- DYNAMIC @is_focus@ -->
+	});
+	
+// -->
+</script>

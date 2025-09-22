@@ -1,0 +1,118 @@
+<div id="contents" class="wide">
+	
+	<h2 class="contentTitle">나의구매후기</h2>
+
+	<div class="empty40"></div>	
+
+	<div>
+		<div class="listTopTitle fontSCDream" style="padding-left:10px;">
+			전체 <b id="listTotal">{{TOTAL}}</b>
+		</div>
+	</div>	
+	
+	<div class="empty20"></div>
+
+	<div class="review">
+
+		<div id="listArea">
+			<!-- DYNAMIC @is_list_area@ -->
+			<div class="comment_list">
+			<ul>
+				<!-- DYNAMIC @loop_list@ -->
+				<li class="comment_title">
+					<!-- DYNAMIC @is_files@ -->
+					<i class="xi-camera xi-x"></i>
+					<!-- DYNAMIC @is_files@ -->
+					<span>
+						<!-- DYNAMIC @loop_stars@ -->
+						<i class="xi-star"></i>
+						<!-- DYNAMIC @loop_stars@ -->					
+					</span>
+					<span class="date">{{SIGNDATE}}</span>
+				</li>
+				<li class="comment_content">					
+					{{CONTENT}}
+					<!-- DYNAMIC @is_attach@ -->
+					<div class="empty10"></div>
+					<a href="#review" class="image"  data-uid="{{UID}}">
+						<!-- DYNAMIC @loop_attach@ -->
+						<div class="imageBg" style="background-image: url('image/review/{{attach_name}}')">
+							<div class="icon_pop"><i class="xi-focus-frame xi-x"></i></div>
+						</div>
+						<!-- DYNAMIC @loop_attach@ -->
+					</a>
+					<!-- DYNAMIC @is_attach@ -->
+					<div class="empty1"></div>
+				</li>
+				<li class="comment_goods">
+					<a href="{{Main}}?channel=view&uid={{G_UID}}">
+						<div class="image"><img src="{{G_IMAGE}}" alt="{{G_NAME}}" /></div>
+						<div class="text">
+							<div class="gname">{{G_NAME}}</div>
+							<!-- DYNAMIC @is_op_name@ -->
+							<div class="option">{{OP_NAME}}</div>
+							<!-- DYNAMIC @is_op_name@ -->
+						</div>
+					</a>					
+				</li>	
+				<li class="empty20"></li>
+				<!-- DYNAMIC @loop_list@ -->
+			</ul>
+			<!-- DYNAMIC @empty_list@ -->
+			<div class="emptyList">등록된 구매후기가 없습니다.</div>
+			<!-- DYNAMIC @empty_list@ -->		
+			<!-- DYNAMIC @is_list_area@ -->
+		</div>
+
+	</div>
+	<div class="empty20"></div>
+	
+	<div class="paging">{{PAGING}}</div>
+	
+</div>	
+
+<script src="lib/jquery.timeliny.js?ver={{ver}}"></script>
+<script>
+<!--	
+	
+	var is_mobile		= "{{is_mobile}}";
+	var defaultUrl		= "{{Main}}?channel={{channel}}";
+	var defaultSort		= "{{sort}}";
+	var defaultLimit	= "{{limit}}";
+	var defaultPage		= "{{page}}";
+	var pagingType		= '{{PAGING_TYPE}}';
+	var lastPage		= '{{total_page}}';
+
+// -->
+</script>
+<script src="{{skin}}/js/listDefaultProc.js?ver={{ver}}"></script>
+<script>
+<!--
+
+	<!-- DYNAMIC @is_paging_type_0@ -->
+	if(listReset == 1) getListPage(defaultUrl + '&sort=' + sort + '&limit=' + limit + '&page=' + page);
+	pageClickReset();
+	<!-- DYNAMIC @is_paging_type_0@ -->
+
+	<!-- DYNAMIC @is_paging_type_1@ -->
+	if(limit != defaultLimit) listReset = 0;
+	$('.paging').timeliny({page: page, lastPage: lastPage, boundaries:'100', url: defaultUrl + '&sort=' + sort + '&limit=' + limit, listReset:listReset});
+	if(limit != defaultLimit) changeSL(1, page);
+	<!-- DYNAMIC @is_paging_type_1@ -->
+
+	$('.image').click(function(e) {	
+		var uid = $(this).attr("data-uid");
+		iframeWidth = '100%';
+		iframeHeight = '.8';
+		iframeView("php/popup_review_view.php?uid=" + uid, "구매후기");	
+	});	
+
+	$('.reviewBox .item').click(function(e) {	
+		var uid = $(this).attr("data-uid");
+		iframeWidth = '100%';
+		iframeHeight = '.8';
+		iframeView("php/popup_review_view.php?uid=" + uid, "구매후기");	
+	});	
+	
+// -->
+</script>

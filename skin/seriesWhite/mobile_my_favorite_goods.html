@@ -1,0 +1,68 @@
+<div id="contents">
+
+	<h2 class="contentTitle">관심 상품</h2>
+
+	<div class="empty20"></div>
+	
+	<div class="helpMsg"><i class="xi-info-o xi-x"></i> 관심 상품은 최대 3달, 100개 까지만 저장이 됩니다.</div>
+	
+	<div class="recent_goods">
+		<div class="item">
+			<!-- DYNAMIC @loop_list@ -->
+			<div class="dates">{{DATES}} <span>{{WEEKS}}</span></div>
+			<div class="goods">
+				<!-- DYNAMIC @loop_goods@ -->				
+				<div id="favoriteView_{{RECENT_UID}}" class="goodsView">
+					<a href="{{Main}}?channel=view&uid={{UID}}">
+						<img src="image/goods/img{{IMAGE}}" alt="{{NAME}}" />						
+					</a>
+					<i class="xi-close favoriteDel" data-uid='{{RECENT_UID}}' title="삭제"></i>
+				</div>
+				<!-- DYNAMIC @loop_goods@ -->
+			</div>		
+			<!-- DYNAMIC @loop_list@ -->			
+		</div>
+		
+		<!-- DYNAMIC @loop_empty@ -->
+		<div class="emptyList"> 등록된 관심 상품이 없습니다.</div>
+		<!-- DYNAMIC @loop_empty@ -->
+
+	</div>	
+		
+	<div class="empty40"></div>
+	
+</div>	
+
+<script>
+<!--
+	
+	$('.favoriteDel').click(function() {		
+		var data = new FormData();
+		var uid = $(this).attr("data-uid");
+		data.append('uid', uid);
+
+		$.ajax({
+			url: 'php/favorite_goods_del_json.php', 
+			type: 'POST',	
+			data: data, 
+			cache: false,
+			dataType: 'json',
+			processData: false, 
+			contentType: false, 
+			success: function(data, textStatus, jqXHR) {
+				if(typeof(data.error) === 'undefined') {
+					alertify.success("관심 상품에서 삭제되었습니다.");
+					$("#favoriteView_" + uid).remove();					
+				}
+				else {
+					alertify.error(data.error);
+				}
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				alertify.error(textStatus);
+			}		
+		});
+	});
+		
+//-->
+</script>

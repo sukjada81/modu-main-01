@@ -1,0 +1,612 @@
+<div class="content">
+	
+	<form name='searchForm' method='get' action='{{PHP_SELF}}'>
+	<div class="searchBox">
+		<div class="floatLeft">
+			<select name="field">
+				<option value="multi">통합검색</option>
+				<option value="name">회원명</option>
+				<option value="id">아이디</option>
+				<option value="email">이메일</option>
+				<option value="tel">전화번호</option>
+				<option value="cell">휴대폰번호</option>
+				<option value="comp">회사명</option>
+				<option value="comp_num">사업자번호</option>
+				<option value="comp_owner">대표자명</option>
+			</select>			
+		</div>
+		<div class="searchBoxIn">
+			<input type="text" name="keyword" value="{{keyword}}" data-search-btn="1" data-on-enter="1" />
+			<p class="resetIcon resetIconBtn"><i class="xi-undo masterTooltip" title="초기화"></i></p>
+		</div>
+
+		<div class="expensionArrow">
+			<div class="box"></div>
+			<i class="xi-arrow-down box_down"></i>			
+		</div>
+	</div>
+	<div class="searchDetail">
+		<div class="searchDetailBox">
+			<table class="search">
+			<colgroup>
+			<col width="33%" /> 
+			<col width="33%" />
+			<col width="33%" /> 
+			</colgroup>
+			<tr> 
+				<td colspan="3">
+					<select name="date_type" style="display:none;">
+						<option value="signdate">가입일</option>
+						<option value="login_time">최종로그인</option>
+						<option value="order_time">최종주문일</option>
+						<option value="nondormant_time">휴면해제일</option>
+					</select>						
+					<div class="requireLeft"><input type="text" name="s_date" class="ip2 dates" value="{{s_date}}" data-date-picker='1' /></div>
+					<div class="floatLeft" style="padding:0 0 0 15px;">~</div>
+					<div class="requireLeft"><input type="text" name="e_date" class="ip2 dates" value="{{e_date}}" data-date-picker='1' /></div>
+					<div class="floatLeft" style="padding-left:15px;">
+						<button class="btns2" type="button" data-s_date='{{DATE1}}' data-e_date='{{DATE1}}'>오늘</button>
+						<button class="btns2" type="button" data-s_date='{{DATE2}}' data-e_date='{{DATE1}}'>3일</button>
+						<button class="btns2" type="button" data-s_date='{{DATE3}}' data-e_date='{{DATE1}}'>7일</button>
+						<button class="btns2" type="button" data-s_date='{{DATE4}}' data-e_date='{{DATE1}}'>1개월</button>
+						<button class="btns2" type="button" data-s_date='{{DATE5}}' data-e_date='{{DATE1}}'>3개월</button>
+						<button class="btns2" type="button" data-s_date='{{DATE6}}' data-e_date='{{DATE1}}'>6개월</button>
+						<button class="btns2" type="button" data-s_date='' data-e_date=''>전체</button>					
+					</div>
+				</td>
+			</tr>	
+			<tr> 
+				<td>
+					<select name="field2" style="display:none;">
+						<option value="multi">통합검색</option>
+						<option value="name">회원명</option>
+						<option value="id">아이디</option>
+						<option value="email">이메일</option>
+						<option value="tel">전화번호</option>
+						<option value="cell">휴대폰번호</option>
+						<option value="comp">회사명</option>
+						<option value="comp_num">사업자번호</option>
+						<option value="comp_owner">대표자명</option>			
+					</select>	
+					<input type="text" name="keyword2" class="ip" value="{{keyword2}}" />
+				</td>
+				<td>
+					<select name="field3" style="display:none;">
+						<option value="multi">통합검색</option>
+						<option value="name">회원명</option>
+						<option value="id">아이디</option>
+						<option value="email">이메일</option>
+						<option value="tel">전화번호</option>
+						<option value="cell">휴대폰번호</option>
+						<option value="comp">회사명</option>
+						<option value="comp_num">사업자번호</option>
+						<option value="comp_owner">대표자명</option>				
+					</select>	
+					<input type="text" name="keyword3" class="ip" value="{{keyword3}}" />										
+				</td>			
+				<td>
+					<select name="field4" style="display:none;">
+						<option value="multi">통합검색</option>
+						<option value="name">회원명</option>
+						<option value="id">아이디</option>
+						<option value="email">이메일</option>
+						<option value="tel">전화번호</option>
+						<option value="cell">휴대폰번호</option>
+						<option value="comp">회사명</option>
+						<option value="comp_num">사업자번호</option>
+						<option value="comp_owner">대표자명</option>	
+					</select>	
+					<input type="text" name="keyword4" class="ip" value="{{keyword4}}" />					
+				</td>
+			</tr>	
+			<tr> 
+				<td>
+					<select name="range1" style="display:none;">
+						<option value="order_cnt">주문건수</option>
+						<option value="order_price">주문금액</option>
+						<option value="mileage">마일리지</option>
+						<option value="cnts">방문횟수</option>						
+					</select>	
+					<div class="range">
+						<div><input type="text" name="s_range1" style="font-size:14px" class="only_num" value="{{s_range1}}" /></div>
+						<div>~</div>
+						<div><input type="text" name="e_range1" style="font-size:14px" class="only_num" value="{{e_range1}}" /></div>
+					</div>
+				</td>
+				<td>
+					<select name="range2" style="display:none;">
+						<option value="order_cnt">주문건수</option>
+						<option value="order_price">주문금액</option>
+						<option value="mileage">마일리지</option>
+						<option value="cnts">방문횟수</option>						
+					</select>	
+					<div class="range">
+						<div><input type="text" name="s_range2" style="font-size:14px" class="only_num" value="{{s_range2}}" /></div>
+						<div>~</div>
+						<div><input type="text" name="e_range2" style="font-size:14px" class="only_num" value="{{e_range2}}" /></div>
+					</div>
+				</td>			
+				<td>
+					<select name="range3" style="display:none;">
+						<option value="order_cnt">주문건수</option>
+						<option value="order_price">주문금액</option>
+						<option value="mileage">마일리지</option>
+						<option value="cnts">방문횟수</option>						
+					</select>	
+					<div class="range">
+						<div><input type="text" name="s_range3" style="font-size:14px" class="only_num" value="{{s_range3}}" /></div>
+						<div>~</div>
+						<div><input type="text" name="e_range3" style="font-size:14px" class="only_num" value="{{e_range3}}" /></div>
+					</div>					
+				</td>
+			</tr>	
+			<tr> 
+				<td>
+					<select name="level" style="display:none;">
+						<option value="">회원등급</option>
+						<!-- DYNAMIC @loop_level@ -->
+						<option value="{{levels}}">{{name}}</option>
+						<!-- DYNAMIC @loop_level@ -->						
+					</select>							
+				</td>
+				<td>
+					<select name="mailling" style="display:none;">
+						<option value="">메일수신</option>
+						<option value="Y">수신허용</option>
+						<option value="N">수신안함</option>
+					</select>						
+				</td>			
+				<td>
+					<select name="sms" style="display:none;">
+						<option value="">SMS수신</option>
+						<option value="Y">수신허용</option>
+						<option value="N">수신안함</option>
+					</select>						
+				</td>
+			</tr>	
+			<tr> 
+				<td>
+					<select name="address1" style="display:none;">
+						<option value="">거주지역</option>
+						<option value="경기">경기</option>
+						<option value="서울">서울</option>
+						<option value="인천">인천</option>
+						<option value="강원">강원</option>
+						<option value="충청남">충남</option>
+						<option value="충청북">충북</option>
+						<option value="대전">대전</option>
+						<option value="세종">세종</option>
+						<option value="경상북">경북</option>
+						<option value="경상남">경남</option>
+						<option value="대구">대구</option>
+						<option value="부산">부산</option>
+						<option value="울산">울산</option>
+						<option value="전라북">전북</option>
+						<option value="전라남">전남</option>
+						<option value="광주">광주</option>
+						<option value="제주">제주</option>						
+					</select>							
+				</td>				
+				<td>
+					<select name="gender" style="display:none;">
+						<option value="">성별</option>
+						<option value="M">남성</option>
+						<option value="F">여성</option>
+						<option value="N">선택안함</option>
+					</select>						
+				</td>			
+				<td>
+					<select name="marry" style="display:none;">
+						<option value="">결혼여부</option>
+						<option value="M">기혼</option>
+						<option value="S">미혼</option>
+						<option value="N">선택안함</option>
+					</select>						
+				</td>
+			</tr>	
+			<tr> 
+				<td>
+					<select name="auth" style="display:none;">
+						<option value="">가입승인</option>
+						<option value="Y">승인완료</option>
+						<option value="N">미승인</option>
+					</select>							
+				</td>				
+				<td>
+					<select name="mobile" style="display:none;">
+						<option value="">가입경로</option>
+						<option value="Y">모바일</option>
+						<option value="N">PC</option>
+					</select>						
+				</td>			
+				<td>
+					<select name="sns_type" style="display:none;">
+						<option value="">SNS연동</option>
+						<option value="naver">네이버</option>
+						<option value="kakao">카카오</option>
+					</select>						
+				</td>
+			</tr>	
+			</table>					
+		</div>	
+		<div class="btnSearchSubmitBox">
+			<div class="btnCircleSearch"><div class="btnCircleSearchTitle">검색</div><i class="xi-search xi-x"></i></div>
+			<div class="btnCircleReset"><div class="btnCircleResetTitle">초기화</div><i class="xi-undo xi-x"></i></div>						
+		</div>
+	</div>
+	</form>
+
+	<script>
+	<!--	
+		
+		$("form[name=searchForm] select[name='field']").val('{{field}}').heapbox({'width' : '200px'});
+		$("form[name=searchForm] select[name='date_type']").val('{{date_type}}').show().heapbox({'width' : '170px', 'zindex':7});
+		$("form[name=searchForm] select[name='field2']").val('{{field2}}').show().heapbox({'width' : '160px', 'zindex':6});
+		$("form[name=searchForm] select[name='field3']").val('{{field3}}').show().heapbox({'width' : '160px', 'zindex':6});
+		$("form[name=searchForm] select[name='field4']").val('{{field4}}').show().heapbox({'width' : '160px', 'zindex':6});
+		$("form[name=searchForm] select[name='range1']").val('{{range1}}').show().heapbox({'width' : '160px', 'zindex':5});
+		$("form[name=searchForm] select[name='range2']").val('{{range2}}').show().heapbox({'width' : '160px', 'zindex':5});
+		$("form[name=searchForm] select[name='range3']").val('{{range3}}').show().heapbox({'width' : '160px', 'zindex':5});
+		$("form[name=searchForm] select[name='level']").val('{{level}}').show().heapbox({'width' : '99%', 'heapsize' : '400px', 'zindex':4});
+		$("form[name=searchForm] select[name='mailling']").val('{{mailling}}').show().heapbox({'width' : '99%', 'zindex':4});
+		$("form[name=searchForm] select[name='sms']").val('{{sms}}').show().heapbox({'width' : '99%', 'zindex':4});
+		$("form[name=searchForm] select[name='gender']").val('{{gender}}').show().heapbox({'width' : '99%', 'zindex':3});
+		$("form[name=searchForm] select[name='marry']").val('{{marry}}').show().heapbox({'width' : '99%', 'zindex':3});		
+		$("form[name=searchForm] select[name='address1']").val('{{address1}}').show().heapbox({'width' : '99%', 'heapsize' : '400px', 'zindex':3});
+		$("form[name=searchForm] select[name='auth']").val('{{auth}}').show().heapbox({'width' : '99%', 'zindex':2});
+		$("form[name=searchForm] select[name='mobile']").val('{{moblie}}').show().heapbox({'width' : '99%', 'zindex':2});
+		$("form[name=searchForm] select[name='sns_type']").val('{{sns_type}}').show().heapbox({'width' : '99%', 'zindex':2});
+		$('.searchDetail').hide();
+	//-->
+	</script>
+
+	<div class="empty60"></div>
+	
+	<div class="listTop">
+		<form name='listSearchForm' method='get' action='{{PHP_SELF}}?{{searchstring}}' />
+		<div class="listLeft size14">
+			전체 : <b class="orange">{{ATOTAL}}</b>건 
+			<!-- DYNAMIC @is_search@ -->
+			, 검색 : <b class="orange">{{TOTAL}}</b>건
+			<!-- DYNAMIC @is_search@ -->
+		</div>
+		<div class="listRight size10">
+			<div class="floatLeft">
+				<select name="sort">
+					<option value="uid DESC">가입일 역순</option>
+					<option value="uid ASC">가입일 순</option>
+					<option value="login_time DESC">최종로그인 역순</option>
+					<option value="login_time ASC">최종로그인 순</option>
+					<option value="id DESC">아이디 역순</option>
+					<option value="id ASC">아이디 순</option>
+					<option value="name DESC">이름 역순</option>
+					<option value="name ASC">이름 순</option>					
+				</select>
+				&nbsp;&nbsp;
+			</div>
+			<div class="floatLeft">				
+				<select name="limit">
+					<option value="10">10개 보기</option>
+					<option value="20">20개 보기</option>
+					<option value="30">30개 보기</option>
+					<option value="40">40개 보기</option>
+					<option value="50">50개 보기</option>
+					<option value="60">60개 보기</option>
+					<option value="70">70개 보기</option>
+					<option value="80">80개 보기</option>
+					<option value="90">90개 보기</option>
+					<option value="100">100개 보기</option>
+				</select>
+			</div>
+		</div>
+		</form>
+	</div>
+
+	<div class="empty10"></div>
+	<div class="listLine"></div>
+	<div class="listSelect" style="width:46%;">
+		<div class="floatLeft">
+			<button class="graButtonWhite secDelete" type="button"><span class="text"><i class="xi-file-check-o xi-x"></i> 선택탈퇴처리</span></button>
+		</div>
+
+		<form name='modifyForm1' />
+		<div class="firstLine">			
+			<select name="level">					
+				<option value=''>선택 등급변경</option>
+				<!-- DYNAMIC @loop_level2@ -->
+				<option value="{{levels}}">{{name}}</option>
+				<!-- DYNAMIC @loop_level2@ -->				
+			</select>			
+			<script>
+				$("form[name=modifyForm1] select[name='level']").heapbox({
+					'width' : '160px', 
+					'zindex' : 2,
+					'onChange': function(value){
+										if(!value) return;
+										batchChange('level', value);
+									}
+				});
+			</script>
+		</div>
+		<div class="line">
+			<select name="auth">					
+				<option value=''>선택 승인변경</option>
+				<option value='Y'>승인완료</option>
+				<option value='N'>미승인</option>
+			</select>			
+			<script>
+				$("form[name=modifyForm1] select[name='auth']").heapbox({
+					'width' : '160px', 
+					'zindex' : 2,
+					'onChange': function(value){
+										if(!value) return;
+										batchChange('auth', value);
+									}
+				});
+			</script>
+		</div>		
+		</form>
+	</div>
+
+	<div class="listSelectR">
+		<button class="graident1 graButton btnCoupon" type="button"><i class="xi-focus-frame xi-x"></i> 쿠폰발급</button>
+		<button class="graident2 graButton btnSms" type="button"><i class="xi-focus-frame xi-x"></i> 문자발송</button>
+		<button class="graident3 graButton btnExcel" type="button"><i class="xi-focus-frame xi-x"></i> 엑셀다운로드</button>
+		<button class="graident4 graButton btnConf" type="button"><i class="xi-focus-frame xi-x"></i> 노출항목설정</button>
+	</div>
+	
+	<div id="listArea" class="scrolls">		
+		<!-- DYNAMIC @is_list_area@ -->
+		<form name="listForm" method="post" action='member_post.php?{{addstring}}' target='HFrm'>
+		<input type="hidden" name="mode" />
+		<input type="hidden" name="value" />
+		<table class="listIn">
+		<colgroup>			
+			<col style="width:50px"  />		<!-- 선택 --> 
+			<!-- DYNAMIC @loop_list_width@ -->
+			<col style="width:{{list_width}}px"  />		<!-- {{list_title}} --> 
+			<!-- DYNAMIC @loop_list_width@ -->
+			<col style="width:50px"  />		<!-- 처리 --> 
+		</colgroup>
+		<thead> 
+		<tr> 
+			<th><label><input type='checkbox' name="check_all" id="check_all" value="1" /><span></span></label></th>
+			<!-- DYNAMIC @loop_list_title@ -->
+			<th>{{list_title}}</th>			
+			<!-- DYNAMIC @loop_list_title@ -->
+			<th>수정</th>
+		</tr>
+		</thead>
+		<tbody>
+		<!-- DYNAMIC @loop_list@ -->
+		<tr>			
+			<td><label><input type='checkbox' name="item[]" value="{{UID}}" /><span></span></label></td>
+			<!-- DYNAMIC @loop_list_show@ -->
+			<!-- DYNAMIC @is_list_no@ -->
+			<td class="number">{{NUM}}</td>
+			<!-- DYNAMIC @is_list_no@ -->
+			<!-- DYNAMIC @is_list_name@ -->
+			<td>{{NAME}}</td>
+			<!-- DYNAMIC @is_list_name@ -->
+			<!-- DYNAMIC @is_list_id@ -->
+			<td><a href="member_info.php?mode=modify&uid={{UID}}{{addstring}}" title="수정하기">{{ID}}</a></td>
+			<!-- DYNAMIC @is_list_id@ -->
+			<!-- DYNAMIC @is_list_crm@ -->
+			<td><i class="xi-user xi-x masterTooltip btnCrm" title="CRM보기" data-id="{{ID}}"></i></td>
+			<!-- DYNAMIC @is_list_crm@ -->
+			<!-- DYNAMIC @is_list_level@ -->
+			<td>{{LEVEL}}</td>
+			<!-- DYNAMIC @is_list_level@ -->
+			<!-- DYNAMIC @is_list_cell@ -->
+			<td>{{CELL}}</td>
+			<!-- DYNAMIC @is_list_cell@ -->
+			<!-- DYNAMIC @is_list_gender@ -->
+			<td>{{GENDER}}</td>
+			<!-- DYNAMIC @is_list_gender@ -->
+			<!-- DYNAMIC @is_list_birth@ -->
+			<td>{{BIRTH}}</td>
+			<!-- DYNAMIC @is_list_birth@ -->
+			<!-- DYNAMIC @is_list_address1@ -->
+			<td>{{ADDRESS1}}</td>
+			<!-- DYNAMIC @is_list_address1@ -->			
+			<!-- DYNAMIC @is_list_mileage@ -->
+			<td class="number"><a href="mileage_list.php?id={{ID}}" target="_blank">{{MILEAGE}}</a></td>
+			<!-- DYNAMIC @is_list_mileage@ -->	
+			<!-- DYNAMIC @is_list_order_cnt@ -->
+			<td class="number"><a href="../order/order_list.php?field=id&keyword={{ID}}&pay_status=C" target="_blank">{{ORDER_CNT}}</a></td>
+			<!-- DYNAMIC @is_list_order_cnt@ -->
+			<!-- DYNAMIC @is_list_order_price@ -->
+			<td class="number">{{ORDER_PRICE}}</td>
+			<!-- DYNAMIC @is_list_order_price@ -->
+			<!-- DYNAMIC @is_list_cnts@ -->
+			<td class="number">{{CNTS}}</td>
+			<!-- DYNAMIC @is_list_cnts@ -->	
+			<!-- DYNAMIC @is_list_auth@ -->
+			<td>{{AUTH}}</td>
+			<!-- DYNAMIC @is_list_auth@ -->	
+			<!-- DYNAMIC @is_list_mailling@ -->
+			<td>{{MAILLING}}</td>
+			<!-- DYNAMIC @is_list_mailling@ -->	
+			<!-- DYNAMIC @is_list_sms@ -->
+			<td>{{SMS}}</td>
+			<!-- DYNAMIC @is_list_sms@ -->	
+			<!-- DYNAMIC @is_list_mobile@ -->
+			<td>{{MOBILE}}</td>
+			<!-- DYNAMIC @is_list_mobile@ -->	
+			<!-- DYNAMIC @is_list_nondormant_time@ -->
+			<td class="number">{{SLEEP_TIME}}</td>
+			<!-- DYNAMIC @is_list_nondormant_time@ -->	
+			<!-- DYNAMIC @is_list_login_time@ -->
+			<td class="number">{{LOGIN_TIME}}</td>
+			<!-- DYNAMIC @is_list_login_time@ -->	
+			<!-- DYNAMIC @is_list_order_time@ -->
+			<td class="number">{{ORDER_TIME}}</td>
+			<!-- DYNAMIC @is_list_order_time@ -->	
+			<!-- DYNAMIC @is_list_signdate@ -->
+			<td class="number">{{SIGNDATE}}</td>
+			<!-- DYNAMIC @is_list_signdate@ -->
+			<!-- DYNAMIC @loop_list_show@ -->
+			<td><i class="fas fa-edit masterTooltip" title="수정하기" onclick="window.location.href='member_info.php?mode=modify&uid={{UID}}{{addstring}}'"></i></td>		
+		</tr>
+		<!-- DYNAMIC @loop_list@ -->
+		<!-- DYNAMIC @empty_list@ -->
+		<tr>
+			<td colspan="{{list_cnt}}" class="emptyList"><i class="fas fa-quote-left"></i>&nbsp;&nbsp;등록(검색)된 회원이 없습니다!&nbsp;&nbsp;<i class="fas fa-quote-right"></i></td>
+		<tr>
+		<!-- DYNAMIC @empty_list@ -->
+		</tbody>
+		</table>		
+		</form>
+		<!-- DYNAMIC @is_list_area@ -->		
+	</div>
+
+	<div class="listSelectB" style="width:46%;">
+		<div class="floatLeft">
+			<button class="graButtonWhite secDelete" type="button"><span class="text"><i class="xi-file-check-o xi-x"></i> 선택탈퇴처리</span></button>
+		</div>
+
+		<form name='modifyForm2' />
+		<div class="firstLine">			
+			<select name="level">					
+				<option value=''>선택 등급변경</option>
+				<!-- DYNAMIC @loop_level3@ -->
+				<option value="{{levels}}">{{name}}</option>
+				<!-- DYNAMIC @loop_level3@ -->				
+			</select>			
+			<script>
+				$("form[name=modifyForm2] select[name='level']").heapbox({
+					'width' : '160px', 
+					'zindex' : 1,
+					'onChange': function(value){
+										if(!value) return;
+										batchChange('level', value);
+									}
+				});
+			</script>
+		</div>
+		<div class="line">
+			<select name="auth">					
+				<option value=''>선택 승인변경</option>
+				<option value='Y'>승인완료</option>
+				<option value='N'>미승인</option>
+			</select>			
+			<script>
+				$("form[name=modifyForm2] select[name='auth']").heapbox({
+					'width' : '160px', 
+					'zindex' : 1,
+					'onChange': function(value){
+										if(!value) return;
+										batchChange('auth', value);
+									}
+				});
+			</script>
+		</div>		
+		</form>	
+	</div>
+	<div class="listSelectRB"></div>
+	<div class="listLineB"></div>
+
+	<div class="paging">{{PAGING}}</div>
+
+</div>
+
+<script src="../../lib/jquery.timeliny.js?ver={{ver}}"></script>
+<script>
+<!--	
+	
+	var defaultUrl		= "{{PHP_SELF}}?{{searchstring}}";
+	var defaultSort		= "{{sort}}";
+	var defaultLimit	= "{{limit}}";
+	var defaultPage		= "{{page}}";
+	var pagingType		= '{{PAGING_TYPE}}';	
+	var lastPage		= '{{total_page}}';
+	var defaultTotal	= '{{TOTAL}}';
+	var listMove		= 1;
+
+// -->
+</script>
+<script src="../common/listProc.js?ver={{ver}}"></script>
+<script>
+<!--
+	
+	var listAreaX		= "";
+	var listAreaLeft	= ""
+	var listAreaDown	= false;
+	
+	function batchChange(type, vls) {
+		if(!vls) return;
+		var ret = listFormCheck();
+		if(!ret) {
+			$("form[name=modifyForm1] select[name='" + type + "']").val('').heapbox('update');
+			$("form[name=modifyForm2] select[name='" + type + "']").val('').heapbox('update');
+			return;
+		}
+
+		$("form[name=listForm] input[name='mode']").val(type);
+		$("form[name=listForm] input[name='value']").val(vls);
+		$("form[name=listForm]").submit();	
+	}
+	
+	$(function() {
+		
+		$('.listSelectRB').html($('.listSelectR').html());		
+		
+		$('.btns2').click(function(e) {
+			$("form[name=searchForm] input[name='s_date']").val($(this).attr('data-s_date'));
+			$("form[name=searchForm] input[name='e_date']").val($(this).attr('data-e_date'));			
+			return;
+		});
+		
+		$('.secDelete').click(function(e) {
+			var ret = listFormCheck();
+			if(!ret) return false;
+
+			alertify.confirm('회원탈퇴처리', '정말로 선택된 회원을 탈퇴처리 하시겠습니까?<br />탈퇴처리시 해당 회원의 모든정보가 사라지며 복구 할 수 없습니다.', function() { 
+				$("form[name=listForm] input[name='mode']").val('delete');
+				$("form[name=listForm]").submit(); }
+				, function(){ });
+
+		});
+
+		$('.btnConf').click(function(e) {
+			iframeWidth = '850px';
+			iframeHeight = '.7';
+			iframeView("../common/popup_list_conf.php?type=member", "회원리스트 노출항목 설정 <i class='xi-arrows xi-x colorDGary masterTooltip' title='항목을 마우스로 누르고 상/하/좌/우로 이동하시면 순서를 변경 하실 수 있습니다.'></i>");
+			resetTooltip();
+		});	
+
+		$('.btnExcel').click(function(e) {
+			iframeWidth = '850px';
+			iframeHeight = '.6';
+			iframeView("../common/popup_excel_down.php?type=member{{addstring}}", "엑셀다운로드 설정");			
+		});	
+
+		$('.btnCoupon').click(function(e) {
+			iframeWidth = '850px';
+			iframeHeight = '.54';
+			iframeView("popup_member_coupon.php?{{addstring}}", "쿠폰발급");			
+		});	
+
+		$('.btnCrm').click(function(e) {
+			var id = $(this).attr("data-id");
+			iframeWidth = '950px';
+			iframeHeight = '.8';
+			iframeView("popup_member_crm.php?id=" + id, "회원 CRM보기");			
+		});	
+
+		$('.btnSms').click(function(e) {
+			iframeWidth = '850px';
+			iframeHeight = '.8';	
+			iframeView("./popup_member_sms.php?{{addstring}}", "문자발송");			
+		});	
+
+		<!-- DYNAMIC @is_search_open@ -->
+		$('.expensionArrow').trigger('click');
+		<!-- DYNAMIC @is_search_open@ -->			
+
+	});
+	
+	checkAllRe();
+
+//-->
+</script>

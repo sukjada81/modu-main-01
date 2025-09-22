@@ -1,0 +1,369 @@
+<!doctype html> 
+<html lang="ko">
+
+<head>
+
+<title>{{SITE_NAME}} 판매사 관리페이지</title>
+<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+<meta name="author" content="funcher" />
+<meta name="keywords" content="funcher, 모두복지몰" />
+<meta name="title" content="{{SITE_NAME}} 판매사 관리페이지" />
+<meta name="description" content="모두복지몰 판매사 관리페이지" />
+<link rel="shortcut icon" href="{{mobile_icon}}">
+
+<link type="text/css" rel='StyleSheet' href='../common/style.css?ver={{ver}}' type='text/css' media="all" />
+<link type="text/css" rel="stylesheet" href="//use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/xpressengine/xeicon@latest/xeicon.min.css">
+<link type="text/css" rel="stylesheet" href="../../lib/alertify.css?ver={{ver}}" />
+<link type="text/css" rel="stylesheet" href="../../lib/datepicker.css" />
+<link type="text/css" rel="stylesheet" href="../../lib/jquery.mCustomScrollbar.css">
+        
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="../../lib/lib.Function.js?ver={{ver}}"></script> 
+<script src="../../lib/lib.CheckForm.js?ver={{ver}}"></script>
+<script src="../../lib/jquery.heapbox.js?ver={{ver}}"></script>
+<script src="../../lib/jquery-ui.js?ver={{ver}}"></script>
+<script src="../../lib/alertify.js?ver={{ver}}"></script>
+<script src="../../lib/particles.js?ver={{ver}}"></script>
+<script src="../../lib/jquery.tagsinput-revisited.js?ver={{ver}}"></script>
+<script src="../../lib/clipboard.js?ver={{ver}}"></script>
+<script src="../../lib/datepicker.js?ver={{ver}}"></script>
+<script src="../../lib/masonry.pkgd.js?ver={{ver}}"></script>
+<script src="../../lib/jquery.mCustomScrollbar.concat.min.js"></script> 
+<script src="../../managers/common/multiBox.js?ver={{ver}}"></script>
+<script src="../common/common.js?ver={{ver}}"></script>
+<script>
+<!--
+	var popup = 0;		
+	alertify.defaults.glossary.title = "{{SERVER_NAME}}";
+//-->
+</script>
+
+</head>
+
+<body {{MAIN_COLOR1}}>
+
+	<div id="rightBoxHold">
+		<ul>
+			<!-- DYNAMIC @is_main@ -->
+			<li id="widgetToggle" class="subTooltip default" title="위젯설정열기"><i class="xi-apps xi-x"></i></li>
+			<!-- DYNAMIC @is_main@ -->
+			<!-- DYNAMIC @is_sub3@ -->
+			<li id="menuToggle" class="subTooltip default" title="메뉴열기"><i class="xi-list-dot xi-x"></i></li>
+			<!-- DYNAMIC @is_sub3@ -->
+			<li id="menuHome" class="subTooltip" title="메인페이지"><i class="xi-home xi-x"></i></li>
+			<li id="menuTop" class="subTooltip" title="상단으로 이동"><i class="xi-arrow-top xi-x"></i></li>
+			<li id="menuBottom" class="subTooltip" title="하단으로 이동"><i class="xi-arrow-bottom xi-x"></i></li>
+			<li id="menuRefresh" class="subTooltip" title="새로고침"><i class="xi-refresh xi-x"></i></li>
+			<li id="menuBack" class="subTooltip" title="이전페이지"><i class="xi-arrow-left xi-x"></i></li>		
+		</ul>
+	</div>
+
+	<!-- DYNAMIC @is_main2@ -->
+	<div id="rightBoxHoldMenu">
+		<center>
+			<div class="menuBg">
+				<div id="menuTitle" class="weight300 textShadowT colorBlack size20">위젯설정</div>
+				<div id="menuTitleBar">&nbsp;</div>
+			</div>
+
+			<div class="menuSubList widgetMainList">
+				<ul class="weight300 size09">
+					<!-- DYNAMIC @loop_widget@ -->
+					<li data-type="{{widget_type}}" data-color="{{widget_color}}">
+						<label class="ssSwitchS">
+							<input type="checkbox" {{widget_checked}} name="{{widget_id}}" id="widget_{{widget_id}}" class="widget_switch" data-id="{{widget_id}}">
+							<div class="ssSliderS round"></div>
+						</label> 
+						<label for="widget_{{widget_id}}" class="widgetLabel">{{widget_name}}</label>  <i class="xi-help xi-x colorDGary masterTooltipWidget2" title="{{widget_desc}}"></i>
+					</li>
+					<!-- DYNAMIC @loop_widget@ -->
+				</ul>
+			</div>
+		</center>	
+		
+		<script>
+			$(".widgetMainList").css("height", window.innerHeight - 250);		
+					
+			$(function() {				
+				$(".widgetMainList").mCustomScrollbar({theme:"dark-3"});
+			});
+
+
+			$(window).resize(function(){ 
+				$(".widgetMainList").css("height", window.innerHeight - 250);	
+			});
+		</script>
+	</div>	
+	<!-- DYNAMIC @is_main2@ -->				
+	
+	<!-- DYNAMIC @is_sub4@ -->
+	<div id="rightBoxHoldMenu">
+		<center>
+			<div class="menuBg">
+				<div id="menuTitle" class="weight300 textShadowT colorBlack size20">{{MENU_TITLE}}</div>
+				<div id="menuTitleBar">&nbsp;</div>
+			</div>
+
+			<div class="menuSubList">
+				<ul class="weight300 size11">
+					<!-- DYNAMIC @loop_sub_menu2@ -->
+					<li>
+						<div class="floatLeft">
+							<a href="{{MENU_SUB_LINK}}" class="subSubMenu {{SEC}}"><span class='text'>{{MENU_SUB_NAME}}</span></a>
+						</div>
+						<!-- DYNAMIC @is_sub_sub_menu@ -->
+						<div class="floatRight">
+							<i class="xi-angle-down subMenuIcon {{MENU_SUB_SUB_SEC_ICON}}"></i>
+						</div>
+						<ul class="{{MENU_SUB_SEC}}">
+							<!-- DYNAMIC @loop_sub_sub_menu@ -->
+							<li><a href="{{MENU_SUB_SUB_LINK}}" class="{{SUB_SEC}}"><span class='text'>{{MENU_SUB_SUB_NAME}}</span></a></li>
+							<!-- DYNAMIC @loop_sub_sub_menu@ -->
+						</ul>
+						<!-- DYNAMIC @is_sub_sub_menu@ -->
+					</li>				
+					<!-- DYNAMIC @loop_sub_menu2@ -->
+				</ul>
+			</div>
+		</center>			
+	</div>
+
+	<script>
+	$(".subMenuIcon").click(function() {
+		$m = $(this).parent('div').parent('li').children("ul");
+		if($m.css('opacity')==1) {
+			$m.animate({height: 'hide', opacity:0});
+			if($(this).hasClass("rotate180")) $(this).addClass('rotate180r');			
+			$(this).removeClass('rotate180');
+		}
+		else {
+			$m.animate({height: 'show', opacity:1});
+			$(this).removeClass('rotate180r').addClass('rotate180');
+		}	
+	});
+
+	if('{{MENU_SUB_SEC}}' != '') $('.subMenuIcon').trigger('click').trigger('click');
+	</script>
+	<!-- DYNAMIC @is_sub4@ -->
+
+	<div id="topEmpty"></div>
+
+	<div id="topNavi">
+		<div class="topLogo">
+			<a href="../main/index.php" class="colorWhite">
+				<!-- DYNAMIC @is_logo_default@ -->
+				모두복지몰&nbsp;&nbsp;<span class="size14"></span>
+				<!-- DYNAMIC @is_logo_default@ -->
+				<!-- DYNAMIC @is_logo_name@ -->
+				<span class="size14">{{SITE_NAME}}</span> 판매사 관리페이지
+				<!-- DYNAMIC @is_logo_name@ -->
+			</a>
+		</div>
+		<div class="topMenu">
+			<ul class="weight500 textShadowM">
+				<!-- DYNAMIC @loop_menu@ -->
+				<li class="topSubMenu" ttl="{{i}}" >				
+					<a href="{{MENU_LINK}}" class="colorWhite">{{MENU_ICON}}&nbsp;{{MENU_NAME}}</a>
+					<center><p class="lineBar"></p></center>
+				</li>
+				<!-- DYNAMIC @loop_menu@ -->
+			</ul>
+		</div>
+		<div class="topIcon">
+			<ul>
+				<li><i id="topSearch" class="xi-search xi-x masterTooltipM textShadowM" title="검색"></i></li>
+				<li><a href="../../index.php?channel=store&vendor={{v_my_id}}" target="_blank" class="colorWhite"><i class="fas fa-store-alt masterTooltipM textShadowM" title="나의스토어"></i></a></li>
+				<li><a href="../main/logout.php" class="colorWhite"><i class="xi-log-out xi-x masterTooltipM textShadowM" title="로그아웃"></i></i></a></li>
+			</ul>
+		</div>
+
+		<div class="subMenuNavi">
+			<div class="topLogo">&nbsp;</div>
+			<div class="topMenu">
+				<ul>
+					<!-- DYNAMIC @loop_menu2@ -->
+					<li>					
+						<ul class="subMenu size08" ttl="{{i}}">
+							<!-- DYNAMIC @loop_sub_menu@ -->
+							<li><a href="{{MENU_SUB_LINK}}" class="subSubMenu {{SEC}}"><span class='text'>{{MENU_SUB_NAME}}</span></a></li>
+							<!-- DYNAMIC @loop_sub_menu@ -->
+						</ul>
+					</li>
+					<!-- DYNAMIC @loop_menu2@ -->
+				</ul>
+			</div>
+			<div class="topIcon">&nbsp;</div>
+		</div>
+	</div>
+
+	<div id="topTitle">
+		<div id="particles-js"></div> 	
+
+		<!-- DYNAMIC @is_main3@ -->
+		<link rel="stylesheet" href="../../managers/main/flipclock.css?ver={{ver}}">
+		<script src="../../managers/main/flipclock.js"></script>	
+		<div class="clockDiv colorWhite">
+			<div id="Date" class="size13"></div>
+			<div class="clock"></div>
+		</div>
+		<!-- DYNAMIC @is_main3@ -->
+		<!-- DYNAMIC @is_sub@ -->
+		<div class="subTitle">
+			<div id="subTitle" class="weight300 colorWhite size25">{{MENU_SUB_TITLE}}</div>
+			<div id="subDesc" class="colorWhite size09">{{MENU_SUB_DESC}} </div>		
+		</div>	
+		<!-- DYNAMIC @is_sub@ -->
+		<!-- DYNAMIC @is_web_push@ -->
+		<div class="pushConfHelp weight300 colorWhite size08">
+			<i class="xi-focus-frame xi-x"></i> 웹푸시 (알림) 안내
+		</div>
+		<div class="pushConf weight300 colorWhite size08">
+			&nbsp;웹푸시 (알림)<label class="ssSwitchS" style="margin-left:23px"><input type="checkbox" id="pushCk" {{push_checked}}><div class="ssSliderS round"></div></label>
+		</div>
+		<!-- DYNAMIC @is_web_push@ -->
+		<div class="useConf weight300 colorWhite size08">
+			애니메이션효과<label class="ssSwitchS" style="margin-left:15px"><input type="checkbox" checked="checked" id="animationCk"><div class="ssSliderS round"></div></label>
+		</div>
+		<div class="searchBox weight300 size08">			
+			<div style="padding:37px 80px;">
+				<form name="topSearchForm" action="" data-submit-proc="searchResultLoad">				
+					<div style="position:relative">
+						<input type="text" name="keyword" placeholder="메뉴 검색" data-search-btn2="1" data-on-enter="1" data-ttl="검색어를" />
+						<p class="topResetIcon topResetIconBtn"><i class="xi-undo masterTooltip" title="초기화"></i></p>					
+					</div>					
+				</form>
+			</div>
+			<div class="searchResultBox">
+				<div class="searchResult"></div>
+			</div>
+			<div style="position:absolute; top:15px; right:20px">
+				<i class="xi-close xi-2x masterTooltip searchBoxhide" title="숨기기"></i>
+			</div>
+
+			<script>
+				$(".searchBox .searchResultBox").mCustomScrollbar({theme:"dark-3"});
+
+				$(window).resize(function(){ 
+					$(".searchBox .searchResult").css("height", window.innerHeight - 240);	
+				});
+			</script>
+		</div>
+	</div>
+
+	<center>
+		<div id="contentBox" {{MAIN_COLOR2}}>
+			<!-- DYNAMIC @is_sub2@ -->
+			<form name="locationForm">
+			<div class="location">		
+				<ul>
+					<li><a href="../main/index.php" class="colorGray"><i class="xi-home xi-x masterTooltip" title="Home"></i></a></li>
+					<li class="weight300">
+						<select name="location1">
+							<!-- DYNAMIC @loop_sec_sub1@ -->
+							<option value="{{MENU_LINK}}" {{MENU_SEC}}>{{MENU_NAME}}</option>
+							<!-- DYNAMIC @loop_sec_sub1@ -->					
+						</select>
+						<script>
+							$("form[name=locationForm] select[name='location1']").heapbox({
+								'tborder' : '0',
+								'width' : '138px',
+								'twidth' : '1',
+								'top' : '37px',
+								'left' : '-17px',
+								'tabIndent' : '30px',
+								'onChange':function(value){
+												if(!value) return;
+												window.location.href = value;
+											}
+							});
+						</script>
+					</li>
+					<li class="weight300">
+						<select name="location2">
+							<!-- DYNAMIC @loop_sec_sub2@ -->
+							<option value="{{MENU_SUB_LINK}}" {{MENU_SUB_SEC}}>{{MENU_SUB_NAME}}</option>
+							<!-- DYNAMIC @loop_sec_sub2@ -->					
+						</select>
+						<script>
+							$("form[name=locationForm] select[name='location2']").heapbox({
+								'tborder' : '0',
+								'width' : '220px',
+								'twidth' : '1',
+								'top' : '37px',
+								'left' : '-17px',
+								'tabIndent' : '30px',
+								'onChange': function(value){
+												if(!value) return;
+												window.location.href = value;
+											}
+							});
+						</script>
+					</li>
+					<!-- DYNAMIC @is_sec_sub3@ -->
+					<li class="weight300">
+						<select name="location3">
+							<!-- DYNAMIC @loop_sec_sub3@ -->
+							<option value="{{MENU_SUB_SUB_LINK}}" {{MENU_SUB_SUB_SEC}}>{{MENU_SUB_SUB_NAME}}</option>
+							<!-- DYNAMIC @loop_sec_sub3@ -->					
+						</select>
+						<script>
+							$("form[name=locationForm] select[name='location3']").heapbox({
+								'tborder' : '0',
+								'width' : '165px',
+								'twidth' : '1',
+								'top' : '37px',
+								'left' : '-17px',
+								'tabIndent' : '30px',
+								'onChange': function(value){
+												if(!value) return;
+												window.location.href = value;
+											}
+							});
+						</script>
+					</li>
+					<!-- DYNAMIC @is_sec_sub3@ -->					
+				</ul>		
+			</div>
+			</form>
+			<!-- DYNAMIC @is_sub2@ -->		
+
+			<!-- DYNAMIC @is_content_sub@ -->		
+			<div id="mainContentMenu" class="contentMenu">
+				<ul>
+					<!-- DYNAMIC @loop_content_sub@ -->
+					<li class="contentMenuSub {{MENU_SUB_SUB_SEC}}" data-link="{{MENU_SUB_SUB_LINK}}">{{MENU_SUB_SUB_NAME}}{{MENU_SUB_SUB_NAME_CNT}}</li>
+					<!-- DYNAMIC @loop_content_sub@ -->
+				</ul>
+				<div class="contentBar left"></div>
+				<div class="contentBar right"></div>
+
+				<script>
+					var a = 100 / parseInt($("#mainContentMenu ul li").length);
+					$("#mainContentMenu .contentMenuSub").css({'width':'calc('+a+'% - 2px)'});
+				
+					$('#mainContentMenu .contentMenuSub').hover(function(e){		
+						if(!$(this).hasClass('selected')) {
+							var left = $(this).position().left;
+							var right = parseInt(left + parseInt($(this).css('width'))) + 2; 
+
+							$("#mainContentMenu .left").css({left:left}).show();
+							$("#mainContentMenu .right").css({left:right}).show();
+						}
+					}, 
+					function() {
+						$("#mainContentMenu .left").hide();
+						$("#mainContentMenu .right").hide();
+					});
+
+					$('#mainContentMenu .contentMenuSub').click(function(e){
+						var link =$(this).attr('data-link');
+						if(link) window.location.href = link;
+					});
+					
+				</script>
+			</div>
+			<!-- DYNAMIC @is_content_sub@ -->		
+	
+	

@@ -1,0 +1,214 @@
+<style>
+.heapBoxBo { font-family: 'SCDream', sans-serif; font-size:14px; clear:both; display:inline-block; line-height:28px; position:relative; z-index:10; float:left; padding:16px 13px 3px 16px; min-height:41px; }
+</style>
+
+<link href="lib/summernote-lite.css?ver={{ver}}" rel="stylesheet">
+<script src="lib/summernote-lite.js?ver={{ver}}"></script>
+<script src="lib/summernote-ko-KR.js"></script>
+
+<div class="content_write">
+	
+	<form name='writeForm' method='post' action='board/board_post.php?{{addstring}}' enctype="multipart/form-data" target='HFrm'>
+	<input type="hidden" name="mypages" value="{{mypages}}" />
+	<input type="hidden" name="b_id" value="{{b_id}}" />
+	<input type="hidden" name="b_mode" value="{{b_mode}}" />
+	<input type="hidden" name="uid" value="{{uid}}" />
+	<input type="hidden" name="temp_upload" value="{{temp_upload}}" />
+	<input type="hidden" name="ck_w1" value="{{ck_w1}}" />
+	<input type="hidden" name="ck_w2" value="{{ck_w2}}" />
+	
+	<!-- DYNAMIC @is_cate@ -->
+	<div class="cateBox">
+		<select name="cate">
+			<!-- DYNAMIC @loop_cate@ -->
+			<option value="{{cate_num}}">{{cate_name}}</option>
+			<!-- DYNAMIC @loop_cate@ -->
+		</select>
+		<script>
+		<!--
+			$("form[name=writeForm] select[name='cate']").val('{{cate}}').heapbox({'width' : '300px', 'top' : '63px'});
+			if(!$("form[name=writeForm] select[name='cate']").val()) $("form[name=writeForm] select[name='cate']").val($("form[name=writeForm] select[name='cate'] option:first").val());
+		//-->
+		</script>
+		<div class="empty1"></div>
+	</div>
+	<!-- DYNAMIC @is_cate@ -->
+
+	<!-- DYNAMIC @is_options@ -->
+	<div class="optionBox">
+		<!-- DYNAMIC @is_notice@ -->
+		<label><input type='checkbox' name="notice" value="1" {{checked_notice_0}} /><span class="checkbox"></span>공지사항</label>&nbsp;&nbsp;
+		<!-- DYNAMIC @is_notice@ -->
+		<!-- DYNAMIC @is_secret@ -->
+		<label><input type='checkbox' name="secret" value="1" {{checked_secret_1}} {{secret_disable}} /><span class="checkbox"></span>비밀글</label>
+		<!-- DYNAMIC @is_secret@ -->
+	</div>
+	<!-- DYNAMIC @is_options@ -->
+
+	<div class="writeBox inputBox">
+		<ul>
+			<!-- DYNAMIC @is_guest@ -->
+			<li>
+				<div style="width:48%; float:left;position:relative;">
+					<input type="text" name="" value="{{name}}" required="required" data-title="이름" data-msg="이름을" data-toname="name" />
+				</div>
+				<div style="width:4%; float:left;">&nbsp;</div>
+				<div style="width:48%; float:left;position:relative;">
+					<!-- DYNAMIC @is_default@ -->
+					<input type='password' name='passwd' required="required" data-title="비밀번호" data-msg="비밀번호를" />
+					<!-- DYNAMIC @is_default@ -->
+					<!-- DYNAMIC @is_modify@ -->
+					<input type='password' name='passwd' required="required" data-title="비밀번호확인" data-msg="비밀번호확인을" />
+					<!-- DYNAMIC @is_modify@ -->
+				</div>				
+				<div style="clear:both; height:2px; overflow:hidden"></div>
+			</li>
+			<!-- DYNAMIC @is_guest@ -->
+			<li>
+				<input type="text" name="subject" value="{{subject}}" required="required" data-title="제목" data-msg="제목을" />
+			</li>
+			<!-- DYNAMIC @loop_add@ -->
+			<li>
+				<input type="text" name="add{{i}}" value="{{ADD_VALUE}}" {{add_required}} data-title="{{ADD_TITLE}}" data-msg="{{ADD_TITLE}}을(를)" />
+			</li>
+			<!-- DYNAMIC @loop_add@ -->
+			<!-- DYNAMIC @loop_attach@ -->
+			<li class="attach{{i}} {{display}}" data-num="{{i}}">
+				<div class="attachBox">						
+					<div class="title">첨부파일 <span>이미지, 문서, 압축 파일</span></div>					
+					<div class="file_name">{{attach_name}}</div> 
+					<div class="delete"><i class="xi-close-thin xi-x" title="삭제"></i></div>
+					<input type="file" name="attach_file{{i}}" class="uploadBtn" />
+					<input type="hidden" name="attach_del{{i}}" value="" />
+				</div>
+			</li>
+			<!-- DYNAMIC @loop_attach@ -->
+			<!-- DYNAMIC @loop_links@ -->
+			<li class="links{{i}} {{display}}" data-num="{{i}}">
+				<input type="text" name="links[]" value="{{links_name}}" data-title="관련링크" data-check-domain="1" data-nextFocus="1" />
+			</li>
+			<!-- DYNAMIC @loop_links@ -->
+			<li>
+				<XMP class="sn_content" style="display:none">
+					<!-- DYNAMIC @is_reply@ -->
+					<p></p>
+					<br /><br /><br /><br />
+					<p>======== 원본글 ==========</p>
+					<div style="border-left:2px solid #666; padding:10px;">						
+						{{content}}
+					</div>
+					<!-- DYNAMIC @is_reply@ -->
+					<!-- DYNAMIC @is_write@ -->
+					{{content}}
+					<!-- DYNAMIC @is_write@ -->
+				</XMP>	
+
+				<input type="hidden" name="content" value= ""  required="required" data-notefor=".sn_content" />
+			</li>
+		</ul>
+	</div>		
+	
+	<!-- DYNAMIC @is_agreement@ -->
+	<div class="infoBox">						
+		<div class="title"><label><input type='checkbox' name="agreement" value="1" required="required" data-alert="1" data-msg="개인정보 수집 및 이용 동의는 필수 동의 사항입니다.<br />개인정보 수집 및 이용에 동의 하셔야 글등록이 가능합니다."  /><span class="checkbox"></span>개인정보 수집 및 이용 동의</label></div>
+		<div class="info">{{agreement_info}}</div>					
+	</div>
+	<!-- DYNAMIC @is_agreement@ -->
+
+	<div class="empty30"></div>
+
+	<div class="btnShineBox">
+		<div class="displayInline width100"><button class="fontSCDream weight300 shine fixWidth" type="submit">{{TTL}} 하기</button></div>
+		<div class="btnPrev"><i class="xi-arrow-left xi-x"></i></div>
+		<div class="btnPrevTitle">이전페이지</div>
+	</div>
+
+	</form>
+	
+</div>	
+
+<script>
+<!--
+	
+	var contentBtnHeight = 75;
+	btnShineBoxPositionTop = 0;
+
+	$(function() {
+		$('.sn_content').summernote({						
+			'lang' : 'ko-KR',
+			'height' : '300px',
+			'placeholder' : '내용을 입력해 주세요.',		
+			'dialogsFade' : true,
+			callbacks: {
+				onImageUpload:function( files,editor,welEditable) {
+					snUpImage(files, this, '{{temp_upload}}', '{{b_id}}');
+				}			
+			}
+		});	
+
+		$('.uploadBtn').on('change', function(e){
+
+			if(!CommonCheckAll($(this))) return;
+
+			var num		= $(this).parents('li').attr('data-num');
+			var obj		= $(".attach" + num);		
+			var name	= $(this).val().split('\\');		
+
+			obj.find(".file_name").html(name[name.length - 1]);
+			if(parseInt(obj.find(".title").css('top')) == '20') {
+				obj.find(".title").animate({top:'-=15px'}, 'fast');
+			}
+			obj.find(".delete").show();
+			if(num < 5) $(".attach" + (parseInt(num) + 1)).show();
+						
+		});
+
+		$(".attachBox .delete").click(function(e){
+			var num		= $(this).parents('li').attr('data-num');
+			var obj		= $(".attach" + num);	
+
+			obj.find(".file_name").html('');
+			obj.find("input:file").val('');
+			obj.find("input:hidden").val('1');
+			obj.find(".attachBox .title").animate({top:'+=15px'}, 'fast');
+			$(this).hide();
+		});
+
+		$(".attachBox .file_name").each(function(i) {
+			if($(this).html().length) {
+				var num		= $(this).parents('li').attr('data-num');
+				var obj		= $(".attach" + num);		
+
+				if(parseInt(obj.find(".title").css('top')) == '20') {
+					obj.find(".title").animate({top:'-=15px'}, 'fast');
+				}
+				obj.find(".delete").show();
+				if(num < 5) $(".attach" + (parseInt(num) + 1)).show();
+			}
+		});
+
+		$("form[name=writeForm] input[name='links[]']").blur(function(e) {
+			if($(this).val()) {
+				var num		= $(this).parents('li').attr('data-num');
+				if(num < 5) {
+					$(".links" + (parseInt(num) + 1)).show();
+					$(".links" + (parseInt(num) + 1)).find('input').focus();
+				}
+			}
+			
+		});
+
+		$("form[name=writeForm] input[name='links[]']").each(function(i) {
+			if($(this).val()) {
+				var num		= $(this).parents('li').attr('data-num');
+				if(num < 5) $(".links" + (parseInt(num) + 1)).show();
+			}
+			
+		});
+
+		if($('.btnShineBox').length) btnShineBoxPositionTop = $('.btnShineBox').offset().top;
+		
+	});
+
+//-->
+</script>

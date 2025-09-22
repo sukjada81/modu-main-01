@@ -1,0 +1,119 @@
+<div id="popup_contents" style="padding-bottom:0px;">
+	<form name='goodsForm' method='post' action='' data-submit-proc='submitProc'>
+	<input type="hidden" name="uid" value="{{g_uid}}" />
+	<input type='hidden' name='price' value='{{GOODS_PRICE}}' />
+	<input type='hidden' name='coupon_price' value='{{GOODS_COUPON_PRICE}}' />
+	<input type='hidden' name='option_cnt' value='{{OPTION_CNT}}' />
+	<input type='hidden' name='coupon_down_yn' value='{{COUPON_DOWN_YN}}' />	
+	
+	<div class="goodsInfo" style="width:550px;">
+		<div class="goodsDetail">
+			<div class="goods_name">{{GOODS_NAME_CODE_ABLE}}</div>
+			<div class="empty20"></div>
+			<div class="optionList">
+				<!-- DYNAMIC @loop_option@ -->
+				<div class="optionBox">
+					<div class="option_title option_tnum{{k}}" data-num="{{k}}" data-name="{{OPTION_NAME}}">
+						<b class="option_name{{k}}">{{OPTION_NAME}}</b> <span><i class="xi-angle-down-thin xi-x"></i></span>						
+					</div>
+					
+					<div class="option_select option_snum{{k}}" data-num="{{k}}">
+						<!-- DYNAMIC @loop_option_value@ -->	
+						<div class="option_value {{option_soldout}}" data-value="{{OPTION_VALUE}}" data-info="{{OPTION_INFO}}">{{OPTION_VALUE}}</div>
+						<!-- DYNAMIC @loop_option_value@ -->						
+					</div>
+				</div>
+				<!-- DYNAMIC @loop_option@ -->				
+			</div>
+			<div class="empty20"></div>
+			<div class="option_list"></div>
+		</div>
+
+		<div class="empty50"></div>
+
+		<div class="btnShineBox" style="text-align:center">
+			<div class="displayInline" style="width:180px;"><button class="fontSCDream weight300 shine" type="submit">변경하기</button></div>
+		</div>
+	</div>
+	</form>
+</div>
+
+</body>
+</html>
+
+<iframe name="HFrm" style="display:none;"></iframe>
+
+<script src="{{skin}}/js/viewProc.js?ver={{ver}}"></script>
+
+<script>
+<!--
+	var favGoodsSelect	= 0;
+	var favStoreSelect	= 0;
+	var viewType		= "option";
+	var option_qty		= "{{option_qty}}";
+	var goods_limit_qty	= '{{GOODS_LIMIT_QTY}}';
+	var goods_able_qty	= '{{GOODS_ABLE_QTY}}';
+
+	function submitProc() {
+		
+		var data = new FormData();
+
+		o_uid	= $(".goodsDetail .option_list .option_item").attr("data-uid");
+
+		data.append('uid', '{{uid}}');
+		data.append('g_uid', '{{g_uid}}');
+		data.append('option', o_uid);
+		data.append('qty', $(".option_item_" + o_uid).find(".op_qty" + o_uid).val());
+		
+		$.ajax({
+			url: 'goods_cart_option_json.php', 
+			type: 'POST',	
+			data: data, 
+			cache: false,
+			dataType: 'json',
+			processData: false, 
+			contentType: false, 
+			success: function(data, textStatus, jqXHR) {
+				if(typeof(data.error) === 'undefined') {											
+					if(data[0].ok == 1) {
+						parent.option_change1('{{uid}}', data[0].uid, data[0].qty);
+					}
+					else if(data[0].ok == 2) {						
+						parent.option_change2('{{uid}}', data[0].qty, $(".option_item_" + o_uid).find(".option_item_name").html());
+					}					
+					else {
+						parent.option_change3('{{uid}}', data[0].qty);
+					}
+				}
+				else {
+					alertify.error(data.error);
+				}
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				alertify.error(textStatus);
+			}		
+		});
+	}
+	
+	$(function() {
+		
+		option_add('{{option_value}}', '{{option_info}}');
+		$(".option_item_{{option_uid}}").find(".op_qty{{option_uid}}").val('{{option_qty}}');
+		option_qty_proc('{{option_uid}}', '');
+
+		//$('.btnShineBox').addClass("bottomHoldFix");	
+		$('.btnShineBox').css({opacity:0}).stop().animate({opacity : 0.8}, 'fast');
+
+	});
+
+	$(window).resize(function(){ 
+		left = parseInt($('#contents').position().left) + sumPositionLeft;
+		if(!$('.cartSum').hasClass("cartSumHold")) {
+			$('.cartSum').css("left", left);
+		}
+		else $('.cartSum').css("left", 900);
+
+	});
+
+//-->
+</script>

@@ -1,0 +1,243 @@
+<style>
+body { min-width:930px; background-color:#fff; }
+#contentBox { min-width:930px; min-height:300px; top:20px; background-color:#fff; border:0; box-shadow: none; -webkit-box-shadow: none; }
+#contentBox .content { min-width:900px; margin:20px; clear:both; }
+</style>
+
+<form name='orderForm' method='post' action='order_post.php' target='HFrm'>					
+<input type="hidden" name="order_num" value="{{order_num}}" />
+<input type="hidden" name="uid" value="{{uid}}" />
+<input type="hidden" name="mode" value="status_change_{{status}}{{status2}}" />
+
+<div class="content">
+	
+	<!-- DYNAMIC @is_order_info@ -->	
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;결제 정보
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="17%" /> 
+	<col width="33%" />	
+	</colgroup>
+	<tr> 
+		<td>결제금액</td>
+		<td colspan="3" class="number">{{pay_total}} ({{orig_pay_total}} - {{use_mileage}} - {{use_coupon}})</td>
+	</tr>
+	<tr> 
+		<td>취소/환불된금액</td>
+		<td class="number">{{cancel_total}}</td>		
+		<td>배송비</td>
+		<td class="number">{{delivery_total}}</td>
+	</tr>
+	<tr> 
+		<td>마일리지 사용</td>
+		<td class="number">{{use_mileage}}</td>
+		<td>장바구니쿠폰 사용</td>
+		<td class="number">{{use_coupon}}</td>
+	</tr>
+	<tr> 
+		<td>결제수단</td>
+		<td colspan="3">{{pay_type}}</td>
+	</tr>
+	<tr> 
+		<td>결제상태</td>
+		<td>
+			{{pay_status}}				
+		</td>	
+		<td>결제완료일</td>
+		<td class="number">{{status_date}}</td>
+	</tr>
+	<!-- DYNAMIC @is_pay_type_B@ -->
+	<tr> 
+		<td>입금계좌</td>
+		<td>{{bank_info}}</td>
+		<td>입금자명</td>
+		<td>{{remittance_name}}</td>
+	</tr>
+	<!-- DYNAMIC @is_pay_type_B@ -->
+	<!-- DYNAMIC @is_cash_info@ -->
+	<tr> 
+		<td>현금영수증 정보 <i class="xi-help xi-x colorDGary masterTooltip" title="현금영수증발습시 자동으로 취소 됩니다."></i></td>
+		<td colspan="3">처리상태 : {{cash_status}}, 처리시간 : {{cash_date}}</td>
+	</tr>
+	<!-- DYNAMIC @is_cash_info@ -->
+	</table>
+
+	<div class="empty50"></div>	
+	<!-- DYNAMIC @is_order_info@ -->	
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;상품 정보
+	</div>
+
+	<table class="listIn">
+	<colgroup>
+	<col /> 
+	<col width="13%" />
+	<col width="13%" />
+	<col width="12%" /> 
+	<col width="12%" />	
+	</colgroup>
+	<thead> 
+	<tr> 
+		<th>상품명</th>
+		<th>배송업체</th>
+		<th>상품가</th>
+		<th>개별배송비</th>
+		<th>처리상태</th>						
+	</tr>
+	<thead> 
+	<tbody>
+	<!-- DYNAMIC @loop_goods@ -->	
+	<tr>
+		<td style="text-align:left">{{GOODS_NAME}}</td>
+		<td>{{GOODS_VENDOR_CARR}}</td>
+		<td class="number" style="text-align:right">{{GOODS_PRICE}} x {{GOODS_QTY}}</td>
+		<td class="number">{{DELIVERY}}</td>
+		<td>{{GOODS_STATUS}}</td>
+	</tr>
+	<!-- DYNAMIC @loop_goods@ -->
+	</table>
+
+	<div class="empty50"></div>
+
+	<!-- DYNAMIC @is_delivery_info@ -->	
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;교환발송 정보
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>
+	<tr> 
+		<td>배송 정보</td>
+		<td colspan="3">
+			<select name="delivery" required="required" data-msg="배송업체를">
+				<option value="">배송업체 선택</option>
+				<!-- DYNAMIC @loop_delivery@ -->
+				<option value="{{delivery_num}}">{{delivery_name}}</option>
+				<!-- DYNAMIC @loop_delivery@ -->
+			</select>			
+			<script>
+				$("form[name=orderForm] select[name='delivery']").val('{{delivery}}').heapbox({'width' : '200px'});
+			</script>
+			<div class="requireLeft">			
+				<input type='text' name='delivery_number' value='{{delivery_number}}' style="width:400px" placeholder="송장번호" required="required" data-msg="송장번호를" />
+			</div>
+		</td>
+	</tr>
+	</table>
+	<!-- DYNAMIC @is_delivery_info@ -->	
+
+	<!-- DYNAMIC @is_refund_info@ -->	
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp환불 정보
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="17%" /> 
+	<col width="34%" />
+	<col width="15%" /> 
+	<col width="34%" />	
+	</colgroup>
+	<tr> 
+		<td>처리자</td>
+		<td colspan="3"><input type='text' name='manager' value='{{my_name}}' required="required" data-msg="처리자를" /></td>
+	</tr>
+	<tr> 
+		<td>총환불금액</td>
+		<td colspan="3" class="number">
+			{{refund_total}}
+			<!-- DYNAMIC @is_vendor_delivery@ -->
+			&nbsp;&nbsp;(<font class="fontSCDream size09">상품금액</font> : {{refund_total3}} + <font class="fontSCDream size09">배송비</font> : {{vendor_delivery}})
+			<input type='hidden' name='delivery' value='{{vendor_delivery}}' /></div>
+			<!-- DYNAMIC @is_vendor_delivery@ -->		
+		</td>
+	</tr>
+	<tr> 
+		<td>환불금액</td>
+		<td colspan="3"><div style="position:relative"><input type='text' name='refund' value='{{pay_total2}}' class="in_refund only_num_format darks" readonly /></div></td>
+	</tr>
+	<tr> 
+		<td>환불마일리지 <i class="xi-help xi-x colorDGary masterTooltip" title="마일리지사용 주문시 사용한 마일리지 만큼 차감 후 환불됩니다."></i></td>
+		<td colspan="3"><div style="position:relative"><input type='text' name='mileage' value='{{refund_mileage}}'  class="in_mileage only_num_format darks" readonly /></div></td>
+	</tr>
+	<tr> 
+		<td>환불쿠폰사용 <i class="xi-help xi-x colorDGary masterTooltip" title="장바구니쿠폰 사용 주문시 사용한 쿠폰금액 만큼 차감 후 환불됩니다."></i></td>
+		<td colspan="3"><div style="position:relative"><input type='text' name='coupon' value='{{refund_coupon}}'  class="in_coupon only_num_format darks" readonly /></div></td>
+	</tr>
+	<tr> 
+		<td>환불수수료 <i class="xi-help xi-x colorDGary masterTooltip" title="취소/반품으로 인해 발생된 반송비용, 기타 수수료"></i></td>
+		<td colspan="3"><input type='text' name='refund_fee' value='0'  class="in_refund_fee only_num_format" /></td>
+	</tr>
+	<tr> 
+		<td>발생배송비 <i class="xi-help xi-x colorDGary masterTooltip" title="- 취소/반품으로 배송비 조건부 무료 미적용으로 인해 발생된 배송료[BR]- 주문금액에 배송비가 추가되어 다시 계산 됩니다.[BR]- 취소/반품 사유가 판매사에게 있는 경우 배송비를 0원으로 변경하시면 배송비가 발생하지 않습니다."></i></td>
+		<td colspan="3"><input type='text' name='delivery2' value='{{vendor_delivery2}}'  class="in_delivery2 only_num_format" /></td>
+	</tr>
+	<tr> 
+		<td>최종환불금액</td>
+		<td colspan="3" class="number">
+			<span class="refund_total">{{refund_total}}</span> 
+			(	
+				<span class="refund">{{pay_total2}}</span> 
+				+ <span class="mileage">{{refund_mileage}}</span> 
+				+ <span class="coupon">{{refund_coupon}}</span> 
+				- <span class="refund_fee">0</span> 
+				- <span class="delivery2">0</span> 
+			)
+		</td>
+	</tr>
+	<tr> 
+		<td>환불정보</td>
+		<td colspan="3">{{refund_bank_info}}</td>
+	</tr>
+	</table>
+	<!-- DYNAMIC @is_refund_info@ -->	
+
+	<div class="empty100"></div>	
+	
+</div>
+
+<div class="btnSubmitBoxPop">
+	<div class="displayInline"><button class="weight300 shine" type="submit">처리하기</button></div>		
+</div>
+
+</form>
+
+<iframe name="HFrm" style="display:none"></iframe>
+
+
+<script>
+<!--
+	
+	$(function() {	
+		$('.in_refund_fee, .in_delivery2').blur(function(e){
+			var refund		= str_replace(",", "", $('.in_refund').val());
+			var mileage		= str_replace(",", "", $('.in_mileage').val());
+			var coupon		= str_replace(",", "", $('.in_coupon').val());
+			var refund_fee	= str_replace(",", "", $('.in_refund_fee').val());
+			var delivery2	= str_replace(",", "", $('.in_delivery2').val());
+			
+			$(".refund_fee").html(number_format(refund_fee));
+			
+			$('.refund').html(number_format(refund));
+			$('.mileage').html(number_format(mileage));
+			$('.coupon').html(number_format(coupon));
+
+			$(".refund_fee").html(number_format(refund_fee));
+			$(".delivery2").html(number_format(delivery2));
+			$(".refund_total").html(number_format(parseInt(refund) + parseInt(mileage) + parseInt(coupon) - parseInt(refund_fee) - parseInt(delivery2)));
+		});
+	});
+
+//-->
+</script>

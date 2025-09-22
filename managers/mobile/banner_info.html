@@ -1,0 +1,128 @@
+<form name='signForm' method='post' action='banner_post.php?{{addstring}}' enctype="multipart/form-data" target='HFrm'>
+<input type="hidden" name="mode" value="{{mode}}" />
+<input type="hidden" name="uid" value="{{uid}}" />
+<input type="hidden" name="image1_del" />
+
+<div class="content">
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;배너 {{TTL}}
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>
+	<tr> 
+		<td>배너명</td>
+		<td colspan="3">
+			<p style="position:relative"><input type='text' value='{{name}}' style="width:98%" required="required" data-msg="배너명을" data-toname="name" /></p>
+		</td>		
+	</tr>
+	<tr> 
+		<td>출력위치 <i class="xi-help xi-x colorDGary masterTooltip" title="현재 사용하는 스킨에 적용된 배너만 노출 됩니다."></i></td>
+		<td colspan="3">
+			<select name="code">
+				<!-- DYNAMIC @loop_code@ -->
+				<option value="{{CODE}}">{{TITLE}}</option>
+				<!-- DYNAMIC @loop_code@ -->
+			</select>			
+			<script>
+				$("form[name=signForm] select[name='code']").val('{{code}}').heapbox({
+					'width'		: '300px',
+					'onChange'	: function(value){
+									$('#oimgHelp1').html(imageHelp[value]);
+									$('#oimgSize1').html(imageSize[value]);											
+						  		  }	
+				});
+			</script>
+		</td>
+	</tr>
+	<tr > 
+		<td>상태</td>
+		<td>
+			<div>
+				<label><input type='radio' name="status" value="0" {{checked_status_0}} /><span class="radio"></span> 사용함</label>&nbsp;&nbsp;
+				<label><input type='radio' name="status" value="1" {{checked_status_1}} /><span class="radio"></span> 사용안함</label>
+			</div>
+		</td>
+		<td>링크 이동</td>
+		<td>
+			<div>
+				<label><input type='radio' name="target" value="0" {{checked_target_0}} /><span class="radio"></span> 현재창</label>&nbsp;&nbsp;
+				<label><input type='radio' name="target" value="1" {{checked_target_1}} /><span class="radio"></span> 새창</label>
+			</div>
+		</td>
+	</tr>
+	<tr > 
+		<td>노출기간 <i class="xi-help xi-x colorDGary masterTooltip" title="- 노출기간은 시작일 00:00:00 ~ 종료일 23:59:59 까지 적용 됩니다.[BR]- 미입력시 항상 노출 됩니다."></i></td>
+		<td colspan="3">
+			<div class="floatLeftBlock"><input type="text" name="s_date" value="{{s_date}}" class="ip3 dates" placeholder="시작일" data-date-picker='1' /></div>
+			<div class="floatLeft" style="padding:0 15px 0 15px;"> ~ </div>
+			<div class="floatLeftBlock"><input type="text" name="e_date" value="{{e_date}}" class="ip3 dates" placeholder="종료일" data-date-picker='1' /></div>
+			<div class="floatLeft" style="padding-left:15px;">
+		</td>
+	</tr>
+	<tr> 
+		<td>배너 이미지 <i class="xi-help xi-x colorDGary masterTooltip" title="권장 이미지 사이즈로 노출이되니 이미지 사이즈를 확인 후 등록 바랍니다."></i></td>
+		<td colspan="3">
+			<div class="btnBox2 floatLeft" >
+				<div id="btn_image" class="btnBoxIcon">
+					<i class="fas fa-plus-circle fa-2x"></i>											
+				</div>												
+				<input type="file" name="image1" class="imageBtn" {{write_require}} data-msg="배너이미지를" data-num="1" />
+				<img id="image1" alt="목록이미지" src="../common/img/blank.gif" />
+				<div id="btn2_image1" class="btnBoxIcon2" data-num="1">
+					<i class="fas fa-edit masterTooltip btnImgEdit" title="변경하기"></i>
+					<i class="xi-close masterTooltip btnImgDel" title="삭제하기"></i>
+				</div>
+			</div>
+			<div class="floatLeft" style="padding:25px 0 0 20px;">
+				<span class="size09">이미지 안내 : <span id="oimgHelp1"></span></span><br />
+				<span class="size09">권장 이미지 사이즈 : <span id="oimgSize1"></span></span><br />
+				<span class="size09">등록 이미지 사이즈 : <span id="imgSize1"></span></span>
+			</div>
+		</td>
+	</tr>
+	<tr> 
+		<td>링크주소</td>
+		<td colspan="3">
+			<p style="position:relative"><input type='text' name='link1' value='{{link1}}' style="width:98%; float:left;" required="required" data-msg="링크주소를" data-on-enter="1" /></p>
+		</td>		
+	</tr>
+	</table>
+	
+	<div class="empty60"></div>
+
+	<div class="btnSubmitBox">
+		<div class="displayInline"><button class="weight300 shine" type="submit">배너 {{TTL}}하기</button></div>
+		<div class="btnPrev"><i class="xi-arrow-left xi-x"></i></div>
+		<div class="btnPrevTitle">이전페이지</div>		
+	</div>
+
+</div>
+
+</form>
+
+<script>
+<!--
+	
+	var imageSize = { {{image_size}} };
+	var imageHelp = { {{image_help}} };
+
+	$(function() {
+
+		$('#oimgSize1').html(imageSize[$("form[name=signForm] select[name='code']").val()]);
+		$('#oimgHelp1').html(imageHelp[$("form[name=signForm] select[name='code']").val()]);
+
+		<!-- DYNAMIC @loop_image@ -->
+		putImage('{{image}}', '{{i}}');
+		<!-- DYNAMIC @loop_image@ -->
+		
+	});	
+
+//-->
+</script>

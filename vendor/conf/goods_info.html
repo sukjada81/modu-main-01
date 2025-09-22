@@ -1,0 +1,237 @@
+<link href="../../lib/summernote-lite.css?ver={{ver}}" rel="stylesheet">
+<script src="../../lib/summernote-lite.js?ver={{ver}}"></script>
+<script src="../../lib/summernote-ko-KR.js"></script>
+
+<div class="content">
+	
+	<form name='goodsForm' method='post' action='conf_post.php?mode=goods' target='HFrm'>					
+	<input type="hidden" name="option_order" />
+	<input type="hidden" name="brand_order" />
+	<input type="hidden" name="make_order" />
+	<input type="hidden" name="origin_order" />	
+	<input type="hidden" name="icon_order" />
+	<input type="hidden" name="require_order" />
+	<input type="hidden" name="icon_name" />
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;상품 환경 설정
+	</div>	
+	
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>	
+	<tr> 
+		<td>옵션명 설정 <i class="xi-help xi-x colorDGary masterTooltip" title="상품등록에 사용되는 옵션명을 미리 등록해 놓으면 상품등록시 편하게 선택만 하면 됩니다."></i> <i class="xi-arrows xi-x colorDGary masterTooltip" title="등록된 항목을 마우스로 누르고 아래 위로 이동하시면 순서를 변경 하실 수 있습니다."></i></td>
+		<td colspan="3" style="padding:20px;">
+			<table class="listIn" id="optionSortable">
+			<col width="10%" /> 
+			<col width="14%" />
+			<col width="56%" />
+			<col width="10%" />
+			<col width="10%" />
+			<thead>
+			<tr> 
+				<th>번호</th>
+				<th>옵션명</th>
+				<th>옵션항목 <i class="xi-info xi-x colorDGary masterTooltip" title="쉼표(,) 또는 세미콜론(;) 또는 Enter키를 통해 값을 연속적으로 입력 하시면 됩니다."></i></th>
+				<th>사용</th>
+				<th>처리</th>
+			</tr>
+			</thead>
+			<tbody></tbody>
+			</table>
+		</td>		
+	</tr>
+	<tr> 
+		<td>브랜드 설정 <i class="xi-help xi-x colorDGary masterTooltip" title="상품등록에 사용되는 브랜드를 미리 등록해 놓으면 상품등록시 편하게 선택만 하면 됩니다."></i> <i class="xi-arrows xi-x colorDGary masterTooltip" title="등록된 항목을 마우스로 누르고 아래 위로 이동하시면 순서를 변경 하실 수 있습니다."></i></td>
+		<td colspan="3" style="padding:20px;">
+			<table class="listIn" id="brandSortable">
+			<col width="10%" /> 
+			<col width="70%" />
+			<col width="10%" />
+			<col width="10%" />
+			<thead>
+			<tr> 
+				<th>번호</th>
+				<th>브랜드명</th>
+				<th>사용</th>
+				<th>처리</th>
+			</tr>
+			</thead>
+			<tbody></tbody>
+			</table>
+		</td>		
+	</tr>
+	<tr> 
+		<td>제조사 설정 <i class="xi-help xi-x colorDGary masterTooltip" title="상품등록에 사용되는 제조사를 미리 등록해 놓으면 상품등록시 편하게 선택만 하면 됩니다."></i> <i class="xi-arrows xi-x colorDGary masterTooltip" title="등록된 항목을 마우스로 누르고 아래 위로 이동하시면 순서를 변경 하실 수 있습니다."></i></td>
+		<td colspan="3" style="padding:20px;">
+			<table class="listIn" id="makeSortable">
+			<col width="10%" /> 
+			<col width="70%" />
+			<col width="10%" />
+			<col width="10%" />
+			<thead>
+			<tr> 
+				<th>번호</th>
+				<th>제조사명</th>
+				<th>사용</th>
+				<th>처리</th>
+			</tr>
+			</thead>
+			<tbody></tbody>
+			</table>
+		</td>		
+	</tr>
+	<tr> 
+		<td>원산지 설정 <i class="xi-help xi-x colorDGary masterTooltip" title="상품등록에 사용되는 원산지를 미리 등록해 놓으면 상품등록시 편하게 선택만 하면 됩니다."></i> <i class="xi-arrows xi-x colorDGary masterTooltip" title="등록된 항목을 마우스로 누르고 아래 위로 이동하시면 순서를 변경 하실 수 있습니다."></i></td>
+		<td colspan="3" style="padding:20px;">
+			<table class="listIn" id="originSortable">
+			<col width="10%" /> 
+			<col width="70%" />
+			<col width="10%" />
+			<col width="10%" />
+			<thead>
+			<tr> 
+				<th>번호</th>
+				<th>원산지명</th>
+				<th>사용</th>
+				<th>처리</th>
+			</tr>
+			</thead>
+			<tbody></tbody>
+			</table>
+		</td>		
+	</tr>	
+	</table>	
+
+	<div class="empty60" ></div>
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;이용안내 설정 <i class="xi-help xi-x colorDGary masterTooltip" title="상품등록에 사용되는 이용안내 입니다."></i>
+	</div>	
+	
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>
+	<tr> 
+		<td>배송안내 설정 </td>
+		<td colspan="3">
+			<XMP class="sn_delivery_info" style="display:none">{{goods_delivery_info}}</XMP>
+			<input type="hidden" name="goods_delivery_info" data-notefor=".sn_delivery_info" value= "" />
+		</td>	
+	</tr>
+	<tr> 
+		<td>환불안내 설정 </td>
+		<td colspan="3">
+			<XMP class="sn_refund_info" style="display:none">{{goods_refund_info}}</XMP>
+			<input type="hidden" name="goods_refund_info" data-notefor=".sn_refund_info" value= "" />
+		</td>	
+	</tr>
+	<tr> 
+		<td>교환안내 설정 </td>
+		<td colspan="3">
+			<XMP class="sn_exchange_info" style="display:none">{{goods_exchange_info}}</XMP>
+			<input type="hidden" name="goods_exchange_info" data-notefor=".sn_exchange_info" value= "" />
+		</td>	
+	</tr>
+	<tr> 
+		<td>AS안내 설정 </td>
+		<td colspan="3">
+			<XMP class="sn_as_info" style="display:none">{{goods_as_info}}</XMP>
+			<input type="hidden" name="goods_as_info" data-notefor=".sn_as_info" value= "" />
+		</td>	
+	</tr>
+	</table>	
+
+	<div class="empty60" ></div>
+
+	<div class="btnSubmitBox btnCenter">
+		<div class="displayInline"><button class="weight300 shine" type="submit">저장하기</button></div>
+	</div>
+
+	</form>	
+	
+</div>
+
+<script>
+<!--
+
+	var iconCnt =1;
+
+	$("#optionSortable").multiBox({'sortable':'1','order':'form[name=goodsForm] input[name=option_order]','focus':'2','list' : [{'name':'','width':'10','type':'','enter':0},{'name':'goods_option_name','width':'14','type':'text','enter':0},{'name':'goods_option_info','width':'56','type':'tag','enter':1},{'name':'goods_option_used','width':'10','type':'checkbox','enter':0},{'name':'','width':'10','type':'icon','enter':0}]});
+
+	$("#makeSortable").multiBox({'sortable':'1','order':'form[name=goodsForm] input[name=make_order]','focus':'2','list' : [{'name':'','width':'10','type':'','enter':0},{'name':'goods_make_name','width':'70','type':'text','enter':1},{'name':'goods_make_used','width':'10','type':'checkbox','enter':0},{'name':'','width':'10','type':'icon','enter':0}]});
+
+	$("#originSortable").multiBox({'sortable':'1','order':'form[name=goodsForm] input[name=origin_order]','focus':'2','list' : [{'name':'','width':'10','type':'','enter':0},{'name':'goods_origin_name','width':'70','type':'text','enter':1},{'name':'goods_origin_used','width':'10','type':'checkbox','enter':0},{'name':'','width':'10','type':'icon','enter':0}]});
+
+	$("#brandSortable").multiBox({'sortable':'1','order':'form[name=goodsForm] input[name=brand_order]','focus':'2','list' : [{'name':'','width':'10','type':'','enter':0},{'name':'goods_brand_name','width':'70','type':'text','enter':1},{'name':'goods_brand_used','width':'10','type':'checkbox','enter':0},{'name':'','width':'10','type':'icon','enter':0}]});
+	
+	
+	$(function() {
+		
+		<!-- DYNAMIC @loop_multi@ -->
+		$("#{{ttl}}Sortable").multiBox('add', [{'name' : 'goods_{{ttl}}_name', 'value' : '{{title}}'},{'name' : 'goods_{{ttl}}_info', 'value' : '{{info}}'},{'name' : 'goods_{{ttl}}_used', 'value' : '{{used}}'}]);
+		<!-- DYNAMIC @loop_multi@ -->
+
+		$('.sn_delivery_info').summernote({						
+			'lang' : 'ko-KR',
+			'height' : '200px',
+			'dialogsFade' : true,
+			'imgSync' : false,
+			callbacks: {
+				onImageUpload:function( files,editor,welEditable) {
+					snUpImage(files, this, 'information_use/1' );
+				}
+			}
+		});	
+
+		$('.sn_refund_info').summernote({						
+			'lang' : 'ko-KR',
+			'height' : '200px',
+			'dialogsFade' : true,
+			'imgSync' : false,
+			callbacks: {
+				onImageUpload:function( files,editor,welEditable) {
+					snUpImage(files, this, 'information_use/2' );
+				}
+			}
+		});	
+
+		$('.sn_exchange_info').summernote({						
+			'lang' : 'ko-KR',
+			'height' : '200px',
+			'dialogsFade' : true,
+			'imgSync' : false,
+			callbacks: {
+				onImageUpload:function( files,editor,welEditable) {
+					snUpImage(files, this, 'information_use/3' );
+				}
+			}
+		});	
+
+		$('.sn_as_info').summernote({						
+			'lang' : 'ko-KR',
+			'height' : '200px',
+			'dialogsFade' : true,
+			'imgSync' : false,
+			callbacks: {
+				onImageUpload:function( files,editor,welEditable) {
+					snUpImage(files, this, 'information_use/4' );
+				}
+			}
+		});	
+
+		resetContent();
+
+	});
+
+//-->
+</script>

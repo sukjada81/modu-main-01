@@ -1,0 +1,153 @@
+<div id="contents" class="wide">
+	
+	<h2 class="contentTitle">나의상품문의</h2>
+
+	<div class="empty40"></div>	
+
+	<div>
+		<div class="listTopTitle fontSCDream" style="padding-left:10px;">
+			전체 <b id="listTotal">{{TOTAL}}</b>
+		</div>
+	</div>	
+	
+	<div class="empty20"></div>
+
+	<div class="content_list">
+
+		<div id="listArea">
+			<!-- DYNAMIC @is_list_area@ -->
+			<table class="listIn">
+			<colgroup>
+			<col width="100%" />
+			</colgroup>
+			<tbody>
+			<!-- DYNAMIC @loop_list@ -->			
+			<tr class="listTitle listSubject" data-num='{{UID}}' data-uid="{{UID}}" data-secret="{{SECRET}}">
+				<td class="tleft">
+					<div class="empty10"></div>
+					<div class="size12 colorGray">{{ANSWER_TYPE}} | {{NAME}} | <span class="fontMontserrat">{{SIGNDATE}}</span></div>
+					<div class="empty10"></div>				
+
+					<div class="comment_goods">
+						<a href="{{Main}}?channel=view&uid={{G_UID}}">
+							<div class="image"><img src="{{G_IMAGE}}" alt="{{G_NAME}}" /></div>
+							<div class="text">
+								<div class="gname">{{G_NAME}}</div>
+							</div>
+						</a>	
+					</div>	
+					<div class="empty20"></div>
+					{{SUBJECT}}			
+					<div class="empty10"></div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" class="content content{{UID}}">
+					<div class="inquiry">
+						<div class="titles">Q</div>
+						<div class="content">					
+							{{CONTENT}}
+							<!-- DYNAMIC @is_attach@ -->
+							<div class="image" data-uid="{{UID}}">
+								<!-- DYNAMIC @loop_attach@ -->
+								<img src="image/inquiry/{{attach_name}}" alt="" />
+								<!-- DYNAMIC @loop_attach@ -->
+							</div>
+							<!-- DYNAMIC @is_attach@ -->					
+						</div>
+						<!-- DYNAMIC @is_answer@ -->	
+						<div class="empty20"></div>
+						<div class="titles">A</div>
+						<div class="content">					
+							{{ANSWER}}		
+						</div>
+						<!-- DYNAMIC @is_answer@ -->	
+					</div>
+				</td>
+			<tr>
+			<!-- DYNAMIC @loop_list@ -->	
+			<!-- DYNAMIC @empty_list@ -->
+			<tr>
+				<td class="emptyList">등록된 상품문의가 없습니다.</td>
+			<tr>
+			<!-- DYNAMIC @empty_list@ -->
+			</tbody>
+			</table>			
+			<!-- DYNAMIC @is_list_area@ -->
+		</div>		
+	</div>
+
+	<div class="paging">{{PAGING}}</div>
+	
+</div>	
+
+<script src="lib/jquery.timeliny.js?ver={{ver}}"></script>
+<script>
+<!--	
+	
+	var is_mobile		= "{{is_mobile}}";
+	var defaultUrl		= "{{Main}}?channel={{channel}}";
+	var defaultSort		= "{{sort}}";
+	var defaultLimit	= "{{limit}}";
+	var defaultPage		= "{{page}}";
+	var pagingType		= '{{PAGING_TYPE}}';
+	var lastPage		= '{{total_page}}';
+
+// -->
+</script>
+<script src="{{skin}}/js/listDefaultProc.js?ver={{ver}}"></script>
+<script>
+<!--
+
+	<!-- DYNAMIC @is_paging_type_0@ -->
+	if(listReset == 1) getListPage(defaultUrl + '&sort=' + sort + '&limit=' + limit + '&page=' + page);
+	pageClickReset();
+	<!-- DYNAMIC @is_paging_type_0@ -->
+
+	<!-- DYNAMIC @is_paging_type_1@ -->
+	if(limit != defaultLimit) listReset = 0;
+	$('.paging').timeliny({page: page, lastPage: lastPage, boundaries:'100', url: defaultUrl + '&sort=' + sort + '&limit=' + limit, listReset:listReset});
+	if(limit != defaultLimit) changeSL(1, page);
+	<!-- DYNAMIC @is_paging_type_1@ -->
+
+	var showAbleUid	= '';
+	function showContent(num) {
+		alertify.closeAll('iframeDialog');
+
+		if($(".content" + num).css('display') == 'none') {				
+			$(".content" + num).slideDown("fast");
+		}
+		else {
+			$(".content" + num).hide();
+		}
+
+		showAbleUid = num;
+	}
+
+	function timelinyResetCallBackSub() {
+		$('.listSubject').unbind('click').bind('click',function(e) {
+			var uid		= $(this).attr("data-uid");
+			var secret	= $(this).attr("data-secret");
+			
+			if(secret == 2) return;
+			else if(secret == 1 && showAbleUid != uid) {
+				iframeWidth = '100%';
+				iframeHeight = '.43';
+				iframeView("php/popup_passwd.php?uid=" + uid, "비밀번호 확인");
+			}
+			else {
+				var num = $(this).attr("data-num");
+				if($(".content" + num).css('display') == 'none') {				
+					$(".content" + num).slideDown("fast");
+				}
+				else {
+					$(".content" + num).slideUp("fast");
+				}
+			}		
+		});		
+	}
+
+	timelinyResetCallBackSub();	
+
+// -->
+</script>

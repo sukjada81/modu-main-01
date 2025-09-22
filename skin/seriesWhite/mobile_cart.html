@@ -1,0 +1,166 @@
+<style>
+.alertify-notifier .ajs-message {  bottom:50px;  }
+</style>
+
+<div id="contents" class="wide">	
+
+	<h2 class="contentTitle">장바구니</h2>
+	
+	<div class="empty30"></div>
+	
+	<form name="cartForm" action="" data-submit-proc="cartPost">
+	<div>
+		<div class="orderContent">			
+			<div class="cartList">			
+				<div class="listTopSelect">
+					<label><input type='checkbox' name="select_all" value="1" /><span></span>전체선택</label>
+					<p><button class="shineButtonSmall btnSecDelete" type="button" style="height:36px">선택삭제</button></p>
+					<b class="total_cnt">{{TOTAL}}</b>
+				</div>
+				<div class="empty20"></div>
+				<!-- DYNAMIC @loop_cart@ -->
+				<div class="cartVendorList cartVendorList_{{VENDOR}}" data-vendor='{{VENDOR}}' data-delivery-type="{{DELIVERY_TYPE}}" data-delivery-price1='{{DELIVERY_PRICE1}}' data-delivery-price2='{{DELIVERY_PRICE2}}'>						
+					<div class="listInfo">
+						<label><input type='checkbox' name="select_{{VENDOR}}" value="1" class="selectAll" {{VENDOR_CHECKED}} /><span></span></label> <b class="store ">{{VENDOR_NAME}}</b>
+						<span class="delivery">배송비 : {{DELIVERY_MESSAGE}} {{DELIVERY_ADD_MESSAGE}}</span>
+					</div>
+					<!-- DYNAMIC @loop_cart_goods@ -->
+					<div class="listItem listItem{{UID}}" data-uid="{{UID}}" data-guid="{{G_UID}}" data-delivery-type="{{G_DELIVERY_TYPE}}" data-delivery-type-qty="{{G_DELIVERY_TYPE_QTY}}" data-delivery-price="{{G_DELIVERY_PRICE}}" data-mileage="{{MILEAGE}}" data-price="{{PRICE}}" data-orig-price="{{ORIG_PRICE}}" data-mileage="{{MILEAGE}}" data-option-use="{{OPTION_USE}}">
+						<div class="listCheck"><label><input type='checkbox' name="item[]" value="{{UID}}" class="selectAll select_{{VENDOR}}" {{CHECKED}} {{DISABLED}} /><span></span></label></div>
+						<div class="listItemImg"><a href="{{G_LINK}}"><img src="{{G_IMAGE}}" alt="{{G_NAME}}" /></a></div>
+						<div class="listItemDetail">
+							<div><a href="{{G_LINK}}">{{G_NAME}}</a></div>
+							<!-- DYNAMIC @is_option@ -->
+							<div><b class="option_name">{{G_OPTION}}</b></div>	
+							<!-- DYNAMIC @is_option@ -->
+							<div>배송비 : {{DELIVERY}}</div>			
+							<!-- DYNAMIC @is_delivery_add@ -->
+							<div>추가배송비 : {{DELIVERY_ADD}}</div>					
+							<!-- DYNAMIC @is_delivery_add@ -->
+						</div>
+						<div class="empty10"></div>
+						<div class="listItemQty">
+							<div class="item_minus"><i class="xi-minus-thin xi-x"></i></div>
+							<div class="item_input"><input type="text" name="qty_{{UID}}" value="{{QTY}}" class="qty_ only_num" /></div>
+							<div class="item_plus"><i class="xi-plus-thin xi-x"></i></div>							
+							<div class="item_btn">
+								<button class="shineButtonSmall btnFavGoods" style="width:30px; margin-right:10px;" type="button"data-guid="{{G_UID}}"><i class="xi-heart-o xi-x {{WISH_SELECT}} wish_{{G_UID}}"></i></button>
+								<button class="shineButtonSmallBlack btnDirectOrder" type="button">바로구매</button>
+								<!-- DYNAMIC @is_option_btn@ -->
+								<button class="shineButtonSmall btnOption" style="margin-left:10px;" type="button">옵션변경</button>
+								<!-- DYNAMIC @is_option_btn@ -->
+							</div>
+							<!-- DYNAMIC @is_soldout@ -->
+							<script>$(".listItem{{UID}}").find(".listItemQty").html("품절된 상품 입니다.");</script>
+							<!-- DYNAMIC @is_soldout@ -->
+						</div>
+						<div class="empty20"></div>
+						<div class="listItemX">
+							<i class="xi-close-thin xi-x"></i>
+						</div>
+						<div class="listItemPrice">
+							<!-- DYNAMIC @is_coupon@ -->	
+							<div class="couponIconS">C</div>
+							<!-- DYNAMIC @is_coupon@ -->
+							<!-- DYNAMIC @is_discount@ -->	
+							<div class="discountIconS">{{DISCOUNT}}%&nbsp;<i class="xi-arrow-down"></i></div>
+							<!-- DYNAMIC @is_discount@ -->
+							<div><span class='total_price'>{{SUM_PRICE}}</span>원</div>							
+							<!-- DYNAMIC @is_orig_price@ -->
+							<div><s><span class='total_orig_price'>{{SUM_ORIG_PRICE}}</span>원</s></div>
+							<!-- DYNAMIC @is_orig_price@ -->
+							<!-- DYNAMIC @is_mileage@ -->							
+							<div class="fontMontserrat mileage_price">{{MILEAGES}}P</div>
+							<!-- DYNAMIC @is_mileage@ -->
+						</div>						
+					</div>			
+					<!-- DYNAMIC @loop_cart_goods@ -->
+					<div class="listSum listSum_{{VENDOR}}">
+						<div>상품금액 <span><b class="listItemPrices">0</b>원</span></div>
+						<div>할인금액 <span> - <b class="listItemDiscount">0</b>원</span></div>
+						<div>배송비 <span> + <b class="listItemDelivery">0</b>원</span></div>
+						<div>주문금액 <span> <b class="listItemTotal">0</b>원</span></div>
+					</div>
+					<div class="empty30"></div>
+				</div>
+				<!-- DYNAMIC @loop_cart@ -->				
+			</div>
+		</div>
+
+		<div class="cartSum">
+			<div class="priceInfo">
+				<div>상품수 <span><b class="itemCnt">0</b>개</span></div>
+				<div>상품금액 <span><b class="itemPrice">0</b>원</span></div>
+				<div>할인금액 <span> - <b class="itemDiscount">0</b>원</span></div>
+				<div>배송비 <span> + <b class="itemDelivery">0</b>원</span></div>
+			</div>
+			<div class="priceTotal">
+				전체주문금액 <span><b class="itemSum">0</b>원</span>
+			</div>
+			<div class="mileageTotal">적립혜택 <span><b class="itemMileage">0</b>P</span></div>
+		</div>
+	</div>
+
+	<div class="btnFixOrder" id="btnFixOrder">
+		<div class="bottomDefault">
+			<div class="btnSum">
+				<div>전체 <span><b class="itemCnt">0</b>개</span></div>
+				<div><b class="itemSum">0</b>원</div>
+			</div>
+			<div class="btnOrder" style="width:60%"><b class="colorWhite">구매하기</b></div>
+		</div>
+	</div>
+	
+	<div class="empty1"></div>
+	<div class="emptyList fontSCDream weight300 displayNone">
+		<i class="xi-cart-o xi-5x colorLgray"></i><br /><br />
+		장바구니에 담긴 상품이 없습니다.
+	</div>	
+	</form>
+
+	<div class="empty100"></div>
+	
+</div>	
+
+<script>
+<!--
+	var is_mobile			= 1;
+	var fixedBottom			= 1;
+	var isLogin				= 1;
+	<!-- DYNAMIC @is_login@ -->
+	isLogin					= 0;
+	<!-- DYNAMIC @is_login@ -->
+
+	<!-- DYNAMIC @loop_chnage_qty@ -->
+	alertify.error('{{msg}}');
+	<!-- DYNAMIC @loop_chnage_qty@ -->	
+
+	$(function() {
+
+		$("#topUtil").css("border-bottom", "1px solid #f3f3f3");
+		$("#topUtil .icon").hide();
+		$("#topContent").hide();
+		$("#fixMenu").hide();
+		$("#footer").hide();		
+		$(".topContentEmpty").hide();		
+		$(".bottomEmpty").show();	
+
+		$(".wishSelect").addClass("colorOrange");
+
+		$('.btnOrder').click(function() {
+			cartPost();
+		});
+
+		<!-- DYNAMIC @empty_list@ -->
+		$(".listTopSelect").hide();
+		$(".cartSum").hide();
+		$(".btnFixOrder").hide();
+		$(".emptyList").show();
+		$("#fixMenu").show();		
+		<!-- DYNAMIC @empty_list@ -->
+	});
+
+// -->
+</script>
+
+<script src="{{skin}}/js/cartProc.js?ver={{ver}}"></script>

@@ -1,0 +1,177 @@
+<div class="content">
+	
+	<form name='searchForm' method='post' action='' target="HFrm" data-submit-proc='sumitProc'>
+	<div class="searchDetail">
+		<div class="searchDetailBox" style="padding:30px 0px; width:100%">
+			<table class="search">
+			<colgroup>
+			<col width="50%" /> 
+			<col width="50%" /> 
+			</colgroup>
+			<tr> 
+				<td colspan="2">
+					<select name="date_type">
+						<option value="status_date">주문일</option>
+					</select>
+					<div class="requireLeft"><input type="text" name="s_date" class="ip3 dates" value="{{s_date}}" required="required" data-msg="조회 시작일을" data-date-picker='2' /></div>
+					<div class="floatLeft" style="padding:0 0 0 15px;">~</div>
+					<div class="requireLeft"><input type="text" name="e_date" class="ip3 dates" value="{{e_date}}" required="required" data-msg="조회 종료일을" data-date-picker='2' /></div>
+					<div class="floatLeft" style="padding-left:15px;">
+						<button class="btns2" type="button" data-s_date='{{DATE1}}' data-e_date='{{DATE2}}'>지난달</button>
+						<button class="btns2" type="button" data-s_date='{{DATE3}}' data-e_date='{{DATE2}}'>지난2달</button>
+						<button class="btns2" type="button" data-s_date='{{DATE4}}' data-e_date='{{DATE2}}'>지난3달</button>
+						<button class="btns2" type="button" data-s_date='{{DATE5}}' data-e_date='{{DATE2}}'>지난6달</button>												
+					</div>					
+					<!-- DYNAMIC @is_level_time@ -->
+					<div class="empty20"></div>
+					<div class="floatLeft size09">
+						마지막 실행일 : <span class="fontMontserrat size11">{{member_level_time}} ({{member_level_date}})</span>
+					</div>
+					<!-- DYNAMIC @is_level_time@ -->
+				</td>				
+			</tr>				
+			</table>					
+		</div>	
+
+		<div class="empty10" ></div>
+
+		<table class="listIn fixed-header">
+		<col width="10%" /> 
+		<col width="25%" />
+		<col width="15%" />
+		<col />
+		<thead> 
+		<tr> 
+			<th>레벨</th>
+			<th>등급명</th>
+			<th>구매금액 <i class="xi-help xi-x colorDGary masterTooltip" title="- 구매확정된 주문상품의 금액(이벤트/회원할인, 상품쿠폰 적용)[BR]- 배송비는 구매금액에 포함되지 않습니다.[BR]- 장바구니 쿠폰, 마일리지 사용금액은 구매금액에서 차감되지 않습니다."></i></th>
+			<th>발급쿠폰 <i class="xi-help xi-x colorDGary masterTooltip" title="쿠폰관리에서 관리자 수동발급으로 등록된 쿠폰만 발급이 가능 합니다."></i></th>			
+		</tr>
+		</thead>
+		<tbody>
+		<!-- DYNAMIC @loop_level@ -->
+		<tr id="level_{{uid}}">
+			<td class="number">{{level}}</td>
+			<td>{{name}}</td>
+			<td><input type="text" style="width:65%; font-size:15px" class="only_num_format prices" name="price_{{uid}}" value="{{price}}" {{readonly}} data-uid='{{uid}}' data-name='{{name}}' /> 원 이상</td>
+			<td style="text-align:left">
+				<select name="coupon_uid_{{uid}}">
+					<option value="">쿠폰선택</option>
+					<!-- DYNAMIC @loop_coupon@ -->
+					<option value="{{coupon_uid}}">{{coupon_name}}</option>
+					<!-- DYNAMIC @loop_coupon@ -->						
+				</select>			
+				<script>
+					$("form[name=searchForm] select[name='coupon_uid_{{uid}}']").val('{{coupon}}').heapbox({'width' : '100%', 'zindex' : '{{zindex}}', 'heapsize' : '335px', 'searchUsed' : false, 'onChange':function(value){ couponChange(value, '{{uid}}', '{{name}}'); } });
+				</script>	</td>
+		</tr>
+		<!-- DYNAMIC @loop_level@ -->	
+		</tbody>
+		</table>
+
+		<div class="empty40" ></div>
+
+		<div class="size09 alignLeft"><i class="xi-warning xi-x"></i> 등급평가 회원수가 많을 경우 시간이 다소 소요될 수 있으니 새벽시간에 진행 하시기 바랍니다.</div>
+		<div class="empty5"></div>
+		<div class="size09 alignLeft"><i class="xi-warning xi-x"></i> 등급평가 중복실행시 쿠폰중복발행되니 중복발행이 되지 않게 하시려면 등급별 발급쿠폰을 선택하지 마시기 바랍니다.</div>
+
+		<div class="empty30" ></div>
+
+		<div class="btnSubmitBox">
+			<div class="displayInline"><button class="weight300 shine" type="submit">등급평가 실행하기</button></div>			
+		</div>		
+	</div>
+	</form>
+
+	<script>
+	<!--			
+		$("form[name=searchForm] select[name='date_type']").val('').show().heapbox({'width' : '170px', 'zindex':7});
+	//-->
+	</script>	
+
+</div>
+
+<script>
+<!--
+
+	function sumitProc() {
+		$(".displayInline .shine").removeClass('shineSend');
+		alertify.confirm('등급평가 실행', '정말로 등급평가를 실행 하시겠습니까?<br />등급평가 회원수가 많을 경우 시간이 다소 소요될 수 있습니다.', 
+			function() { $(".displayInline .shine").addClass('shineSend'); $("form[name=searchForm]").attr('action', 'member_level_post.php').submit(); }, 
+			function(){ }
+		);
+	}
+
+	function couponChange(coupon, uid, name) {
+
+		var data = new FormData();
+		data.append('type',		'coupon');
+		data.append('uid',		uid);
+		data.append('coupon',	coupon);
+		
+		$.ajax({
+				url: 'member_level_post_json.php', 
+				type: 'POST',
+				data: data, 
+				cache: false,
+				dataType: 'json',
+				processData: false, 
+				contentType: false, 
+				success: function(data, textStatus, jqXHR) {					
+					if(typeof(data.error) === 'undefined') {
+						alertify.success(name + "등급의 발급쿠폰이 변경 되었습니다.");
+					}
+					else {
+						alertify.error(data.error);
+					}
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+					alertify.error(textStatus);
+				}		
+			});	
+	}
+	
+	$(function() {		
+		
+		$('.btns2').click(function(e) {
+			$("form[name=searchForm] input[name='s_date']").val($(this).attr('data-s_date'));
+			$("form[name=searchForm] input[name='e_date']").val($(this).attr('data-e_date'));			
+			return;
+		});		
+
+		$('.prices').on('change', function(e){
+			var uid		= $(this).attr("data-uid");
+			var name	= $(this).attr("data-name");
+			var price	= $(this).val();
+
+			var data = new FormData();
+			data.append('type',		'price');
+			data.append('uid',		uid);
+			data.append('price',	price);
+			
+			$.ajax({
+					url: 'member_level_post_json.php', 
+					type: 'POST',
+					data: data, 
+					cache: false,
+					dataType: 'json',
+					processData: false, 
+					contentType: false, 
+					success: function(data, textStatus, jqXHR) {					
+						if(typeof(data.error) === 'undefined') {
+							alertify.success(name + "등급의 구매금액이 변경 되었습니다.");
+						}
+						else {
+							alertify.error(data.error);
+						}
+					},
+					error: function(jqXHR, textStatus, errorThrown) {
+						alertify.error(textStatus);
+					}		
+				});	
+		});
+		
+	});
+
+//-->
+</script>

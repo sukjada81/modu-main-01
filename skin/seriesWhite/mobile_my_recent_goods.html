@@ -1,0 +1,39 @@
+<div id="contents">
+
+	<h2 class="contentTitle">최근본 상품</h2>
+
+	<div class="empty20"></div>
+	
+	<div class="helpMsg"><i class="xi-info-o xi-x"></i> 최근본 상품은 최대 한달, 30개 까지만 저장이 됩니다.</div>
+	
+	<div class="recent_goods">
+		<div class="item">
+			<!-- DYNAMIC @loop_list@ -->
+			<div class="dates">{{DATES}} <span>{{WEEKS}}</span></div>
+			<div class="goods">
+				<!-- DYNAMIC @loop_goods@ -->				
+				<div id="recentView2_{{RECENT_UID}}" class="goodsView">
+					<a href="{{Main}}?channel=view&uid={{UID}}">
+						<img src="image/goods/img{{IMAGE}}" alt="{{NAME}}" />						
+					</a>
+					<i class="xi-close recentDel" data-uid='{{RECENT_UID}}' title="삭제"></i>
+				</div>
+				<!-- DYNAMIC @loop_goods@ -->
+			</div>		
+			<!-- DYNAMIC @loop_list@ -->
+			<!-- DYNAMIC @loop_empty@ -->
+			<div class="emptyList"> 최근본 상품이 없습니다.</div>
+			<!-- DYNAMIC @loop_empty@ -->
+		</div>
+	</div>	
+		
+	<div class="empty40"></div>
+	
+</div>	
+
+<script>
+<!--
+	
+		
+//-->
+</script>

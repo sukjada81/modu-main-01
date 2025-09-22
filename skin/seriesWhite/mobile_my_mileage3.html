@@ -1,0 +1,109 @@
+<div id="contents">	
+	
+	<h2 class="contentTitle">마일리지</h2>
+	
+	<div class="empty40"></div>
+
+	<div class="content_list">
+		<div class="listCate" style="padding:0">
+			<ul>
+				<li class="contentMenuSub" style="width:calc(34% - 25px)"><b>보유 : <span class="fontMontserrat size14 weight600">{{mileage1}}P</span></b></li>
+				<li class="contentMenuSub" style="width:calc(33% - 25px)">적립 : <span class="fontMontserrat size14">{{mileage2}}P</span></li>
+				<li class="contentMenuSub" style="width:calc(33% - 25px)">사용 : <span class="fontMontserrat size14">{{mileage3}}P</span></li>
+			</ul>
+		</div>	
+		<div class="empty30"></div>
+		<div class="listCate listCate2" style="padding:0">
+			<ul>
+				<li class="contentMenuSub {{type1}}" style="width:calc(33% - 25px)" data-type="1">적립내역</li>
+				<li class="contentMenuSub {{type2}}" style="width:calc(33% - 25px)" data-type="2">사용내역</li>
+				<li class="contentMenuSub {{type3}}" style="width:calc(34% - 25px)" data-type="3">소멸예정내역</li>
+			</ul>
+
+			<script>
+				$('.listCate2 .contentMenuSub').click(function(e){
+					var type = $(this).attr('data-type');
+					window.location.href = "{{Main}}?channel=my_mileage&type=" + type;
+				});			
+			</script>
+		</div>		
+	
+		<div>
+			<div class="listTopTitle fontSCDream">
+				전체 <b id="listTotal">{{TOTAL}}</b>
+			</div>			
+			<div class="line"></div>
+		</div>	
+		
+		<div id="listArea">
+			<!-- DYNAMIC @is_list_area@ -->
+			<table class="listIn">
+			<colgroup>
+			<col style="calc(100% - 92px)" />
+			<col width="92" />
+			</colgroup>
+			<tbody>
+			<!-- DYNAMIC @loop_list@ -->			
+			<tr>
+				<td class="tleft">
+					<div>{{CONTENT}}</div>
+					<div class="fontMontserrat size16">{{MILEAGE}}P 
+						<!-- DYNAMIC @is_expired_date@ -->
+						<b class="size14">( ~ {{EXPIRED_DATE2}}, {{MILEAGE2}}P)
+						<!-- DYNAMIC @is_expired_date@ -->
+									
+					</div>
+				</td>			
+				<td class="num" style="text-align:right">{{SIGNDATE}}</td>	
+			</tr>
+			<!-- DYNAMIC @loop_list@ -->
+			<!-- DYNAMIC @empty_list@ -->
+			<tr>
+				<td colspan="2" class="emptyList">소멸예정 마일리지 내역이 없습니다.</td>
+			<tr>
+			<!-- DYNAMIC @empty_list@ -->
+			</tbody>
+			</table>
+			</form>
+			<!-- DYNAMIC @is_list_area@ -->
+		</div>
+
+		<div class="empty40"></div>
+
+		<div class="paging">{{PAGING}}</div>
+	</div>	
+</div>	
+
+<script src="lib/jquery.timeliny.js?ver={{ver}}"></script>
+<script>
+<!--	
+	
+	var is_mobile		= "{{is_mobile}}";
+	var defaultUrl		= "{{Main}}?channel={{channel}}&type={{type}}";
+	var defaultSort		= "{{sort}}";
+	var defaultLimit	= "{{limit}}";
+	var defaultPage		= "{{page}}";
+	var defaultStatus	= "{{status}}";
+	var pagingType		= '{{PAGING_TYPE}}';
+	var lastPage		= '{{total_page}}';
+
+// -->
+</script>
+<script src="{{skin}}/js/listDefaultProc.js?ver={{ver}}"></script>
+<script>
+<!--
+
+	<!-- DYNAMIC @is_paging_type_0@ -->
+	if(listReset == 1) getListPage(defaultUrl + '&sort=' + sort + '&limit=' + limit + '&page=' + page);
+	pageClickReset();
+	<!-- DYNAMIC @is_paging_type_0@ -->
+
+	<!-- DYNAMIC @is_paging_type_1@ -->
+	if(limit != defaultLimit) listReset = 0;
+	$('.paging').timeliny({page: page, lastPage: lastPage, boundaries:'100', url: defaultUrl + '&sort=' + sort + '&limit=' + limit, listReset:listReset});
+	if(limit != defaultLimit) changeSL(1, page);
+	<!-- DYNAMIC @is_paging_type_1@ -->
+
+// -->
+</script>
+<!-- DYNAMIC @is_no_cate@ -->

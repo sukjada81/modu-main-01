@@ -1,0 +1,121 @@
+<div class="content">
+
+	<div class="contentTitle">
+		<i class="xi-paper xi-x"></i>&nbsp;&nbsp;상단 메뉴 설정 <i class="xi-arrows xi-x colorDGary masterTooltip" title="등록된 항목을 마우스로 누르고 아래 위로 이동하시면 순서를 변경 하실 수 있습니다."></i>
+	</div>
+
+	<div class="empty10" ></div>
+
+	<form name='signForm' data-return="addMenu">	
+	<table class="write">
+	<colgroup>
+	<col width="5%" /> 
+	<col width="28%" />
+	<col width="6%" />
+	<col width="16%" />
+	<col width="7%" /> 
+	<col width="28%" />		
+	</colgroup>
+	<tr> 
+		<td>선택</td>
+		<td style="text-align:left">
+			<select name="select">
+				<option value="">직접입력</option>
+				<!-- DYNAMIC @loop_cate@ -->
+				<option value="{{NAME}}|{{URL}}">분류 : {{NAME}}</option>
+				<!-- DYNAMIC @loop_cate@ -->
+				<option value="장바구니|index.php?channel=cart">장바구니</option>
+				<option value="BEST 50|index.php?channel=best">BEST 50</option>
+				<option value="신상품|index.php?channel=new">신상품</option>
+				<option value="구매후기|index.php?channel=review">구매후기</option>
+				<option value="모음전|index.php?channel=exhibition_list">모음전</option>
+				<option value="스토어|index.php?channel=store_list">스토어</option>
+
+			</select>		
+			<script>
+				$("form[name=signForm] select[name='select']").heapbox({'width' : '99%', 'heapsize' : '350px','onChange':function(value) { 
+						value2 = value.split('|');
+						$("form[name=signForm] input[name='menu_name']").val(value2[0]);
+						$("form[name=signForm] input[name='menu_url']").val(value2[1]);
+						$("form[name=signForm] select[name='select']").val('').heapbox('update');
+					} 
+				});
+			</script>
+		</td>
+		<td>메뉴명</td>
+		<td><div style="position:relative"><input type='text' name='menu_name' required="required" data-msg="메뉴명을" /></div></td>
+		<td>링크주소</td>
+		<td><div style="position:relative"><input type='text' name='menu_url' required="required" data-msg="링크주소를" data-on-enter="1" /></div></td>
+	</tr>
+	</table>
+	
+	<div class="empty30" ></div>
+	<button class="weight300 shineSmall" type="submit">메뉴 추가하기</button>
+	<div class="empty50" ></div>
+
+	</form>
+
+	<form name='menuForm' method='post' action='design_post.php' target='HFrm'>	
+	<input type="hidden" name="mode" value="top_menu" />
+	<input type="hidden" name="menu_order" />
+
+	<table class="listIn fixed-header" id="menuSortable">
+	<colgroup>
+	<col width="10%" /> 
+	<col width="30%" />
+	<col width="40%" />
+	<col width="10%" />
+	<col width="10%" />
+	</colgroup>
+	<thead> 
+	<tr> 
+		<th data-sortas="numeric">번호</th>
+		<th>메뉴명</th>
+		<th>링크주소</th>
+		<th>사용</th>
+		<th>처리</th>
+	</tr>
+	</thead>		
+	<tbody>
+	</tbody>
+	</table>
+	
+	<div class="emptyList"><i class="fas fa-quote-left"></i>&nbsp;&nbsp;등록된 메뉴가 없습니다!&nbsp;&nbsp;<i class="fas fa-quote-right"></i></div>
+	<div class="empty30" ></div>	
+
+	<div class="btnSubmitBox">
+		<div class="displayInline"><button class="weight300 shine" type="submit">저장하기</button></div>		
+	</div>
+
+	</form>
+	
+</div>
+
+<script>
+<!--
+	
+	$("#menuSortable").multiBox({'sortable':'1','order':'form[name=menuForm] input[name=menu_order]','focus':'2','list' : [{'name':'','width':'10','type':'','enter':0},{'name':'menu_name','width':'30','type':'text','enter':0},{'name':'menu_url','width':'40','type':'text','enter':0},{'name':'menu_used','width':'10','type':'checkbox','enter':0},{'name':'','width':'10','type':'icon','enter':0}]});
+	
+	function addMenu() {
+		if($('.emptyList').length) $('.emptyList').hide();
+
+		$("#menuSortable").multiBox('add', [{'name' : 'menu_name', 'value' : $("form[name=signForm] input[name='menu_name']").val() },{'name' : 'menu_url', 'value' : $("form[name=signForm] input[name='menu_url']").val() },{'name' : 'menu_used', 'value' : '1'}]);
+
+		$("form[name=signForm] input[name='menu_name']").val('');
+		$("form[name=signForm] input[name='menu_url']").val('');
+		$("form[name=signForm] input[name='menu_name']").focus();
+
+		resetContent();
+	}
+
+	$(function() {
+
+		<!-- DYNAMIC @loop_menu@ -->
+		$("#menuSortable").multiBox('add', [{'name' : 'menu_name', 'value' : '{{menu_name}}'},{'name' : 'menu_url', 'value' : '{{menu_url}}'},{'name' : 'menu_used', 'value' : '{{menu_used}}'}]);
+		$('.emptyList').hide();
+		<!-- DYNAMIC @loop_menu@ -->
+		
+	});
+
+//-->
+</script>

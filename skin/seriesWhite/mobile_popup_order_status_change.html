@@ -1,0 +1,84 @@
+<style>
+.heapBoxBo { font-family: 'SCDream', sans-serif; font-size:14px; clear:both; display:inline-block; line-height:28px; position:relative; z-index:10; float:left; padding:16px 13px 3px 16px; min-height:41px; }
+</style>
+
+<div id="popup_contents">
+
+	<form name='writeForm' method='post' action='order_status_post.php' enctype="multipart/form-data" target='HFrm'>
+	<input type="hidden" name="mode" value="statusX1" />
+	<input type="hidden" name="status" value="{{status}}" />
+	<input type="hidden" name="order_num" value="{{order_num}}" />
+	<input type="hidden" name="uid" value="{{uid}}" />
+
+	<div class="content_write">
+
+		<div class="cateBox">
+			<select name="reason" required="required" data-msg="{{TTL}}사유를">
+				<option value="">{{TTL}}사유 선택</option>
+				<!-- DYNAMIC @loop_cancel@ -->
+				<option value="{{cancel}}">{{cancel}}</option>
+				<!-- DYNAMIC @loop_cancel@ -->
+			</select>
+			<script>
+			<!--
+				$("form[name=writeForm] select[name='reason']").val('').heapbox({'width' : '300px', 'heapsize' : '280px', 'searchUsed' : false, 'top' : '63px'});
+				if(!$("form[name=writeForm] select[name='reason']").val()) $("form[name=writeForm] select[name='reason']").val($("form[name=writeForm] select[name='reason'] option:first").val());
+			//-->
+			</script>
+			<div class="empty1"></div>
+		</div>
+		
+		<div class="writeBox inputBox">
+			<ul>
+				<li>
+					<textarea name="message" placeholder="기타사항을 입력 하세요."></textarea>
+				</li>				
+				<!-- DYNAMIC @is_refund@ -->
+				<li class="separation" style="width:32%">
+				<input type="text" name="bank_name" value="" required="required" data-title="환불 은행명" data-msg="환불 은행명을" />
+				</li>
+				<li class="separation" style="width:2%"></li>
+				<li class="separation" style="width:32%">
+					<input type="text" name="bank_num" value="" required="required" data-title="환불 계좌번호" data-msg="환불 계좌번호를" />
+				</li>
+				<li class="separation" style="width:2%"></li>
+				<li class="separation" style="width:32%">
+					<input type="text" name="bank_owner" value="" required="required" data-title="환불 예금주" data-msg="환불 예금주를" />
+				</li>
+				<!-- DYNAMIC @is_refund@ -->
+				<!-- DYNAMIC @is_refund2@ -->
+				<li>
+					<li class="separation size16" style="width:20%">환불방식</li>
+					<li class="separation colorGray" style="width:80%">{{REFUND_TYPE}}</li>
+				</li>				
+				<!-- DYNAMIC @is_refund2@ -->					
+			</ul>		
+		</div>
+
+		<div class="empty30"></div>
+
+		<div class="btnShineBox" style="text-align:center">
+			<div class="displayInline" style="width:180px;"><button class="fontSCDream weight300 shine" type="submit">요청하기</button></div>
+		</div>		
+	</div>
+</div>	
+</form>
+
+</body>
+</html>
+
+<iframe name="HFrm" style="display:none;"></iframe>
+
+<script>
+<!--
+	
+	$(function() {
+		
+		$('.btnShineBox').addClass("bottomHoldFix");	
+		$('.btnShineBox').css({opacity:0}).stop().animate({opacity : 0.8}, 'fast');
+		
+		
+	});
+
+//-->
+</script>

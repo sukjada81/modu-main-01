@@ -1,0 +1,57 @@
+<div id="contents">
+	
+	{{SUB_MENUS}}
+	
+	<h2 class="contentTitle">회원탈퇴</h2>
+	<form name='registForm' method='post' action='php/regist_post.php' enctype="multipart/form-data" target='HFrm'>
+	<input type="hidden" name="mode" value="withdrawal" />
+	<div class="registBox inputBox">
+		<ul>			
+			<!-- DYNAMIC @is_sns_type@ -->
+			<li>
+				<input type='password' name='passwd' required="required" data-title="비밀번호 확인" data-detail='영문, 숫자, 특수문자 2가지 이상 조합 8~20자' data-msg="비밀번호를" data-check-password='1' />
+			</li>
+			<!-- DYNAMIC @is_sns_type@ -->
+			<li class="multiSelect">
+				<p class="inputTitle">탈퇴사유</p>
+				<div class="clearfix">					
+					<label class="min"><input type='radio' name="reason" value="상품품질 불만" required="required" data-msg="탈퇴사유를" /><span class="radio">상품품질 불만</span></label>
+					<label class="min"><input type='radio' name="reason" value="배송지연" /><span class="radio">배송지연</span></label>
+					<label class="min"><input type='radio' name="reason" value="교환/환불/반품 불만" /><span class="radio">교환/환불/반품 불만</span></label>
+					<label class="min"><input type='radio' name="reason" value="개인정보유출방지" /><span class="radio">개인정보유출방지</span></label>
+					<label class="min"><input type='radio' name="reason" value="기타" /><span class="radio">기타</span></label>					
+				</div>
+			</li>
+			<li>
+				<textarea name="message" placeholder="하고싶은 말을 남겨 주세요"></textarea>
+			</li>
+		</ul>
+	</div>
+	
+	<div class="withdrawal_help center">
+		<p class="fontSCDream size12">
+			· 회원탈퇴를 하시면 회원정보와 주문내역, 관심상품, 마일리지등 회원님의 모든 정보가 삭제됩니다.<br />
+			· 주문하신 이력이 있는 경우 회원정보와 별도로 주문정보는 쇼핑몰 정책에 따라 일정기간 보유 할 수 있습니다.<br />
+			· 회원탈퇴 후 언제든 재가입을 하실 수 있으나 기존에 사용하던 정보는 더 이상 사용 하실 수 없습니다.<br />
+			· 탈퇴사유, 하고싶은 말을 남겨 주시면 회원님의 의견을 수렴하여 보다 좋은 쇼핑몰이 될 수 있도록 노력 하겠습니다.<br />
+		</p>
+	</div>
+	
+	<div class="empty50"></div>
+	<div class="btnShineBox">
+		<div class="displayInline width100"><button class="fontSCDream weight300 shine fixWidth" type="submit">회원탈퇴 신청</button></div>
+		<div class="btnPrev"><i class="xi-arrow-left xi-x"></i></div>
+		<div class="btnPrevTitle fontNoto">이전페이지</div>
+	</div>
+	
+</div>	
+
+<script>
+<!--
+	
+	var contentBtnHeight = 75;
+	if($('.btnShineBox').length) btnShineBoxPositionTop = $('.btnShineBox').offset().top;
+	else btnShineBoxPositionTop = 0;	
+		
+//-->
+</script>

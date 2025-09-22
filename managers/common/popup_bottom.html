@@ -1,0 +1,53 @@
+	</div>
+	
+</body>
+
+<script>
+<!--
+
+	$(document).ready(function(){ 	
+
+		$('.btnCircleSearch').hover(function(e){
+			$(this).css({color:'#f48042'});
+			$('.btnCircleSearchTitle').css({opacity:0.1, display:"block"}).stop().animate({opacity:1.0}, 'fast');			
+		}, 
+		function() {
+			$(this).css({color:'#000'});
+			$('.btnCircleSearchTitle').stop().animate({opacity:0}, 'fast');				
+		});
+
+		$('.btnCircleSearch').click(function(e){		
+			ckCookie();
+			document.searchForm.submit();
+		});
+
+		$('.btnCircleReset').hover(function(e){
+			$(this).css({color:'#f48042'});
+			$('.btnCircleResetTitle').css({opacity:0.1, display:"block"}).stop().animate({opacity:1.0}, 'fast');			
+		}, 
+		function() {
+			$(this).css({color:'#000'});
+			$('.btnCircleResetTitle').stop().animate({opacity:0}, 'fast');				
+		});
+
+		$('.btnCircleReset, .resetIconBtn').click(function(e){		
+			ckCookie();
+			var param = "";
+			$("form[name=searchForm]").find("input").each(function(i) {
+				if($(this).prop("type")=='hidden') {
+					if($(this).val() && $(this).attr('data-param') != 1) {
+						if(param) param += "&" + $(this).attr("name") + "=" + $(this).val();
+						else param = "?" + $(this).attr("name") + "=" + $(this).val();
+					}
+				}
+			});
+
+			window.location.href = document.searchForm.action + param;
+		});
+		
+		resetTooltip();
+
+	});
+
+//-->
+</script>

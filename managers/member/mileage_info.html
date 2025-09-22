@@ -1,0 +1,135 @@
+<form name='mileageForm' method='post' action='mileage_post.php?{{addstring}}' enctype="multipart/form-data" target='HFrm'>
+<input type="hidden" name="mode" value="write" />
+
+<div class="content">
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;마일리지 등록
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>
+	<tr> 
+		<td>아이디</td>
+		<td colspan="3">
+			<div class="floatLeft" style="position:relative;"><input type='text' name='id' value='' style="width:200px" required="required" data-msg="아이디를" /></div>
+			<div class="floatLeft" style="padding-left:10px;">
+				<button class="btns" style="float:right" type="button" id="searchMember">
+					<span class="text"><i class="xi-focus-frame"></i> 회원검색</span>
+				</button>
+			</div>
+		</td>		
+	</tr>
+	<tr> 
+		<td>내역</td>
+		<td colspan="3"><p style="position:relative"><input type='text' name="content" value='{{name}}' style="width:98%" required="required" data-msg="내역을" /></p></td>
+	</tr>
+	<tr> 
+		<td>타입</td>
+		<td colspan="3">
+			<label><input type='radio' name="type" value="1" checked="checked" class="types" /><span class="radio"></span> 지급 마일리지</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="type" value="2"  class="types" /><span class="radio"></span> 차감 마일리지</label>
+		</td>
+	</tr>
+	<tr class="goods"> 
+		<td>마일리지</td>
+		<td colspan="3">
+			<div class="floatLeft" style="position:relative"><input type='text' name='mileage' value='0' style="width:100px; font-size:14px" class="only_num_format" required="required" data-msg="마일리지를"  /></div>
+		</td>
+	</tr>	
+	<tr class="validity"> 
+		<td>마일리지 유효기간 사용 선택 <i class="xi-help xi-x colorDGary masterTooltip" title="마일리지 유효기간이 있는 경우 소멸 한달전 자동으로 회원 이메일로 안내메일이 전송 됩니다."></i></td>
+		<td>
+			<label><input type='radio' name="mileage_validity_yn" value="Y" class="mileage_validity_yn" /><span class="radio"></span> 사용함</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="mileage_validity_yn" value="N" class="mileage_validity_yn" checked="checked" /><span class="radio"></span> 사용안함</label>
+		</td>
+		<td>마일리지 유효기간</td>
+		<td>
+			<div class="floatLeft" style="width:80px;position:relative">
+				<input type='text' id="mileage_validity" name='mileage_validity' value='1' style="width:80%; font-size:14px" class="only_num" data-msg="마일리지 유효기간을" />
+			</div>
+			<div class="floatLeft">			
+				<select name="mileage_validity_type">
+					<option value="D">일</option>
+					<option value="M">달</option>
+					<option value="Y">년</option>
+				</select>			
+				<script>
+					$("select[name='mileage_validity_type']").val('Y').heapbox({'width' : '80px'});
+				</script>
+			</div>
+		</td>		
+	</tr>	
+	</table>
+	
+	<div class="empty60" ></div>
+
+	<div class="btnSubmitBox">
+		<div class="displayInline"><button class="weight300 shine" type="submit">마일리지 등록하기</button></div>
+		<div class="btnPrev"><i class="xi-arrow-left xi-x"></i></div>
+		<div class="btnPrevTitle">이전페이지</div>		
+	</div>
+
+</div>
+
+</form>
+
+<script>
+<!--
+	
+	function mileageGet(id , vls = '') {
+		alertify.closeAll('iframeDialog');
+		
+		$('form[name=mileageForm] input[name=id]').val(id);
+	}
+
+	function ckmileageValidity() {
+		var nameArr = new Array('mileage_validity');
+
+		if($('form[name=mileageForm] input[name=mileage_validity_yn]:checked').val()=='Y') {			
+			for(i=0;i<nameArr.length;i++) {
+				dipslayDarkShow('form[name=mileageForm] input[name='+nameArr[i]+']');
+			}
+			resetTooltip();
+		}
+		else {
+			for(i=0;i<nameArr.length;i++) {
+				dipslayDarkHide('form[name=mileageForm] input[name='+nameArr[i]+']');
+			}
+		}
+	}
+
+	function ckType() {
+		if($('form[name=mileageForm] input[name=type]:checked').val()=='1') {
+			$(".validity").show();
+		}
+		else {
+			$(".validity").hide();			
+		}
+	}
+
+	$(function() {
+		
+		$('#searchMember').click(function(e){
+			iframeView("popup_member_search.php?type=mileage", "회원검색");
+		});
+		
+		$('.mileage_validity_yn').click(function(e){			
+			ckmileageValidity();
+		});	
+
+		$(".types").click(function(e){
+			ckType();
+		});		
+
+		ckmileageValidity();
+
+	});	
+
+//-->
+</script>

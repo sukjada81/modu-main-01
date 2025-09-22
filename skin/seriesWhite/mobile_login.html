@@ -1,0 +1,101 @@
+<div id="contents">		
+	<h2 class="contentTitle">로그인</h2>
+
+	<form name='loginForm' method='post' action='php/login_post.php' target='HFrm'>
+	<input type="hidden" name="channel_orig" value="{{channel_orig}}" />
+	<input type="hidden" name="uid" value="{{uid}}" />
+	<div class="loginBox">
+		<!-- DYNAMIC @is_guest_detail@ -->
+		<div>
+			<div class="floatRight">
+				<ul>
+					<li class="last"><a href='{{Main}}?channel=login_guest' class="underLineSelected" style="font-size:18px">비회원 주문조회</a></li>
+				</ul>
+			</div>
+		</div>
+		<!-- DYNAMIC @is_guest_detail@ -->
+
+		<div class="empty30"></div>
+
+		<div class="inputBox">
+			<ul>
+				<li>
+					<input type="text" name="id" maxlength="12" value="{{SAVEID}}" required="required" data-title="아이디" data-msg="아이디를" data-icon-no=1 />
+				</li>
+				<li>
+					<input type='password' name='passwd' required="required" data-title="비밀번호" data-msg="비밀번호를" data-icon-no=1 data-on-enter=1 />
+				</li>
+			</ul>		
+		</div>
+		<div>
+			<div class="floatLeft">
+				<label class="size08 colorGray"><input type='checkbox' name="save_id" value="1" {{checkedsid}} /><span class="checkbox"></span>아이디 저장</label>
+			</div>
+			<div class="empty10"></div>
+			<div class="floatRight">
+				<ul>
+					<li class="line"><a href='{{Main}}?channel=regist' class="underLineThinSelected">회원가입</a></li>
+					<li class="line"><a href='{{Main}}?channel=id_search' class="underLineThinSelected">아이디 찾기</a></li>
+					<li class="last"><a href='{{Main}}?channel=passwd_search' class="underLineThinSelected">비빌번호 찾기</a></li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="empty20"></div>
+
+		<div class="btnShineBox" style="background:#fff">
+			<div class="displayInline width100"><button class="fontSCDream weight300 shine black" type="submit">로그인</button></div>		
+		</div>
+
+		<!-- DYNAMIC @is_guest_order@ -->
+		<button class="shineButton btnOrder" style="width:100%" type="button">비회원 주문하기</button>	
+		<!-- DYNAMIC @is_guest_order@ -->
+
+		<div class="empty20"></div>
+
+		<div class="snsBox" style="background:#fff; padding:0">
+			<center>			
+				<!-- DYNAMIC @is_kakao@ -->
+				<p class="btn btnSocial" data-site='kakao'><i class="xi-kakaotalk xi-x colorBlack"></i> 카카오 로그인</p>
+				<!-- DYNAMIC @is_kakao@ -->				
+				<!-- DYNAMIC @is_naver@ -->
+				<p class="btn btnSocial" data-site='naver'><i class="xi-naver xi-x colorGreen"></i> 네이버 로그인</p>
+				<!-- DYNAMIC @is_naver@ -->
+				<!-- DYNAMIC @is_google@ -->
+				<p class="btn btnSocial" data-site='google'><i class="xi-google xi-x colorOrange"></i> 구글 로그인</p>
+				<!-- DYNAMIC @is_google@ -->
+				<!-- DYNAMIC @is_payco@ -->
+				<p class="btn btnSocial" data-site='payco'><i class="xi-park xi-x colorRed"></i> 페이코 로그인</p>
+				<!-- DYNAMIC @is_payco@ -->
+			</center>
+		</div>
+
+		<div class="empty20"></div>
+
+	</div>	
+	
+	</form>
+
+</div>	
+
+<script>
+<!--
+
+	if($('.snsBox').find('.btn').length == 0) {
+		$('.snsBox').hide();			
+	}
+	else if($('.snsBox').find('.btn').length == 1) {
+		$('.snsBox .btn').css({'width' : '90%'});		
+	}	
+
+	$(".btnOrder").click(function(e){
+		window.location.href = "{{Main}}?channel=order&direct={{direct}}";
+	});
+	
+	$('.btnSocial').click(function() {
+		var site = $(this).attr('data-site');
+		window.open('plugin/social/' + site + '_login.php', '', 'toolbar=no location=no scrollbars=yes resizable=yes width=500 height=650');		
+	});		
+
+//-->
+</script>

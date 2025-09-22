@@ -1,0 +1,104 @@
+<form name='goodsForm' method='post' action='goods_post.php' target='HFrm'>					
+<input type="hidden" name="mode" value="option" />
+<input type="hidden" name="uid" value="{{uid}}" />
+<input type="hidden" name="option_order" />
+<input type="hidden" name="optionList_order" />
+
+<div class="content">
+	<div class="optionConf" style="padding:0">
+		<div class="floatLeft">
+			<select name="option_select">
+				<option value="">선택</option>
+				<!-- DYNAMIC @loop_option_select@ -->
+				<option value='{{option_name}}|{{option_info}}'>{{option_name}}</option>
+				<!-- DYNAMIC @loop_option_select@ -->
+			</select>							
+			<script>							
+				$("form[name=goodsForm] select[name='option_select']").heapbox({
+					'width' : '300px',
+					'onChange': function(value){
+									if(!value) return;
+									value = value.split('|');
+									$("#optionTable").multiBox('add2', [{'name' : 'option_name', 'value' : value[0]},{'name' : 'option_info', 'value' : value[1]}]);
+									$("form[name=goodsForm] select[name='option_select']").val('').heapbox('update');
+								}
+				});
+			</script>
+			&nbsp;&nbsp;<a href="../conf/goods_info.php" target="_blank" class="link"><i class="fas fa-link masterTooltip" title="환경설정 > 상품환경설정 > 옵션설정"></i></a>
+		</div>				
+		
+		<div class="empty20"></div>
+
+		<table class="listIn" id="optionTable">
+		<col width="7%" /> 
+		<col width="26%" />
+		<col width="60%" />
+		<col width="7%" /> 
+		<thead>
+		<tr> 
+			<th>번호</th>
+			<th>옵션명</th>
+			<th>옵션항목 <i class="xi-info xi-x colorDGary masterTooltip" title="쉼표(,) 또는 세미콜론(;) 또는 Enter키를 통해 값을 연속적으로 입력 하시면 됩니다."></i></th>
+			<th>처리</th>
+		</tr>
+		</thead>
+		<tbody></tbody>
+		</table>
+
+		<div class="empty20"></div>
+		<button class="graButtonWhite floatRight" type="button" style="width:150px; margin-left:10px;" id="op_reset"><span class="text"><i class="fas fa-undo"></i> 옵션품목 초기화</span></button>
+		<button class="btns floatRight" type="button" style="width:150px" id="op_set"><span class="text"><i class="fas fa-th-list"></i> 옵션품목 만들기</span></button>
+		<div class="empty20"></div>
+
+		<div id="optionDiv"></div>
+	</div>			
+	
+</div>
+
+<div class="empty100"></div>
+
+<div class="btnSubmitBoxPop">
+	<div class="displayInline"><button class="weight300 shine" type="submit">저장하기</button></div>		
+</div>
+
+</form>
+
+<iframe name="HFrm" style="display:none"></iframe>
+
+<script src="../../managers/goods/js_goods_option.js?ver={{t}}"></script>
+<script>
+<!--
+
+	$(function() {
+		<!-- DYNAMIC @loop_option@ -->
+		$("#optionTable").multiBox('add', [{'name' : 'option_name', 'value' : '{{option_name}}'},{'name' : 'option_info', 'value' : '{{option_info}}'}]);
+		<!-- DYNAMIC @loop_option@ -->	
+
+		<!-- DYNAMIC @loop_option_info@ -->
+		$("#optionTable").multiBox('add2', [{'name' : 'option_name', 'value' : '{{option_name}}'},{'name' : 'option_info', 'value' : '{{option_value}}'}]);
+		<!-- DYNAMIC @loop_option_info@ -->
+		
+		var op_order_def = $('form[name=goodsForm] input[name=option_order]').val().split(',');
+		var op_cnt_def = op_order_def.length; 
+		optionTableCreate(op_order_def, op_cnt_def);
+		
+		<!-- DYNAMIC @loop_option_table@ -->
+		optionBox = [];
+		<!-- DYNAMIC @loop_option_table_value@ -->
+		optionBox.push({'name':'option_value{{i}}','value':'{{option_value2}}'});
+		<!-- DYNAMIC @loop_option_table_value@ -->
+		optionBox.push({'name' : 'option_price', 'value' : '{{option_price}}'});
+		optionBox.push({'name' : 'option_qty_type', 'value' : '{{option_qty_type}}'});
+		optionBox.push({'name' : 'option_qty', 'value' : '{{option_qty}}'});
+		optionBox.push({'name' : 'option_used', 'value' : '{{option_used}}'});
+		optionBox.push({'name' : 'option_code', 'value' : '{{option_code}}'});
+		optionBox.push({'name' : 'option_uid', 'value' : '{{option_uid}}'});
+
+		$("#optionListTable").multiBox('add_option', optionBox);
+		<!-- DYNAMIC @loop_option_table@ -->	
+		
+		$("#optionListTable").multiBox('reset_option');			
+	});
+
+//-->
+</script>

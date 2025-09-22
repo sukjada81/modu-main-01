@@ -1,0 +1,391 @@
+<form name='memberForm' method='post' action='conf_post.php?mode=member' target='HFrm'>					
+
+<div class="content">
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;회원 기본 정책 설정
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="20%" /> 
+	<col width="30%" />
+	<col width="20%" /> 
+	<col width="30%" />	
+	</colgroup>
+	<tr> 
+		<td>회원승인방식 선택 <i class="xi-help xi-x colorDGary masterTooltip" title="관리자 수동승인일 경우 회원가입을 하면 미승인 상태로 관리자가 수동으로 승인처리 하기전까지 로그인이 제한 됩니다."></td>
+		<td colspan="3">
+			<label><input type='radio' name="member_auth" value="A" {{checked_auth_A}} /><span class="radio"></span> 가입시 자동승인</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="member_auth" value="P" {{checked_auth_P}} /><span class="radio"></span> 관리자 수동승인</label>
+		</td>		
+	</tr>
+	<tr> 
+		<td>비밀번호 찾기 인증 선택 <i class="xi-help xi-x colorDGary masterTooltip" title="- 회원 비밀번호 찾기시 인증방법을 선택 하시면 됩니다.[BR]- 이메일 인증은 필수 선택 됩니다.[BR]- 핸드폰 인증은 SMS 사용으로 설정되고 캐시가 충전되어 있어야 가능 합니다.[BR]- 사용 및 가능여부에 따라 회원 비밀번호 찾기시 선택가능 하게 노출이 되거나 숨김처리 됩니다."></i></td>
+		<td colspan="3">
+			<label><input type='checkbox' name="member_auth_email" value="1" disabled {{checked_auth_email_1}} /><span></span> 이메일 인증</label>&nbsp;&nbsp;
+			<label><input type='checkbox' name="member_auth_cell" value="1" {{DISABLED}} {{checked_auth_cell_1}} /><span></span> 핸드폰 인증</label>	
+		</td>		
+	</tr>
+	<tr> 
+		<td>가입불가 아이디 설정 <i class="xi-info xi-x colorDGary masterTooltip" title="쉼표(,) 또는 세미콜론(;) 또는 Enter키를 통해 값을 연속적으로 입력 하시면 됩니다."></i></td>
+		<td colspan="3">
+			<input id="member_unavailable_id" name="member_unavailable_id" type="text" value="{{member_unavailable_id}}" class='taginput' />
+			<script>$('#member_unavailable_id').tagsInput({ 'placeholder' : '입력 하세요!', 'delimiter': [',', ';'] });</script>
+		</td>		
+	</tr>
+	<tr> 
+		<td>마일리지 사용 선택 <i class="xi-help xi-x colorDGary masterTooltip" title="마일리지 사용안함일 경우 상품에서 개별 설정한 마일리지도 지급이 되지 않습니다."></i></td>
+		<td colspan="3">
+			<label><input type='radio' name="member_mileage_yn" value="Y" {{checked_mileage_yn_Y}} /><span class="radio"></span> 사용함</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="member_mileage_yn" value="N" {{checked_mileage_yn_N}} /><span class="radio"></span> 사용안함</label>
+		</td>		
+	</tr>
+	<tr> 
+		<td>회원가입시 지급 마일리지 </td>
+		<td><div style="position:relative"><input type='text' name='member_mileage_join' value='{{member_mileage_join}}' style="width:100px; font-size:14px;" class="only_num_format" /> 원</div></td>
+		<td>상품구매시 지급 마일리지 <i class="xi-help xi-x colorDGary masterTooltip" title="상품정보에서 마일리지 정책 중 환경설정을 선택한 상품에 적용이 됩니다."></i></td>
+		<td><div style="position:relative"><input type='text' name='member_mileage_order' value='{{member_mileage_order}}' style="width:100px; font-size:14px;" class="only_num" /> %</div></td>		
+	</tr>
+	<tr> 
+		<td>마일리지 유효기간 사용 선택 <i class="xi-help xi-x colorDGary masterTooltip" title="마일리지 유효기간이 있는 경우 소멸 한달전 자동으로 회원 이메일로 안내메일이 전송 됩니다."></i></td>
+		<td>
+			<label><input type='radio' name="member_mileage_validity_yn" value="Y" {{checked_mileage_validity_yn_Y}} /><span class="radio"></span> 사용함</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="member_mileage_validity_yn" value="N" {{checked_mileage_validity_yn_N}} /><span class="radio"></span> 사용안함</label>
+		</td>
+		<td>마일리지 유효기간</td>
+		<td>
+			<div class="floatLeft" style="width:80px;position:relative">
+				<input type='text' id="member_mileage_validity" name='member_mileage_validity' value='{{member_mileage_validity}}' style="width:80%; font-size:14px;" class="only_num" data-msg="마일리지 유효기간을" />
+			</div>
+			<div class="floatLeft">			
+				<select name="member_mileage_validity_type">
+					<option value="D">일</option>
+					<option value="M">달</option>
+					<option value="Y">년</option>
+				</select>			
+				<script>
+					$("select[name='member_mileage_validity_type']").val('{{member_mileage_validity_type}}').heapbox({'width' : '80px'});
+				</script>
+			</div>
+		</td>		
+	</tr>	
+	<tr> 
+		<td>로그인 제한 설정 <i class="xi-help xi-x colorDGary masterTooltip" title="회원 로그인시 비밀번호가 연속해서 일정회수이상 맞지 않을경우 일정시간동안 로그인을 제한하는 설정 입니다. 제한시간에는 로그인이 되지 않습니다."></i></td>
+		<td colspan="3">
+			로그인시 연속해서 <input type='text' name='member_limit_count' value='{{member_limit_count}}' style="width:40px; font-size:14px;" class="only_num_format" />회 실패하면 
+			<input type='text' name='member_limit_minute' value='{{member_limit_minute}}' style="width:40px; font-size:14px;" class="only_num_format" />분간 로그인을 제한 합니다. ( 0분일 경우 로그인 제한 안함 )
+		</td>		
+	</tr>
+	<tr> 
+		<td>관리자 로그인 인증 선택 <i class="xi-help xi-x colorDGary masterTooltip" title="- 관리자페이지 인증 사용할 경우 등록된 이메일이나 핸드폰 번호로 인증번호를 발송하여 인증번호도 같이 입력해야 로그인이 됩니다.[BR]- 핸드폰 인증은 SMS 사용으로 설정되어야 가능 합니다."></i></td>
+		<td colspan="3">
+			<label><input type='radio' name="member_admin_auth" value="N" {{checked_admin_auth_N}} /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="member_admin_auth" value="E" {{checked_admin_auth_E}} /><span class="radio"></span> 이메일 인증</label>&nbsp;&nbsp;
+			<label><input type='radio' name="member_admin_auth" value="H" {{checked_admin_auth_H}} {{DISABLED}} /><span class="radio"></span> 핸드폰 인증</label>	
+		</td>		
+	</tr>
+	<tr> 
+		<td>관리자 로그인 유지시간 설정 </td>
+		<td colspan="3">
+			관리자 로그인 후 페이지 이동이 없는 경우 <input type='text' name='member_login_limit_minute' value='{{member_login_limit_minute}}' style="width:40px; font-size:14px;" class="only_num_format" />분이 지나면 자동으로 로그아웃이 됩니다. ( 0분일 경우 자동로그아웃 기능 사용안함 )
+		</td>		
+	</tr>
+	</table>
+
+	<div class="empty60"></div>
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;소셜 로그인 설정
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="20%" /> 
+	<col width="30%" />
+	<col width="20%" /> 
+	<col width="30%" />	
+	</colgroup>
+	<!-- DYNAMIC @loop_social@ -->
+	<tr> 
+		<td>{{v}} 설정 <i class="xi-help xi-x colorDGary masterTooltip" title="{{v}}에 가입된 정보를 이용하여 회원가입이 이뤄지며 가입 후에는 {{v}} 로그인을 확인 하여 자동으로 쇼핑몰에 로그인이 됩니다."></i></td>
+		<td colspan="3">
+			<label><input type='checkbox' name="social_used_{{v}}" value="1" class="social_used" data-site="{{v}}" {{checked_social_used}} /><span></span> 사용함</label>&nbsp;&nbsp;
+			<button class="btns socialBtn" type="button" style="width:18%" data-url='{{social_url}}'><span class="text"><i class="xi-external-link"></i> {{v}} Developers</span></button>
+		</td>		
+	</tr>
+	<tr> 
+		<td>{{v}} Client ID <i class="xi-help xi-x colorDGary masterTooltip" title="{{social_msg1}}"></i></td>
+		<td><input type='text' name='social_api_id_{{v}}' value='{{social_api_id}}' data-msg="{{v}} Client ID를" /></td>
+		<td>{{v}} Client Secret <i class="xi-help xi-x colorDGary masterTooltip" title="{{social_msg2}}"></i></td>
+		<td><input type='text' name='social_api_key_{{v}}' value='{{social_api_key}}' data-msg="{{v}} Client Secret을" /></td>
+	</tr>
+	<tr> 
+		<td> Callback URL 안내</td>
+		<td colspan="3">
+			{{social_callback}}&nbsp;&nbsp;<i class="fas fa-clipboard-check size12 masterTooltip socialBtnUrl" title="링크복사" data-clipboard-text='{{social_callback}}'></i>
+		</td>		
+	</tr>
+	<!-- DYNAMIC @loop_social@ -->
+	</table>
+
+	<div class="empty60"></div>
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;회원 가입 항목 설정
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>
+	<tr> 
+		<td>기본 필수항목 안내 </td>
+		<td colspan="3">
+			이름, 아이디, 비밀번호, 이메일 주소는 기본 필수 항목 입니다.
+		</td>		
+	</tr>
+	<tr> 
+		<td>전화번호</td>
+		<td>
+			<label><input type='radio' name="member_form_tel" value="0" {{checked_form_tel_0}} /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="member_form_tel" value="1" {{checked_form_tel_1}} /><span class="radio"></span> 사용함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="member_form_tel" value="2" {{checked_form_tel_2}} /><span class="radio"></span> 필수항목</label>	
+		</td>		
+		<td>핸드폰번호</td>
+		<td>
+			<label><input type='radio' name="member_form_cell" value="0" {{checked_form_cell_0}} /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="member_form_cell" value="1" {{checked_form_cell_1}} /><span class="radio"></span> 사용함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="member_form_cell" value="2" {{checked_form_cell_2}} /><span class="radio"></span> 필수항목</label>	
+		</td>		
+	</tr>
+	<tr> 
+		<td>주소</td>
+		<td>
+			<label><input type='radio' name="member_form_address" value="0" {{checked_form_address_0}} /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="member_form_address" value="1" {{checked_form_address_1}} /><span class="radio"></span> 사용함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="member_form_address" value="2" {{checked_form_address_2}} /><span class="radio"></span> 필수항목</label>	
+		</td>
+		<td>생년월일</td>
+		<td>
+			<label><input type='radio' name="member_form_birth" value="0" {{checked_form_birth_0}} /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="member_form_birth" value="1" {{checked_form_birth_1}} /><span class="radio"></span> 사용함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="member_form_birth" value="2" {{checked_form_birth_2}} /><span class="radio"></span> 필수항목</label>	
+		</td>		
+	</tr>
+	<tr> 
+		<td>성별</td>
+		<td>
+			<label><input type='radio' name="member_form_gender" value="0" {{checked_form_gender_0}} /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="member_form_gender" value="1" {{checked_form_gender_1}} /><span class="radio"></span> 사용함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="member_form_gender" value="2" {{checked_form_gender_2}} /><span class="radio"></span> 필수항목</label>	
+		</td>		
+		<td>결혼여부</td>
+		<td>
+			<label><input type='radio' name="member_form_marry" value="0" {{checked_form_marry_0}} /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="member_form_marry" value="1" {{checked_form_marry_1}} /><span class="radio"></span> 사용함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="member_form_marry" value="2" {{checked_form_marry_2}} /><span class="radio"></span> 필수항목</label>	
+		</td>		
+	</tr>
+	<tr> 
+		<td>직업</td>
+		<td>
+			<label><input type='radio' name="member_form_job" value="0" {{checked_form_job_0}} /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="member_form_job" value="1" {{checked_form_job_1}} /><span class="radio"></span> 사용함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="member_form_job" value="2" {{checked_form_job_2}} /><span class="radio"></span> 필수항목</label>	
+		</td>	
+		<td>관심분야</td>
+		<td>
+			<label><input type='radio' name="member_form_hobby" value="0" {{checked_form_hobby_0}} /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="member_form_hobby" value="1" {{checked_form_hobby_1}} /><span class="radio"></span> 사용함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="member_form_hobby" value="2" {{checked_form_hobby_2}} /><span class="radio"></span> 필수항목</label>	
+		</td>		
+	</tr>	
+	<tr> 
+		<td>직업 항목 <i class="xi-info xi-x colorDGary masterTooltip" title="쉼표(,) 또는 세미콜론(;) 또는 Enter키를 통해 값을 연속적으로 입력 하시면 됩니다."></i></td>
+		<td colspan="3">
+			<input id="member_form_job_info" name="member_form_job_info" type="text" value="{{member_form_job_info}}" class='taginput' />
+			<script>$('#member_form_job_info').tagsInput({ 'placeholder' : '입력 하세요!', 'delimiter': [',', ';'] });</script>
+		</td>
+	</tr>
+	<tr> 
+		<td>관심분야 항목 <i class="xi-info xi-x colorDGary masterTooltip" title="쉼표(,) 또는 세미콜론(;) 또는 Enter키를 통해 값을 연속적으로 입력 하시면 됩니다."></i></td>
+		<td colspan="3">
+			<input id="member_form_hobby_info" name="member_form_hobby_info" type="text" value="{{member_form_hobby_info}}" class='taginput' />
+			<script>$('#member_form_hobby_info').tagsInput({ 'placeholder' : '입력 하세요!', 'delimiter': [',', ';'] });</script>
+		</td>
+	</tr>
+	<tr> 
+		<td>정보/이벤트 메일 수신 동의</td>
+		<td>
+			<label><input type='radio' name="member_form_mailling" value="0" {{checked_form_mailling_0}} /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="member_form_mailling" value="1" {{checked_form_mailling_1}} /><span class="radio"></span> 사용함</label>&nbsp;&nbsp;
+		</td>		
+		<td>정보/이벤트 SMS 수신 동의</td>
+		<td>
+			<label><input type='radio' name="member_form_sms" value="0" {{checked_form_sms_0}} /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="member_form_sms" value="1" {{checked_form_sms_1}} /><span class="radio"></span> 사용함</label>&nbsp;&nbsp;
+		</td>		
+	</tr>
+	<tr> 
+		<td>상호(회사명)</td>
+		<td>
+			<label><input type='radio' name="member_form_comp" value="0" {{checked_form_comp_0}} /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="member_form_comp" value="1" {{checked_form_comp_1}} /><span class="radio"></span> 사용함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="member_form_comp" value="2" {{checked_form_comp_2}} /><span class="radio"></span> 필수항목</label>	
+		</td>		
+		<td>사업자번호</td>
+		<td>
+			<label><input type='radio' name="member_form_comp_num" value="0" {{checked_form_comp_num_0}} /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="member_form_comp_num" value="1" {{checked_form_comp_num_1}} /><span class="radio"></span> 사용함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="member_form_comp_num" value="2" {{checked_form_comp_num_2}} /><span class="radio"></span> 필수항목</label>	
+		</td>		
+	</tr>
+	<tr> 
+		<td>대표자명</td>
+		<td>
+			<label><input type='radio' name="member_form_comp_owner" value="0" {{checked_form_comp_owner_0}} /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="member_form_comp_owner" value="1" {{checked_form_comp_owner_1}} /><span class="radio"></span> 사용함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="member_form_comp_owner" value="2" {{checked_form_comp_owner_2}} /><span class="radio"></span> 필수항목</label>	
+		</td>		
+		<td>사업장주소</td>
+		<td>
+			<label><input type='radio' name="member_form_comp_address" value="0" {{checked_form_comp_address_0}} /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="member_form_comp_address" value="1" {{checked_form_comp_address_1}} /><span class="radio"></span> 사용함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="member_form_comp_address" value="2" {{checked_form_comp_address_2}} /><span class="radio"></span> 필수항목</label>	
+		</td>		
+	</tr>
+	<tr> 
+		<td>업태</td>
+		<td>
+			<label><input type='radio' name="member_form_comp_type" value="0" {{checked_form_comp_type_0}} /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="member_form_comp_type" value="1" {{checked_form_comp_type_1}} /><span class="radio"></span> 사용함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="member_form_comp_type" value="2" {{checked_form_comp_type_2}} /><span class="radio"></span> 필수항목</label>	
+		</td>	
+		<td>종목</td>
+		<td>
+			<label><input type='radio' name="member_form_comp_item" value="0" {{checked_form_comp_item_0}} /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="member_form_comp_item" value="1" {{checked_form_comp_item_1}} /><span class="radio"></span> 사용함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="member_form_comp_item" value="2" {{checked_form_comp_item_2}} /><span class="radio"></span> 필수항목</label>	
+		</td>		
+	</tr>
+	<!-- DYNAMIC @loop_add@ -->
+	<tr> 
+		<td>추가 항목 #{{i}}</td>
+		<td colspan="3">
+			<input type='text' id="member_form_add{{i}}_title" name='member_form_add{{i}}_title' value='{{member_form_add_title}}' style="width:30%" placeholder="추가항목 타이틀을 입력 하세요." />&nbsp;&nbsp;&nbsp;&nbsp;
+			<label><input type='radio' name="member_form_add{{i}}" value="0" {{checked_form_add_0}} /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="member_form_add{{i}}" value="1" {{checked_form_add_1}} /><span class="radio"></span> 사용함</label>&nbsp;&nbsp;
+			<label><input type='radio' name="member_form_add{{i}}" value="2" {{checked_form_add_2}} /><span class="radio"></span> 필수항목</label>	
+		</td>
+	</tr>
+	<!-- DYNAMIC @loop_add@ -->
+	</table>		
+
+	<div class="empty60" ></div>
+
+	<div class="btnSubmitBox">
+		<div class="displayInline"><button class="weight300 shine" type="submit">저장하기</button></div>
+	</div>
+
+</div>
+
+</form>
+
+<script>
+<!--
+	
+	function ckMembermileage() {
+
+		var nameArr = new Array('member_mileage_join','member_mileage_order');
+
+		if($('form[name=memberForm] input[name=member_mileage_yn]:checked').val()=='Y') {
+			for(i=0;i<nameArr.length;i++) {
+				dipslayDarkShow('form[name=memberForm] input[name='+nameArr[i]+']');
+			}
+			resetTooltip();
+		}
+		else {
+			for(i=0;i<nameArr.length;i++) {
+				dipslayDarkHide('form[name=memberForm] input[name='+nameArr[i]+']');
+			}
+		}
+	}
+
+	function ckmileageValidity() {
+
+		var nameArr = new Array('member_mileage_validity');
+
+		if($('form[name=memberForm] input[name=member_mileage_validity_yn]:checked').val()=='Y') {
+			for(i=0;i<nameArr.length;i++) {
+				dipslayDarkShow('form[name=memberForm] input[name='+nameArr[i]+']');
+			}
+			resetTooltip();
+		}
+		else {
+			for(i=0;i<nameArr.length;i++) {
+				dipslayDarkHide('form[name=memberForm] input[name='+nameArr[i]+']');
+			}
+		}
+	}
+
+	function ckMemberSocial(obj, site) {
+
+		var nameArr = new Array('social_api_id_' + site, 'social_api_key_' + site);
+
+		if(obj.prop('checked')) {
+			for(i = 0; i < nameArr.length; i ++) {
+				dipslayDarkShow('form[name=memberForm] input[name='+nameArr[i]+']');
+			}
+			resetTooltip();
+		}
+		else {
+			for(i = 0; i < nameArr.length; i ++) {
+				dipslayDarkHide('form[name=memberForm] input[name='+nameArr[i]+']');
+			}			
+		}
+	}
+
+	$(function() {
+
+		$('form[name=memberForm] input[name=member_mileage_yn]').click(function(e){
+			ckMembermileage();
+		});
+
+		$('form[name=memberForm] input[name=member_mileage_validity_yn]').click(function(e){
+			ckmileageValidity();
+		});
+
+		$('.socialBtn').click(function(e){
+			var url = $(this).attr("data-url");
+			window.open(url);
+		});
+
+		$('.social_used').click(function(e){
+			var site = $(this).attr('data-site');
+			ckMemberSocial($(this), site);
+		});
+
+		var clipboard = new ClipboardJS('.socialBtnUrl');
+
+		clipboard.on('success', function(e) {
+			alertify.success('클립보드에 복사 되었습니다.');			
+		});	
+
+		$('.social_used').each(function(i) {
+			var site = $(this).attr('data-site');
+			ckMemberSocial($(this), site);
+		});
+				
+		ckMemberNameck();
+		ckMembermileage();
+		ckmileageValidity();
+		only_num_formatCk();
+		
+	});
+
+//-->
+</script>

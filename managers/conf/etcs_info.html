@@ -1,0 +1,222 @@
+<div class="content">
+	
+	<div class="contentTitle">
+		<i class="xi-paper xi-x"></i>&nbsp;&nbsp주문 & SMS 정책 설정
+	</div>
+	
+	<form name='etcsForm' method='post' action='conf_post.php?mode=etcs' target='HFrm'>	
+	<input type="hidden" name="message_order" />
+	<input type="hidden" name="cancel_order" />
+	
+	<table>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	<tr> 
+		<td>교환/반품/취소사유 설정 <i class="xi-arrows xi-x colorDGary masterTooltip" title="등록된 항목을 마우스로 누르고 아래 위로 이동하시면 순서를 변경 하실 수 있습니다."></i></td>
+		<td colspan="3" style="padding:20px;">
+			<table class="listIn fixed-header" id="cancelSortable">
+			<col width="10%" /> 
+			<col width="70%" />
+			<col width="10%" />
+			<col width="10%" />
+			<thead>
+			<tr> 
+				<th>번호</th>
+				<th>사유</th>
+				<th>사용</th>
+				<th>처리</th>
+			</tr>
+			</thead>
+			<tbody></tbody>
+			</table>
+		</td>		
+	</tr>
+	<tr> 
+		<td>배송시 요청사항 설정 <i class="xi-help xi-x colorDGary masterTooltip" title="주문시 배송요청사항에 사용되는 문구를 미리 등록해 놓으면 고객이 편하게 선택할 수 있습니다."></i> <i class="xi-arrows xi-x colorDGary masterTooltip" title="등록된 항목을 마우스로 누르고 아래 위로 이동하시면 순서를 변경 하실 수 있습니다."></i></td>
+		<td colspan="3" style="padding:20px;">
+			<table class="listIn fixed-header" id="messageSortable">
+			<col width="10%" /> 
+			<col width="70%" />
+			<col width="10%" />
+			<col width="10%" />
+			<thead>
+			<tr> 
+				<th>번호</th>
+				<th>요청사항</th>
+				<th>사용</th>
+				<th>처리</th>
+			</tr>
+			</thead>
+			<tbody></tbody>
+			</table>
+		</td>		
+	</tr>
+	<tr> 
+		<td>자동배송완료 설정 <i class="xi-help xi-x colorDGary masterTooltip" title="- 스마트택배 API 연동을 하시면 자동으로 배송완료 처리가 됩니다.(하루에 한번)[BR] - 스마트택배 API 회원가입/로그인 후 이용원구매(프리등급 월 1,000건 무료제공)하시면 APIKEY가 발급됩니다."></td>
+		<td colspan="3">
+			<label><input type='radio' name="order_tracker_yn" value="Y" {{checked_order_tracker_yn_Y}} /><span class="radio"></span> 스마트택배 API 연동함</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="order_tracker_yn" value="N" {{checked_order_tracker_yn_N}} /><span class="radio"></span> 스마트택배 API 연동안함</label>&nbsp;&nbsp;		
+			<button class="btns" type="button" style="width:18%" id="trackerInfo"><span class="text"><i class="xi-external-link xi-x"></i> 스마트택배 API 회원가입</span></button>
+			<div class="empty20"></div>
+			<div class="tracker_y" style="width:500px;position:relative">
+				<input type='text' name='order_tracker_key' value='{{order_tracker_key}}' placeholder="스마트택배 API Key" data-msg="스마트택배 API Key를" />
+			</div>
+			<div class="tracker_n">
+				 '배송중'으로 주문상태 변경한 뒤 <input type='text' name='order_auto_completed1' value='{{order_auto_completed1}}' style="width:40px; font-size:14px" class="only_num" />일 후 '배송완료'로 자동 주문상태 변경 ( 0일일 경우 사용안함 ) 
+			</div>
+		</td>
+	</tr>
+	<tr> 
+		<td>자동구매확정 설정 </td>
+		<td colspan="3">
+			 '배송완료'로 주문상태 변경한 뒤 <input type='text' name='order_auto_completed2' value='{{order_auto_completed2}}' style="width:40px; font-size:14px" class="only_num" />일 후 '구매확정'으로 자동 주문상태 변경되며 사용자 페이지에서 반품이나 교환요청 버튼이 나타나지 않습니다. 
+			 ( 0일일 경우 사용안함 ) 
+		</td>
+	</tr>
+	<tr> 
+		<td>자동주문취소 설정 </td>
+		<td colspan="3">
+			 주문 후 '입금대기중' 상태에서 <input type='text' name='order_auto_completed3' value='{{order_auto_completed3}}' style="width:40px; font-size:14px" class="only_num" />일 동안 '결제완료'로 주문상태가 변경되지 않을 경우 '주문취소'로 자동 주문상태 변경 
+			 ( 0일일 경우 사용안함 ) 
+		</td>
+	</tr>
+	<tr> 
+		<td>SMS 사용 선택 <i class="xi-help xi-x colorDGary masterTooltip" title="- SMS를 사용 하실려면 먼저 coolSms에 회원가입 후 충전 하시면 충전한 금액만큼 사용이 가능 합니다.[BR]- coolSms에서 환경설정 > 발신번호등록에 먼저 발신번호를 등록 시켜주셔야 sms가 발송 됩니다."></td>
+		<td colspan="3">
+			<label><input type='radio' name="sms_yn" value="Y" {{checked_sms_yn_Y}} /><span class="radio"></span> 사용함</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="sms_yn" value="N" {{checked_sms_yn_N}} /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;		
+			<button class="btns" type="button" style="width:18%" id="smsInfo"><span class="text"><i class="xi-external-link xi-x"></i> coolSms 회원가입</span></button>
+		</td>		
+	</tr>
+	<!-- DYNAMIC @is_sms_Y@ -->
+	<tr> 
+		<td>보유 캐시</td>
+		<td>{{coolsms_cash}}원 <button class="btns" type="button" id="smsRecharge"><span class="text"><i class="xi-external-link xi-x"></i> coolSms 캐시충전</span></button></td>
+		<td>보유 포인트</td>
+		<td>{{coolsms_point}}P</td>
+	</tr>
+	<!-- DYNAMIC @is_sms_Y@ -->
+	<tr> 
+		<td>coolSms API Key <i class="xi-help xi-x colorDGary masterTooltip" title="coolSms에서 API Key관리에서 API Key를 생성 후 등록 하시면 됩니다."></td>
+		<td><input type='text' name='sms_key' value='{{sms_key}}' placeholder="coolSms API Key" data-msg="coolSms API Key를" /></td>
+		<td>coolSms API Secret <i class="xi-help xi-x colorDGary masterTooltip" title="coolSms에서 API Key관리에서 API Key를 생성 후 등록 하시면 됩니다."></td>
+		<td><input type='text' name='sms_secret' value='{{sms_secret}}' placeholder="coolSms API Secret" data-msg="coolSms API Secret을" /></td>
+	</tr>	
+	<tr> 
+		<td>coolSms PFID <i class="xi-help xi-x colorDGary masterTooltip" title="coolSms에서 카카오 채널 연동에서 카카오 채널 연동후 발급받은 PFID를 등록 하시면 됩니다."></td>
+		<td colspan="3">
+			<div class="floatLeft" style="width:31%; position:relative;"><input type='text' name='sms_pfid' value='{{sms_pfid}}' placeholder="coolSms PFID" /></div>
+			<div class="floatLeft size09" style="padding:4px 0 0 20px;"><i class="xi-info-o xi-x"></i> 카카오톡 사용시 정보를 입력 하시면 됩니다.</div>
+		</td>
+	</tr>	
+	<tr> 
+		<td>SMS 발신번호 <i class="xi-help xi-x colorDGary masterTooltip" title="coolSMS에서 환경설정 > 발신번호관리에서 등록한 발신번호를 입력 하시면 됩니다."></i></td>
+		<td colspan="3">
+			<div class="floatLeft" style="width:31%; position:relative;"><input type='text' name='sms_calling_number' value='{{sms_calling_number}}' placeholder="발신 번호 예)010-0000-0000" data-msg="SMS 발신번호를" /></div>
+			<div class="floatLeft size09" style="padding:4px 0 0 20px;"><i class="xi-warning xi-x"></i> 발신번호 사전 등록(사전등록제) 실시로 인해 사전 등록되지 않은 발신번호의 SMS발송이 제한됩니다.</div>
+		</td>	
+	</tr>
+	<tr> 
+		<td>SMS 관리자번호 <i class="xi-help xi-x colorDGary masterTooltip" title="SMS 자동발송시 사용되는 관리자번호입니다. 관리자번호는 3개까지 등록 하실 수 있습니다."></i></td>
+		<td colspan="3">
+			<div class="floatLeft" style="width:31%; position:relative;"><input type='text' name='sms_admin_number1' value='{{sms_admin_number1}}' placeholder="관리자 번호 #1 예)010-0000-0000" data-msg="SMS 관리자번호를" /></div>
+			<div class="floatLeft" style="width:31%; margin:0 10px;"><input type='text' name='sms_admin_number2' value='{{sms_admin_number2}}' placeholder="관리자번호 #2 예)010-0000-0000" /></div>
+			<div class="floatLeft" style="width:31%"><input type='text' name='sms_admin_number3' value='{{sms_admin_number3}}' placeholder="관리자번호 #3 예)010-0000-0000" /></div>
+		</td>	
+	</tr>
+	</table>	
+
+	<div class="empty60" ></div>
+
+	<div class="btnSubmitBox btnCenter">
+		<div class="displayInline"><button class="weight300 shine" type="submit">저장하기</button></div>
+	</div>
+
+	</form>	
+	
+
+</div>
+
+<script>
+<!--
+
+	$("#messageSortable").multiBox({'sortable':'1','order':'form[name=etcsForm] input[name=message_order]','focus':'2','list' : [{'name':'','width':'10','type':'','enter':0},{'name':'message_name','width':'70','type':'text','enter':1},{'name':'message_used','width':'10','type':'checkbox','enter':0},{'name':'','width':'10','type':'icon','enter':0}]});
+
+	$("#cancelSortable").multiBox({'sortable':'1','order':'form[name=etcsForm] input[name=cancel_order]','focus':'2','list' : [{'name':'','width':'10','type':'','enter':0},{'name':'cancel_name','width':'70','type':'text','enter':1},{'name':'cancel_used','width':'10','type':'checkbox','enter':0},{'name':'','width':'10','type':'icon','enter':0}]});
+	
+	function ckSmsYn() {
+
+		var nameArr = new Array('sms_key','sms_secret','sms_calling_number','sms_admin_number1','sms_admin_number2','sms_admin_number3');
+
+		if($('form[name=etcsForm] input[name=sms_yn]:checked').val()=='Y') {
+			for(i=0;i<nameArr.length;i++) {
+				dipslayDarkShow('form[name=etcsForm] input[name='+nameArr[i]+']');
+			}
+			$('#smsInfo').fadeOut('200');
+			resetTooltip();
+		}
+		else {
+			for(i=0;i<nameArr.length;i++) {
+				dipslayDarkHide('form[name=etcsForm] input[name='+nameArr[i]+']');
+			}
+			$('#smsInfo').fadeIn('200');
+		}
+	}
+
+	function ckOrderTrackerYn() {
+		
+		if($('form[name=etcsForm] input[name=order_tracker_yn]:checked').val()=='Y') {
+			$(".tracker_y").show();
+			$(".tracker_n").hide();
+			dipslayDarkShow('form[name=etcsForm] input[name=order_tracker_key]');			
+			$('#trackerInfo').fadeOut('200');
+			resetTooltip();
+		}
+		else {
+			$(".tracker_n").show();
+			$(".tracker_y").hide();
+			dipslayDarkHide('form[name=etcsForm] input[name=order_tracker_key]');
+			$('#trackerInfo').fadeIn('200');
+			resetTooltip();
+		}
+	}
+
+	$(function() {	
+
+		<!-- DYNAMIC @loop_message@ -->
+		$("#messageSortable").multiBox('add', [{'name' : 'message_name', 'value' : '{{message_name}}'},{'name' : 'message_used', 'value' : '{{used}}'}]);
+		<!-- DYNAMIC @loop_message@ -->
+
+		<!-- DYNAMIC @loop_cancel@ -->
+		$("#cancelSortable").multiBox('add', [{'name' : 'cancel_name', 'value' : '{{cancel_name}}'},{'name' : 'cancel_used', 'value' : '{{used}}'}]);
+		<!-- DYNAMIC @loop_cancel@ -->
+
+		$('#smsInfo').click(function(e){
+			window.open("https://www.coolsms.co.kr");
+		});
+
+		$('#trackerInfo').click(function(e){
+			window.open("https://tracking.sweettracker.co.kr/");
+		});
+
+		$('#smsRecharge').click(function(e){
+			window.open("https://console.coolsms.co.kr/recharge");
+		});		
+
+		$('form[name=etcsForm] input[name=sms_yn]').click(function(e){
+			ckSmsYn();
+		});
+
+		$('form[name=etcsForm] input[name=order_tracker_yn]').click(function(e){
+			ckOrderTrackerYn();
+		});
+
+		ckSmsYn();
+		ckOrderTrackerYn();
+		
+	});
+
+//-->
+</script>

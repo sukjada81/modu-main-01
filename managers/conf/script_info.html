@@ -1,0 +1,53 @@
+<form name='basicForm' method='post' action='conf_post.php?mode=script' enctype="multipart/form-data" target='HFrm'>					
+
+<div class="content">
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp; 외부 스크립트 설정
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>	
+	<tr> 
+		<td>네이버메타태그 <i class="xi-help xi-x colorDGary masterTooltip" title="- 네이버 웹마스터 등록에 사용되는 정보 입니다.[BR]- 네이버 웹마스터 > 사이트소유확인 창에서 HTML태그를 선택하면 나오는 naver-site-verification 값을 입력 하시면 됩니다. "></i></td>
+		<td colspan="3"><input type='text' name='script_naver_tag' value='{{script_naver_tag}}' style="width:99%" placeholder="naver-site-verification 값을 입력 하세요." /></td>
+	</tr>
+	<tr> 
+		<td>구글통계 <i class="xi-help xi-x colorDGary masterTooltip" title="- 구클통계를 사용할 수 있는 정보 입니다.[BR]- 구글 애널리틱스 > 관리 > 추적정보 > 추적코드 창에서 추적 ID 값을 입력 하시면 됩니다."></i></td>
+		<td colspan="3"><input type='text' name='script_google_analytics' value='{{script_google_analytics}}' style="width:99%" placeholder="추적 ID 값을 입력 하세요." /></td>
+	</tr>
+	<tr> 
+		<td>상단공통영역 <i class="xi-help xi-x colorDGary masterTooltip" title="- 상단공통영역에 들어갈 스크립트를 입력 하시면 됩니다.[BR] - <script> ~ </script> 처럼 스크립트 코드를 입력 하시면 됩니다."></i></td>
+		<td colspan="3"><textarea name='script_top_code' style="width:99%; height:150px" placeholder="상단공통영역에 들어갈 스크립트를 입력 하세요" />{{script_top_code}}</textarea></td>
+	</tr>
+	<tr> 
+		<td>하단공통영역 <i class="xi-help xi-x colorDGary masterTooltip" title="- 하단공통영역에 들어갈 스크립트를 입력 하시면 됩니다.[BR] - <script> ~ </script> 처럼 스크립트 코드를 입력 하시면 됩니다."></i></td>
+		<td colspan="3"><textarea name='script_bottom_code' style="width:99%; height:150px" placeholder="하단공통영역에 들어갈 스크립트를 입력 하세요" />{{script_bottom_code}}</textarea></td>
+	</tr>
+	</table>
+
+	<div class="empty60" ></div>
+
+	<div class="btnSubmitBox">
+		<div class="displayInline"><button class="weight300 shine" type="submit">저장하기</button></div>
+	</div>
+
+</div>
+
+</form>
+
+<script>
+<!--
+	
+	$(function() {	
+		
+	
+	});
+
+//-->
+</script>

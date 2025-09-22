@@ -1,0 +1,179 @@
+<div id="contents">	
+	
+	{{SUB_MENUS}}
+	
+	<h2 class="contentTitle">마일리지</h2>
+	
+	<div class="empty40"></div>
+
+	<div class="content_list">
+		<div id="contentMenuA" class="contentMenu">
+			<ul>
+				<li class="contentMenuSub"><b>보유 마일리지 : <span class="fontMontserrat weight600">{{mileage1}}P</span></b></li>
+				<li class="contentMenuSub">적립 마일리지 : <span class="fontMontserrat">{{mileage2}}P</span></li>
+				<li class="contentMenuSub">사용 마일리지 : <span class="fontMontserrat">{{mileage3}}P</span></li>				
+			</ul>
+			<div class="contentBar left"></div>
+			<div class="contentBar right"></div>
+
+			<script>
+				var a = 100 / parseInt($("#contentMenuA ul li").length);
+				$("#contentMenuA .contentMenuSub").css({'width':'calc('+a+'% - 2px)'});
+			
+				$('#contentMenuA .contentMenuSub').hover(function(e){		
+					if(!$(this).hasClass('selected')) {
+						var left = $(this).position().left;
+						var right = parseInt(left + parseInt($(this).css('width'))) + 2; 
+
+						$("#contentMenuA .left").css({left:left}).show();
+						$("#contentMenuA .right").css({left:right}).show();
+					}
+				}, 
+				function() {
+					$("#contentMenuA .left").hide();
+					$("#contentMenuA .right").hide();
+				});				
+			</script>
+		</div>
+		<div class="empty40"></div>
+		<div id="contentMenu" class="contentMenu">
+			<ul>
+				<li class="contentMenuSub {{type1}}" data-type="1">적립내역</li>
+				<li class="contentMenuSub {{type2}}" data-type="2">사용내역</li>
+				<li class="contentMenuSub {{type3}}" data-type="3">소멸예정내역</li>								
+			</ul>
+			<div class="contentBar left"></div>
+			<div class="contentBar right"></div>
+
+			<script>
+				var a = 100 / parseInt($("#contentMenu ul li").length);
+				$("#contentMenu .contentMenuSub").css({'width':'calc('+a+'% - 2px)'});
+			
+				$('#contentMenu .contentMenuSub').hover(function(e){		
+					if(!$(this).hasClass('selected')) {
+						var left = $(this).position().left;
+						var right = parseInt(left + parseInt($(this).css('width'))) + 2; 
+
+						$("#contentMenu .left").css({left:left}).show();
+						$("#contentMenu .right").css({left:right}).show();
+					}
+				}, 
+				function() {
+					$("#contentMenu .left").hide();
+					$("#contentMenu .right").hide();
+				});
+
+				$('#contentMenu .contentMenuSub').click(function(e){
+					var type = $(this).attr('data-type');
+					window.location.href = "{{Main}}?channel=my_mileage&type=" + type;
+				});
+				
+			</script>
+		</div>
+	</div>
+	
+	<div class="content_list">
+
+		<div>
+			<div class="listTopTitle fontSCDream">
+				전체 <b id="listTotal">{{TOTAL}}</b>
+			</div>
+			<div class="listTopSelect">
+				<form name='searchForm' method='get' action='{{Main}}'>
+				<input type="hidden" name="channel" value="{{channel}}" />				
+								
+				<div class="floatLeft">
+					<select name="limit">
+						<option value="10">10개 보기</option>
+						<option value="20">20개 보기</option>
+						<option value="40">40개 보기</option>
+						<option value="100">100개 보기</option>
+					</select>
+				</div>
+				</form>
+			</div>
+		</div>	
+		
+		<div class="empty20"></div>
+
+		<div id="listArea">
+			<!-- DYNAMIC @is_list_area@ -->
+			<table class="listIn fixed-header">
+			<colgroup>
+			<col width="8%" /> 
+			<col width="36%" />
+			<col width="14%" />
+			<col width="14%" />
+			<col width="14%" />
+			<col width="14%" />
+			</colgroup>
+			<thead> 
+			<tr> 
+				<th>번호</th>			
+				<th>내역</th>
+				<th>적립 마일리지</th>
+				<th>소멸예정 마일리지</th>
+				<th>소멸예정일</th>
+				<th>적립일</th>
+			</tr>
+			</thead>
+			<tbody>
+			<!-- DYNAMIC @loop_list@ -->			
+			<tr>
+				<td class="num">{{NUM}}</td>
+				<td class="tleft">{{CONTENT}}</td>			
+				<td class="num">{{MILEAGE}}</td>
+				<td class="num">{{MILEAGE2}}</td>
+				<td class="num">{{EXPIRED_DATE}}</td>
+				<td class="num">{{SIGNDATE}}</td>
+			</tr>
+			<!-- DYNAMIC @loop_list@ -->
+			<!-- DYNAMIC @empty_list@ -->
+			<tr>
+				<td colspan="5" class="emptyList">소멸예정 마일리지 내역이 없습니다.</td>
+			<tr>
+			<!-- DYNAMIC @empty_list@ -->
+			</tbody>
+			</table>
+			</form>
+			<!-- DYNAMIC @is_list_area@ -->
+		</div>
+
+		<div class="empty40"></div>
+
+		<div class="paging">{{PAGING}}</div>
+	</div>	
+</div>	
+
+<script src="lib/jquery.timeliny.js?ver={{ver}}"></script>
+<script>
+<!--	
+	
+	var defaultUrl		= "{{Main}}?channel={{channel}}&type={{type}}";
+	var defaultSort		= "{{sort}}";
+	var defaultLimit	= "{{limit}}";
+	var defaultPage		= "{{page}}";
+	var defaultStatus	= "{{status}}";
+	var pagingType		= '{{PAGING_TYPE}}';
+	var lastPage		= '{{total_page}}';
+
+// -->
+</script>
+<script src="{{skin}}/js/listDefaultProc.js?ver={{ver}}"></script>
+<script>
+<!--
+
+	<!-- DYNAMIC @is_paging_type_0@ -->
+	if(listReset == 1) getListPage(defaultUrl + '&sort=' + sort + '&limit=' + limit + '&page=' + page);
+	pageClickReset();
+	<!-- DYNAMIC @is_paging_type_0@ -->
+
+	<!-- DYNAMIC @is_paging_type_1@ -->
+	if(limit != defaultLimit) listReset = 0;
+	$('.paging').timeliny({page: page, lastPage: lastPage, boundaries:'100', url: defaultUrl + '&sort=' + sort + '&limit=' + limit, listReset:listReset});
+	if(limit != defaultLimit) changeSL(1, page);
+	<!-- DYNAMIC @is_paging_type_1@ -->
+	
+// -->
+</script>
+<!-- DYNAMIC @is_no_cate@ -->

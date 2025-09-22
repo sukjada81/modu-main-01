@@ -1,0 +1,174 @@
+<div class="content_list">
+
+	<!-- DYNAMIC @is_cate@ -->
+	<div class="listCate">
+		<ul>
+			<li class="contentMenuSub {{cate_selected_all}}" data-link="">전체</li>
+			<!-- DYNAMIC @loop_cate@ -->
+			<li class="contentMenuSub {{cate_selected}}" data-link="{{cate_num}}">{{cate_name}}</li>
+			<!-- DYNAMIC @loop_cate@ -->
+		</ul>
+
+		<script>
+			$('.listCate .contentMenuSub').click(function(e){
+				var link =$(this).attr('data-link');
+				if(link)	window.location.href = "{{DEFAULT_LINK}}&cate=" + link;
+				else		window.location.href = "{{DEFAULT_LINK}}";
+			});			
+		</script>
+	</div>
+	<!-- DYNAMIC @is_cate@ -->
+	
+	<div>				
+		<div class="listTopTitle fontSCDream">
+			전체 <b id="listTotal">{{TOTAL}}</b>
+		</div>	
+
+		<div class="line"></div>
+		<div class="empty15"></div>
+
+		<div class="listTopSelect">
+
+			<form name='searchForm' method='get' action='{{Main}}' />
+			<input type="hidden" name="channel" value="{{channel}}" />
+			<input type="hidden" name="b_id" value="{{b_id}}" />
+			
+			<div class="listSearch">
+				<select name="field">
+					<option value="S">제목</option>
+					<option value="C">내용</option>
+					<option value="SC">제목 + 내용</option>
+				</select>
+				<script>
+				<!--
+					$("form[name=searchForm] select[name='field']").val('{{field}}').heapbox({'width' : '130px', 'zindex' : 7});
+				//-->
+				</script>
+			</div>
+			<div class="displayInline positionRelative" style="width:calc(100% - 150px)">
+				<input type="text" name="keyword" value="{{keyword}}" required="required" autocomplete="off" placeholder="검색어입력" data-msg="검색어를" data-on-enter="1" data-search-btn=1 />
+				<p class="resetIcon resetIconBtn"><i class="xi-undo masterTooltip" title="초기화"></i></p>
+			</div>		
+			</form>
+		</div>	
+		
+		<div class="empty15"></div>
+		<div class="line"></div>
+
+	</div>
+
+	<div id="listArea">
+		<!-- DYNAMIC @is_list_area@ -->
+		<table class="listIn">
+		<colgroup>
+		<col style="calc(100% - 92px)" />
+		<col width="92" />
+		</colgroup>
+		<tbody>
+		<!-- DYNAMIC @loop_list@ -->
+		<tr>
+			<td class="tleft">
+				<!-- DYNAMIC @is_notice@ -->
+				<i class="xi-lightbulb-o xi-x" title="공지"></i>
+				<!-- DYNAMIC @is_notice@ -->
+				<!-- DYNAMIC @is_secret@ -->
+				<i class="xi-lock-o xi-x" title="비밀글"></i>
+				<!-- DYNAMIC @is_secret@ -->
+				<!-- DYNAMIC @is_depth@ -->
+				{{EMPTY}}<i class="xi-subdirectory-arrow xi-x"></i>
+				<!-- DYNAMIC @is_depth@ -->
+				<span class="underLineThin listSubject" data-uid="{{UID}}" data-secret="{{SECRET}}">{{SUBJECT}}</span>
+				<!-- DYNAMIC @is_delete_article@ -->
+				삭제된 글입니다.
+				<!-- DYNAMIC @is_delete_article@ -->
+				<!-- DYNAMIC @is_new_icon@ -->
+				<i class="xi-new xi-x"></i>
+				<!-- DYNAMIC @is_new_icon@ -->
+				<!-- DYNAMIC @is_comment@ -->
+				<i class="xi-message xi-x"></i> <span class="num">{{COMMENT_COUNT}}</span>
+				<!-- DYNAMIC @is_comment@ -->				
+			</td>			
+			<td class="num" style="text-align:right">{{SIGNDATE}}</td>			
+		</tr>
+		<!-- DYNAMIC @loop_list@ -->
+		<!-- DYNAMIC @empty_list@ -->
+		<tr>
+			<td colspan="2" class="emptyList">등록(검색)된 글이 없습니다.</td>
+		<tr>
+		<!-- DYNAMIC @empty_list@ -->
+		</tbody>
+		</table>
+		</form>
+		<!-- DYNAMIC @is_list_area@ -->
+	</div>
+	
+	<!-- DYNAMIC @is_write@ -->
+	<div class="listBtn">
+		<button class="graButton btnLWrite" style="width:100px" type="button"><span class="text"><i class="xi-document xi-x"></i> 글쓰기</button>
+	</div>
+	<!-- DYNAMIC @is_write@ -->
+
+	<div class="paging">{{PAGING}}</div>
+
+</div>	
+
+<script src="../../lib/jquery.timeliny.js?ver={{ver}}"></script>
+<script>
+<!--	
+
+	var is_mobile		= "{{is_mobile}}";
+	var defaultUrl		= "{{DEFAULT_LINK}}{{searchstring}}";
+	var defaultSort		= "{{sort}}";
+	var defaultLimit	= "{{limit}}";
+	var defaultPage		= "{{page}}";
+	var pagingType		= '{{PAGING_TYPE}}';
+	var lastPage		= '{{total_page}}';	
+	var page			= '{{page}}';
+	var ck_w1			= '{{ck_w1}}';
+	var ck_w2			= '{{ck_w2}}';
+
+// -->
+</script>
+<script src="{{skin}}/js/listDefaultProc.js?ver={{ver}}"></script>
+<script>
+<!--
+	
+	<!-- DYNAMIC @is_paging_type_0@ -->
+	if(listReset == 1) getListPage(defaultUrl + '&limit=' + limit + '&page=' + page);
+	pageClickReset();
+	<!-- DYNAMIC @is_paging_type_0@ -->
+
+	<!-- DYNAMIC @is_paging_type_1@ -->
+	if(limit != defaultLimit) listReset = 0;
+	$('.paging').timeliny({page: page, lastPage: lastPage, boundaries:'100', url: defaultUrl + '&limit=' + limit, listReset:listReset});
+	if(limit != defaultLimit) changeSL(1, page);
+	<!-- DYNAMIC @is_paging_type_1@ -->	
+
+	function timelinyResetCallBackSub() {
+		$('.listSubject').unbind('click').bind('click',function(e) {
+			var uid		= $(this).attr("data-uid");
+			var secret	= $(this).attr("data-secret");
+
+			if(secret == 1) {			
+				iframeWidth = '100%';
+				iframeHeight = '.52';
+				iframeView("board/popup_passwd.php?b_id={{b_id}}&uid=" + uid + "&type=view", "비밀번호 확인");				
+			}
+			else if(!secret) window.location.href = "{{DEFAULT_LINK}}&b_mode=view&uid=" + uid + "{{addstring}}";
+		});	
+	}
+
+	$(function() {
+		
+		if($("form[name=searchForm] input[name='keyword']").val().length) $(".resetIconBtn").show();
+	
+		$(".btnLWrite").click(function(e) {
+			window.location.href = "{{DEFAULT_LINK}}&b_mode=write{{addstring}}&ck_w1=" + ck_w1 + "&ck_w2=" + ck_w2;
+		});
+
+		timelinyResetCallBackSub();		
+
+	});
+
+// -->
+</script>

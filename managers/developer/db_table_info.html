@@ -1,0 +1,106 @@
+
+<div class="content">
+	
+	<form name='signForm' method='post' action='' data-submit-proc="printProc">	
+
+	
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;디비 테이블 정보
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>
+	<tr> 
+		<td>테이블명</td>
+		<td>{{table_name}}</td>		
+		<td>셜명</td>
+		<td>{{TABLE_COMMENT}}</td>		
+	</tr>
+	<tr> 
+		<td>엔진</td>
+		<td>{{ENGINE}}</td>		
+		<td>버전</td>
+		<td class="number">{{VERSION}}</td>		
+	</tr>
+	<tr> 
+		<td>Rows</td>
+		<td class="number">{{TABLE_ROWS}}</td>		
+		<td>Collation</td>
+		<td>{{TABLE_COLLATION}}</td>	
+	</tr>
+	</table>
+	
+	<div class="empty60" ></div>
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;디비 테이블 필드 정보
+	</div>
+
+	<table class="listIn fixed-header">
+	<colgroup>
+	<col width="5%" /> 
+	<col width="19%" />
+	<col width="15%" />
+	<col width="7%" />
+	<col width="7%" />
+	<col width="7%" />
+	<col width="9%" />
+	<col width="30%" />			
+	</colgroup>
+	<thead>
+	<tr> 
+		<th>번호</th>
+		<th>필드명</th>
+		<th>속성</th>
+		<th>NULL</th>
+		<th>KEY</th>
+		<th>자동증가</th>
+		<th>기본값</th>
+		<th>설명</th>				
+	</tr>
+	</thead>
+	<tbody>
+	<!-- DYNAMIC @loop_columns@ -->		
+	<tr>
+		<td class="number">{{ORDINAL_POSITION}}</td>
+		<td style="text-align:left">{{COLUMN_NAME}}</td>
+		<td>{{COLUMN_TYPE}}</td>
+		<td>{{IS_NULLABLE}}</td>
+		<td>{{COLUMN_KEY}}</td>
+		<td>{{EXTRA}}</td>
+		<td>{{COLUMN_DEFAULT}}</td>
+		<td style="text-align:left">{{COLUMN_COMMENT}}</td>
+	</tr>
+	<!-- DYNAMIC @loop_columns@ -->		
+	</tbody>
+	</table>
+	
+	<div class="empty60" ></div>
+
+	<div class="btnSubmitBox">
+		<div class="displayInline"><button class="weight300 shine" type="submit">프린트 하기</button></div>
+		<div class="btnPrev"><i class="xi-arrow-left xi-x"></i></div>
+		<div class="btnPrevTitle">이전페이지</div>		
+	</div>
+
+</div>
+
+</form>
+
+<script>
+<!--
+	
+	function printProc() {
+		iframeWidth = '1000px';
+		iframeHeight = '.8';
+		iframeView("popup_db_table_info_print.php?table_name={{table_name}}", "디비테이블명세서 인쇄");
+	}
+
+
+//-->
+</script>

@@ -1,0 +1,62 @@
+<link type="text/css" rel="stylesheet" href="../lib/swiper-bundle.css?ver={{ver}}" />
+<script src="../lib/swiper-bundle.js?ver={{ver}}"></script>
+
+<div id="popup_contents">
+	<div class="review">
+		<div class="view">
+			<div class="image">
+				<div class="swiper-container">
+					<div class="swiper-wrapper">
+						<!-- DYNAMIC @loop_image@ -->
+						<div class="swiper-slide"><img src="{{IMAGE}}" alt="" /></div>
+						<!-- DYNAMIC @loop_image@ -->
+					</div>
+					<!-- Add Pagination -->
+					<div class="swiper-pagination"></div>
+				</div>
+
+				<script>
+				<!--
+					 
+					var swiper = new Swiper('.swiper-container', {
+						loop: true,
+						pagination: {
+							el: '.swiper-pagination',
+							clickable: true,
+						},
+						autoplay: {
+							delay: 3500,
+							disableOnInteraction: false,
+						},
+					});
+
+				//-->
+				</script>			
+			</div>
+
+			<div class="empty40"></div>
+
+			<div class="detail">
+				<div>
+					{{G_NAME}}
+					<!-- DYNAMIC @is_op_name@ -->
+					<span>선택옵션 : {{OP_NAME}}</span>
+					<!-- DYNAMIC @is_op_name@ -->
+				</div>				
+				<div>
+					<!-- DYNAMIC @loop_stars@ -->
+					<i class="xi-star"></i>
+					<!-- DYNAMIC @loop_stars@ -->
+				</div>
+				<div>{{NAME}} | <span class="fontMontserrat">{{DATE}}</span></div>
+				<div>{{CONTENT}}</div>
+			</div>
+		
+		</div>
+		<div class="empty40"></div>
+
+	</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,320 @@
+<div class="content">
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;배송 정책 설정
+	</div>
+
+	<form name='deliveryForm' method='post' action='conf_post.php?mode=delivery' target='HFrm'>					
+	<input type="hidden" name="delivery_order" />
+	<input type="hidden" name="delivery_max_num" />
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>
+	<tr> 
+		<td>배송비 적용방식 선택 </td>
+		<td colspan="3">
+			<label><input type='radio' name="delivery_type" value="F" {{checked_type_F}} /><span class="radio"></span> 무료배송</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="delivery_type" value="D" {{checked_type_D}} /><span class="radio"></span> 착불</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="delivery_type" value="P" {{checked_type_P}} /><span class="radio"></span> 조건부 배송비</label>&nbsp;&nbsp;	
+		</td>		
+	</tr>
+	<tr> 
+		<td>착불 배송비 <i class="xi-help xi-x colorDGary masterTooltip" title="착불배송비를 입력 하시면 착불배송비로 배송비가 노출 됩니다."></i></td>
+		<td colspan="3">
+			<div class="requireLeft" style="margin:0"><input type='text' name='delivery_d_price' value='{{delivery_d_price}}' style="width:140px; font-size:14px;" class="only_num_format" data-msg="착불배송비를" />원</div>
+		</td>
+	</tr>
+	<tr> 
+		<td>조건부 배송비 <i class="xi-help xi-x colorDGary masterTooltip" title="주문금액은 적립금, 쿠폰사용 전 금액이며, 결제금액은 적립금, 쿠폰을 사용한 금액 입니다. 무료배송 상품이 포함이 되면 무료배송으로 처리 됩니다."></i></td>
+		<td colspan="3">
+			<select name="delivery_p_type">
+				<option value="order">주문금액</option>				
+			</select>			
+			<script>
+				$("form[name=deliveryForm] select[name='delivery_p_type']").val('{{delivery_p_type}}').heapbox({'width' : '120px'});
+			</script>
+			<div class="requireLeft">			
+				<input type='text' name='delivery_p_price1' value='{{delivery_p_price1}}' style="width:150px; font-size:14px;" class="only_num_format" data-msg="금액을" />
+			</div>
+			<div class="floatLeft" style="padding-top:4px;">원 미만일 경우</div>			
+			<div class="requireLeft">	
+				<input type='text' name='delivery_p_price2' value='{{delivery_p_price2}}' style="width:150px; font-size:14px;" class="only_num_format" data-msg="배송비를" />
+			</div>
+			<div class="floatLeft" style="padding-top:4px;">원 부과</div>			
+		</td>
+	</tr>
+	<tr> 
+		<td>배송 업체 설정 <i class="xi-help xi-x colorDGary masterTooltip" title="'사용'으로 설정된 배송업체만 배송정보에 노출이되며, 리스트 가장 위에 노출되는 배송업체가 배송정보 입력시 기본으로 선택됩니다."></i> <i class="xi-arrows xi-x colorDGary masterTooltip" title="등록된 항목을 마우스로 누르고 아래 위로 이동하시면 순서를 변경 하실 수 있습니다."></i></td>
+		<td colspan="3" style="padding:20px;">
+			<table class="listIn fixed-header" id="deliverySortable">
+			<colgroup>
+			<col width="8%" /> 
+			<col width="12%" />
+			<col width="20%" /> 			
+			<col width="44%" />
+			<col width="8%" />
+			<col width="8%" />
+			</colgroup>
+			<thead>
+			<tr> 
+				<th>번호</th>
+				<th>배송업체번호</th>
+				<th>배송업체명</th>
+				<th>배송추적URL</th>
+				<th>사용</th>
+				<th>처리</th>
+			</tr>
+			</thead>
+			<tbody></tbody>
+			</table>
+
+			<div class="empty20"></div>
+			<div><i class="xi-warning xi-x"></i> <a href="../conf/etcs_info.php" target="_blank" class="link">자동배송완료 설정 <i class="fas fa-link masterTooltip" title="환경설정 > 주문&SMS정책설정 > 자동배송완료 설정"></i></a> 에서 스마트택배 API연동 사용시 배송업체명을 공식업체명으로 정확히 입력 하셔야 API연동이 됩니다.</div>
+		</td>		
+	</tr>
+	</table>	
+
+	<div class="empty60" ></div>
+
+	<div class="btnSubmitBox btnCenter">
+		<div class="displayInline"><button class="weight300 shine" type="submit">저장하기</button></div>
+	</div>
+
+	</form>
+	
+	<div class="empty60" ></div>
+
+	<div class="contentTitle">
+		<i class="xi-paper xi-x"></i>&nbsp;&nbsp;지역별 추가배송비 설정 <i class="xi-help xi-x colorDGary masterTooltip" title="- 제주도 및 제주도외 도서산간지역은 기본 설정으로 사용유무 및 추가배송비만 설정 하시면 됩니다.[BR]- 제주도외 도서산간지역은 지역설정하기에서 관리 하실 수 있습니다.[BR]- 제주도 및 제주도외 도서산간지역에 포함되지 않는 지역은 수동으로 추가 하실 수 있습니다.[BR]- 수동추가 예) 백령도 -> 지역 : 인천광역시 옹진군 , 지역명 : 백령면"></i>
+	</div>
+
+	<div class="empty10" ></div>
+
+	<form name='deliveryConfForm' method='post' action='conf_post.php?mode=delivery_config' target='HFrm'>	
+	<input type="hidden" name="mode2" value="add" />
+
+	<table class="write">
+	<colgroup>
+	<col width="9%" /> 
+	<col width="22%" />
+	<col width="9%" />
+	<col width="22%" />
+	<col width="9%" /> 
+	<col width="19%" />	
+	</colgroup>
+	<tr> 
+		<td>지역</td>
+		<td><div style="position:relative"><input type='text' name='area1' placeholder="(시/도) (시/구/군)" required="required" data-msg="지역을" data-no-enter="1" /></div></td>
+		<td>지역명</td>
+		<td><input type='text' name='area2' placeholder="(읍/면) (도로명)"/></td>
+		<td>추가배송비</td>
+		<td><div class="requireLeft"><input type='text' name='price' style="width:180px; font-size:14px;" class="only_num_format" required="required" data-msg="추가배송비를" data-on-enter="1" />원</div></td>		
+	</tr>
+	</table>
+
+	<div class="empty30" ></div>
+	<button class="weight300 shineSmall" type="submit">배송비 추가하기</button>
+	<div class="empty50" ></div>
+
+	</form>
+
+	<table class="listIn fixed-header" id="deliveryConf">
+	<colgroup>
+	<col width="10%" /> 
+	<col width="50%" />
+	<col width="20%" />
+	<col width="10%" />
+	<col width="10%" />
+	</colgroup>
+	<thead> 
+	<tr> 
+		<th data-sortas="numeric">번호</th>
+		<th>지역명</th>
+		<th>추가배송비</th>
+		<th>사용</th>
+		<th>처리</th>
+	</tr>
+	</thead>
+	<tbody>		
+	<tr>
+		<td class="number">1</td>
+		<td>제주도</td>
+		<td class="number"><input type='text' name='delivery_im_areas1_price' style="width:180px; font-size:14px;" class="only_num_format" value="{{delivery_im_areas1_price}}" />원</td>
+		<td><label><input type="checkbox" name="delivery_im_areas1_used" value="1" {{checked_delivery_im_areas1_used_1}} /><span></span></label></td>
+		<td><i class="fas fa-edit masterTooltip imAreasMod" data-uid="1" title="변경하기"></i></td>
+	</tr>
+	<tr>
+		<td class="number">2</td>
+		<td style="position:relative;">제주도외 도서산간 <button class="btnsSmallOrange btnImList" type="button" style="position:absolute; right:10px;top:10px;"><span class="text">지역설정하기</span></button></td>
+		<td class="number"><input type='text' name='delivery_im_areas2_price' style="width:180px; font-size:14px;" class="only_num_format" value="{{delivery_im_areas2_price}}" />원</td>
+		<td><label><input type="checkbox" name="delivery_im_areas2_used" value="1" {{checked_delivery_im_areas2_used_1}} /><span></span></label></td>
+		<td><i class="fas fa-edit masterTooltip imAreasMod" data-uid="2" title="변경하기"></i></td>
+	</tr>
+	<!-- DYNAMIC @loop_conf@ -->
+	<tr id="dconf_{{uid}}">
+		<td class="number">{{num}}</td>
+		<td>{{title}}</td>
+		<td class="number">{{price}}원</td>
+		<td><label><input type="checkbox" name="used{{uid}}" class="dconfUsed" value="1" {{checked}} /><span></span></label></td>
+		<td><i class="xi-close masterTooltip dconfDel" data-uid="{{uid}}" title="삭제하기"></i></td>
+	</tr>
+	<!-- DYNAMIC @loop_conf@ -->
+	</tbody>
+	</table>
+
+	<form name='deliveryConfForm2' method='post' action='conf_post.php?mode=delivery_config' target='HFrm'>	
+	<input type="hidden" name="mode2" value="" />
+	<input type="hidden" name="uid" value="" />
+	<input type="hidden" name="used" value="" />
+	</form>
+
+	<form name='deliveryImForm' method='post' action='conf_post.php?mode=delivery_im_areas' target='HFrm'>	
+	<input type="hidden" name="num" value="" />
+	<input type="hidden" name="used" value="" />
+	<input type="hidden" name="price" value="" />
+	</form>
+	
+</div>
+
+<script src="../../lib/fancyTable.js?ver={{ver}}"></script>
+<script>
+<!--
+	
+	var ck_delivery_num = '{{delivery_max_num}}';
+	var fancyTableObj = null;
+	var fancyElm = null;
+
+	$("#deliverySortable").multiBox({'sortable':'1','order':'form[name=deliveryForm] input[name=delivery_order]','focus':'3','list' : [{'name':'','width':'8','type':'','enter':0},{'name':'delivery_num','width':'12','type':'hidden','enter':0},{'name':'delivery_name','width':'20','type':'text','enter':0},{'name':'delivery_url','width':'40','type':'text','enter':1},{'name':'delivery_used','width':'8','type':'checkbox','enter':0},{'name':'','width':'8','type':'icon','enter':0}]});
+
+	$("#deliveryConf").fancyTable({
+		sortColumn:0, // column number for initial sorting
+		sortable: false,
+		pagination: true, // default: false
+		perPage: 100,
+		dColumns: 5,
+		searchable: false,
+		globalSearch: false,
+		inputPlaceholder: '검색어 + 엔터키'
+	});
+
+	function deliveryConfInsert(uid) {	
+		var num = $("#deliveryConf tbody tr").length; 
+		var insertCode = '	<tr id="dconf_'+uid+'">';
+		insertCode += '			<td class="number">'+num+'</td>';
+		insertCode += '			<td>'+$('form[name=deliveryConfForm] input[name=area1]').val() + ' ' + $('form[name=deliveryConfForm] input[name=area2]').val() + '</td>';
+		insertCode += '			<td class="number">'+number_format($('form[name=deliveryConfForm] input[name=price]').val()) + '원</td>';
+		insertCode += '			<td><label><input type="checkbox" class="dconfUsed" name="used' + uid + '" value="1" checked="checked" /><span></span></label></td>';
+		insertCode += '			<td><i class="xi-close masterTooltip dconfDel" data-uid="' + uid + '" title="삭제하기"></i></span></td>';
+		insertCode += '		</tr>';
+
+		$("#deliveryConf tbody").append(insertCode);
+
+		$('form[name=deliveryConfForm] input[name=area1]').val('');
+		$('form[name=deliveryConfForm] input[name=area2]').val('');
+		$('form[name=deliveryConfForm] input[name=price]').val('');		
+		
+		fancyTableObj.tableSort(fancyElm);
+		fancyTableObj.tableUpdate(fancyElm);					
+	}
+
+	function deliveryConfReset() {
+		resetTooltip();
+		defInit();				
+	}
+	
+	function defInit(uid) {		
+		
+		$('.dconfDel').unbind('click').bind('click',function(e) {	
+			var f = document.deliveryConfForm2;
+			var uid = $(this).attr("data-uid");
+			var secNum = $(this).parent('td').parent('tr').children('td:nth-child(1)').text();
+			if(!secNum) return;
+
+			$(this).parent('td').parent('tr').remove();
+						
+			$("#deliveryConf tbody tr td:nth-child(1)").text(function() {
+				if(secNum < $(this).text()) return parseInt($(this).text()) - 1;
+				else return $(this).text();
+			});
+
+			fancyTableObj.tableSort(fancyElm);
+			fancyTableObj.tableUpdate(fancyElm);	
+
+			f.mode2.value = "del";
+			f.uid.value = uid;
+			f.submit();
+		});
+		
+
+		$('.dconfUsed').unbind('click').bind('click',function(e) {	
+			var f = document.deliveryConfForm2;
+			var uid = str_replace("used","",$(this).attr("name"));
+			f.mode2.value = "mod";
+			f.uid.value = uid;
+			f.used.value = $('input[name=used'+uid+']:checked').val();
+			f.submit();							
+		});
+	}
+
+	function ckDeliveryType() {
+
+		var nameArr = new Array('delivery_p_price1','delivery_p_price2');
+
+		if($('input[name=delivery_type]:checked').val()=='D') {
+			dipslayDarkShow('form[name=deliveryForm] input[name=delivery_d_price]');
+		}
+		else {
+			dipslayDarkHide('form[name=deliveryForm] input[name=delivery_d_price]');;					
+		}
+
+		if($('input[name=delivery_type]:checked').val()=='P') {
+			for(i=0;i<nameArr.length;i++) {
+				dipslayDarkShow('form[name=deliveryForm] input[name='+nameArr[i]+']');
+			}
+			resetTooltip();
+		}
+		else {
+			for(i=0;i<nameArr.length;i++) {
+				dipslayDarkHide('form[name=deliveryForm] input[name='+nameArr[i]+']');
+			}		
+		}
+	}
+
+	$(function() {
+
+		<!-- DYNAMIC @loop_delivery@ -->
+		$("#deliverySortable").multiBox('add', [{'name' : 'delivery_num', 'value' : '{{delivery_num}}'},{'name' : 'delivery_name', 'value' : '{{delivery_name}}'},{'name' : 'delivery_url', 'value' : '{{delivery_url}}'},{'name' : 'delivery_used', 'value' : '{{delivery_used}}'}]);
+		<!-- DYNAMIC @loop_delivery@ -->
+
+		$('form[name=deliveryForm] input[name=delivery_type]').click(function(e){
+			ckDeliveryType();
+		});	
+
+		$(".imAreasMod").click(function(e){
+			var f2			= document.deliveryImForm;			
+			var num			= $(this).attr("data-uid");
+			f2.num.value	= num;
+			f2.used.value	= $('input[name=delivery_im_areas'+num+'_used]:checked').val();
+			f2.price.value	= $('input[name=delivery_im_areas'+num+'_price]').val();
+			f2.submit();		
+		});
+
+		$(".btnImList").click(function(e){
+			iframeWidth = '1058px';
+			iframeHeight = '.8';
+			iframeView("popup_delivery_im_list.php", "제주도외 도서산간지역 설정");
+		});
+		
+		ckDeliveryType(); 
+		only_num_formatCk();
+		zipSearch2('area1');		
+		defInit();
+	});
+
+//-->
+</script>

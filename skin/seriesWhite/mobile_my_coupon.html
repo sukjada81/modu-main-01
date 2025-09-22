@@ -1,0 +1,111 @@
+<div id="contents">	
+	
+	<h2 class="contentTitle">마일리지</h2>
+	
+	<div class="empty40"></div>
+
+	<div class="content_list">
+		<div class="listCate" style="padding:0">
+			<ul>
+				<li class="contentMenuSub {{type1}}" style="width:calc(50% - 25px)" data-type="1">사용가능한 쿠폰</li>
+				<li class="contentMenuSub {{type2}}" style="width:calc(50% - 25px)" data-type="2">지난 쿠폰 내역</li>	
+			</ul>
+
+			<script>
+				$('.listCate .contentMenuSub').click(function(e){
+					var type = $(this).attr('data-type');
+					window.location.href = "{{Main}}?channel=my_coupon&type=" + type;
+				});			
+			</script>
+		</div>		
+	
+		<div>
+			<div class="listTopTitle fontSCDream">
+				전체 <b id="listTotal">{{TOTAL}}</b>
+			</div>			
+			<div class="line"></div>
+		</div>	
+		
+		<div id="listArea">
+			<!-- DYNAMIC @is_list_area@ -->
+			<table class="listIn">
+			<colgroup>			
+			<col width="160" />
+			<col style="calc(100% - 160px)" />
+			</colgroup>
+			<tbody>
+			<!-- DYNAMIC @loop_list@ -->			
+			<tr>
+				<td class="tleft">
+					<div class="coupon_info">						
+						<span>
+							<P>{{COUPON_TYPE}}</P>
+							<P>{{COUPON_MESSAGE2}}</P>						
+						</span>
+						<div><i class="xi-coupon xi-5x" style="width:40px; overflow:hidden;"></i></div>
+					</div>
+				</td>			
+				<td class="tleft">
+					{{COUPON_MESSAGE1}} {{COUPON_MESSAGE3}}
+					{{COUPON_MESSAGE4}}
+					<!-- DYNAMIC @is_goods@ -->
+					<br />적용상품 : <a href="{{Main}}?channel=view&uid={{G_UID}}" class="underLineThin">{{COUPON_MESSAGE5}}</a>
+					<!-- DYNAMIC @is_goods@ -->
+					<div class="fontMontserrat">{{SIGNDATE}} ~ {{E_DATE}}</div>
+					<!-- DYNAMIC @is_status@ -->					
+					<div class="borderBox">{{COUPON_MESSAGE6}}</div>					
+					<!-- DYNAMIC @is_status@ -->
+				
+				</td>	
+			</tr>
+			<!-- DYNAMIC @loop_list@ -->
+			<!-- DYNAMIC @empty_list@ -->
+			<tr>
+				<td colspan="2" class="emptyList">쿠폰이 없습니다.</td>
+			<tr>
+			<!-- DYNAMIC @empty_list@ -->
+			</tbody>
+			</table>
+			</form>
+			<!-- DYNAMIC @is_list_area@ -->
+		</div>
+
+		<div class="empty40"></div>
+
+		<div class="paging">{{PAGING}}</div>
+	</div>	
+</div>	
+
+<script src="lib/jquery.timeliny.js?ver={{ver}}"></script>
+<script>
+<!--	
+	
+	var is_mobile		= "{{is_mobile}}";
+	var defaultUrl		= "{{Main}}?channel={{channel}}&type={{type}}";
+	var defaultSort		= "{{sort}}";
+	var defaultLimit	= "{{limit}}";
+	var defaultPage		= "{{page}}";
+	var defaultStatus	= "{{status}}";
+	var pagingType		= '{{PAGING_TYPE}}';
+	var lastPage		= '{{total_page}}';
+
+// -->
+</script>
+<script src="{{skin}}/js/listDefaultProc.js?ver={{ver}}"></script>
+<script>
+<!--
+
+	<!-- DYNAMIC @is_paging_type_0@ -->
+	if(listReset == 1) getListPage(defaultUrl + '&sort=' + sort + '&limit=' + limit + '&page=' + page);
+	pageClickReset();
+	<!-- DYNAMIC @is_paging_type_0@ -->
+
+	<!-- DYNAMIC @is_paging_type_1@ -->
+	if(limit != defaultLimit) listReset = 0;
+	$('.paging').timeliny({page: page, lastPage: lastPage, boundaries:'100', url: defaultUrl + '&sort=' + sort + '&limit=' + limit, listReset:listReset});
+	if(limit != defaultLimit) changeSL(1, page);
+	<!-- DYNAMIC @is_paging_type_1@ -->
+
+// -->
+</script>
+<!-- DYNAMIC @is_no_cate@ -->

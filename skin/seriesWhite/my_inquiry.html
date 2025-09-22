@@ -1,0 +1,160 @@
+<div id="contents">
+	
+	{{SUB_MENUS}}
+
+	<h2 class="contentTitle">상품문의</h2>
+	
+	<div class="empty40"></div>
+
+	<div>
+		<div class="listTopTitle fontSCDream">
+			전체 <b id="listTotal">{{TOTAL}}</b>
+		</div>
+	</div>	
+	
+	<div class="empty20"></div>
+
+	<div class="content_list">
+
+		<div id="listArea">
+			<!-- DYNAMIC @is_list_area@ -->
+			<table class="listIn fixed-header">
+			<colgroup>
+			<col width="8%" /> 
+			<col width="10%" />
+			<col width="30%" />
+			<col />			
+			<col width="12%" />
+			</colgroup>
+			<thead> 
+			<tr> 
+				<th>번호</th>			
+				<th>답변</th>
+				<th>상품명</th>	
+				<th>제목</th>					
+				<th>등록일</th>
+			</tr>
+			</thead>
+			<tbody>
+			<!-- DYNAMIC @loop_list@ -->
+			<tr class="listTitle listSubject" data-num='{{UID}}' data-uid="{{UID}}" data-secret="{{SECRET}}">
+				<td class="num">{{NUM}}</td>
+				<td>{{ANSWER_TYPE}}</td>
+				<td class="tleft">{{G_NAME}}</td>
+				<td class="tleft">{{SUBJECT}}</td>				
+				<td class="num">{{SIGNDATE}}</td>
+			</tr>
+			<tr>
+				<td colspan="5" class="content content{{UID}}">
+					<div class="inquiry">
+						<div class="title">Q</div>
+						<div class="content">					
+							{{CONTENT}}
+							<!-- DYNAMIC @is_attach@ -->
+							<div class="image" data-uid="{{UID}}">
+								<!-- DYNAMIC @loop_attach@ -->
+								<img src="image/inquiry/{{attach_name}}" alt="" />
+								<!-- DYNAMIC @loop_attach@ -->
+							</div>
+							<!-- DYNAMIC @is_attach@ -->					
+						</div>
+						<!-- DYNAMIC @is_answer@ -->	
+						<div class="empty20"></div>
+						<div class="title">A</div>
+						<div class="content">					
+							{{ANSWER}}		
+						</div>
+						<!-- DYNAMIC @is_answer@ -->	
+					</div>
+				</td>
+			<tr>
+			<!-- DYNAMIC @loop_list@ -->
+			<!-- DYNAMIC @empty_list@ -->
+			<tr>
+				<td colspan="5" class="emptyList">등록된 상품문의가 없습니다.</td>
+			<tr>
+			<!-- DYNAMIC @empty_list@ -->
+			</tbody>
+			</table>
+			</form>
+			<!-- DYNAMIC @is_list_area@ -->
+		</div>
+
+	</div>
+
+	<div class="paging">{{PAGING}}</div>
+
+	<div class="empty20"></div>
+	
+</div>	
+
+<script src="lib/jquery.timeliny.js?ver={{ver}}"></script>
+<script>
+<!--	
+	
+	var defaultUrl		= "{{Main}}?channel={{channel}}";
+	var defaultSort		= "{{sort}}";
+	var defaultLimit	= "{{limit}}";
+	var defaultPage		= "{{page}}";
+	var pagingType		= '{{PAGING_TYPE}}';
+	var lastPage		= '{{total_page}}';
+
+// -->
+</script>
+<script src="{{skin}}/js/listDefaultProc.js?ver={{ver}}"></script>
+<script>
+<!--
+
+	<!-- DYNAMIC @is_paging_type_0@ -->
+	if(listReset == 1) getListPage(defaultUrl + '&sort=' + sort + '&limit=' + limit + '&page=' + page);
+	pageClickReset();
+	<!-- DYNAMIC @is_paging_type_0@ -->
+
+	<!-- DYNAMIC @is_paging_type_1@ -->
+	if(limit != defaultLimit) listReset = 0;
+	$('.paging').timeliny({page: page, lastPage: lastPage, boundaries:'100', url: defaultUrl + '&sort=' + sort + '&limit=' + limit, listReset:listReset});
+	if(limit != defaultLimit) changeSL(1, page);
+	<!-- DYNAMIC @is_paging_type_1@ -->
+
+	var showAbleUid	= '';
+	function showContent(num) {
+		alertify.closeAll('iframeDialog');
+
+		if($(".content" + num).css('display') == 'none') {				
+			$(".content" + num).slideDown("fast");
+		}
+		else {
+			$(".content" + num).slideUp("fast");
+		}
+
+		showAbleUid = num;
+	}	
+
+	function timelinyResetCallBackSub() {
+		$('.listSubject').unbind('click').bind('click',function(e) {
+			var uid		= $(this).attr("data-uid");
+			var secret	= $(this).attr("data-secret");
+			
+			if(secret == 2) return;
+			else if(secret == 1 && showAbleUid != uid) {
+				iframeWidth = '650px';
+				iframeHeight = '.43';
+				iframeView("php/popup_passwd.php?uid=" + uid, "비밀번호 확인");
+			}
+			else {
+				var num = $(this).attr("data-num");
+				if($(".content" + num).css('display') == 'none') {				
+					$(".content" + num).slideDown("fast");
+				}
+				else {
+					$(".content" + num).slideUp("fast");
+				}
+			}		
+		});		
+	}
+
+	timelinyResetCallBackSub();
+
+
+// -->
+</script>

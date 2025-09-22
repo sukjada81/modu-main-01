@@ -1,0 +1,270 @@
+<div id="contents" class="wide">
+
+	<h2 class="contentTitle"><a href="{{Main}}?channel=store&vendor={{vendor}}">{{STORE_NAME}}</a></h2>
+	
+	<div class="storeMenu">		
+		<ul>	
+			<li class="first line info">
+				판매자 정보
+				<div class="storeInfo">
+					<div><span>상호</span> <span>{{COMP_NAME}}</span></div>
+					<div><span>대표자</span> <span> {{COMP_OWNER}}</span></div>
+					<div><span>팩스번호</span> <span> {{COMP_FAX}}</span></div>
+					<div><span>이메일</span> <span> {{COMP_EMAIL}}</span></div>
+					<div><span>사업자번호</span> <span> {{COMP_NUM}}</span></div>
+					<div><span>주소지</span> <span>	{{COMP_ADDR}}</span></div>
+				</div>				
+			</li>
+			<li class="first line cs">
+				고객센터
+				<div class="storeCS">
+					<div><span>연락처</span> <span>{{COMP_TEL}}</span></div>
+					<div><span>평일</span> <span> {{CS_TIME1}}</span></div>
+					<div><span>토요일</span> <span> {{CS_TIME2}}</span></div>
+					<div><span>휴일</span> <span> {{CS_TIME3}}</span></div>
+					<div><span>점심시간</span> <span> {{CS_TIME4}}</span></div>
+					<div><span>교환/반품</span> <span>	{{CO_RTN_ADDR}}</span></div>
+				</div>			
+			</li>
+			<li class="first line star">
+				<div class="starsTtl">구매만족도</div>
+				<div class="starsBg"><i class="xi-star-o"></i><i class="xi-star-o"></i><i class="xi-star-o"></i><i class="xi-star-o"></i><i class="xi-star-o"></i></div>
+				<div class="starsCntBg" style="width:64px; overflow:hidden;">
+					<div class="starsCnt"><i class="xi-star"></i><i class="xi-star"></i><i class="xi-star"></i><i class="xi-star"></i><i class="xi-star"></i></div>
+				</div>
+
+				<div class="storeStars">
+					<div class="leftBox">
+						<div class="star">{{STARSALL}}</div>
+					</div>
+					<div class="rightBox">
+						<div>
+							<div class="stars">5점</div> <div class="per_line"><div class="per_line_bar" data-per="{{WIDTH5}}">&nbsp;</div></div> <div class="star_cnt">{{STARS5}}</div>
+						</div>
+						<div class="rightBox2">
+							<div class="stars">4점</div> <div class="per_line"><div class="per_line_bar" data-per="{{WIDTH4}}">&nbsp;</div></div> <div class="star_cnt">{{STARS4}}</div>
+						</div>
+						<div class="rightBox2">
+							<div class="stars">3점</div> <div class="per_line"><div class="per_line_bar" data-per="{{WIDTH3}}">&nbsp;</div></div> <div class="star_cnt">{{STARS3}}</div>
+						</div>
+						<div class="rightBox2">
+							<div class="stars">2점</div> <div class="per_line"><div class="per_line_bar" data-per="{{WIDTH2}}">&nbsp;</div></div> <div class="star_cnt">{{STARS2}}</div>
+						</div>
+						<div class="rightBox2">
+							<div class="stars">1점</div> <div class="per_line"><div class="per_line_bar" data-per="{{WIDTH1}}">&nbsp;</div></div> <div class="star_cnt">{{STARS1}}</div>
+						</div>
+					</div>
+				</div>	
+			</li>
+			<li class="left"><i class="xi-heart-o xi-x btnFavStore" title="관심스토어등록"></i> <b class="favStoreCnt">{{FSTORE_CNT}}</b></li>
+		</ul>
+		
+		<script>
+		<!--
+			var starsPer	= "{{STARSPER}}";
+			var starsWidth	= ((64 * starsPer) / 100);
+			$(".starsCntBg").css("width", starsWidth);				
+
+		//-->
+		</script>
+		
+	</div>
+
+	<div class="secCateLocation"><i class="xi-label-o xi-x"></i> {{SEC_CATE_LOCATION}}</div>
+	<div class="empty10"></div>	
+
+	<div class="cateList">		
+		<ul>
+			<!-- DYNAMIC @loop_cate@ -->
+			<li data-cate='{{CATE}}' class="{{selected}}">
+				<a href="{{Main}}?channel=store_cate&vendor={{vendor}}&cate={{CATE}}">
+					<div>{{CATE_NAME}} <span>{{CATE_CNT}}</span></div>
+				</a>
+				<!-- DYNAMIC @is_sub_cate@ -->
+				<i class="xi-angle-down-thin"></i>
+				<div class="cateSubMenu cateSubMenu{{CATE}}">
+					<!-- DYNAMIC @loop_sub_cate@ -->
+					<a href="{{Main}}?channel=store_cate&vendor={{vendor}}&cate={{SUB_CATE}}" class="{{selected_sub}}"><div>{{SUB_CATE_NAME}} <span>{{SUB_CATE_CNT}}</span></div></a>
+					<!-- DYNAMIC @loop_sub_cate@ -->
+				</div>
+				<!-- DYNAMIC @is_sub_cate@ -->
+			</li>
+			<!-- DYNAMIC @loop_cate@ -->
+		</ul>
+	</div>
+
+	<div class="cate_main">
+		<div class="listTopTitle fontSCDream">
+			전체 <b id="listTotal">{{TOTAL}}</b>
+		</div>	
+		
+		<div class="line"></div>
+		<div class="empty15"></div>
+
+		<div class="listTopSelect">
+			<form name='listSearchForm' method='get' action='{{Main}}'>
+			<input type="hidden" name="channel" value="{{channel}}" />
+			<input type="hidden" name="cate" value="{{cate}}" />
+			<input type="hidden" name="orig_keyword" value="{{orig_keyword}}" />
+
+			<div class="floatLeft" style="padding:0 10px; width:calc(50% - 20px)">
+				<select name="sort">
+					<option value="best">인기순</option>
+					<option value="re_uid ASC">최신순</option>
+					<option value="price ASC">가격낮은순</option>
+					<option value="price DESC">가격높은순</option>
+				</select>
+			</div>
+			<div class="floatLeft" style="padding:0 10px; width:calc(50% - 20px)">
+				<select name="limit">
+					<option value="12">12개 보기</option>
+					<option value="24">24개 보기</option>
+					<option value="48">48개 보기</option>
+					<option value="96">96개 보기</option>
+				</select>
+			</div>
+
+			<div class="empty15"></div>
+
+			<div class="positionRelative" style="padding-left:10px; position:relative; ">
+				<input type="text" name="keyword" class="search" placeholder="결과 내 검색" required="required" autocomplete="off" data-msg="검색어를" data-on-enter="1" data-search-btn=1 />
+			</div>
+			<div class="keywordList"></div>			
+			</form>
+		</div>
+
+		<div class="empty15"></div>
+		<div class="line"></div>
+	</div>	
+	
+	<div class="empty20"></div>
+
+	<div id="listArea">
+		<!-- DYNAMIC @is_list_area@ -->
+		<!-- DYNAMIC @loop_list@ -->
+		<div class="goodsItemBox goodsItemBox2">
+			<div class="goodsItem">
+				<ul>				
+					<li>
+						<a href="{{Main}}?channel=view&uid={{UID}}&cate={{cate}}"><img src="image/goods/img{{IMAGE2}}" alt="{{NAME}}" height="285" /></a>
+						<!-- DYNAMIC @is_list_soldout@ -->	
+						<span class="soldoutIcon">품절</span>
+						<!-- DYNAMIC @is_list_soldout@ -->	
+					</li>
+					<li><a href="{{Main}}?channel=view&uid={{UID}}&cate={{cate}}">{{NAME_CODE_ABLE}}</a></li>
+					<li>
+						<div>￦{{PRICE}}</div>
+						<!-- DYNAMIC @is_list_coupon@ -->	
+						<div class="couponIcon">쿠폰</div>						
+						<!-- DYNAMIC @is_list_coupon@ -->
+						<!-- DYNAMIC @is_list_sale@ -->	
+						<div class="salePrice">{{SALE}}%&nbsp;<i class="xi-arrow-down"></i></div>
+						<!-- DYNAMIC @is_list_sale@ -->
+						<!-- DYNAMIC @is_list_orig_price@ -->
+						<div class="empty1"></div>
+						<div class="origPrice"><s>{{ORIG_PRICE}}</s></div>
+						<!-- DYNAMIC @is_list_orig_price@ -->
+					</li>		
+					<li>{{ICON}}</li>
+				</ul>
+			</div>
+		</div>
+		<!-- DYNAMIC @loop_list@ -->
+		<!-- DYNAMIC @empty_list@ -->
+		<div class="emptyList fontSCDream weight300">등록된 상품이 없거나 선택한 조건에 맞는 상품이 없습니다.</div>
+		<!-- DYNAMIC @empty_list@ -->
+		<!-- DYNAMIC @is_list_area@ -->
+	</div>			
+	<div class="paging">{{PAGING}}</div>
+	<!-- DYNAMIC @empty_list2@ -->
+	<div class="empty30"></div>
+	<script>
+		$(".paging").hide();
+	</script>
+	<!-- DYNAMIC @empty_list2@ -->	
+	
+</div>	
+
+<script src="lib/jquery.timeliny.js?ver={{ver}}"></script>
+<script>
+<!--	
+	
+	var is_mobile		= "{{is_mobile}}";
+	var defaultUrl		= "{{Main}}?channel={{channel}}&vendor={{vendor}}&cate={{cate}}";
+	var defaultSort		= "{{sort}}";
+	var defaultLimit	= "{{limit}}";
+	var defaultPage		= "{{page}}";
+	var pagingType		= '{{PAGING_TYPE}}';
+	var lastPage		= '{{total_page}}';
+
+// -->
+</script>
+<script src="{{skin}}/js/listProc.js?ver={{ver}}"></script>
+<script>
+<!--
+
+	var favStoreSelect		= '{{favStoreSelect}}';
+	var isLogin				= 1;
+	<!-- DYNAMIC @is_login@ -->
+	isLogin					= 0;
+	<!-- DYNAMIC @is_login@ -->
+
+	<!-- DYNAMIC @is_paging_type_0@ -->
+	if(listReset == 1) getListPage(defaultUrl + '&sort=' + sort + '&limit=' + limit + '&page=' + page + '&orig_keyword=' + secKeyword);
+	pageClickReset();
+	<!-- DYNAMIC @is_paging_type_0@ -->
+
+	<!-- DYNAMIC @is_paging_type_1@ -->
+	if(limit != defaultLimit) listReset = 0;
+	$('.paging').timeliny({page: page, lastPage: lastPage, boundaries:'100', url: defaultUrl + '&sort=' + sort + '&limit=' + limit, listReset:listReset});
+	if(limit != defaultLimit || secKeyword) changeSL(1, page);
+	<!-- DYNAMIC @is_paging_type_1@ -->
+	
+	<!-- DYNAMIC @loop_keyword_list@ -->
+	keywordInitAdd('{{v}}');
+	<!-- DYNAMIC @loop_keyword_list@ -->
+
+	function animationLine() {
+		$('.per_line_bar').each(function(i) {
+			$(this).css({width: 0});
+			per = $(this).attr('data-per') + '%';
+			$(this).stop().animate({width: per});
+		});	
+	}
+
+	$(".storeMenu .info").click(function() {
+		$(".storeInfo").slideToggle();
+		$(".storeCS").hide();
+		$(".storeStars").hide();
+	});
+
+	$(".storeMenu .cs").click(function() {
+		$(".storeCS").slideToggle();
+		$(".storeInfo").hide();
+		$(".storeStars").hide();
+	});
+
+	$(".storeMenu .star").click(function() {
+		$(".storeStars").slideToggle();
+		animationLine();
+		$(".storeCS").hide();
+		$(".storeInfo").hide();
+	});
+
+	if(favStoreSelect == 1) {
+		$(".btnFavStore").addClass("colorOrange");			
+	}
+
+	$('.btnFavStore').click(function() {		
+		if(isLogin == 0) {
+			window.location.href = "{{Main}}?channel=login&channel2=store&vendor={{vendor}}";
+			return;
+		}
+		addFavoriteStore('{{vendor}}');
+	});
+
+	var w = Math.min(screen.width, window.innerWidth, document.documentElement.clientWidth);
+	$(".storeInfo, .storeCS, .storeStars").css({'width' : w - 40});
+
+// -->
+</script>

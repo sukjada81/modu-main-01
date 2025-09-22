@@ -1,0 +1,83 @@
+<div id="contents">	
+	<h2 class="contentTitle">모음전</h2>
+	
+	<div class="empty40"></div>
+	
+	<div>
+		<div class="listTopTitle fontSCDream">
+			전체 <b id="listTotal">{{TOTAL}}</b>
+		</div>
+	</div>	
+	
+	<div class="empty20"></div>
+
+	<div id="listArea">
+		<!-- DYNAMIC @is_list_area@ -->
+		<!-- DYNAMIC @loop_list@ -->
+		<div class="itemBox">
+			<div class="item">
+				<ul>				
+					<li>
+						<!-- DYNAMIC @is_image@ -->
+						<a href="{{Main}}?channel=exhibition&uid={{UID}}"><img src="image/exhibition/{{UID}}/{{IMAGE}}" alt="{{NAME2}}" /></a>
+						<!-- DYNAMIC @is_image@ -->
+						<!-- DYNAMIC @is_text@ -->
+						<a href="{{Main}}?channel=exhibition&uid={{UID}}">
+							<div class="jb-table">
+								<div class="jb-table-row">
+									<div class="jb-table-cell">
+										<div class="text">{{NAME2}}</div>
+									</div>
+								</div>
+							</div>
+						</a>
+						<!-- DYNAMIC @is_text@ -->
+					</li>
+					<li><a href="{{Main}}?channel=exhibition&uid={{UID}}">{{NAME}}</a></li>
+					<li class="date">{{S_DATE}}</li>
+				</ul>
+			</div>
+		</div>
+		<!-- DYNAMIC @loop_list@ -->
+		<!-- DYNAMIC @empty_list@ -->
+		<div class="emptyList fontSCDream weight300">등록된 모음전이 없습니다.</div>
+		<!-- DYNAMIC @empty_list@ -->
+		<!-- DYNAMIC @is_list_area@ -->
+	</div>			
+
+	<div class="empty30"></div>
+
+	<div class="paging">{{PAGING}}</div>
+	
+</div>	
+
+<script src="lib/jquery.timeliny.js?ver={{ver}}"></script>
+<script>
+<!--	
+	
+	var defaultUrl		= "{{Main}}?channel={{channel}}";
+	var defaultSort		= "{{sort}}";
+	var defaultLimit	= "{{limit}}";
+	var defaultPage		= "{{page}}";
+	var pagingType		= '{{PAGING_TYPE}}';
+	var lastPage		= '{{total_page}}';
+
+// -->
+</script>
+<script src="{{skin}}/js/listProc.js?ver={{ver}}"></script>
+<script>
+<!--
+
+	<!-- DYNAMIC @is_paging_type_0@ -->
+	if(listReset == 1) getListPage(defaultUrl + '&sort=' + sort + '&limit=' + limit + '&page=' + page);
+	pageClickReset();
+	<!-- DYNAMIC @is_paging_type_0@ -->
+
+	<!-- DYNAMIC @is_paging_type_1@ -->
+	if(limit != defaultLimit) listReset = 0;
+	$('.paging').timeliny({page: page, lastPage: lastPage, boundaries:'100', url: defaultUrl + '&sort=' + sort + '&limit=' + limit, listReset:listReset});
+	if(limit != defaultLimit || secKeyword) changeSL(1, page);
+	<!-- DYNAMIC @is_paging_type_1@ -->
+
+// -->
+</script>

@@ -1,0 +1,332 @@
+<form name='paymentForm' method='post' action='conf_post.php?mode=payment' target='HFrm'>					
+<input type="hidden" name="bank_order" />
+<input type='hidden' name="payment_complex_tax" value="0" />
+
+<div class="content">
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;결제 정책 설정
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>
+	<tr> 
+		<td>결제 수단 선택 </td>
+		<td colspan="3">
+			<label><input type='checkbox' name="payment_type_b" value="1" {{checked_type_b}} /><span></span> 무통장 입금</label>&nbsp;&nbsp;
+			<label><input type='checkbox' name="payment_type_c" value="1" {{checked_type_c}} /><span></span> 신용카드</label>&nbsp;&nbsp;
+			<label><input type='checkbox' name="payment_type_r" value="1" {{checked_type_r}} /><span></span> 계좌이체</label>&nbsp;&nbsp;
+			<label><input type='checkbox' name="payment_type_v" value="1" {{checked_type_v}} /><span></span> 가상계좌</label>&nbsp;&nbsp;
+			<label><input type='checkbox' name="payment_type_h" value="1" {{checked_type_h}} /><span></span> 휴대폰결제</label>&nbsp;&nbsp;
+		</td>		
+	</tr>
+	<tr> 
+		<td>결제 대행사 선택 </td>
+		<td colspan="3">
+			<label><input type='radio' name="payment_cp" value="" {{checked_cp_}} /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="payment_cp" value="KCP" {{checked_cp_KCP}} /><span class="radio"></span> KCP</label>&nbsp;&nbsp;&nbsp;&nbsp;
+			<label><input type='radio' name="payment_cp" value="NICEPAY" {{checked_cp_NICEPAY}} /><span class="radio"></span> NICE페이</label>&nbsp;&nbsp;&nbsp;&nbsp;
+			<button class="btns" type="button" style="width:20%" id="kcpInfo"><span class="text"><i class="xi-external-link xi-x"></i> KCP 전자결제 서비스신청 안내</span></button>
+			<button class="btns" type="button" style="width:20%" id="niceInfo"><span class="text"><i class="xi-external-link xi-x"></i> NICE페이 전자결제 서비스신청 안내</span></button>			
+		</td>		
+	</tr>
+	<tr> 
+		<td>사이트 코드(상점아이디) <i class="xi-help xi-x colorDGary masterTooltip" title="전자결제 서비스 신청 후 발급받은 사이트 코드(상점아이디)를 입력 하시면 됩니다."></i></td>
+		<td><input type='text' name='payment_shop_id' value='{{payment_shop_id}}' data-msg="사이트 코드를" /></td>
+		<td>사이트 키(머천트 키) <i class="xi-help xi-x colorDGary masterTooltip" title="전자결제 서비스 신청 후 발급받은 사이트 키(머천트 키, signkey)를 입력 하시면 됩니다."></i></td>
+		<td><input type='text' name='payment_shop_key' value='{{payment_shop_key}}' data-msg="사이트 키를" /></td>
+	</tr>
+	<tr> 
+		<td>할부 기간 선택 <i class="xi-help xi-x colorDGary masterTooltip" title="- 최대 가능 할부 기간을 선택 하시면 됩니다.[BR]- 무이자 할부일 경우 전자결제 가맹점 관리자 페이지에 설정 된 무이자 설정이 적용 됩니다."></i></td>
+		<td colspan="3">
+			<label><input type='radio' name="payment_install_range" value="0" {{checked_install_range_0}} /><span class="radio"></span> 일시불</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="payment_install_range" value="1" {{checked_install_range_1}} /><span class="radio"></span> 1개월</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="payment_install_range" value="2" {{checked_install_range_2}} /><span class="radio"></span> 2개월</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="payment_install_range" value="3" {{checked_install_range_3}} /><span class="radio"></span> 3개월</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="payment_install_range" value="4" {{checked_install_range_4}} /><span class="radio"></span> 4개월</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="payment_install_range" value="5" {{checked_install_range_5}} /><span class="radio"></span> 5개월</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="payment_install_range" value="6" {{checked_install_range_6}} /><span class="radio"></span> 6개월</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="payment_install_range" value="7" {{checked_install_range_7}} /><span class="radio"></span> 7개월</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="payment_install_range" value="8" {{checked_install_range_8}} /><span class="radio"></span> 8개월</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="payment_install_range" value="9" {{checked_install_range_9}} /><span class="radio"></span> 9개월</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="payment_install_range" value="10" {{checked_install_range_10}} /><span class="radio"></span> 10개월</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="payment_install_range" value="11" {{checked_install_range_11}} /><span class="radio"></span> 11개월</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="payment_install_range" value="12" {{checked_install_range_12}} /><span class="radio"></span> 12개월</label>&nbsp;&nbsp;	
+			<!--
+			<label><input type='radio' name="payment_install_range" value="18" {{checked_install_range_18}} /><span class="radio"></span> 18개월</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="payment_install_range" value="24" {{checked_install_range_24}} /><span class="radio"></span> 24개월</label>&nbsp;&nbsp;	
+			-->			
+		</td>		
+	</tr>
+	<tr> 
+		<td>에스크로 사용 선택 <i class="xi-help xi-x colorDGary masterTooltip" title="에스크로 결제 신청 후 에스크로 적용할 결제 수단을 선택 하시면 됩니다."></i></td>
+		<td colspan="3">
+			<label><input type='checkbox' name="payment_escrow_v" value="1" {{checked_escrow_v}} /><span></span> 가상계좌</label>&nbsp;&nbsp;
+		</td>		
+	</tr>
+	<tr> 
+		<td>KCP 공통통보 URL <i class="xi-help xi-x colorDGary masterTooltip" title="- 가상계좌사용시 입금통보받는 페이지 주소 입니다.[BR]- KCP 가맹점 관리자 페이지 [상점정보관리 – 정보변경 – 공통 URL 
+정보]에 등록 하시면 됩니다."></i></td>
+		<td colspan="3">{{SHOP_URL}}plugin/kcp/common_return.php&nbsp;&nbsp;<i class="fas fa-clipboard-check size12 masterTooltip btnUrl1" title="링크복사"></i></td>
+	</tr>
+	<tr> 
+		<td>NICE페이 결제통보 URL <i class="xi-help xi-x colorDGary masterTooltip" title="- 가상계좌사용시 입금통보받는 페이지 주소 입니다.[BR]- NICE페이 가맹점 관리자 페이지 [메인화면 → 가맹점정보 클릭]에 등록 하시면 됩니다."></i></td>
+		<td colspan="3">{{SHOP_URL}}plugin/nicepay/nice_noti.php&nbsp;&nbsp;<i class="fas fa-clipboard-check size12 masterTooltip btnUrl3" title="링크복사"></i></td>
+	</tr>
+	<!--
+	<tr> 
+		<td>복합과세 사용  <i class="xi-help xi-x colorDGary masterTooltip" title="복합과세(면/과세 상품 동시 취급)로 쇼핑몰을 운영하신다면, 반드시 먼저 KCP와 복합과세 계약 후 사용함을 선택 하시기 바랍니다."></i></td>
+		<td colspan="3">
+			<label><input type='radio' name="payment_complex_tax" value="0" {{checked_complex_tax_0}} /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="payment_complex_tax" value="1" {{checked_complex_tax_1}} /><span class="radio"></span> 사용함</label>&nbsp;&nbsp;
+		</td>		
+	</tr>
+	-->
+	<tr> 
+		<td>무통장 입금은행 설정 <i class="xi-arrows xi-x colorDGary masterTooltip" title="등록된 항목을 마우스로 누루고 아래 위로 이동하시면 순서를 변경 하실 수 있습니다."></i></td>
+		<td colspan="3" style="padding:30px;">
+			<table class="listIn fixed-header" id="bankSortable">
+			<colgroup>
+			<col width="5%" /> 
+			<col width="20%" />
+			<col width="25%" /> 
+			<col width="20%" />
+			<col width="10%" />	
+			<col width="10%" />
+			</colgroup>
+			<thead>
+			<tr> 
+				<th>번호</th>
+				<th>은행명</th>
+				<th>계좌번호</th>
+				<th>예금주</th>
+				<th>사용</th>
+				<th>처리</th>
+			</tr>
+			</thead>
+			<tbody></tbody>
+			</table>
+		</td>		
+	</tr>	
+	<tr> 
+		<td>현금영수증 사용 설정 <i class="xi-help xi-x colorDGary masterTooltip" title="- 결제수단 중 무통장입금, 실시간계좌이체, 가상계좌이체일경우 구매자가 상품결제 페이지에서 현금영수증을 신청할 수 있습니다.[BR]- 사용함 설정전에 반드시 KCP에 현금영수증 신청 후 사용함을 선택 하시기 바랍니다.[BR]- 실시간계좌이체, 가상계좌이체일일 경우 KCP 결제창에서 현금영수증 발행 안되게 설정 하셔야 중복 발행이 되지 않습니다."></i></td>
+		<td colspan="3">
+			<label><input type='radio' name="cash_receipts_used" value="0" {{checked_receipts_used_0}} /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="cash_receipts_used" value="1" {{checked_receipts_used_1}} /><span class="radio"></span> 사용함</label>&nbsp;&nbsp;
+		</td>		
+	</tr>
+	<tr> 
+		<td>현금영수증 필수 신청 <i class="xi-help xi-x colorDGary masterTooltip" title="- 필수신청 사용함일 경우 상품결제 페이지에서 현금영수증을 신청해야만 주문이 됩니다.[BR] - 현금영수증 의무발행 업종의 경우 거래 건당 10만 원 이상 현금 결제시(실시간계좌이체, 가상계좌이체일, 무통장입금) 현금영수증을 반드시 발행하여야 합니다. [BR]- 현금영수증 의무발급 대상자인 경우 필수신청을 사용 하시기 바랍니다."></i></td>
+		<td colspan="3">
+			<label><input type='radio' name="cash_receipts_require" value="0" {{checked_receipts_require_0}} /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="cash_receipts_require" value="1" {{checked_receipts_require_1}} /><span class="radio"></span> 사용함</label>&nbsp;&nbsp;
+			<button class="btns" type="button" style="width:240px" id="cashInfo"><span class="text"><i class="xi-external-link xi-x"></i> 현금영수증 의무발행업종 확인하기</span></button>
+		</td>		
+	</tr>
+	<tr> 
+		<td>현금영수증 발급 방법 <i class="xi-help xi-x colorDGary masterTooltip" title="- 자동발급은 구매자가 현금영수증을 신청하면 입금확인/취소완료 단계에서 자동으로 발급/취소됩니다.[BR]- 관리자 직접발급은 구매자가 신청한 현금 영수증을 관리자가 건별로 발급버튼을 눌러서 발급합니다.[BR]- 현금 영수증발급 후 일부 상품 주문취소/반품완료 될 경우 자동으로 부분취소 처리 됩니다."></i></td>
+		<td>
+			<label><input type='radio' name="cash_receipts_method" value="1" {{checked_receipts_method_1}} /><span class="radio"></span> 자동발급</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="cash_receipts_method" value="0" {{checked_receipts_method_0}} /><span class="radio"></span> 관리자 직접발급</label>&nbsp;&nbsp;
+		</td>
+		<td>현금영수증 사업자 형태 <i class="xi-help xi-x colorDGary masterTooltip" title="- 일반 과세사업자는 판매물품에 부가세가 있고 현금영수증에 공급가액,부가세가 분리되어 국세청통보 됩니다.[BR]- 면세/간이사업자는 판매물품에 부가세가 없고 현금영수증에 공급가액 = 합계금액 (부가세없음)으로 국세청통보 됩니다"></i></td>
+		<td>
+			<label><input type='radio' name="cash_receipts_type" value="0" {{checked_receipts_type_0}} /><span class="radio"></span> 일반 과세사업자</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="cash_receipts_type" value="1" {{checked_receipts_type_1}} /><span class="radio"></span> 면세 / 간이사업자</label>&nbsp;&nbsp;
+		</td>
+	</tr>
+	<tr> 
+		<td>결제 대행사 수수료  <i class="xi-help xi-x colorDGary masterTooltip" title="결제 대행사 수수료를 입력 하시면 좀 더 정확한 통계가 제공 됩니다."></i></td>
+		<td colspan="3">
+			신용카드 <input type='text' name='payment_commission_c' value='{{payment_commission_c}}' placeholder="수수료율" style="width:8%; font-size:14px;" class="only_num_jum" />%&nbsp;&nbsp;	
+			계좌이체 <input type='text' name='payment_commission_r' value='{{payment_commission_r}}' placeholder="수수료율" style="width:8%; font-size:14px;" class="only_num_jum" />%&nbsp;&nbsp;	
+			계좌이체 최저 수수료 <input type='text' name='payment_commission_r2' value='{{payment_commission_r2}}' placeholder="수수료" style="width:8%; font-size:14px;" class="only_num_format" />원&nbsp;&nbsp;	
+			가상계좌 <input type='text' name='payment_commission_v' value='{{payment_commission_v}}' placeholder="수수료" style="width:8%; font-size:14px;" class="only_num_format" />원&nbsp;&nbsp;	
+			휴대폰결제 <input type='text' name='payment_commission_h' value='{{payment_commission_h}}' placeholder="수수료율" style="width:8%; font-size:14px;" class="only_num_jum" />	%
+		</td>		
+	</tr>
+	</table>
+	
+	<div class="empty60" ></div>
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;네이버 페이 설정
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>
+	<tr> 
+		<td>사용 설정 <i class="xi-help xi-x colorDGary masterTooltip" title="사용함 설정전에 반드시 네이버페이 신청 후 사용함을 선택 하시기 바랍니다."></i></td>
+		<td colspan="3">
+			<label><input type='radio' name="naverpay_used" value="0" {{checked_naverpay_used_0}} /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="naverpay_used" value="1" {{checked_naverpay_used_1}} /><span class="radio"></span> 사용함</label>&nbsp;&nbsp;&nbsp;&nbsp;			
+			<button class="btns" type="button" style="width:18%" id="naverpayInfo">네이버페이 신청하기</button>
+		</td>		
+	</tr>
+	<tr> 
+		<td>서버 설정 <i class="xi-help xi-x colorDGary masterTooltip" title="- 네이버페이 검수완료 후 실서버 변경요청시 실서버로 변경 하시면 됩니다.[BR]- 테스트 서버일 경우 테스트용 아이디로 로그인 해야지 네이버페이 버튼이 노출 됩니다."></i></td>
+		<td colspan="3">
+			<label><input type='radio' name="naverpay_mode" value="0" {{checked_naverpay_mode_0}} /><span class="radio"></span> 테스트 서버</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="naverpay_mode" value="1" {{checked_naverpay_mode_1}} /><span class="radio"></span> 실 서버</label>
+		</td>		
+	</tr>
+	<tr> 
+		<td>테스트 아이디 <i class="xi-help xi-x colorDGary masterTooltip" title="- 네이버페이 검수시 사용되는 정보 입니다.[BR]- 네이버페이 테스트용 회원가입을 하시고 아이디를 입력 하시면 됩니다."></i></td>
+		<td colspan="3"><p style="position:relative"><input type='text' name='naverpay_test_id' value='{{naverpay_test_id}}' style="width:98%" placeholder="예) naverpay_test" data-msg="테스트 아이디를" /></p></td>		
+	</tr>
+	<tr> 
+		<td>네이버페이 상점 ID</td>
+		<td colspan="3"><p style="position:relative"><input type='text' name='naverpay_shop_id' value='{{naverpay_shop_id}}' style="width:98%" placeholder="네이버페이 신청시 발급받은 상점 ID" data-msg="네이버페이 상점 ID를" /></p></td>	
+	</tr>
+	<tr> 
+		<td>네이버페이 가맹점 인증키</td>
+		<td colspan="3"><p style="position:relative"><input type='text' name='naverpay_key1' value='{{naverpay_key1}}' style="width:98%" placeholder="네이버페이 신청시 발급받은 네이버페이 가맹점 인증키" data-msg="네이버페이 가맹점 인증키를" /></p></td>
+	</tr>
+	<tr> 
+		<td>네이버페이 버튼 인증키</td>
+		<td colspan="3"><p style="position:relative"><input type='text' name='naverpay_key2' value='{{naverpay_key2}}' style="width:98%" placeholder="네이버페이 신청시 발급받은 네이버페이 버튼 인증키" data-msg="네이버페이 버튼 인증키를" /></p></td>		
+	</tr>
+	<tr> 
+		<td>네이버 공통 인증키</td>
+		<td colspan="3"><p style="position:relative"><input type='text' name='naverpay_key3' value='{{naverpay_key3}}' style="width:98%" placeholder="네이버페이 신청시 발급받은 네이버 공통 인증키" data-msg="네이버 공통 인증키를" data-on-enter="1" /></p></td>		
+	</tr>
+	<tr> 
+		<td>상품정보 URL 주소 <i class="xi-help xi-x colorDGary masterTooltip" title="네이버페이 검수시 사용되는 정보 입니다."></i></td>
+		<td colspan="3">{{SHOP_URL}}php/naverGoodsXml.php&nbsp;&nbsp;<i class="fas fa-clipboard-check size12 masterTooltip btnUrl2" title="링크복사"></i></td>		
+	</tr>
+	</table>
+
+	<div class="empty60" ></div>
+
+	<div class="btnSubmitBox">
+		<div class="displayInline"><button class="weight300 shine" type="submit">저장하기</button></div>
+	</div>
+
+</div>
+
+</form>
+
+<script>
+<!--
+	$("#bankSortable").multiBox({'sortable':'1','order':'form[name=paymentForm] input[name=bank_order]','focus':'2','list' : [{'name':'','width':'5','type':'','enter':0},{'name':'payment_bank_name','width':'25','type':'text','enter':0},{'name':'payment_bank_num','width':'20','type':'text','enter':0},{'name':'payment_bank_owner','width':'20','type':'text','enter':1},{'name':'payment_bank_used','width':'10','type':'checkbox','enter':0},{'name':'','width':'10','type':'icon','enter':0}]});
+
+	function ckPaymentCp() {
+
+		var nameArr = new Array('payment_shop_id','payment_shop_key');
+
+		if($('form[name=paymentForm] input[name=payment_cp]:checked').val()=='KCP' || $('form[name=paymentForm] input[name=payment_cp]:checked').val()=='NICEPAY') {
+			for(i=0;i<nameArr.length;i++) {
+				dipslayDarkShow('form[name=paymentForm] input[name='+nameArr[i]+']');
+			}
+			$('#kcpInfo').fadeOut('200');
+			$('#niceInfo').fadeOut('200');
+			resetTooltip();
+		}
+		else {
+			for(i=0;i<nameArr.length;i++) {
+				dipslayDarkHide('form[name=paymentForm] input[name='+nameArr[i]+']');
+			}
+			$('#kcpInfo').fadeIn('200');
+			$('#niceInfo').fadeIn('200');			
+		}
+	}
+
+	function ckNaverpayUsed() {
+
+		var nameArr = new Array('naverpay_test_id','naverpay_shop_id','naverpay_key1','naverpay_key2','naverpay_key3');
+
+		if($('input[name=naverpay_used]:checked').val()=='1') {
+			for(i=0;i<nameArr.length;i++) {
+				dipslayDarkShow('form[name=paymentForm] input[name='+nameArr[i]+']');
+			}
+			$('#naverpayInfo').fadeOut('200');
+			resetTooltip();
+		}
+		else {
+			for(i=0;i<nameArr.length;i++) {
+				dipslayDarkHide('form[name=paymentForm] input[name='+nameArr[i]+']');
+			}
+			$('#naverpayInfo').fadeIn('200');
+		}
+	}
+
+	$(function() {
+
+		<!-- DYNAMIC @loop_bank@ -->
+		$("#bankSortable").multiBox('add', [{'name' : 'payment_bank_name', 'value' : '{{bank_name}}'},{'name' : 'payment_bank_num', 'value' : '{{bank_num}}'},{'name' : 'payment_bank_owner', 'value' : '{{bank_owner}}'},{'name' : 'payment_bank_used', 'value' : '{{bank_used}}'}]);
+		<!-- DYNAMIC @loop_bank@ -->
+
+		$('#kcpInfo').click(function(e){
+			window.open("https://www.kcp.co.kr/service.payment.guide.do?cmd=guid01");
+		});
+
+		$('#niceInfo').click(function(e){
+			window.open("https://www.nicepay.co.kr/apply/guide/process.do");
+		});
+
+		$('#cashInfo').click(function(e){
+			window.open("https://www.nts.go.kr/nts/na/ntt/selectNttInfo.do?mi=2201&nttSn=93603");
+		});
+
+		$('form[name=paymentForm] input[name=payment_cp]').click(function(e){
+			ckPaymentCp();
+		});
+		
+		$('#naverpayInfo').click(function(e){
+			window.open("https://admin.pay.naver.com/home");
+		});
+
+		$('form[name=paymentForm] input[name=naverpay_used]').click(function(e){
+			ckNaverpayUsed();
+		});
+
+		var clipboard1 = new ClipboardJS('.btnUrl1', {
+			text: function(trigger) {							
+				return '{{SHOP_URL}}plugin/kcp/common_return.php';
+			}
+		});
+
+		clipboard1.on('success', function(e) {
+			alertify.success('클립보드에 복사 되었습니다.');						
+			clipboard1.destroy();
+		});	
+
+		var clipboard2 = new ClipboardJS('.btnUrl2', {
+			text: function(trigger) {							
+				return '{{SHOP_URL}}php/naverGoodsXml.php';
+			}
+		});
+
+		clipboard2.on('success', function(e) {
+			alertify.success('클립보드에 복사 되었습니다.');						
+			clipboard2.destroy();
+		});	
+
+		var clipboard3 = new ClipboardJS('.btnUrl3', {
+			text: function(trigger) {							
+				return '{{SHOP_URL}}plugin/nicepay/nice_noti.php';
+			}
+		});
+
+		clipboard3.on('success', function(e) {
+			alertify.success('클립보드에 복사 되었습니다.');						
+			clipboard3.destroy();
+		});	
+
+		ckPaymentCp();
+		ckNaverpayUsed();
+
+	});
+
+//-->
+</script>

@@ -1,0 +1,136 @@
+<div id="contents" class="wide">
+
+	<h2 class="contentTitle">관심스토어</h2>
+	
+	<div class="empty40"></div>
+	
+	<div>
+		<div class="listTopTitle fontSCDream" style="padding-left:10px;">
+			전체 <b id="listTotal">{{TOTAL}}</b>
+		</div>
+	</div>	
+	
+	<div class="empty20"></div>
+
+	<div class="content_list">
+		<div id="listArea">
+			<!-- DYNAMIC @is_list_area@ -->
+			<!-- DYNAMIC @loop_list@ -->		
+			<div class="empty20"></div>
+			<div class="sub_title">
+				<a href="{{Main}}?channel=store&vendor={{VENDOR}}"><i class="xi-shop xi-x"></i> {{STORE_NAME}}</a>
+				<i class="xi-heart-o xi-x"></i> {{FSTORE_CNT}}
+				<span>				
+					<i class="xi-close xi-x cursorPoint favStoreDel" data-uid='{{V_UID}}' title="삭제"></i>
+				</span>
+			</div>
+			<div class="empty20"></div>
+			<div style="width:100%; overflow:auto;">
+				<div style="width:1550px">
+					<!-- DYNAMIC @loop_vendor_goods@ -->
+					<div class="goodsItemBox" style="width:250px; display:inline-block; padding-bottom:30px;">
+						<div class="goodsItem">
+							<ul>				
+								<li>
+									<a href="{{LINK}}"><img src="{{IMAGE}}" alt="{{NAME}}" height="285" /></a>
+									<!-- DYNAMIC @is_soldout2@ -->	
+									<span class="soldoutIcon">품절</span>
+									<!-- DYNAMIC @is_soldout2@ -->	
+								</li>
+								<li><a href="{{LINK}}">{{NAME_CODE_ABLE}}</a></li>
+								<li>
+									<div>￦{{PRICE}}</div>
+									<!-- DYNAMIC @is_coupon2@ -->	
+									<div class="couponIcon">쿠폰</div>						
+									<!-- DYNAMIC @is_coupon2@ -->
+									<!-- DYNAMIC @is_sale2@ -->	
+									<div class="salePrice">{{SALE}}%&nbsp;<i class="xi-arrow-down"></i></div>
+									<!-- DYNAMIC @is_sale2@ -->
+									<!-- DYNAMIC @is_orig_price2@ -->
+									<div class="origPrice"><s>{{ORIG_PRICE}}</s></div>
+									<!-- DYNAMIC @is_orig_price2@ -->
+								</li>
+								<li>{{ICON}}</li>
+							</ul>
+						</div>
+					</div>
+					<!-- DYNAMIC @loop_vendor_goods@ -->
+				</div>
+			</div>
+			<!-- DYNAMIC @loop_list@ -->	
+
+			<!-- DYNAMIC @empty_list@ -->
+			<div class="emptyList"> 등록된 관심 스토어가 없습니다.</div>
+			<!-- DYNAMIC @empty_list@ -->
+
+			<!-- DYNAMIC @is_list_area@ -->
+		</div>
+	</div>
+
+	<div class="paging">{{PAGING}}</div>
+	
+</div>	
+
+<script src="lib/jquery.timeliny.js?ver={{ver}}"></script>
+<script>
+<!--	
+	
+	var is_mobile		= "{{is_mobile}}";
+	var defaultUrl		= "{{Main}}?channel={{channel}}";
+	var defaultSort		= "{{sort}}";
+	var defaultLimit	= "{{limit}}";
+	var defaultPage		= "{{page}}";
+	var pagingType		= '{{PAGING_TYPE}}';
+	var lastPage		= '{{total_page}}';
+
+// -->
+</script>
+<script src="{{skin}}/js/listDefaultProc.js?ver={{ver}}"></script>
+<script>
+<!--
+
+	<!-- DYNAMIC @is_paging_type_0@ -->
+	if(listReset == 1) getListPage(defaultUrl + '&sort=' + sort + '&limit=' + limit + '&page=' + page);
+	pageClickReset();
+	<!-- DYNAMIC @is_paging_type_0@ -->
+
+	<!-- DYNAMIC @is_paging_type_1@ -->
+	if(limit != defaultLimit) listReset = 0;
+	$('.paging').timeliny({page: page, lastPage: lastPage, boundaries:'100', url: defaultUrl + '&sort=' + sort + '&limit=' + limit, listReset:listReset});
+	if(limit != defaultLimit) changeSL(1, page);
+	<!-- DYNAMIC @is_paging_type_1@ -->
+
+	function timelinyResetCallBackSub() {
+		$('.favStoreDel').unbind('click').bind('click',function(e) {
+			var data = new FormData();
+			var uid = $(this).attr("data-uid");
+			data.append('uid', uid);
+
+			$.ajax({
+				url: 'php/favorite_store_del_json.php', 
+				type: 'POST',	
+				data: data, 
+				cache: false,
+				dataType: 'json',
+				processData: false, 
+				contentType: false, 
+				success: function(data, textStatus, jqXHR) {
+					if(typeof(data.error) === 'undefined') {
+						alertify.success("관심스토어에서 삭제되었습니다.");
+						window.location.href = "{{Main}}?channel={{channel}}";	
+					}
+					else {
+						alertify.error(data.error);
+					}
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+					alertify.error(textStatus);
+				}		
+			});
+		});
+	}
+
+	timelinyResetCallBackSub();
+	
+// -->
+</script>

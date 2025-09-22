@@ -1,0 +1,72 @@
+<form name='goodsForm' method='post' action='review_list.php?{{addstring}}' enctype="multipart/form-data" target='HFrm'>
+
+<div class="content">
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;구매후기 상세보기
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>
+	<tr> 
+		<td>등록시간</td>
+		<td colspan="3" class="number">{{signdate}}</td>		
+	</tr>
+	<tr> 
+		<td>상품명</td>
+		<td colspan="3">{{g_name}}</td>
+	</tr>
+	<tr> 
+		<td>등록인</td>
+		<td colspan="3">{{name}} / {{id}}</td>		
+	</tr>
+	<tr> 
+		<td>별점</td>
+		<td colspan="3">
+			<!-- DYNAMIC @loop_stars@ -->
+			<i class="xi-star"></i>
+			<!-- DYNAMIC @loop_stars@ -->
+		</td>
+	</tr>
+	<tr> 
+		<td>후기</td>
+		<td colspan="3">
+			{{content}}
+			<!-- DYNAMIC @is_attach@ -->
+			<div class="image" style="margin:10px 0;">
+				<!-- DYNAMIC @loop_attach@ -->
+				<img src="../../image/review/{{attach_name}}" alt="" style="display:inline-block; float:left; height:150px; margin-right:20px; border-radius:6px;" />
+				<!-- DYNAMIC @loop_attach@ -->
+			</div>
+			<!-- DYNAMIC @is_attach@ -->
+		</td>
+	</tr>	
+	</table>
+	
+	<div class="empty60" ></div>
+
+	<div class="btnSubmitBox">
+		<div class="displayInline"><button class="weight300 shine" type="submit">목록보기</button></div>
+		<div class="btnPrev"><i class="xi-arrow-left xi-x"></i></div>
+		<div class="btnPrevTitle">이전페이지</div>		
+	</div>
+
+</div>
+
+</form>
+
+<script>
+<!--
+
+	$(function() {
+		
+		
+	});	
+
+//-->
+</script>

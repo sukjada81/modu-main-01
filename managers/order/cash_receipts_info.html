@@ -1,0 +1,119 @@
+<form name='signForm' method='post' action='cash_receipts_post.php?{{addstring}}' enctype="multipart/form-data" target='HFrm'>
+<input type="hidden" name="mode" value="{{mode}}" />
+<input type="hidden" name="id" value="" />
+
+<div class="content">
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;현금영수증 개별등록
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>		
+	<tr> 
+		<td>발행용도</td>
+		<td colspan="3">
+			<div>
+				<label><input type='radio' name="cash_type`" value="0" checked="checked" /><span class="radio"></span> 소득공제용</label>&nbsp;&nbsp;
+				<label><input type='radio' name="cash_type`" value="1" /><span class="radio"></span> 지출증빙용</label>
+			</div>
+		</td>		
+	</tr>
+	<tr> 
+		<td>신청자명</td>
+		<td colspan="3">
+			<div class="floatLeft" style="position:relative;"><input type='text' name='name' value='' style="width:200px" required="required" data-msg="신청자명을" /></div>
+			<div class="floatLeft" style="padding-left:10px;">
+				<button class="btns" style="float:right" type="button" id="searchMember">
+					<span class="text"><i class="xi-focus-frame"></i> 회원검색</span>
+				</button>
+			</div>
+		</td>		
+	</tr>
+	<tr> 
+		<td>핸드폰번호</td>
+		<td colspan="3">
+			<p style="position:relative"><input type='text' name="cell" style="width:98%" required="required" placeholder="예) 0100000000 '-'없이 입력" data-msg="핸드폰번호를" /></p>
+		</td>		
+	</tr>
+	<tr> 
+		<td>이메일주소</td>
+		<td colspan="3">
+			<p style="position:relative"><input type='text' name="email" style="width:98%" required="required" data-msg="이메일주소를" /></p>
+		</td>		
+	</tr>
+	<tr> 
+		<td>상품명</td>
+		<td colspan="3">
+			<p style="position:relative"><input type='text' name="goods_name" style="width:98%" required="required" data-msg="상품명을" /></p>
+		</td>		
+	</tr>
+	<tr> 
+		<td>결제수단</td>
+		<td colspan="3">
+			<div>
+				<label><input type='radio' name="pay_type" value="B" checked="checked" /><span class="radio"></span> 무통장</label>&nbsp;&nbsp;
+				<label><input type='radio' name="pay_type" value="R" /><span class="radio"></span> 실시간계좌이체</label>
+				<label><input type='radio' name="pay_type" value="V" /><span class="radio"></span> 가상계좌이체</label>
+			</div>
+		</td>		
+	</tr>
+	<tr> 
+		<td>발급금액 <i class="xi-help xi-x colorDGary masterTooltip" title="일반과세사업자일 경우 부가세가 포함되어 국세청에 통보 됩니다. "></i></td>
+		<td colspan="3">
+			<div class="floatLeft" style="position:relative"><input type='text' name='price' value='0' style="width:100px; font-size:14px" class="only_num_format" required="required" data-msg="발급금액을"  /></div>
+		</td>		
+	</tr>
+	<tr> 
+		<td>신분확인번호 <i class="xi-help xi-x colorDGary masterTooltip" title="소득공제용일경우 핸드폰번호를 지출증빙용일 경우 사업자등록번호를 입력 하시면 됩니다."></i></td>
+		<td colspan="3">
+			<p style="position:relative"><input type='text' name="auth_number" style="width:98%" required="required" placeholder="핸드폰 번호나 사업자등록 번로 '-'없이 입력" data-msg="신분확인번호를" /></p>
+		</td>		
+	</tr>
+
+
+	</table>
+	
+	<div class="empty60"></div>
+
+	<div class="btnSubmitBox">
+		<div class="displayInline"><button class="weight300 shine" type="submit">등록하기</button></div>
+		<div class="btnPrev"><i class="xi-arrow-left xi-x"></i></div>
+		<div class="btnPrevTitle">이전페이지</div>		
+	</div>
+
+</div>
+
+</form>
+
+<script>
+<!--
+
+	function cashGet(id, vls) {
+		alertify.closeAll('iframeDialog');
+
+		vls	= vls.split("|");
+		
+		$('form[name=signForm] input[name=id]').val(id);
+		$('form[name=signForm] input[name=name]').val(vls[0]);
+		$('form[name=signForm] input[name=cell]').val(vls[1]);
+		$('form[name=signForm] input[name=email]').val(vls[2]);
+
+	}
+	
+	$(function() {
+
+		$('#searchMember').click(function(e){
+			iframeView("../member/popup_member_search.php?type=cash", "회원검색");
+		});
+		
+
+	});	
+
+//-->
+</script>

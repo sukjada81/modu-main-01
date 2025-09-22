@@ -1,0 +1,269 @@
+<div class="content">
+	
+	<form name='searchForm' method='get' action='{{PHP_SELF}}'>
+	<div class="searchDetail">
+		<div class="searchDetailBox" style="padding:30px 0px; width:100%">
+			<table class="search">
+			<colgroup>
+			<col width="50%" /> 
+			<col width="50%" /> 
+			</colgroup>
+			<tr> 
+				<td colspan="2">
+					<div class="requireLeft"><input type="text" name="s_date" class="ip2 dates" value="{{s_date}}" data-date-picker='1' /></div>
+					<div class="floatLeft" style="padding:0 0 0 15px;">~</div>
+					<div class="requireLeft"><input type="text" name="e_date" class="ip2 dates" value="{{e_date}}" data-date-picker='1' /></div>
+					<div class="floatLeft" style="padding-left:15px;">
+						<button class="btns2" type="button" data-s_date='{{DATE1}}' data-e_date='{{DATE4}}'>이전달</button>
+						<button class="btns2" type="button" data-s_date='{{DATE1}}' data-e_date='{{DATE2}}'>이전달 전반</button>
+						<button class="btns2" type="button" data-s_date='{{DATE3}}' data-e_date='{{DATE4}}'>이전달 후반</button>
+						<button class="btns2" type="button" data-s_date='{{DATE5}}' data-e_date='{{DATE8}}'>이번달</button>
+						<button class="btns2" type="button" data-s_date='{{DATE5}}' data-e_date='{{DATE6}}'>이번달 전반</button>
+						<button class="btns2" type="button" data-s_date='{{DATE7}}' data-e_date='{{DATE8}}'>이번달 후반</button>
+						<button class="btns2" type="button" data-s_date='{{DATE9}}' data-e_date='{{DATE10}}'>지난주</button>
+						<button class="btns2" type="button" data-s_date='{{DATE11}}' data-e_date='{{DATE12}}'>지지난주</button>
+						<button class="btns2" type="button" data-s_date='{{DATE13}}' data-e_date='{{DATE14}}'>지지지난주</button>
+					</div>
+				</td>
+			</tr>
+			<tr> 
+				<td>					
+					<select name="account_cycle">
+						<option value="">정산주기</option>
+						<option value="1">주 1회</option>
+						<option value="2">월 2회</option>
+						<option value="3">월 1회</option>
+						<option value="4">자율</option>
+					</select>			
+				</td>
+				<td>
+					<select name="vendor">
+						<option value="">판매사</option>
+						<!-- DYNAMIC @loop_vendor@ -->
+						<option value='{{vendor_id}}'>{{vendor_name}} ({{vendor_id}})</option>
+						<!-- DYNAMIC @loop_vendor@ -->							
+					</select>			
+				</td>
+			</tr>				
+			</table>					
+		</div>	
+		<div class="btnSearchSubmitBox">
+			<div class="btnCircleSearch"><div class="btnCircleSearchTitle">검색</div><i class="xi-search xi-x"></i></div>
+			<div class="btnCircleReset"><div class="btnCircleResetTitle">초기화</div><i class="xi-undo xi-x"></i></div>						
+		</div>
+	</div>
+	</form>
+
+	<script>
+	<!--	
+		var heapIds1	= '';
+		var heapUpdate	= '';
+		$("form[name=searchForm] select[name='account_cycle']").val('{{account_cycle}}').show().heapbox({
+			'width' : '100%',
+			'zindex': 8,
+			'onChange': function(value){ cycleChange(value); }
+		});
+		$("form[name=searchForm] select[name='vendor']").val('').show().heapbox({'width' : '99%', 'heapsize' : '400px', 'zindex':7});
+	//-->
+	</script>
+
+	<div class="empty60"></div>
+	
+	<!-- DYNAMIC @is_search@ -->
+	<div id="listArea">
+		
+		<table class="listIn fixed-header">
+		<colgroup>		
+		<col width="8%" />		<!-- 순위 --> 
+		<col width="22%" />		<!-- 판매사 --> 
+		<col width="20%" />		<!-- 총매출 --> 
+		<col width="15%" />		<!-- 상품 --> 
+		<col width="15%" />		<!-- 배송비 --> 
+		<col width="15%" />		<!-- 수수료 --> 
+		</colgroup>
+		<thead> 
+		<tr> 
+			<th>순위</th>
+			<th>판매사정보 <i class="xi-focus-frame"></i></th>
+			<th>정산합계</th>
+			<th>상품</th>
+			<th>배송비</th>
+			<th>수수료</th>	
+		</tr>
+		</thead>		
+		<tbody>
+		<!-- DYNAMIC @loop_list@ -->
+		<tr class="infos" data-id='{{VENDOR_ID}}' data-sum='{{SUM}}' data-sum1='{{SUM1}}' data-sum2='{{SUM2}}' data-sum3='{{SUM3}}'>
+			<td class="number">{{NUM}}</td>
+			<td>
+				<div class='btnVCrm cursorPoint center' data-id='{{VENDOR_ID}}'>
+					<div class="empty5"></div>
+					<div class='barId'>{{VENDOR_ID}}</div>
+					<div class="empty5"></div>
+					<div class='barName2'>{{VENDOR}}</div>
+				</div>			
+			</td>
+			<td class="number">{{SUM}}</td>
+			<td class="number">{{SUM1}}</td>
+			<td class="number">{{SUM2}}</td>
+			<td class="number">{{SUM3}}</td>
+		</tr>
+		<!-- DYNAMIC @loop_list@ -->
+		<!-- DYNAMIC @empty_list@ -->
+		<tr>
+			<td colspan="6" class="emptyList"><i class="fas fa-quote-left"></i>&nbsp;&nbsp;검색된 내역이 없습니다!&nbsp;&nbsp;<i class="fas fa-quote-right"></i></td>
+		<tr>
+		<!-- DYNAMIC @empty_list@ -->
+		</tbody>
+		</table>
+
+		<div class="empty60" ></div>
+		
+		<form name='postForm' method='post' action='' data-return='addCalculate'>
+		<div class="btnSubmitBox">
+			<div class="displayInline"><button class="weight300 shine" type="submit">정산내역에 등록하기</button></div>			
+		</div>
+		</form>
+	</div>
+	<!-- DYNAMIC @is_search@ -->
+
+</div>
+
+<script>
+<!--
+	<!-- DYNAMIC @empty_list2@ -->
+	$(".btnSubmitBox").hide();
+	<!-- DYNAMIC @empty_list2@ -->
+
+	function cycleChange(value) {
+		form = "searchForm";
+		$("form[name=" + form + "] select[name='vendor']").empty();
+		$("form[name=" + form + "] select[name='vendor']").append($('<option/>', { value: '', text: '판매사' }));
+		$("form[name=" + form + "] select[name='vendor']").heapbox("update");
+		
+		getVendorInfo(value);
+	}
+
+	function getVendorInfo(value) {
+		var form = "searchForm";
+		
+		var data = new FormData();
+		data.append('cycle', value);
+		
+		$.ajax({
+				url: 'vendor_list_json.php', 
+				type: 'POST',
+				data: data, 
+				cache: false,
+				dataType: 'json',
+				processData: false, 
+				contentType: false, 
+				success: function(data, textStatus, jqXHR) {					
+					if(typeof(data.error) === 'undefined') {						
+						
+						var insertCode = '';
+
+						$.each(data, function(key, value) {
+							newOption = $('<option/>', {  
+								value: data[key].id,
+								text: data[key].name
+							});
+							$("form[name=" + form + "] select[name='vendor']").append(newOption);
+
+						});						
+						$("form[name=" + form + "] select[name='vendor']").heapbox("update");
+					}
+					else {
+						alertify.error(data.error);
+					}
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+					alertify.error(textStatus);
+				}		
+			});
+	}
+
+	function addCalculate() {
+		var	cnts	= $('.infos').length;
+		var s_date	= "{{s_date}}";
+		var e_date	= "{{e_date}}";
+
+		var arr		= new Array(); 		
+       
+		$('.infos').each(function(i) {			
+			var id		= $(this).attr('data-id');
+			var sum		= $(this).attr('data-sum');
+			var price1	= $(this).attr('data-sum1');
+			var price2	= $(this).attr('data-sum2');
+			var price3	= $(this).attr('data-sum3');
+
+			if(!(sum == 0 && price1 == 0 && price2 == 0 && price3 == 0)) {
+				var obj		= new Object();
+				obj.id		= id;
+				obj.sum		= sum;
+				obj.price1	= price1;
+				obj.price2	= price2;
+				obj.price3	= price3;
+
+				arr.push(obj);
+			}
+		});
+
+		if(arr.length > 0) {
+
+			items = JSON.stringify(arr);
+		
+			var data = new FormData();
+			data.append('s_date',	s_date);
+			data.append('e_date',	e_date);
+			data.append('items',	items);		
+
+			$.ajax({
+					url: 'calculate_post_json.php', 
+					type: 'POST',
+					data: data, 
+					cache: false,
+					dataType: 'json',
+					processData: false, 
+					contentType: false, 
+					success: function(data, textStatus, jqXHR) {					
+						if(typeof(data.error) === 'undefined') {							
+							alertify.success("정산내역에 등록 되었습니다.");
+							window.location.href = 'calculate_list.php';
+							return;
+						}
+						else {
+							alertify.error(data.error);
+						}
+					},
+					error: function(jqXHR, textStatus, errorThrown) {
+						alertify.error(textStatus);
+					}		
+			});	
+		}
+		else {
+			alertify.success("변경된 사항이 없습니다.");
+		}		
+	}
+	
+	$(function() {		
+		
+		$('.btns2').click(function(e) {
+			$("form[name=searchForm] input[name='s_date']").val($(this).attr('data-s_date'));
+			$("form[name=searchForm] input[name='e_date']").val($(this).attr('data-e_date'));			
+			return;
+		});
+
+		$('.btnVCrm').click(function(e) {
+			var id = $(this).attr("data-id");
+			iframeWidth = '950px';
+			iframeHeight = '.8';
+			iframeView("../vendor/popup_vendor_crm.php?id=" + id, "판매사 CRM보기");			
+		});	
+
+		getVendorInfo('');
+		
+	});
+
+//-->
+</script>

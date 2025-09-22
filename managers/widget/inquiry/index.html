@@ -1,0 +1,28 @@
+<!-- DYNAMIC @is_list_area@ -->
+<div>	
+	<div class="widgetTitle black"><a href="../etcs/inquiry_list.php">상품문의</a> <span data-id="inquiry"><i class="xi-renew masterTooltipWidget" title="새로고침"></i></span></div>
+	<div class="widgetList widgetListGray widgetBoardList">
+		<!-- DYNAMIC @loop_list@ -->		
+		<a href="../etcs/inquiry_info.php?uid={{UID}}">
+		<div>
+			<ul>
+				<li>
+					<!-- DYNAMIC @is_answer@ -->
+					<span class="icons2 masterTooltipWidget" title="답변완료">A</span>
+					<!-- DYNAMIC @is_answer@ -->
+					<!-- DYNAMIC @is_no_answer@ -->
+					<span class="icons1 masterTooltipWidget" title="미답변">N</span>					
+					<!-- DYNAMIC @is_no_answer@ -->					
+					{{SUBJECT}}
+				</li>
+				<li>{{DATE}}</li>
+			</ul>			
+		</div>
+		</a>
+		<!-- DYNAMIC @loop_list@ -->
+		<!-- DYNAMIC @empty_list@ -->
+		<div class="widgetEmptyList"><i class="fas fa-quote-left"></i>&nbsp;&nbsp;등록된 상품문의가 없습니다!&nbsp;&nbsp;<i class="fas fa-quote-right"></i></div>
+		<!-- DYNAMIC @empty_list@ -->
+	</div>
+</div>
+<!-- DYNAMIC @is_list_area@ -->

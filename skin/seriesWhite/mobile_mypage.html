@@ -1,0 +1,93 @@
+<link type="text/css" rel="stylesheet" href="//use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+
+<div id="contents">
+	
+	<h2 class="contentTitle">마이페이지</h2>
+	
+	<div class="mypage">
+		
+		<div class="profile">
+			<div><i class="fas fa-user-circle fa-3x colorGray"></i></div>
+			<div>
+				{{my_name}}님, 안녕하세요!<span>회원등급은 {{LEVEL_NAME}} 입니다.</span>
+			</div>
+		</div>
+
+		<div class="empty20"></div>
+
+		<div class="info">
+			<div>신청처리 현황</div>
+			<ul>
+				<li><a href="{{Main}}?channel=order_list&status=0">입금전<span>{{STATUS0_CNT}}</span></a></li>
+				<li class="line"><i class="xi-angle-right-thin"></i></li>
+				<li><a href="{{Main}}?channel=order_list&status=1">결제완료<span>{{STATUS1_CNT}}</span></a></li>
+				<li class="line"><i class="xi-angle-right-thin"></i></li>
+				<li><a href="{{Main}}?channel=order_list&status=2">배송준비중<span>{{STATUS2_CNT}}</span></a></li>
+				<li class="line"><i class="xi-angle-right-thin"></i></li>
+				<li><a href="{{Main}}?channel=order_list&status=3">배송중<span>{{STATUS3_CNT}}</span></a></li>
+				<li class="line"><i class="xi-angle-right-thin"></i></li>
+				<li><a href="{{Main}}?channel=order_list&status=4">배송완료<span>{{STATUS4_CNT}}</span></a></li>
+				<li class="line"><i class="xi-angle-right-thin"></i></li>
+				<li><a href="{{Main}}?channel=order_list&status=5">구매확정<span>{{STATUS5_CNT}}</span></a></li>
+			</ul>
+			<div class="btnBoxs">
+				<p class="btnBox"><a href="{{Main}}?channel=order_list&status=9">취소<span>{{STATUS9_CNT}}</span></a></p>
+				<p class="btnBox"><a href="{{Main}}?channel=order_list&status=8">반품<span>{{STATUS8_CNT}}</span></a></p>
+				<p class="btnBox"><a href="{{Main}}?channel=order_list&status=7">교환<span>{{STATUS7_CNT}}</span></a></p>
+			</div>
+		</div>
+
+		<div class="empty20"></div>
+		<div class="line2"></div>
+		<div class="empty20"></div>
+		
+		<div class="mileage">
+			<a href="{{Main}}?channel=my_mileage"><div>마일리지<span>{{MILEAGE}}</span></div></a>
+		</div>
+
+		<div class="empty20"></div>
+		<div class="line2"></div>
+		<div class="empty20"></div>
+		
+		<div class="menu">
+			<div>마이페이지 메뉴</div>
+			<div class="empty10"></div>
+			<ul>
+				<li><a href="{{Main}}?channel=order_list"><i class="xi-box xi-x"></i> 주문내역</a></li>
+				<li><a href="{{Main}}?channel=my_mileage"><i class="xi-crown xi-x"></i> 마일리지</a></li>
+				<li><a href="{{Main}}?channel=my_coupon"><i class="xi-coupon xi-x"></i> 쿠폰</a></li>
+				<li><a href="{{Main}}?channel=my_favorite_goods"><i class="xi-heart-o xi-x"></i> 관삼상품</a></li>
+				<!-- DYNAMIC @is_store@ -->
+				<li><a href="{{Main}}?channel=my_favorite_store"><i class="xi-heart-o xi-x"></i> 관삼스토어</a></li>
+				<!-- DYNAMIC @is_store@ -->
+				<li><a href="{{Main}}?channel=my_recent_goods"><i class="xi-eye-o xi-x"></i> 최근본상품</a></li>
+				<li><a href="{{Main}}?channel=my_counsel"><i class="xi-forum-o xi-x"></i> 나의1:1 문의</a></li>
+				<li><a href="{{Main}}?channel=my_review"><i class="xi-browser-text xi-x"></i> 나의구매후기</a></li>
+				<li><a href="{{Main}}?channel=my_inquiry"><i class="xi-border-color xi-x"></i> 나의상품문의</a></li>
+				<li><a href="{{Main}}?channel=member_modify"><i class="xi-user-o xi-x"></i> 회원정보수정</a></li>
+				<li><a href="{{Main}}?channel=member_passwd"><i class="xi-unlock-o xi-x"></i> 비밀번호변경</a></li>
+				<!-- DYNAMIC @is_sns_type@ -->
+				<li><a href="{{Main}}?channel=member_withdrawal"><i class="xi-long-arrow-left xi-x"></i> 회원탈퇴</a></li>
+				<!-- DYNAMIC @is_sns_type@ -->
+				<li><a href="php/logout.php"><i class="xi-log-out xi-x"></i> 로그아웃</a></li>
+			</ul>
+		</div>
+		
+	</div>
+
+	<div class="empty40"></div>
+	
+</div>	
+
+<script>
+<!--
+	if($.cookie('mallUrl')) {			
+		$.cookie('mallUrl', null);
+		$.cookie('mallPage', null);
+		$.cookie('mallSort', null);
+		$.cookie('mallLimit', null);	
+		$.cookie('mallStatus', null);
+	}
+		
+//-->
+</script>

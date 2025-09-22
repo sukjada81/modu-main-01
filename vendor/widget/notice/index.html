@@ -1,0 +1,25 @@
+<!-- DYNAMIC @is_list_area@ -->
+<div>
+	<div class="widgetTitle">알림 <span data-id="notice"><i class="xi-renew masterTooltipWidget" title="새로고침"></i></span></div>
+	<div class="display-table" style="height:170px;">		
+		<div class="display-table-row">
+			<div class="display-table-cell">
+				<div class="widgetDetail notice">
+					<!-- DYNAMIC @is_inquiry@ -->
+					<div><i class="xi-bell xi-x"></i> <a href="../store/inquiry_list.php?answer=1" class="underLineThinWhite">미답변 상품문의가 <span>{{CNT1}}</span> 건 있습니다.</a></div>
+					<!-- DYNAMIC @is_inquiry@ -->
+					<!-- DYNAMIC @is_order_status1@ -->
+					<div><i class="xi-bell xi-x"></i> <a href="../order/order_change_list.php?status=1" class="underLineThinWhite">교환/반품 요청 주문상품이<span>{{CNT2}}</span> 건 있습니다.</a></div>
+					<!-- DYNAMIC @is_order_status1@ -->
+					<!-- DYNAMIC @is_order_status2@ -->
+					<div><i class="xi-bell xi-x"></i> <a href="../order/order_change_list.php?status=2" class="underLineThinWhite">교환/반품 처리중인 주문상품이<span>{{CNT3}}</span> 건 있습니다.</a></div>
+					<!-- DYNAMIC @is_order_status2@ -->
+					<!-- DYNAMIC @empty_list@ -->
+					<div class="widgetEmptyList"><i class="fas fa-quote-left"></i>&nbsp;&nbsp;알림사항이 없습니다!&nbsp;&nbsp;<i class="fas fa-quote-right"></i></div>
+					<!-- DYNAMIC @empty_list@ -->		
+				</div>
+			</div>
+		</div>
+	</div>	
+</div>	
+<!-- DYNAMIC @is_list_area@ -->

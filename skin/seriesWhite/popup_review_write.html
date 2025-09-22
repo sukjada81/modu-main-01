@@ -1,0 +1,157 @@
+<style>
+.heapBoxBo { font-family: 'SCDream', sans-serif; font-size:14px; clear:both; display:inline-block; line-height:28px; position:relative; z-index:10; float:left; padding:16px 13px 3px 16px; min-height:41px; }
+</style>
+
+<link href="../lib/summernote-lite.css?ver={{ver}}" rel="stylesheet">
+<script src="../lib/summernote-lite.js?ver={{ver}}"></script>
+<script src="../lib/summernote-ko-KR.js"></script>
+
+<div id="popup_contents">
+
+	<form name='writeForm' method='post' action='review_post.php' enctype="multipart/form-data" target='HFrm'>
+	<input type="hidden" name="og_uid" value="{{og_uid}}" />
+	<input type="hidden" name="g_uid" value="{{g_uid}}" />
+	<input type="hidden" name="op_name" value="{{op_name}}" />
+	<input type="hidden" name="stars" value="5" />
+
+	<div class="content_write" style="width:790px">
+
+		<div class="writeBox inputBox">
+			<ul>
+				<li>
+					<input type="text" name="g_name" value="{{g_name}}" required="required" readonly data-title="상품명" data-msg="상품명을" />
+				</li>
+				<!-- DYNAMIC @is_guest@ -->
+				<li>
+					<div style="width:48%; float:left;position:relative;">
+						<input type="text" name="" value="{{name}}" required="required" data-title="이름" data-msg="이름을" data-toname="name" />
+					</div>
+					<div style="width:4%; float:left;">&nbsp;</div>
+					<div style="width:48%; float:left;position:relative;">
+						<input type='password' name='passwd' required="required" data-title="비밀번호" data-msg="비밀번호를" />
+					</div>				
+					<div style="clear:both; height:2px; overflow:hidden"></div>
+				</li>
+				<!-- DYNAMIC @is_guest@ -->
+				<li style="text-align:left;margin:0 0 20px 0">
+					<i class="xi-star xi-2x star1 stars cursorPoint" data-star="1"></i>
+					<i class="xi-star xi-2x star2 stars cursorPoint" data-star="2"></i>
+					<i class="xi-star xi-2x star3 stars cursorPoint" data-star="3"></i>
+					<i class="xi-star xi-2x star4 stars cursorPoint" data-star="4"></i>
+					<i class="xi-star xi-2x star5 stars cursorPoint" data-star="5"></i>
+				</li>				
+				<!-- DYNAMIC @loop_attach@ -->
+				<li class="attach{{i}} {{display}}" data-num="{{i}}">
+					<div class="attachBox">						
+						<div class="title">이미지 업로드</div>					
+						<div class="file_name"></div> 
+						<div class="delete"><i class="xi-close-thin xi-x" title="삭제"></i></div>
+						<input type="file" name="attach_file{{i}}" class="uploadBtn" />
+						<input type="hidden" name="attach_del{{i}}" value="" />
+					</div>
+				</li>
+				<!-- DYNAMIC @loop_attach@ -->
+				<li>
+					<XMP class="sn_content" style="display:none">{{content}}</XMP>
+					<input type="hidden" name="content" value= ""  required="required" data-notefor=".sn_content" />
+				</li>
+			</ul>		
+		</div>
+
+		<!-- DYNAMIC @is_agreement@ -->
+		<div class="infoBox">						
+			<div class="title"><label><input type='checkbox' name="agreement" value="1" required="required" data-alert="1" data-msg-done="개인정보 수집 및 이용 동의는 필수 동의 사항입니다.<br />개인정보 수집 및 이용에 동의 하셔야 글등록이 가능합니다."  /><span class="checkbox"></span>개인정보 수집 및 이용 동의</label></div>
+			<div class="info"><p>회사는 비회원의 상품문의 등록 시 콘텐츠 등록 및 고객 문의 응대 등을 원활하게 진행하기 위해 아래와 같은 개인정보를 수집하고 있습니다.</p><p><br></p><p>- 수집항목: 이름, 연락처, IP</p><p>- 수집/이용목적: 상품문의 접수 및 결과 회신</p><p>- 이용기간: 개인정보 수집 및 이용목적 달성 시 까지</p></div>								
+		</div>
+		<div class="empty20"></div>
+		<!-- DYNAMIC @is_agreement@ -->			
+
+		<div class="empty30"></div>
+
+		<div class="btnShineBox" style="text-align:center">
+			<div class="displayInline" style="width:180px;"><button class="fontSCDream weight300 shine" type="submit">구매후기 등록</button></div>
+		</div>		
+	</div>
+</div>	
+</form>
+
+</body>
+</html>
+
+<iframe name="HFrm" style="display:none;"></iframe>
+
+<script>
+<!--
+	
+	$(function() {
+		
+		$('.btnShineBox').addClass("bottomHoldFix");	
+		$('.btnShineBox').css({opacity:0}).stop().animate({opacity : 0.8}, 'fast');
+		
+		$('.sn_content').summernote({						
+			'lang' : 'ko-KR',
+			'height' : '200px',
+			'placeholder' : '내용을 입력해 주세요.',		
+			'dialogsFade' : true,
+			toolbar: [
+				['font', ['bold', 'underline', 'clear']],
+				['fontname', ['fontname']],
+				['fontsize', ['fontsize']],
+				['color', ['color']]				
+			]
+		});	
+
+		$('.uploadBtn').on('change', function(e){
+
+			if(!CommonCheckImage($(this))) return;
+
+			var num		= $(this).parents('li').attr('data-num');
+			var obj		= $(".attach" + num);		
+			var name	= $(this).val().split('\\');		
+
+			obj.find(".file_name").html(name[name.length - 1]);
+			if(parseInt(obj.find(".title").css('top')) == '20') {
+				obj.find(".title").animate({top:'-=15px'}, 'fast');
+			}
+			obj.find(".delete").show();
+			if(num < 5) $(".attach" + (parseInt(num) + 1)).show();
+						
+		});
+
+		$(".attachBox .delete").click(function(e){
+			var num		= $(this).parents('li').attr('data-num');
+			var obj		= $(".attach" + num);	
+
+			obj.find(".file_name").html('');
+			obj.find("input:file").val('');
+			obj.find("input:hidden").val('1');
+			obj.find(".attachBox .title").animate({top:'+=15px'}, 'fast');
+			$(this).hide();
+		});
+
+		$(".attachBox .file_name").each(function(i) {
+			if($(this).html().length) {
+				var num		= $(this).parents('li').attr('data-num');
+				var obj		= $(".attach" + num);		
+
+				if(parseInt(obj.find(".title").css('top')) == '20') {
+					obj.find(".title").animate({top:'-=15px'}, 'fast');
+				}
+				obj.find(".delete").show();
+				if(num < 5) $(".attach" + (parseInt(num) + 1)).show();
+			}
+		});		
+
+		$('.stars').click(function() {
+			var star = $(this).attr('data-star');
+			$('.stars').removeClass("xi-star").addClass("xi-star-o");
+			for(i = 1; i <= star; i ++) {
+				$('.star' + i).removeClass("xi-star-o").addClass("xi-star");
+			}
+			$("form[name=writeForm] input[name='stars']").val(star);
+		});
+		
+	});
+
+//-->
+</script>

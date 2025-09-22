@@ -1,0 +1,248 @@
+<div id="contents">		
+	<h2 class="contentTitle">회원가입</h2>
+
+	<div class="snsBox center displayNone">		
+		<div>SNS 계정으로 간편하게 가입하세요!</div>
+		<div class="empty30"></div>
+		<!-- DYNAMIC @is_kakao@ -->
+		<p class="btn btnSocial" data-site='kakao'><i class="xi-kakaotalk xi-x colorBlack"></i> 카카오 로그인</p>
+		<!-- DYNAMIC @is_kakao@ -->
+		<!-- DYNAMIC @is_naver@ -->
+		<p class="btn btnSocial" data-site='naver'><i class="xi-naver xi-x colorGreen"></i> 네이버 로그인</p>
+		<!-- DYNAMIC @is_naver@ -->
+		<!-- DYNAMIC @is_google@ -->
+		<p class="btn btnSocial" data-site='google'><i class="xi-google xi-x colorOrange"></i> 구글 로그인</p>
+		<!-- DYNAMIC @is_google@ -->
+		<!-- DYNAMIC @is_payco@ -->
+		<p class="btn btnSocial" data-site='payco'><i class="xi-park xi-x colorRed"></i> 페이코 로그인</p>
+		<!-- DYNAMIC @is_payco@ -->
+	</div>
+
+	<div class="empty30"></div>
+	
+	<form name='registForm' method='post' action='php/regist_post.php' enctype="multipart/form-data" target='HFrm'>
+	<input type="hidden" name="mode" value="new" />
+	<div class="registBox inputBox center">
+		<ul>
+			<li>
+				<input type="text" maxlength="20" value="" required="required" data-title="이름" data-msg="이름을" data-toname="name" data-check-name='1' />
+			</li>
+			<li>
+				<input type="text" name="id" maxlength="12" value="" required="required" data-title="아이디" data-detail="영문시작, 영소문자, 숫자 조합 6~12자" data-msg="아이디를" data-check-id='1' />		
+			</li>
+			<li>
+				<input type='password' name='passwd' required="required" data-title="비밀번호" data-detail='영문, 숫자, 특수문자 2가지 이상 조합 8~20자' data-msg="비밀번호를" data-check-password='1' />
+			</li>
+			<li>
+				<input type='password' name='re_passwd' required="required" data-title="비밀번호확인" data-detail='영문, 숫자, 특수문자 2가지 이상 조합 8~20자' data-msg="비밀번호확인을" data-check-password='2' data-check-field='document.registForm.passwd' />
+			</li>
+			<!-- DYNAMIC @is_tel@ -->
+			<li>
+				<input type="text" name="tel" maxlength="11" value="" {{required}} class="only_num" data-title="전화번호" data-detail="('-'없이)" data-msg="전화번호를" data-check-tel='1' />
+			</li>
+			<!-- DYNAMIC @is_tel@ -->
+			<!-- DYNAMIC @is_cell@ -->
+			<li>
+				<input type="text" name="cell" maxlength="11" value="" {{required}} class="only_num" data-title="휴대폰번호" data-detail="('-'없이)" data-msg="휴대폰번호를" data-check-cell='1' />
+			</li>
+			<!-- DYNAMIC @is_cell@ -->
+			<li>
+				<input type="text" name="email" value="" required="required" data-title="이메일주소" data-msg="이메일주소를" data-toname="email" data-check-email="1" />
+			</li>
+			<!-- DYNAMIC @is_address@ -->
+			<li>
+				<input type="text" name="postcode_search" value="" data-title="주소검색" data-detail="청와대로 1 (도로명 + 건물번호) or 청담동 1-1 (지역명(동/리) + (번지, 건물명, 아파트명))" data-zip-search='1' />
+			</li>
+			<li class="separation" style="width:28%">
+				<input type="text" name="postcode" value="" readonly class="readonly" data-title="우편번호" />
+			</li>
+			<li class="separation" style="width:2%"></li>
+			<li class="separation" style="width:70%">
+				<input type="text" name="address1" value="" {{required}} readonly class="readonly" data-title="주소" data-msg="주소검색후 주소를" />
+			</li>
+			<li style="clear:both">
+				<input type="text" name="address2" value="" data-title="상세주소" />
+			</li>
+			<!-- DYNAMIC @is_address@ -->
+			<!-- DYNAMIC @is_birth@ -->
+			<li class="separation" style="width:66%">
+				<input type="text" name="birth" maxlength="8" value="" {{required}} class="only_num" data-title="생년월일" data-detail="ex)19990101" data-msg="생년월일을" data-check-birth='1' />
+			</li>
+			<li class="separation" style="width:2%"></li>
+			<li class="separation" style="width:32%">
+				<label><input type='radio' name="birth_sl" value="S" {{required}} data-msg="음력 또는 양력을" /><span class="radio">양력</span></label>
+				<label><input type='radio' name="birth_sl" value="L" /><span class="radio">음력</span></label>
+			</li>
+			<!-- DYNAMIC @is_birth@ -->
+			<!-- DYNAMIC @is_gender@ -->
+			<li class="separation" style="width:34%">
+				<label><input type='radio' name="gender" value="M" {{required}} data-msg="성별을" /><span class="radio">남성</span></label>
+				<label><input type='radio' name="gender" value="F" /><span class="radio">여성</span></label>
+			</li>
+			<!-- DYNAMIC @is_gender@ -->			
+			<!-- DYNAMIC @is_marry@ -->
+			<li class="separation" style="width:34%">
+				<label><input type='radio' name="marry" value="M" {{required}} data-msg="결혼여부를" /><span class="radio">기혼</span></label>
+				<label><input type='radio' name="marry" value="S" /><span class="radio">미혼</span></label>
+			</li>
+			<!-- DYNAMIC @is_marry@ -->
+			<!-- DYNAMIC @is_job@ -->
+			<li class="multiSelect">
+				<p class="inputTitle">직업</p>
+				<div class="clearfix">
+					<!-- DYNAMIC @loop_job@ -->
+					<label class="min"><input type='radio' name="job" value="{{v3}}" {{required}} data-msg="직업을" /><span class="radio">{{v3}}</span></label>
+					<!-- DYNAMIC @loop_job@ -->
+				</div>
+			</li>
+			<!-- DYNAMIC @is_job@ -->
+			<!-- DYNAMIC @is_hobby@ -->
+			<li class="multiSelect">
+				<p class="inputTitle">관심분야</p>
+				<div class="clearfix">
+					<!-- DYNAMIC @loop_hobby@ -->
+					<label class="min min2"><input type='checkbox' name="hobby[]" value="{{v3}}" {{required}} data-msg="한개 이상 관심분야를" /><span class="checkbox">{{v3}}</span></label>
+					<!-- DYNAMIC @loop_hobby@ -->
+				</div>
+			</li>
+			<!-- DYNAMIC @is_hobby@ -->
+			<!-- DYNAMIC @loop_add@ -->
+			<li style="clear:both">
+				<input type="text" name="add{{i}}" value="" {{add_required}} data-title="{{ADD_TITLE}}" data-msg="{{ADD_TITLE}}을(를)" />
+			</li>
+			<!-- DYNAMIC @loop_add@ -->
+			
+			<!-- DYNAMIC @is_comp_title@ -->
+			<li class="fontSCDream">사업자 정보</li>
+			<!-- DYNAMIC @is_comp_title@ -->
+			<!-- DYNAMIC @is_comp@ -->
+			<li>
+				<input type="text" name="comp" value="" {{required}} data-title="회사명" data-msg="회사명을" />
+			</li>
+			<!-- DYNAMIC @is_comp@ -->
+			<!-- DYNAMIC @is_comp_num@ -->
+			<li>
+				<input type="text" name="comp_num" maxlength="10" value="" {{required}} class="only_num" data-title="사업자번호" data-detail="('-'없이)" data-msg="사업자번호를" data-check-comp_num='1' />
+			</li>
+			<!-- DYNAMIC @is_comp_num@ -->
+			<!-- DYNAMIC @is_comp_owner@ -->
+			<li>
+				<input type="text" name="comp_owner" maxlength="20" value="" {{required}} data-title="대표자명" data-msg="대표자명을" />
+			</li>
+			<!-- DYNAMIC @is_comp_owner@ -->
+			<!-- DYNAMIC @is_comp_address@ -->
+			<li>
+				<input type="text" name="comp_postcode_search" value="" data-title="사업장주소검색" data-detail="청와대로 1 (도로명 + 건물번호) or 청담동 1-1 (지역명(동/리) + (번지, 건물명, 아파트명))" data-zip-search='2' />
+			</li>
+			<li class="separation" style="width:28%">
+				<input type="text" name="comp_postcode" value="" readonly class="readonly" data-title="우편번호" data-msg="사업장주소검색후 우편번호를"  />
+			</li>
+			<li class="separation" style="width:2%"></li>
+			<li class="separation" style="width:70%">
+				<input type="text" name="comp_address1" value="" {{required}} readonly class="readonly" data-title="사업장주소" data-msg="사업장주소검색후 주소를" />
+			</li>
+			<li style="clear:both">
+				<input type="text" name="comp_address2" value="" data-title="상세주소" />
+			</li>
+			<!-- DYNAMIC @is_comp_address@ -->
+			<!-- DYNAMIC @is_comp_type@ -->
+			<li>
+				<input type="text" name="comp_type" value="" {{required}} data-title="업태" data-msg="업태를" />
+			</li>
+			<!-- DYNAMIC @is_comp_type@ -->
+			<!-- DYNAMIC @is_comp_item@ -->
+			<li>
+				<input type="text" name="comp_item" value="" {{required}} data-title="종목" data-msg="종목을" />
+			</li>
+			<!-- DYNAMIC @is_comp_item@ -->			
+		</ul>
+	</div>
+	
+	<div class="title center">약관동의</div>
+	<div class="agreeBox center">		
+		<button class="graButton checkAll" style="width:100%" type="button"><span class="text">전체 약관에 동의</button>		
+		<div class="empty10"></div>
+		<div class="empty20"></div>
+		<p>
+			<label><input type='checkbox' name="agree1" value="1" class="checkAllItem" required="required" data-alert="1" data-msg-done="'만 14세 이상입니다.'에 체크하셔야 회원가입이 가능 합니다.<br />만 14세 미만의 경우 회원가입이 제한되오니 이점 참고바랍니다." /><span class="checkbox"></span>[필수] 만 14세 이상입니다.</label>
+		</p>
+		<div class="empty10"></div>
+		<p>
+			<label><input type='checkbox' name="agree2" value="1" class="checkAllItem" required="required" data-alert="1" data-msg-done="이용약관동의는 필수 동의 사항입니다.<br />약관에 동의하셔야 회원가입이 가능합니다." /><span class="checkbox"></span>[필수] 이용약관 동의</label>
+			<div class="cursorPoint documentAll1">전문보기 <i class='xi-angle-right-thin'></i></div>
+		</p>
+		<div class="empty10"></div>
+		<p>
+			<label><input type='checkbox' name="agree3" value="1" class="checkAllItem" required="required" data-alert="1" data-msg-done="개인정보 수집 및 이용에 대한 동의는 필수 동의 사항입니다.<br />개인정보 수집 및 이용에 대해 동의하셔야 회원가입이 가능합니다." /><span class="checkbox"></span>[필수] 개인정보 수집 및 이용에 대한 동의</label>
+			<div class="cursorPoint documentAll2">전문보기 <i class='xi-angle-right-thin'></i></div>
+		</p>
+		<div class="empty10"></div>
+		<!-- DYNAMIC @is_sms@ -->
+		<p><label><input type='checkbox' name="sms" value="Y" class="checkAllItem" /><span class="checkbox"></span>[선택] 이벤트 및 쇼핑혜택 SMS 수신 동의</label></p>
+		<div class="empty10"></div>
+		<!-- DYNAMIC @is_sms@ -->
+		<!-- DYNAMIC @is_mailling@ -->
+		<p><label><input type='checkbox' name="mailling" value="Y" class="checkAllItem" /><span class="checkbox"></span>[선택] 이벤트 및 쇼핑혜택 이메일 수신 동의</label></p>
+		<div class="empty10"></div>
+		<!-- DYNAMIC @is_mailling@ -->
+		<div class="empty10"></div>
+		<p class="fontSCDream size12 weight200">수신거부와 상관없이 반드시 고지의무가 있는 사항은 이메일 및 SMS가 발송됩니다.</p>
+	</div>
+
+	<div class="empty30"></div>
+
+	<div class="btnShineBox center">
+		<div class="displayInline width100"><button class="fontSCDream weight300 shine fixWidth" type="submit">회원가입</button></div>
+		<div class="btnPrev"><i class="xi-arrow-left xi-x"></i></div>
+		<div class="btnPrevTitle fontNoto">이전페이지</div>
+	</div>
+
+	<div class="documentAll1Info">
+		<div>{{AGREEMENT}}</div>
+	</div>
+
+	<div class="documentAll2Info">
+		<div>{{PRIVACY}}</div>
+	</div>
+
+	</form>
+
+</div>	
+
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+<!--
+	
+	var contentBtnHeight = 75;
+	if($('.btnShineBox').length) btnShineBoxPositionTop = $('.btnShineBox').offset().top;
+	else btnShineBoxPositionTop = 0;
+		
+	if($("input[name='address1']").length) zipSearch();
+	<!-- DYNAMIC @is_comp_search@ -->
+	zipSearch('comp_');
+	<!-- DYNAMIC @is_comp_search@ -->
+
+	$('.checkAll').click(function(e) {	
+		$('.checkAllItem').prop('checked', true);
+	});
+
+	$('.documentAll1').click(function(e) {	
+		genericDialogView($('.documentAll1Info')[0], '이용약관');
+	});	
+
+	$('.documentAll2').click(function(e) {	
+		genericDialogView2($('.documentAll2Info')[0], '개인정보 수집 및 이용에 대한 동의');
+	});	
+
+	if($('.snsBox').find('.btn').length > 0) {
+		$('.snsBox').show();
+		$('.snsBox .btn').css({'width' : '458'});	
+	}	
+
+	$('.btnSocial').click(function() {
+		var site = $(this).attr('data-site');
+		window.open('plugin/social/' + site + '_login.php', '', 'toolbar=no location=no scrollbars=yes resizable=yes width=500 height=650');		
+	});	
+
+//-->
+</script>

@@ -1,0 +1,104 @@
+<style>
+body { min-width:840px; background-color:#fff; }
+#contentBox { min-width:840px; min-height:300px; top:20px; background-color:#fff; border:0; box-shadow: none; -webkit-box-shadow: none; }
+#contentBox .content { min-width:800px; margin:20px; clear:both; }
+</style>
+
+<form name='memberForm' method='post' action='member_post.php?{{addstring}}' target='HFrm'>					
+<input type="hidden" name="item" />
+<input type="hidden" name="mode" value="down_coupon" />
+
+<div class="content">
+	<table>
+	<colgroup>
+	<col width="24%" /> 
+	<col width="26%" /> 
+	<col width="24%" /> 
+	<col width="26%" /> 
+	</colgroup>
+	<tr> 
+		<td>발급 범위 </td>
+		<td colspan="3">
+			<label id="proc_type1"><input type='radio' name="proc_type1" value="1" /><span class="radio"></span> 선택내역</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="proc_type1" value="2" checked="checked" /><span class="radio"></span> 검색내역({{TOTALS1}}명)</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="proc_type1" value="3" /><span class="radio"></span> 전체내역({{TOTALS2}}명)</label>&nbsp;&nbsp;	
+		</td>
+	</tr>
+	<tr id="times"> 
+		<td>발급 쿠폰 <i class="xi-help xi-x colorDGary masterTooltip" title="쿠폰관리에서 관리자 수동발급으로 등록된 쿠폰만 발급이 가능 합니다."></i></td>
+		<td colspan="3">
+			<select name="c_uid" required=required data-msg="쿠폰을">
+				<option value="">쿠폰선택</option>
+				<!-- DYNAMIC @loop_coupon@ -->
+				<option value="{{coupon_uid}}">{{coupon_name}}</option>
+				<!-- DYNAMIC @loop_coupon@ -->						
+			</select>			
+			<script>
+				$("form[name=memberForm] select[name='c_uid']").val('').heapbox({'width' : '550px', 'heapsize' : '335px', 'searchUsed' : false, 'onChange':function(value){ couponInfo(value); } });
+			</script>			
+		</td>
+	</tr>
+	<tr> 
+		<td>쿠폰정보 </td>
+		<td colspan="3">
+			<div>혜택내용 : <span class="info1"></span></div>
+			<div style="padding-top:10px;">사용기간 : <span class="info2"></span></div>			
+		</td>
+	</tr>
+	</table>
+</div>
+
+<div class="empty1"></div>
+
+<div class="btnSubmitBoxPop">
+	<div class="displayInline"><button class="weight300 shine" type="submit">일괄쿠폰발급</button></div>	
+</div>
+
+</form>
+
+<iframe name="HFrm" style="display:none"></iframe>
+
+<script>
+<!--
+
+	var coupon_info	= [];
+	<!-- DYNAMIC @loop_coupon2@ -->
+	coupon_info.push(['{{coupon_uid}}', '{{coupon_info1}}', '{{coupon_info2}}']);	
+	<!-- DYNAMIC @loop_coupon2@ -->
+	
+	function couponInfo(vls) {
+		if(!vls) {
+			$(".info1").html('');
+			$(".info2").html('');
+			return;
+		}
+
+		for(i = 0; i < coupon_info.length; i ++) {
+			if(coupon_info[i][0] == vls) {
+				$(".info1").html(coupon_info[i][1]);
+				$(".info2").html(coupon_info[i][2]);				
+				break;			
+			}
+		}
+	}
+
+	$(function() {		
+		var ret = [];
+		$("form[name=listForm] input[name='item[]']:checkbox:checked", parent.document).each(function(i) {
+			ret.push($(this).val());
+		});
+
+		if(ret.length==0) {
+			$("#proc_type1").addClass('colorLLgray');
+			$("form[name=memberForm] input:radio[name=proc_type1]:input[value=1]").attr('disabled',true);		
+		}		
+		else {
+			$("form[name=memberForm] input[name='item']").val(ret);
+			$("form[name=memberForm] input:radio[name=proc_type1]:input[value=1]").attr('checked',true);		
+		}
+	
+	});
+	
+
+//-->
+</script>

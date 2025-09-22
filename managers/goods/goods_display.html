@@ -1,0 +1,519 @@
+<div class="content">
+	
+	<div class="listTop">
+		<div class="listLeft size14">
+			전체 : <b class="orange" id='total_cnt'>{{TOTAL}}</b>건 			
+		</div>	
+
+		<div class="listRight">
+			<i class="xi-arrows xi-x colorDGary masterTooltipR" title="등록된 항목을 마우스로 누르고 아래 위로 이동하시면 순서를 변경 하실 수 있습니다."></i>
+			<i class="xi-info xi-x colorDGary masterTooltipR" title="- 등록된 항목 마우스 오버시 다이렉트 이동가능 한 창이 나타납니다.[BR]- 다이렉트 이동가능 한 창에서 이동할 위치를 지정하고 우측 하살표을 누르시면 해당 순번으로 이동 됩니다."></i>
+		</div>		
+	</div>
+
+	<div class="empty10"></div>
+	<div class="listLine"></div>
+	<!-- DYNAMIC @is_main_goods1@ -->
+	<div class="listSelect size09">
+		<form name='modifyForm1' method="get" action='{{PHP_SELF}}' />
+		<input type="hidden" name="type" value='{{type}}' />
+		<div class="firstLine" style="padding-left:0">			
+			<select name="type2">
+				<option value="1">인기상품</option>
+				<option value="2">추천상품</option>
+				<option value="3">신상품</option>					
+			</select>		
+			<script>
+				$("form[name=modifyForm1] select[name='type2']").val('{{type2}}').heapbox({'width' : '180px', 'onChange':function(value) { changeSL(1); } });
+			</script>
+		</div>
+		<!-- DYNAMIC @is_cate1@ -->
+		<div class="line">
+			<select name="cate">					
+				<!-- DYNAMIC @loop_cate1@ -->
+				<option value="{{cate_num}}">{{cate_name}}</option>
+				<!-- DYNAMIC @loop_cate1@ -->
+			</select>			
+			<script>
+				$("form[name=modifyForm1] select[name='cate']").val('{{cate}}').heapbox({'width' : '240px', 'zindex':7, 'onChange':function(value) { changeSL(1); } });
+			</script>			
+		</div>		
+		<!-- DYNAMIC @is_cate1@ -->
+		</form>
+	</div>
+	<div class="listSelectR">
+		<button class="btns btnGSearch" type="button"><span class="text"><i class="xi-focus-frame xi-x"></i> 상품추가</button>		
+	</div>
+	<!-- DYNAMIC @is_main_goods1@ -->
+
+	<!-- DYNAMIC @is_cate_goods1@ -->
+	<div class="listSelect size09">
+		<form name='modifyForm1' method="get" action='{{PHP_SELF}}' />
+		<input type="hidden" name="type" value='{{type}}' />
+		<input type="hidden" name="cate" value='{{cate}}' />
+		<div class="firstLine" style="padding-left:0">	
+			<select name="cate1" style="display:none;">
+				<option value="">1차분류 선택</option>
+				<!-- DYNAMIC @loop_cate3@ -->
+				<option value="{{cate_num}}">{{cate_name}}</option>
+				<!-- DYNAMIC @loop_cate3@ -->
+			</select>	
+		</div>
+		<div class="line">
+			<select name="cate2" style="display:none;">
+				<option value="">2차분류 선택</option>
+			</select>	
+		</div>
+		<div class="line">
+			<select name="cate3" style="display:none;">
+				<option value="">3차분류 선택</option>
+			</select>	
+		</div>
+		<div class="line">
+			<select name="cate4" style="display:none;">
+				<option value="">4차분류 선택</option>
+			</select>	
+		</div>
+		
+		<script>
+		<!--
+			$("form[name=modifyForm1] select[name='cate1']").val('{{cate1}}').show().heapbox({
+				'width' : '250px',
+				'zindex': 8,
+				'onChange': function(value){ $("form[name=modifyForm1] input[name='cate']").val(value); changeSL(1); }
+			});
+			$("form[name=modifyForm1] select[name='cate2']").val('{{cate2}}').show().heapbox({
+				'width' : '250px',
+				'zindex': 8,
+				'onChange': function(value){ $("form[name=modifyForm1] input[name='cate']").val(value); changeSL(1); }
+			});
+			$("form[name=modifyForm1] select[name='cate3']").val('{{cate3}}').show().heapbox({
+				'width' : '250px',
+				'zindex': 8,
+				'onChange': function(value){ $("form[name=modifyForm1] input[name='cate']").val(value); changeSL(1); }
+			});
+			$("form[name=modifyForm1] select[name='cate4']").val('{{cate4}}').show().heapbox({
+				'width' : '250px',
+				'zindex': 8,
+				'onChange': function(value){ $("form[name=modifyForm1] input[name='cate']").val(value); changeSL(1); }
+			});
+		//-->
+		</script>
+		</form>
+	</div>
+	<!-- DYNAMIC @is_cate_goods1@ -->
+
+	<div id="listArea" style="postition:relative">		
+		<!-- DYNAMIC @is_list_area@ -->
+		<form name="listForm">
+		<input type="hidden" name="list_order" value="" />
+		<table class="listIn fixed-header" id="goodsSortable">
+		<colgroup>			
+			<col style="width:6%" />		<!-- 번호 --> 
+			<col style="width:7%" />		<!-- 상품번호 --> 	
+			<col style="width:6%" />		<!-- 이미지 --> 
+			<col style="width:45%" />		<!-- 상품명/대표분류 --> 
+			<col style="width:10%" />		<!-- 판매가 --> 
+			<col style="width:6%" />		<!-- 진열상태 --> 
+			<col style="width:6%" />		<!-- 판매상태 --> 
+			<col style="width:8%" />		<!-- 재고 --> 
+			<col style="width:6%" />		<!-- 처리 --> 
+		</colgroup>
+		<thead> 
+		<tr> 			
+			<th data-sortas="numeric">순번</th>
+			<th>상품번호</th>
+			<th>이미지</th>
+			<th>상품명 <i class="xi-external-link"></i>  / 판매사 <i class="xi-focus-frame"></i> / 대표분류</th>			
+			<th>판매가</th>
+			<th>진열</th>
+			<th>판매</th>
+			<th>재고</th>
+			<th>처리</th>
+		</tr>
+		</thead>
+		<tbody>		
+		<!-- DYNAMIC @loop_list@ -->
+		<tr data-idx="{{UID}}" class="target">			
+			<td class="number">{{NUM_ASC}}</td>
+			<td class="number">{{UID}}</td>
+			<td ><img src="../../image/goods/img{{IMAGE3}}" alt="{{NAME}} 이미지" width="50" /></td>
+			<td style="text-align:left;">
+				<div id="name_{{UID}}" data-name='{{NAME}}'><a href="goods_info.php?mode=modify&uid={{UID}}{{addstring}}" title="상품정보수정"  class="underLine" target="_blank">{{NAME}}<a></div>
+				<div class="empty10"></div>
+				<!-- DYNAMIC @is_vendor@ -->
+				<div class='btnVCrm cursorPoint center' data-id='{{VENDOR_ID}}'>					
+					<div class='barId' style="width:140px; float:left;">{{VENDOR_ID}}</div>
+					<div class='barName2' style="width:140px; float:left;">{{VENDOR}}</div>
+					<div class="empty10"></div>
+				</div>	
+				<!-- DYNAMIC @is_vendor@ -->
+				<div class="size08">{{CATE}}</div>
+			</td>
+			<td class="number">{{PRICE}}원</td>
+			<td>{{DISPLAY_USE}}</td>
+			<td>{{SALE_USE}}</td>
+			<td>{{QTY_TYPE}}</td>
+			<td><i class="xi-close-thin xi-x masterTooltip btnDel" title="해제하기" onclick="itemDel('{{UID}}'); return false;"></i></td>		
+		</tr>
+		<!-- DYNAMIC @loop_list@ -->
+		<!-- DYNAMIC @empty_list@ -->
+		<tr>
+			<td colspan="9" class="emptyList"><i class="fas fa-quote-left"></i>&nbsp;&nbsp;등록된 상품이 없습니다!&nbsp;&nbsp;<i class="fas fa-quote-right"></i></td>
+		<tr>
+		<!-- DYNAMIC @empty_list@ -->
+		</tbody>
+		</table>		
+		</form>
+		
+		<div class="moveBox">
+			<div class="moveBoxIn">
+				<form name="moveForm">
+					<input type="text" class="js-range-slider" name="move" value="" />
+					<input type="hidden" name="move_idx" value="" />
+				</form>
+			</div>
+			<div class="moveArrow">
+				<i class="xi-arrow-right xi-x move-arrow"></i>
+			</div>
+		</div>	
+		<!-- DYNAMIC @is_list_area@ -->		
+	</div>
+
+	<!-- DYNAMIC @is_main_goods2@ -->
+	<div class="listSelectB size09">
+		<form name='modifyForm2' method="get" action='{{PHP_SELF}}' />
+		<input type="hidden" name="type" value='{{type}}' />
+		<div class="firstLine" style="padding-left:0">			
+			<select name="type2">
+				<option value="1">인기상품</option>
+				<option value="2">추천상품</option>
+				<option value="3">신상품</option>					
+			</select>		
+			<script>
+				$("form[name=modifyForm2] select[name='type2']").val('{{type2}}').heapbox({'width' : '180px', 'onChange':function(value) { changeSL(2); } });
+			</script>
+		</div>
+		<!-- DYNAMIC @is_cate2@ -->
+		<div class="line">
+			<select name="cate">					
+				<!-- DYNAMIC @loop_cate2@ -->
+				<option value="{{cate_num}}">{{cate_name}}</option>
+				<!-- DYNAMIC @loop_cate2@ -->
+			</select>			
+			<script>
+				$("form[name=modifyForm2] select[name='cate']").val('{{cate}}').heapbox({'width' : '240px', 'zindex':6, 'onChange':function(value) { changeSL(2); } });
+			</script>			
+		</div>	
+		<!-- DYNAMIC @is_cate2@ -->
+		</form>
+	</div>	
+	<div class="listSelectRB"></div>
+	<!-- DYNAMIC @is_main_goods2@ -->
+	<div class="listLineB"></div>
+</div>
+
+<script src="../../lib/ion.rangeSlider.js?ver={{ver}}"></script>
+<script>
+<!--
+
+	function changeSL(num) {		
+		if(!num) return;
+		$("form[name=modifyForm"+num+"]").submit();
+	}
+
+	var ckAnimateLoop = 0;
+	function animateLoop() {
+		if(ckAnimateLoop == 0) {
+			$('.move-arrow').animate({left:'8px'}, "fast").animate({left:'3px'}, "fast", animateLoop);
+		}
+		else {
+			$('.move-arrow').finish().css({left:'5px'});
+		}
+	}
+	
+	var sec_obj = null;
+	function targetHover() {
+		$('#goodsSortable').find('.target').hover(function(e){
+			var self = this;
+
+			$(this).find('td').each(function(){
+				$(this).css({'width':$(this).css('width')});
+
+			});					
+			
+			$('form[name=moveForm] input[name=move_idx]').val($(this).attr('data-idx'));
+			var position = $(this).position();
+			var position2 = $(this).find('td:nth-child(5)').position();
+			if(sec_obj != this) {	
+				let my_range = $(".js-range-slider").data("ionRangeSlider");
+				my_range.update({
+					from: $(self).find('td:nth-child(1)').text()
+				});
+				my_range.reset();
+			}
+
+			sec_obj = this;
+			
+			total = parseInt(str_replace(",","",$('#total_cnt').html())) ;
+			if(total > 10) $(".moveBox").css({'top':position.top + 1, left: position2.left - parseInt($('.moveBox').css('width')) - 2}).stop().fadeIn();
+		}, 
+		function() {
+			$(".moveBox").stop().fadeOut();
+		});
+	}
+
+	function itemDel(uid) {
+		if(!uid) return;
+
+		var obj = null;
+
+		$('#goodsSortable').find('.target').each(function(i){
+			if($(this).attr('data-idx') == uid) {
+				obj = this;					
+			}
+		});
+		
+		name = $('#name_' + uid).attr('data-name');
+		$(obj).remove();
+		$('#goodsSortable').find('tbody').sortable("refresh");
+		$('form[name=listForm] input[name=list_order]').val($('#goodsSortable').find('tbody').sortable("toArray", { attribute : 'data-idx' }));
+		$('#goodsSortable').find('tbody tr td:nth-child(1)').text(function() {
+			return $(this).parent().index('#goodsSortable tbody tr') + 1;
+		});			
+		$(".moveBox").hide();
+		var total = parseInt(str_replace(",","",$('#total_cnt').html()));
+		$('#total_cnt').html(number_format(total -1))
+
+		let my_range = $(".js-range-slider").data("ionRangeSlider");
+		my_range.update({
+			max: total
+		});
+		my_range.reset();
+		
+		$('#goodsSortable').find('.target').unbind('hover');
+		targetHover();
+		
+		itemPost(uid, 'main_delete', name + " 상품이 {{type_name}} {{type2_name}}에서 해제 되었습니다.");
+		
+		if(!$('form[name=listForm] input[name=list_order]').val()) {
+			$('#goodsSortable').find('tbody').append('<tr><td colspan="9" class="emptyList"><i class="fas fa-quote-left"></i>&nbsp;&nbsp;등록된 상품이 없습니다!&nbsp;&nbsp;<i class="fas fa-quote-right"></i></td></tr>');
+		}
+	}
+
+	function itemInsert(uid, image, name, cate, price, display_use, sale_use, qty_type) {
+		
+		if($('.emptyList').length > 0) $('.emptyList').remove();
+
+		var total = parseInt(str_replace(",","",$('#total_cnt').html())) + 1;
+		$('#total_cnt').html(number_format(total))
+
+		var html = '<tr data-idx="' + uid + '" class="target">\
+						<td style="width:6%">' + number_format(total) + '</td>\
+						<td style="width:7%">' + uid + '</td>\
+						<td style="width:6%"><img src="' + image + '" alt="' + name + ' 이미지" width="50" /></td>\
+						<td style="text-align:left;width:45%">\
+							<div id="name_' + uid + '">' + name + '</div>\
+							<div class="size08" style="padding-top:8px;">' + cate + '</div>\
+						</td>\
+						<td style="width:10%">' + price + '원</td>\
+						<td style="width:6%">' + display_use + '</td>\
+						<td style="width:6%">' + sale_use + '</td>\
+						<td style="width:8%">' + qty_type + '</td>\
+						<td style="width:6%"><i class="xi-close-thin masterTooltip" title="해제하기" onclick="itemDel(\'' + uid + '\'); return false;"></i></td>\
+					</tr>';
+		$('#goodsSortable').find('tbody').append(html);
+
+		let my_range = $(".js-range-slider").data("ionRangeSlider");
+		my_range.update({
+			max: total
+		});
+		my_range.reset();
+		
+		resetTooltip();
+		targetHover();
+
+		itemPost(uid, 'main_insert', name + " 상품이 {{type_name}} {{type2_name}}에 등록 되었습니다.");
+	}
+
+	function itemPost(uid, mode, msg, goods_order) {
+		var data = new FormData();
+
+		data.append('uid',uid);
+		data.append('mode',mode);
+		data.append('type','{{type}}');
+		data.append('type2','{{type2}}');
+		data.append('cate','{{cate}}');
+		data.append('goods_order', goods_order);
+
+		$.ajax({
+			url: 'goods_display_post_json.php', 
+			type: 'POST',	
+			data: data, 
+			cache: false,
+			dataType: 'json',
+			processData: false, 
+			contentType: false, 
+			success: function(data, textStatus, jqXHR) {
+				if(typeof(data.error) === 'undefined') {											
+					alertify.success(msg);
+				}
+				else {
+					alertify.error(data.error);
+				}
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				alertify.error(textStatus);
+			}		
+		});
+
+	}
+
+	function displayGet(uid) {
+
+		alertify.closeAll('iframeDialog');
+
+		var data = new FormData();
+
+		data.append('uid',uid);
+
+		$.ajax({
+			url: 'goods_info_json.php', 
+			type: 'POST',	
+			data: data, 
+			cache: false,
+			dataType: 'json',
+			processData: false, 
+			contentType: false, 
+			success: function(data, textStatus, jqXHR) {
+				if(typeof(data.error) === 'undefined') {											
+					$.each(data, function(key, value) {
+						itemInsert(data[key].uid, data[key].image, data[key].name, data[key].cate, data[key].price, data[key].display_use, data[key].sale_use, data[key].qty_type);
+					});				
+				}
+				else {
+					alertify.error(data.error);
+				}
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				alertify.error(textStatus);
+			}		
+		});
+	}
+	
+	$(function() {		
+		
+		$('.listSelectRB').html($('.listSelectR').html());
+		
+		$(".js-range-slider").ionRangeSlider({      
+			min: 1,
+			max: {{TOTAL}},
+			grid: true,
+			grid_num : 5
+		});
+		
+		targetHover();
+	
+		$(".moveBox").hover(function(e){	
+			total = parseInt(str_replace(",","",$('#total_cnt').html()));
+			if(total > 10) $(".moveBox").stop().fadeIn();
+		},
+		function() {
+			$(".moveBox").stop().fadeOut();
+		});
+
+		$('.moveArrow').hover(function(e){	
+			ckAnimateLoop = 0;
+			animateLoop();
+		},
+		function() {
+			ckAnimateLoop = 1;	
+		});
+		
+		$('.btnGSearch').click(function(e){
+			iframeView("popup_goods_search.php?type=display&type2={{type}}&type3={{type2}}&search_cate={{cate}}", "상품검색");
+		});
+
+		$('.btnVCrm').click(function(e) {
+			var id = $(this).attr("data-id");
+			if(!id) return;
+			iframeWidth = '950px';
+			iframeHeight = '.8';
+			iframeView("../vendor/popup_vendor_crm.php?id=" + id, "판매사 CRM보기");			
+		});	
+		
+		$('.moveArrow').click(function(e) {
+			var obj1 = null;
+			var obj2 = null;
+
+			$('#goodsSortable').find('.target').each(function(i){
+				if($(this).attr('data-idx') == $('form[name=moveForm] input[name=move_idx]').val()) {
+					obj1 = this;					
+				}
+				if($('form[name=moveForm] input[name=move]').val() == (i+1)) {
+					obj2 = this;					
+				}
+			});
+
+			if(obj1 == obj2) return;
+
+			$(obj1).remove();
+			$(obj2).before(obj1);
+			$('#goodsSortable').find('tbody').sortable("refresh");
+			$('form[name=listForm] input[name=list_order]').val($('#goodsSortable').find('tbody').sortable("toArray", { attribute : 'data-idx' }));
+			$('#goodsSortable').find('tbody tr td:nth-child(1)').text(function() {
+				return $(this).parent().index('#goodsSortable tbody tr') + 1;
+			});			
+			$(".moveBox").hide();
+
+			$('#goodsSortable').find('.target').unbind('hover');
+			targetHover();
+
+			itemPost('', '{{post_type}}_order', "{{type_name}} {{type2_name}} 순서가 저장 되었습니다.", $('form[name=listForm] input[name=list_order]').val());
+
+		});
+		
+		$('#goodsSortable').find('tbody').sortable({
+			placeholder: "highlight",
+			items: ".target",
+			cursor : "move",
+			update : function(e, ui) {
+				$('form[name=listForm] input[name=list_order]').val($(this).sortable("toArray", { attribute : 'data-idx' }));
+				$('#goodsSortable').find('tbody tr td:nth-child(1)').text(function() {
+					return $(this).parent().index('#goodsSortable tbody tr') + 1;
+				});
+				
+				var position = ui.item.position();
+				
+				let my_range = $(".js-range-slider").data("ionRangeSlider");
+				my_range.update({
+					from: ui.item.find('td:nth-child(1)').text()
+				});
+				my_range.reset();
+
+				total = parseInt(str_replace(",","",$('#total_cnt').html()));
+				if(total > 10) $(".moveBox").css({'top':position.top + 1}).stop().fadeIn();
+
+				itemPost('', '{{post_type}}_order', "{{type_name}} {{type2_name}} 순서가 저장 되었습니다.", $('form[name=listForm] input[name=list_order]').val());
+			}
+		});
+
+		$('form[name=listForm] input[name=list_order]').val($('#goodsSortable').find('tbody').sortable("toArray", { attribute : 'data-idx' }));	
+
+		<!-- DYNAMIC @is_first_proc@ -->
+		itemPost('', '{{post_type}}_order', "{{type_name}} {{type2_name}} 초기 순서가 저장 되었습니다.", $('form[name=listForm] input[name=list_order]').val());
+		<!-- DYNAMIC @is_first_proc@ -->
+
+		<!-- DYNAMIC @is_cate_goods3@ -->
+		$('.btnDel').hide();
+		if(cate_select[1]) cateChange(cate_select[1], 1, 'modifyForm1');		
+		<!-- DYNAMIC @is_cate_goods3@ -->
+	});
+	
+	<!-- DYNAMIC @is_cate_goods4@ -->		
+	var cate_select = new Array('','{{cate1}}','{{cate2}}','{{cate3}}','{{cate4}}');
+	<!-- DYNAMIC @is_cate_goods4@ -->
+	
+
+//-->
+</script>

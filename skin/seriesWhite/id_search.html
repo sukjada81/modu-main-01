@@ -1,0 +1,61 @@
+<div id="contents">		
+	<h2 class="contentTitle">아이디 찾기</h2>
+
+	<form name='loginForm' method='post' action='php/id_search_post.php' target='HFrm'>
+	<div class="loginBox">
+		
+		<div class="inputBox">
+			<ul>
+				<li>
+					<input type="text" maxlength="20" value="" required="required" data-title="이름" data-msg="이름을" data-icon-no=1 data-toname="name" />
+				</li>
+				<li>
+					<input type='text' name='email' required="required" data-title="이메일주소" data-msg="이메일주소를" data-icon-no=1 data-on-enter=1 />
+				</li>
+			</ul>
+		</div>
+
+		<div class="searchId">
+			회원님의 아이디는 <span id='searchId'></span> 입니다.
+		</div>
+		<div>			
+			<div class="floatRight">
+				<ul>
+					<li class="line"><a href='{{Main}}?channel=login' class="underLine">로그인</a></li>
+					<li class="last"><a href='{{Main}}?channel=passwd_search' class="underLine">비빌번호 찾기</a></li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="empty20"></div>
+
+		<div class="btnShineBox" style="background:#fff">
+			<div class="displayInline width100"><button class="fontSCDream weight300 shine black" type="submit">아이디 찾기</button></div>		
+		</div>
+
+	</div>
+	
+	</form>
+
+</div>	
+
+<script>
+<!--
+	
+	function idSearch(id) {
+
+		$("#searchId").html(id);
+		$(".searchId").slideDown("fast");
+		$(".displayInline .shine").removeClass('shineSend');
+
+	}
+
+	$(".btnShineBox .displayInline .shine").click(function(e){
+
+		$("#searchId").html('');
+		$(".searchId").hide();
+
+	});
+
+//-->
+</script>

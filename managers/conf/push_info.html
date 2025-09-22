@@ -1,0 +1,95 @@
+<div class="content">
+	
+	<div class="contentTitle">
+		<i class="xi-paper xi-x"></i>&nbsp;&nbsp웹푸시(알림) 설정
+	</div>
+	
+	<form name='etcsForm' method='post' action='conf_post.php?mode=push' target='HFrm'>	
+	<input type="hidden" name="message_order" />
+	<input type="hidden" name="cancel_order" />
+	
+	<table>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	<tr> 
+		<td>등록 안내</td>
+		<td colspan="3"><button class="btns" type="button" style="width:18%" id="fcmHelp"><span class="text"><i class="xi-focus-frame xi-x"></i> 등록 안내 보기</span></button></td>
+	</tr>
+	<tr> 
+		<td>apiKey</td>
+		<td><input type='text' name='push_apiKey' value='{{push_apiKey}}' placeholder="firebaseConfig apiKey" data-msg="apiKey를" /></td>
+		<td>authDomain</td>
+		<td><input type='text' name='push_authDomain' value='{{push_authDomain}}' placeholder="firebaseConfig authDomain" data-msg="authDomain를" /></td>
+	</tr>		
+	<tr> 
+		<td>projectId</td>
+		<td><input type='text' name='push_projectId' value='{{push_projectId}}' placeholder="firebaseConfig projectId" data-msg="projectId를" /></td>
+		<td>storageBucket</td>
+		<td><input type='text' name='push_storageBucket' value='{{push_storageBucket}}' placeholder="firebaseConfig storageBucket" data-msg="storageBucket을" /></td>
+	</tr>
+	<tr> 
+		<td>messagingSenderId</td>
+		<td><input type='text' name='push_messagingSenderId' value='{{push_messagingSenderId}}' placeholder="firebaseConfig messagingSenderId" data-msg="messagingSenderId를" /></td>
+		<td>appId</td>
+		<td><input type='text' name='push_appId' value='{{push_appId}}' placeholder="firebaseConfig appId" data-msg="appId를" /></td>
+	</tr>
+	<tr> 
+		<td>server_key</td>
+		<td colspan="3"><input type='text' name='push_server_key' value='{{push_server_key}}' placeholder="클라우드 메시징 server_key" data-msg="server_key를" /></td>
+	</tr>
+	<tr> 
+		<td>key pair</td>
+		<td colspan="3"><input type='text' name='push_server_key2' value='{{push_server_key2}}' placeholder="클라우드 메시징 키 쌍" data-msg="server_key를" /></td>
+	</tr>
+	<tr> 
+		<td>알림사용 설정 안내</td>
+		<td colspan="3">			
+			<button class="btns" type="button" style="width:18%" id="fcmHelp3"><span class="text"><i class="xi-focus-frame xi-x"></i> 알림사용 설정 안내 보기</span></button>
+		</td>
+	</tr>
+	<tr> 
+		<td>알림음 설정 안내 <i class="xi-help xi-x colorDGary masterTooltip" title="기본적으로 알림음이 나오지 않습니다. 설정 안내를 보시고 설정을 해 주셔야 알림음이 정상적으로 나옵니다."></i></td>
+		<td colspan="3"><button class="btns" type="button" style="width:18%" id="fcmHelp2"><span class="text"><i class="xi-focus-frame xi-x"></i> 알림음 설정 안내 보기</span></button></td>
+	</tr>
+	</table>	
+
+	<div class="empty60" ></div>
+
+	<div class="btnSubmitBox btnCenter">
+		<div class="displayInline"><button class="weight300 shine" type="submit">저장하기</button></div>
+	</div>
+
+	</form>	
+	
+
+</div>
+
+<script>
+<!--
+	
+	$(function() {	
+		
+		$('#fcmHelp').click(function(e){
+			iframeWidth = '960px';
+			iframeHeight = '.9';	
+			iframeView("popup_fcm_help.php", "웹푸시(알림) 등록 안내");
+		});
+
+		$('#fcmHelp2').click(function(e){
+			iframeWidth = '960px';
+			iframeHeight = '.9';	
+			iframeView("popup_fcm_help2.php", "알림음 설정 안내");
+		});
+
+		$('#fcmHelp3').click(function(e){
+			iframeWidth = '960px';
+			iframeHeight = '.9';	
+			iframeView("popup_fcm_help3.php", "알림사용 설정 안내");
+		});
+
+	});
+
+//-->
+</script>

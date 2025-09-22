@@ -1,0 +1,235 @@
+<div class="content">
+	
+	<form name='searchForm' method='get' action='{{PHP_SELF}}'>
+	<div class="searchBox">
+		<div class="floatLeft">
+			<select name="field">
+				<option value="id">회원아이디</option>
+			</select>			
+		</div>
+		<div class="searchBoxIn">
+			<input type="text" name="keyword" value="{{keyword}}" data-search-btn="1" data-on-enter="1" />
+			<p class="resetIcon resetIconBtn"><i class="xi-undo masterTooltip" title="초기화"></i></p>
+		</div>
+
+		<div class="expensionArrow">
+			<div class="box"></div>
+			<i class="xi-arrow-down box_down"></i>			
+		</div>
+	</div>
+	<div class="searchDetail">
+		<div class="searchDetailBox">
+			<table class="search">
+			<colgroup>
+			<col width="33%" /> 
+			<col width="33%" />
+			<col width="33%" /> 
+			</colgroup>
+			<tr> 
+				<td colspan="2">
+					<select name="c_uid">
+						<option value="">쿠폰선택</option>
+						<!-- DYNAMIC @loop_coupon@ -->
+						<option value="{{coupon_uid}}">{{coupon_name}}</option>
+						<!-- DYNAMIC @loop_coupon@ -->						
+					</select>							
+				</td>
+				<td>
+					<select name="status">
+						<option value="">상태</option>
+						<option value="0">대기</option>
+						<option value="1">완료</option>
+						<option value="2">취소</option>
+					</select>							
+				</td>				
+			</tr>			
+			</table>					
+		</div>	
+		<div class="btnSearchSubmitBox">
+			<div class="btnCircleSearch"><div class="btnCircleSearchTitle">검색</div><i class="xi-search xi-x"></i></div>
+			<div class="btnCircleReset"><div class="btnCircleResetTitle">초기화</div><i class="xi-undo xi-x"></i></div>						
+		</div>
+	</div>
+	</form>
+
+	<script>
+	<!--	
+		$("form[name=searchForm] select[name='field']").val('{{field}}').heapbox({'width' : '200px'});
+		$("form[name=searchForm] select[name='c_uid']").val('{{c_uid}}').heapbox({'width' : '99%', 'heapsize' : '400px'});
+		$("form[name=searchForm] select[name='status']").val('{{status}}').heapbox({'width' : '99%'});
+		
+		$('.searchDetail').hide();
+	//-->
+	</script>
+
+	<div class="empty60"></div>
+	
+	<div class="listTop">
+		<form name='listSearchForm' method='get' action='{{PHP_SELF}}?{{searchstring}}' />
+		<div class="listLeft size14">
+			전체 : <b class="orange">{{ATOTAL}}</b>건 
+			<!-- DYNAMIC @is_search@ -->
+			, 검색 : <b class="orange">{{TOTAL}}</b>건
+			<!-- DYNAMIC @is_search@ -->
+		</div>
+		<div class="listRight size10">
+			<div class="floatLeft">
+				<select name="sort">
+					<option value="uid DESC">발급일 역순</option>
+					<option value="uid ASC">발급일 순</option>
+					<option value="e_date DESC">종료일 역순</option>
+					<option value="e_date ASC">종료일 순</option>
+					<option value="usedate DESC">사용일 역순</option>
+					<option value="usedate ASC">사용일 순</option>										
+				</select>
+				&nbsp;&nbsp;
+			</div>
+			<div class="floatLeft">				
+				<select name="limit">
+					<option value="10">10개 보기</option>
+					<option value="20">20개 보기</option>
+					<option value="30">30개 보기</option>
+					<option value="40">40개 보기</option>
+					<option value="50">50개 보기</option>
+					<option value="60">60개 보기</option>
+					<option value="70">70개 보기</option>
+					<option value="80">80개 보기</option>
+					<option value="90">90개 보기</option>
+					<option value="100">100개 보기</option>
+				</select>
+			</div>
+		</div>
+		</form>
+	</div>
+
+	<div class="empty10"></div>
+	<div class="listLine"></div>
+	<div class="listSelect">
+		<div class="floatLeft">
+			<button class="graButtonWhite secDelete" type="button"><span class="text"><i class="xi-file-check-o xi-x"></i> 선택삭제</span></button>
+		</div>
+	</div>
+	<div class="listSelectR"></div>
+	
+	<div id="listArea">
+		<!-- DYNAMIC @is_list_area@ -->
+		<form name="listForm" method="post" action='coupon_post.php?{{addstring}}' target='HFrm'>
+		<input type="hidden" name="mode" />
+		<table class="listIn fixed-header">
+		<colgroup>
+		<col width="5%" /> 
+		<col width="6%" /> 
+		<col width="26%" /> 
+		<col width="15%" /> 
+		<col width="12%" /> 
+		<col width="10%" /> 
+		<col width="12%" />
+		<col width="12%" />
+		</colgroup>
+		<thead> 
+		<tr> 
+			<th><label><input type='checkbox' name="check_all" id="check_all" value="1" /><span></span></label></th>
+			<th>번호</th>			
+			<th>쿠폰명</th>
+			<th>발급회원 <i class="xi-external-link"></i></th>
+			<th>종료일</th>
+			<th>발급상태</th>
+			<th>사용일</th>
+			<th>발급일</th>
+		</tr>
+		</thead>
+		<tbody>
+		<!-- DYNAMIC @loop_list@ -->		
+		<tr>
+			<td><label><input type='checkbox' name="item[]" value="{{UID}}" class="ckeckItem" /><span></span></label></td>
+			<td class="number">{{NUM}}</td>
+			<td style="text-align:left">{{C_UID}}</td>
+			<td>
+				{{MEMBER_NAME}}
+				<center>
+				<div class='btnCrm cursorPoint' data-id='{{ID}}'>
+					<div class="empty5"></div>
+					<div class='barId'>{{ID}}</div>
+					<div class="empty5"></div>
+					<div class='barName2'>{{MEMBER_LEVEL}}</div>
+				</div>
+				</center>				
+			</td>			
+			<td class="number">{{E_DATE}}</td>
+			<td>{{STATUS}}</td>
+			<td class="number">{{USEDATE}}</td>
+			<td class="number">{{SIGNDATE}}</td>	
+		</tr>
+		<!-- DYNAMIC @loop_list@ -->
+		<!-- DYNAMIC @empty_list@ -->
+		<tr>
+			<td colspan="8" class="emptyList"><i class="fas fa-quote-left"></i>&nbsp;&nbsp;등록(검색)된 발급쿠폰내역이 없습니다!&nbsp;&nbsp;<i class="fas fa-quote-right"></i></td>
+		<tr>
+		<!-- DYNAMIC @empty_list@ -->
+		</tbody>
+		</table>
+		</form>
+		<!-- DYNAMIC @is_list_area@ -->
+	</div>
+
+	<div class="listSelectB"></div>
+	<div class="listSelectRB"></div>
+	<div class="listLineB"></div>
+
+	<div class="paging">{{PAGING}}</div>
+
+</div>
+
+<script src="../../lib/jquery.timeliny.js?ver={{ver}}"></script>
+<script>
+<!--	
+	
+	var defaultUrl		= "{{PHP_SELF}}?{{searchstring}}";
+	var defaultSort		= "{{sort}}";
+	var defaultLimit	= "{{limit}}";
+	var defaultPage		= "{{page}}";
+	var pagingType		= '{{PAGING_TYPE}}';	
+	var lastPage		= '{{total_page}}';
+	var defaultTotal	= '{{TOTAL}}';
+
+// -->
+</script>
+<script src="../common/listProc.js?ver={{ver}}"></script>
+<script>
+<!--
+	
+	$(function() {
+		
+		$('.listSelectB').html($('.listSelect').html());
+		
+		$('.secDelete').click(function(e) {
+			var ret = listFormCheck();
+			if(!ret) return false;
+
+			alertify.confirm('발급쿠폰삭제', '정말로 선택된 발급쿠폰을 삭제 하시겠습니까?<br />삭제 후 복구가 불가능 합니다.', function() { 
+				$("form[name=listForm] input[name='mode']").val('delete2');
+				$("form[name=listForm]").submit(); }
+				, function(){ });
+		});
+
+		$('.btnWrite').click(function(e) {
+			window.location.href = "coupon_info.php";			
+		});
+
+		$('.btnCrm').click(function(e) {
+			var id = $(this).attr("data-id");
+			iframeWidth = '950px';
+			iframeHeight = '.8';
+			iframeView("../member/popup_member_crm.php?id=" + id, "회원 CRM보기");			
+		});	
+
+		<!-- DYNAMIC @is_search_open@ -->
+		$('.expensionArrow').trigger('click');
+		<!-- DYNAMIC @is_search_open@ -->	
+
+		checkAllRe();
+
+	});
+
+//-->
+</script>

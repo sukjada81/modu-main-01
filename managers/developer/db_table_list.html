@@ -1,0 +1,201 @@
+<div class="content">
+	
+	<form name='searchForm' method='get' action='{{PHP_SELF}}' >
+	<div class="searchBox">
+		<div class="floatLeft">
+			<select name="field">
+				<option value="multi">통합검색</option>
+				<option value="TABLE_NAME">테이블명</option>
+				<option value="TABLE_COMMENT">설명</option>
+			</select>			
+		</div>
+		<div class="searchBoxIn">
+			<input type="text" name="keyword" value="{{keyword}}" data-search-btn="1" data-on-enter="1" />
+			<p class="resetIcon resetIconBtn"><i class="xi-undo masterTooltip" title="초기화"></i></p>
+		</div>
+
+		<div class="expensionArrow">
+			<div class="box"></div>
+			<i class="xi-arrow-down box_down"></i>			
+		</div>
+	</div>
+	<div class="searchDetail">
+		<div class="searchDetailBox">
+			<table class="search">
+			<colgroup>
+			<col width="33%" /> 
+			<col width="33%" />
+			<col width="33%" /> 
+			</colgroup>
+			<tr> 
+				<td colspan="3">
+					<select name="date_type" style="display:none;">
+						<option value="">생성일</option>
+					</select>						
+					<div class="requireLeft"><input type="text" name="s_date" class="ip2 dates" value="{{s_date}}" data-date-picker='1' /></div>
+					<div class="floatLeft" style="padding:0 0 0 15px;">~</div>
+					<div class="requireLeft"><input type="text" name="e_date" class="ip2 dates" value="{{e_date}}" data-date-picker='1' /></div>
+					<div class="floatLeft" style="padding-left:15px;">
+						<button class="btns2" type="button" data-s_date='{{DATE1}}' data-e_date='{{DATE1}}'>오늘</button>
+						<button class="btns2" type="button" data-s_date='{{DATE2}}' data-e_date='{{DATE1}}'>3일</button>
+						<button class="btns2" type="button" data-s_date='{{DATE3}}' data-e_date='{{DATE1}}'>7일</button>
+						<button class="btns2" type="button" data-s_date='{{DATE4}}' data-e_date='{{DATE1}}'>1개월</button>
+						<button class="btns2" type="button" data-s_date='{{DATE5}}' data-e_date='{{DATE1}}'>3개월</button>						
+						<button class="btns2" type="button" data-s_date='' data-e_date=''>전체</button>					
+					</div>
+				</td>
+			</tr>	
+			</table>					
+		</div>	
+		<div class="btnSearchSubmitBox">
+			<div class="btnCircleSearch"><div class="btnCircleSearchTitle">검색</div><i class="xi-search xi-x"></i></div>
+			<div class="btnCircleReset"><div class="btnCircleResetTitle">초기화</div><i class="xi-undo xi-x"></i></div>						
+		</div>
+	</div>
+	</form>
+
+	<script>
+	<!--	
+		$("form[name=searchForm] select[name='field']").val('{{field}}').heapbox({'width' : '200px'});
+		$("form[name=searchForm] select[name='date_type']").val('').show().heapbox({'width' : '170px'});
+		
+		$('.searchDetail').hide();
+	//-->
+	</script>
+
+	<div class="empty60"></div>
+	
+	<div class="listTop">
+		<form name='listSearchForm' method='get' action='{{PHP_SELF}}?{{searchstring}}' />
+		<div class="listLeft size14">
+			전체 : <b class="orange">{{ATOTAL}}</b>건 
+			<!-- DYNAMIC @is_search@ -->
+			, 검색 : <b class="orange">{{TOTAL}}</b>건
+			<!-- DYNAMIC @is_search@ -->
+		</div>
+		<div class="listRight size10">
+			<div class="floatLeft">
+				<select name="sort">
+					<option value="TABLE_NAME ASC">테이블명 순</option>
+					<option value="TABLE_NAME DESC">테이블명 역순</option>	
+					<option value="CREATE_TIME DESC">생성일 역순</option>	
+					<option value="CREATE_TIME DESC">생성일 순</option>	
+					<option value="TABLE_ROWS DESC">Rows 역순</option>
+					<option value="TABLE_ROWS ASC">Rows 순</option>	
+				</select>
+				&nbsp;&nbsp;
+			</div>
+			<div class="floatLeft">				
+				<select name="limit">
+					<option value="10">10개 보기</option>
+					<option value="20">20개 보기</option>
+					<option value="30">30개 보기</option>
+					<option value="40">40개 보기</option>
+					<option value="50">50개 보기</option>
+					<option value="60">60개 보기</option>
+					<option value="70">70개 보기</option>
+					<option value="80">80개 보기</option>
+					<option value="90">90개 보기</option>
+					<option value="100">100개 보기</option>
+				</select>
+			</div>
+		</div>
+		</form>
+	</div>
+
+	<div class="empty10"></div>
+	
+	<div id="listArea">
+		<!-- DYNAMIC @is_list_area@ -->
+		<form name="listForm" method="post" action='count_referer_post.php?{{addstring}}' target='HFrm'>
+		<input type="hidden" name="mode" />
+		<table class="listIn fixed-header">
+		<colgroup>
+		<col width="6%" />		<!-- 번호 --> 
+		<col width="20%" />		<!-- 테이블명 --> 
+		<col width="7%" />		<!-- 엔진 --> 
+		<col width="7%" />		<!-- 버전 --> 
+		<col width="7%" />		<!-- Rows --> 
+		<col width="11%" />		<!-- Collation --> 
+		<col width="23%" />		<!-- 설명 --> 
+		<col width="14%" />		<!-- 생성일 --> 
+		<col width="5%" />		<!-- 보기 --> 
+		</colgroup>
+		<thead> 
+		<tr> 
+			<th>번호</th>
+			<th>테이블명  <i class="xi-link"></i></th>
+			<th>엔진</th>
+			<th>버전</th>
+			<th>Rows</th>
+			<th>Collation</th>
+			<th>설명</th>
+			<th>생성일</th>
+			<th>보기</th>
+		</tr>
+		</thead>
+		<tbody>
+		<!-- DYNAMIC @loop_list@ -->		
+		<tr>
+			<td class="number">{{NUM}}</td>
+			<td style="text-align:left;"><a href="db_table_info.php?table_name={{TABLE_NAME}}{{addstring}}">{{TABLE_NAME}}</a></td>
+			<td>{{ENGINE}}</td>
+			<td class="number">{{VERSION}}</td>
+			<td class="number">{{TABLE_ROWS}}</td>
+			<td>{{TABLE_COLLATION}}</td>
+			<td style="text-align:left;">{{TABLE_COMMENT}}</td>
+			<td class="number">{{CREATE_TIME}}</td>
+			<td><i class="xi-eye-o xi-x masterTooltip" title="상세보기" onclick="window.location.href='db_table_info.php?table_name={{TABLE_NAME}}{{addstring}}'"></i></td>
+		</tr>
+		<!-- DYNAMIC @loop_list@ -->
+		<!-- DYNAMIC @empty_list@ -->
+		<tr>
+			<td colspan="9" class="emptyList"><i class="fas fa-quote-left"></i>&nbsp;&nbsp;등록(검색)된 디비 테이블이 없습니다!&nbsp;&nbsp;<i class="fas fa-quote-right"></i></td>
+		<tr>
+		<!-- DYNAMIC @empty_list@ -->
+		</tbody>
+		</table>
+		</form>
+		<!-- DYNAMIC @is_list_area@ -->
+	</div>
+
+	<div class="paging">{{PAGING}}</div>
+
+</div>
+
+<script src="../../lib/jquery.timeliny.js?ver={{ver}}"></script>
+<script>
+<!--	
+	
+	var defaultUrl		= "{{PHP_SELF}}?{{searchstring}}";
+	var defaultSort		= "{{sort}}";
+	var defaultLimit	= "{{limit}}";
+	var defaultPage		= "{{page}}";
+	var pagingType		= '{{PAGING_TYPE}}';	
+	var lastPage		= '{{total_page}}';
+	var defaultTotal	= '{{TOTAL}}';
+
+// -->
+</script>
+<script src="../common/listProc.js?ver={{ver}}"></script>
+<script>
+<!--
+	
+	$(function() {
+		
+		$('.btns2').click(function(e) {
+			$("form[name=searchForm] input[name='s_date']").val($(this).attr('data-s_date'));
+			$("form[name=searchForm] input[name='e_date']").val($(this).attr('data-e_date'));			
+			return;
+		});
+
+		<!-- DYNAMIC @is_search_open@ -->
+		$('.expensionArrow').trigger('click');
+		<!-- DYNAMIC @is_search_open@ -->	
+
+		checkAllRe();
+
+	});
+
+//-->
+</script>

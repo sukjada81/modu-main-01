@@ -1,0 +1,6 @@
+<?php
+
+echo"<meta http-equiv=\"refresh\" content=\"0; url=main/index.php\">";
+exit;
+
+?>

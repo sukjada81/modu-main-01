@@ -1,0 +1,59 @@
+<link href="../../lib/summernote-lite.css?ver={{ver}}" rel="stylesheet">
+<script src="../../lib/summernote-lite.js?ver={{ver}}"></script>
+<script src="../../lib/summernote-ko-KR.js"></script>
+
+<div class="content">
+	
+	<div class="contentTitle">
+		<i class="xi-paper xi-x"></i>&nbsp;&nbsp이용약관 설정
+	</div>
+	
+	<form name='agreeForm' method='post' action='conf_post.php?mode=agree1' target='HFrm'>					
+	
+	<table>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	<tr> 
+		<td>약관내용 <i class="xi-help xi-x colorDGary masterTooltip" title="- 기본제공되는 양식은 공정거래위원회의 표준약관 양식입니다.[BR]- 법적 근거 없이 이용약관을 수정하시는 경우 분쟁이 발생할 수 있습니다.[BR]- 치환코드안내[BR]- {COMPANY} : 회사명[BR]- {SHOPNAME} : 쇼핑몰명[BR]- {SYEAR} : 쇼핑몰시작년도[BR]- {SMONTH} : 쇼핑몰시작월[BR]- {SDAY} : 쇼핑몰시작일"></i></td>
+		<td colspan="3">
+			 <div class="detailEditerOn">
+				<XMP class="sn_explains" style="display:none">{{explains}}</XMP>	
+				<input type="hidden" name="explains" required="required" value= "" data-msg="약관내용을 입력하세요." data-notefor=".sn_explains" />
+			</div>
+		</td>
+	</tr>
+	<tr> 
+		<td>초기화 <i class="xi-help xi-x colorDGary masterTooltip" title="초기화시 기본제공되는 공정거래위원회의 표준약관 양식으로 변경 됩니다."></i></td>
+		<td colspan="3">
+			<label><input type='checkbox' name="agree_default" value="1" /><span></span> 초기화</label>
+		</td>
+	</tr>	
+	</table>	
+
+	<div class="empty60" ></div>
+
+	<div class="btnSubmitBox btnCenter">
+		<div class="displayInline"><button class="weight300 shine" type="submit">저장하기</button></div>
+	</div>
+
+	</form>		
+
+</div>
+
+<script>
+<!--
+	
+	$(function() {	
+		
+		$('.sn_explains').summernote({						
+			'lang' : 'ko-KR',
+			'height' : '500px',
+			'dialogsFade' : true
+		});	
+		
+	});
+
+//-->
+</script>

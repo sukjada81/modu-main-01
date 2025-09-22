@@ -1,0 +1,24 @@
+<!-- DYNAMIC @is_list_area@ -->
+<div>	
+	<div class="widgetTitle black"><a href="../order/order_list.php">최근 주문 내역</a> <span data-id="order_list"><i class="xi-renew masterTooltipWidget" title="새로고침"></i></span></div>
+	<div class="widgetList widgetListGray widgetOrderList">
+		<!-- DYNAMIC @loop_list@ -->		
+		<div>
+			<a href="../order/order_info.php?order_num={{ORDER_NUM}}">
+			<ul>
+				<li>{{ORDER_NUM}}</li>
+				<li>{{NAME}}</li>
+				<li>{{PAY_TOTAL}}</li>
+				<li>{{PAY_TYPE}}</li>
+				<li>{{PAY_STATUS}}</li>
+				<li>{{G_NAME}}</li>
+			</ul>
+			</a>
+		</div>
+		<!-- DYNAMIC @loop_list@ -->
+		<!-- DYNAMIC @empty_list@ -->
+		<div class="widgetEmptyList"><i class="fas fa-quote-left"></i>&nbsp;&nbsp;주문내역이 없습니다!&nbsp;&nbsp;<i class="fas fa-quote-right"></i></div>
+		<!-- DYNAMIC @empty_list@ -->
+	</div>
+</div>
+<!-- DYNAMIC @is_list_area@ -->

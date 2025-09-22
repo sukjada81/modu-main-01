@@ -1,0 +1,133 @@
+<link href="../../lib/summernote-lite.css?ver={{ver}}" rel="stylesheet">
+<script src="../../lib/summernote-lite.js?ver={{ver}}"></script>
+<script src="../../lib/summernote-ko-KR.js"></script>
+
+<form name='goodsForm' method='post' action='inquiry_post.php?{{addstring}}' enctype="multipart/form-data" target='HFrm'>
+<input type="hidden" name="mode" value="answer" />
+<input type="hidden" name="uid" value="{{uid}}" />
+
+<div class="content">
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;상품문의 상세보기
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>
+	<tr> 
+		<td>등록시간</td>
+		<td colspan="3" class="number">{{signdate}}</td>		
+	</tr>
+	<tr> 
+		<td>판매사</td>
+		<td colspan="3">
+			<div class='btnVCrm cursorPoint center' data-id='{{VENDOR_ID}}' style="display:inline-block;">				
+				<div class='barId' style="float:left; width:200px; text-align:center">{{VENDOR_ID}}</div>				
+				<div class='barName2' style="float:left; width:200px; text-align:center">{{VENDOR}}</div>
+			</div>
+		</td>
+	</tr>
+	<tr> 
+		<td>상품명</td>
+		<td colspan="3">{{g_name}}</td>
+	</tr>
+	<tr> 
+		<td>제목</td>
+		<td colspan="3">{{subject}}</td>
+	</tr>
+	<tr> 
+		<td>등록인</td>
+		<td colspan="3">
+			<div class="floatLeft">{{name}}</div>
+			<!-- DYNAMIC @is_member@ -->
+			<div class='btnCrm cursorPoint' data-id='{{MEMBER_ID}}' style="display:inline-block; padding-left:20px; ">				
+				<div class='barId' style="float:left; width:120px; text-align:center">{{MEMBER_ID}}</div>
+				<div class='barName2' style="float:left; width:120px; text-align:center">{{MEMBER_LEVEL}}</div>
+			</div>
+			<!-- DYNAMIC @is_member@ -->
+		</td>		
+	</tr>
+	<tr> 
+		<td>문의</td>
+		<td colspan="3">
+			{{content}}
+			<!-- DYNAMIC @is_attach@ -->
+			<div class="image" style="margin:10px 0;">
+				<!-- DYNAMIC @loop_attach@ -->
+				<img src="../../image/inquiry/{{attach_name}}" alt="" style="display:inline-block; float:left; height:150px; margin-right:20px; border-radius:6px;" />
+				<!-- DYNAMIC @loop_attach@ -->
+			</div>
+			<!-- DYNAMIC @is_attach@ -->
+		</td>
+	</tr>
+	<tr> 
+		<td>답변</td>
+		<td colspan="3">
+			<XMP class="sn_answer" style="display:none">{{answer}}</XMP>
+			<input type="hidden" name="answer" value= ""  required="required" data-msg="답변을 등록 해주세요." data-notefor=".sn_answer" />
+		</td>
+	</tr>
+	<tr> 
+		<td>등록아이피</td>
+		<td colspan="3" class="number">{{acc_ip}}</td>		
+	</tr>	
+	</table>
+	
+	<div class="empty60" ></div>
+
+	<div class="btnSubmitBox">
+		<div class="displayInline"><button class="weight300 shine" type="submit">답변 하기</button></div>
+		<div class="btnPrev"><i class="xi-arrow-left xi-x"></i></div>
+		<div class="btnPrevTitle">이전페이지</div>		
+	</div>
+
+</div>
+
+</form>
+
+<script>
+<!--
+
+	$(function() {
+
+		$('.sn_answer').summernote({						
+			'lang' : 'ko-KR',
+			'height' : '200px',
+			'placeholder' : '답변을 입력해 주세요.',		
+			'dialogsFade' : true,
+			toolbar: [
+				['font', ['bold', 'underline', 'clear']],
+				['fontname', ['fontname']],
+				['fontsize', ['fontsize']],
+				['color', ['color']]				
+			]
+		});	
+		
+		$('.btnCrm').click(function(e) {
+			var id = $(this).attr("data-id");
+			iframeWidth = '950px';
+			iframeHeight = '.8';
+			iframeView("../member/popup_member_crm.php?id=" + id, "회원 CRM보기");			
+		});	
+
+		$(".btnVCrm").each(function(i) {
+			if(!$(this).find('.barId').html()) $(this).find('.barId').hide();
+		});
+
+		$('.btnVCrm').click(function(e) {
+			var id = $(this).attr("data-id");
+			if(!id) return;
+			iframeWidth = '950px';
+			iframeHeight = '.8';
+			iframeView("../vendor/popup_vendor_crm.php?id=" + id, "판매사 CRM보기");			
+		});	
+
+	});	
+
+//-->
+</script>

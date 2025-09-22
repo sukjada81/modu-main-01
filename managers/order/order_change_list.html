@@ -1,0 +1,370 @@
+<div class="content">
+	
+	<form name='searchForm' method='get' action='{{PHP_SELF}}'>
+	<div class="searchBox">
+		<div class="floatLeft">
+			<select name="field">
+				<option value="multi">통합검색</option>
+				<option value="order_num">주문번호</option>
+				<option value="id">아이디</option>
+				<option value="name">주문자명</option>	
+				<option value="manager">처리자</option>	
+			</select>			
+		</div>
+		<div class="searchBoxIn">
+			<input type="text" name="keyword" value="{{keyword}}" data-search-btn="1" data-on-enter="1" />
+			<p class="resetIcon resetIconBtn"><i class="xi-undo masterTooltip" title="초기화"></i></p>
+		</div>
+
+		<div class="expensionArrow">
+			<div class="box"></div>
+			<i class="xi-arrow-down box_down"></i>			
+		</div>
+	</div>
+	<div class="searchDetail">
+		<div class="searchDetailBox">
+			<table class="search">
+			<colgroup>
+			<col width="33%" /> 
+			<col width="33%" />
+			<col width="33%" /> 
+			</colgroup>
+			<tr> 
+				<td colspan="3">
+					<select name="date_type" style="display:none;">
+						<option value="signdate">요청일</option>
+						<option value="status_date">처리일</option>
+					</select>						
+					<div class="requireLeft"><input type="text" name="s_date" class="ip2 dates" value="{{s_date}}" data-date-picker='1' /></div>
+					<div class="floatLeft" style="padding:0 0 0 15px;">~</div>
+					<div class="requireLeft"><input type="text" name="e_date" class="ip2 dates" value="{{e_date}}" data-date-picker='1' /></div>
+					<div class="floatLeft" style="padding-left:15px;">
+						<button class="btns2" type="button" data-s_date='{{DATE1}}' data-e_date='{{DATE1}}'>오늘</button>
+						<button class="btns2" type="button" data-s_date='{{DATE2}}' data-e_date='{{DATE1}}'>3일</button>
+						<button class="btns2" type="button" data-s_date='{{DATE3}}' data-e_date='{{DATE1}}'>7일</button>
+						<button class="btns2" type="button" data-s_date='{{DATE4}}' data-e_date='{{DATE1}}'>1개월</button>
+						<button class="btns2" type="button" data-s_date='{{DATE5}}' data-e_date='{{DATE1}}'>3개월</button>
+						<button class="btns2" type="button" data-s_date='{{DATE6}}' data-e_date='{{DATE1}}'>6개월</button>
+						<button class="btns2" type="button" data-s_date='' data-e_date=''>전체</button>					
+					</div>
+				</td>
+			</tr>				
+			<tr> 
+				<td>
+					<select name="status" style="display:none;">
+						<option value="">처리상태</option>
+						<option value="71">교환요청</option>
+						<option value="72">교환중</option>
+						<option value="73">교환회수완료</option>
+						<option value="74">교환발송완료</option>
+						<option value="75">교환왼료</option>
+						<option value="81">반품요청</option>
+						<option value="82">반품중</option>
+						<option value="83">반품회수완료</option>
+						<option value="85">반품왼료</option>
+						<option value="91">취소요청</option>
+						<option value="95">취소왼료</option>
+						<option value="1">교환/반품 요청</option>
+						<option value="2">교환/반품 처리중</option>
+						<option value="3">취소요청/반품회수완료</option>
+					</select>
+				</td>
+				<td>
+					<select name="vendor" style="display:none;">
+						<option value="">판매사</option>
+						<!-- DYNAMIC @loop_vendor@ -->
+						<option value='{{vendor_id}}'>{{vendor_name}} ({{vendor_id}})</option>
+						<!-- DYNAMIC @loop_vendor@ -->
+					</select>						
+				</td>
+				<td>
+					<select name="reason" style="display:none;">
+						<option value="">사유</option>
+						<!-- DYNAMIC @loop_reason@ -->
+						<option value='{{reason_name}}'>{{reason_name}}</option>
+						<!-- DYNAMIC @loop_reason@ -->
+					</select>						
+				</td>		
+			</tr>	
+			</table>					
+		</div>	
+		<div class="btnSearchSubmitBox">
+			<div class="btnCircleSearch"><div class="btnCircleSearchTitle">검색</div><i class="xi-search xi-x"></i></div>
+			<div class="btnCircleReset"><div class="btnCircleResetTitle">초기화</div><i class="xi-undo xi-x"></i></div>						
+		</div>
+	</div>
+	</form>
+
+	<script>
+	<!--	
+		
+		$("form[name=searchForm] select[name='field']").val('{{field}}').heapbox({'width' : '200px'});
+		$("form[name=searchForm] select[name='date_type']").val('{{date_type}}').show().heapbox({'width' : '160px', 'zindex':7});
+		$("form[name=searchForm] select[name='status']").val('{{status}}').show().heapbox({'width' : '99%', 'heapsize' : '400px', 'searchUsed' : 'false', 'zindex':5});
+		$("form[name=searchForm] select[name='vendor']").val('{{vendor}}').show().heapbox({'width' : '99%', 'heapsize' : '400px', 'zindex':5});		
+		$("form[name=searchForm] select[name='reason']").val('{{reason}}').show().heapbox({'width' : '99%', 'zindex':5});		
+		$('.searchDetail').hide();
+	//-->
+	</script>
+
+	<div class="empty60"></div>
+	
+	<div class="listTop">
+		<form name='listSearchForm' method='get' action='{{PHP_SELF}}?{{searchstring}}' />
+		<div class="listLeft size14">
+			전체 : <b class="orange">{{ATOTAL}}</b>건 
+			<!-- DYNAMIC @is_search@ -->
+			, 검색 : <b class="orange">{{TOTAL}}</b>건
+			<!-- DYNAMIC @is_search@ -->
+		</div>
+		<div class="listRight size10">
+			<div class="floatLeft">
+				<select name="sort">
+					<option value="uid DESC">요청일 역순</option>
+					<option value="uid ASC">요청일 순</option>
+					<option value="status_date DESC">처리일 역순</option>
+					<option value="status_date ASC">처리일 순</option>
+				</select>
+				&nbsp;&nbsp;
+			</div>
+			<div class="floatLeft">				
+				<select name="limit">
+					<option value="10">10개 보기</option>
+					<option value="20">20개 보기</option>
+					<option value="30">30개 보기</option>
+					<option value="40">40개 보기</option>
+					<option value="50">50개 보기</option>
+					<option value="60">60개 보기</option>
+					<option value="70">70개 보기</option>
+					<option value="80">80개 보기</option>
+					<option value="90">90개 보기</option>
+					<option value="100">100개 보기</option>
+				</select>
+			</div>
+		</div>
+		</form>
+	</div>
+
+	<div class="empty10"></div>
+	
+	<div id="listArea">
+		<!-- DYNAMIC @is_list_area@ -->
+		<table class="listIn fixed-header">
+		<colgroup>			
+			<col style="width:70px" />	<!-- 번호 --> 			
+			<col style="width:110px" />	<!-- 주문번호 --> 		
+			<col style="width:130px" />	<!-- 주문자 -->
+			<col style="width:130px" />	<!-- 판매사 -->
+			<col />	<!-- 상품정보 -->
+			<col style="width:100px" />	<!-- 사유 -->	
+			<col style="width:85px" />	<!-- 처리자 -->
+			<col style="width:80px" />	<!-- 처리상태 -->
+			<col style="width:110px" />	<!-- 처리일 -->
+			<col style="width:110px" />	<!-- 요청일 -->
+			<col style="width:110px" />	<!-- 처리 -->
+		</colgroup>
+		<thead> 
+		<tr> 
+			<th>번호</th>	
+			<th>주문번호 <i class="xi-link"></i></th>
+			<th>주문자 <i class="xi-external-link"></i></th>
+			<th>판매사 <i class="xi-focus-frame"></i></th>
+			<th>상품정보 / 기타사항</th>			
+			<th>사유</th>
+			<th>처리자</th>			
+			<th>처리상태</th>	
+			<th>처리일</th>	
+			<th>요청일</th>	
+			<th>처리</th>	
+		</tr>
+		</thead>
+		<tbody>
+		<!-- DYNAMIC @loop_list@ -->
+		<tr>
+			<td class="number">{{NUM}}</td>
+			<td class="number"><a href="order_info.php?order_num={{ORDER_NUM}}">{{ORDER_NUM}}</a></td>
+			<td>
+				{{NAME}}
+				<!-- DYNAMIC @is_member@ -->
+				<center>
+				<div class='btnCrm cursorPoint' data-id='{{MEMBER_ID}}'>
+					<div class="empty5"></div>
+					<div class='barId'>{{MEMBER_ID}}</div>
+					<div class="empty5"></div>
+					<div class='barName2'>{{MEMBER_LEVEL}}</div>
+				</div>
+				</center>
+				<!-- DYNAMIC @is_member@ -->
+			</td>
+			<td>
+				<div class='btnVCrm cursorPoint center' data-id='{{VENDOR_ID}}'>
+					<div class="empty5"></div>
+					<div class='barId'>{{VENDOR_ID}}</div>
+					<div class="empty5"></div>
+					<div class='barName2'>{{VENDOR}}</div>
+				</div>			
+			</td>
+			<td style="text-align:left">
+				{{GOODS}}
+				<div class="messageBox">{{MESSAGE}}</div>
+			</td>
+			<td>{{REASON}}</td>
+			<td>{{MANAGER}}</td>
+			<td>{{STATUS}}</td>				
+			<td class="number">{{STATUS_DATE}}</td>
+			<td class="number">{{SIGNDATE}}</td>
+			<td>
+				<!-- DYNAMIC @is_status_ok@ -->
+				<button class="btnsSmall btnStatus" type="button" style="width:90px" data-uid="{{UID}}" data-status="{{PROC_STATUS}}"><span class="text">환불처리</span></button>
+				<!-- DYNAMIC @is_status_ok@ -->
+				<!-- DYNAMIC @is_status_default@ -->
+				<button class="btnsSmall btnStatus2" type="button" style="width:90px" data-uid="{{UID}}" data-status="{{PROC_STATUS}}" data-num="{{ORDER_NUM}}"><span class="text">{{PROC_TTL}}</span></button>
+				<!-- DYNAMIC @is_status_default@ -->
+				<!-- DYNAMIC @is_status_74@ -->
+				<button class="btnsSmall btnStatus3" type="button" style="width:90px" data-uid="{{UID}}" data-status="74" data-num="{{ORDER_NUM}}"><span class="text">교환발송처리</span></button>
+				<!-- DYNAMIC @is_status_74@ -->
+				<!-- DYNAMIC @is_status_cancel@ -->		
+				<div class="empty5"></div>
+				<button class="btnsSmall btnStatusCancel" type="button" style="width:90px" data-uid="{{UID}}" data-num="{{ORDER_NUM}}" data-ttl="{{PROC_TTL2}}"><span class="text">{{PROC_TTL2}}거부</span></button>
+				<!-- DYNAMIC @is_status_cancel@ -->				
+			</td>
+		</tr>
+		<!-- DYNAMIC @loop_list@ -->
+		<!-- DYNAMIC @empty_list@ -->
+		<tr>
+			<td colspan="11" class="emptyList"><i class="fas fa-quote-left"></i>&nbsp;&nbsp;등록(검색)된 교환/반품/취소접수 내역이 없습니다!&nbsp;&nbsp;<i class="fas fa-quote-right"></i></td>
+		<tr>
+		<!-- DYNAMIC @empty_list@ -->
+		</tbody>
+		</table>
+		</form>
+		<!-- DYNAMIC @is_list_area@ -->	
+	</div>
+
+	<div class="paging">{{PAGING}}</div>
+
+</div>
+
+<form name="changeForm" method="post" action='order_post.php?{{addstring}}' target='HFrm'>
+<input type="hidden" name="mode" />
+<input type="hidden" name="uid" />
+<input type="hidden" name="order_num" />
+</form>
+
+<script src="../../lib/jquery.timeliny.js?ver={{ver}}"></script>
+<script>
+<!--	
+	
+	var defaultUrl		= "{{PHP_SELF}}?{{searchstring}}";
+	var defaultSort		= "{{sort}}";
+	var defaultLimit	= "{{limit}}";
+	var defaultPage		= "{{page}}";
+	var pagingType		= '{{PAGING_TYPE}}';	
+	var lastPage		= '{{total_page}}';
+	var defaultTotal	= '{{TOTAL}}';
+
+// -->
+</script>
+<script src="../common/listProc.js?ver={{ver}}"></script>
+<script>
+<!--
+
+	function timelinyResetCallBackSub() {
+		
+		$(".messageBox").each(function(i) {
+			if(parseInt($(this).css('height')) > 20) {
+				$(this).css({'height' : '26', 'overflow' : 'hidden'});
+				$(this).find('i').remove();
+				$(this).append('<i class="xi-arrow-down xi-x message_down"></i>');
+			}
+		});
+
+		$('.message_down').unbind('click').bind('click',function(e) {
+			if(parseInt($(this).parent().css('height')) == 26) {
+				$(this).parent().css('height', 'auto');
+				$(this).removeClass('xi-arrow-down').addClass('xi-arrow-up');
+			}
+			else {
+				$(this).parent().css({'height' : '26', 'overflow' : 'hidden'});
+				$(this).removeClass('xi-arrow-up').addClass('xi-arrow-down');
+			}
+		});
+	
+		$('.btnStatus').unbind('click').bind('click',function(e) {
+			var uid		= $(this).attr("data-uid");
+			var status	= $(this).attr("data-status");
+			iframeWidth = '950px';
+			iframeHeight = '.8';
+			iframeView("popup_order_status_change.php?uid=" + uid + "&status=" + status, "환불처리하기");			
+		});	
+	
+		$('.btnStatus2').unbind('click').bind('click',function(e) {
+
+			$("form[name=changeForm] input[name='mode']").val("status_change_" + $(this).attr("data-status"));
+			$("form[name=changeForm] input[name='uid']").val($(this).attr("data-uid"));
+			$("form[name=changeForm] input[name='order_num']").val($(this).attr("data-num"));
+			$("form[name=changeForm]").submit();
+			
+		});	
+	
+		$('.btnStatus3').unbind('click').bind('click',function(e) {
+			var uid		= $(this).attr("data-uid");
+			var status	= $(this).attr("data-status");
+			iframeWidth = '950px';
+			iframeHeight = '.8';
+			iframeView("popup_order_status_change.php?uid=" + uid + "&status=" + status, "교환발송처리하기");			
+		});	
+
+		$('.btnStatusCancel').unbind('click').bind('click',function(e) {
+			var self	= this;
+			var ttl		= $(this).attr("data-ttl");
+			
+			alertify.confirm(ttl + '거부', '정말로 ' + ttl + '요청을 거부 하시겠습니까?<br />' + ttl + '요청을 거부하시기 전에 고객에게 미리 안내하시기 바랍니다.', function() { 
+				$("form[name=changeForm] input[name='mode']").val("status_cancel");
+				$("form[name=changeForm] input[name='uid']").val($(self).attr("data-uid"));
+				$("form[name=changeForm] input[name='order_num']").val($(self).attr("data-num"));
+				$("form[name=changeForm]").submit();	}
+				, function(){ });					
+		});	
+	}
+
+	
+	$(function() {
+		
+		$(".btnVCrm").each(function(i) {
+			if(!$(this).find('.barId').html()) $(this).find('.barId').hide();
+		});
+
+		$('.btns2').click(function(e) {
+			$("form[name=searchForm] input[name='s_date']").val($(this).attr('data-s_date'));
+			$("form[name=searchForm] input[name='e_date']").val($(this).attr('data-e_date'));			
+			return;
+		});
+		
+		$('.btnCrm').click(function(e) {
+			var id = $(this).attr("data-id");
+			iframeWidth = '950px';
+			iframeHeight = '.8';
+			iframeView("../member/popup_member_crm.php?id=" + id, "회원 CRM보기");			
+		});	
+
+		$('.btnVCrm').click(function(e) {
+			var id = $(this).attr("data-id");
+			if(!id) return;
+			iframeWidth = '950px';
+			iframeHeight = '.8';
+			iframeView("../vendor/popup_vendor_crm.php?id=" + id, "판매사 CRM보기");			
+		});	
+
+		timelinyResetCallBackSub();
+
+		<!-- DYNAMIC @is_search_open@ -->
+		$('.expensionArrow').trigger('click');
+		<!-- DYNAMIC @is_search_open@ -->	
+
+	});
+	
+	checkAllRe();
+
+//-->
+</script>

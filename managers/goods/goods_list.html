@@ -1,0 +1,657 @@
+<div class="content">
+	
+	<form name='searchForm' method='get' action='{{PHP_SELF}}'>
+	<input type="hidden" name="cate" value="{{cate}}" data-param="1" />
+	<div class="searchBox">
+		<div class="floatLeft">
+			<select name="field">
+				<option value="multi">통합검색</option>
+				<option value="name">상품명</option>
+				<option value="uid">상품번호</option>
+				<option value="model">모델명</option>
+				<option value="keyword">검색키워드</option>
+				<option value="goods_code">자체상품코드</option>				
+			</select>			
+		</div>
+		<div class="searchBoxIn">
+			<input type="text" name="keyword" value="{{keyword}}" data-search-btn="1" data-on-enter="1" />
+			<p class="resetIcon resetIconBtn"><i class="xi-undo masterTooltip" title="초기화"></i></p>
+		</div>
+
+		<div class="expensionArrow">
+			<div class="box"></div>
+			<i class="xi-arrow-down box_down"></i>			
+		</div>
+	</div>
+	<div class="searchDetail">
+		<div class="searchDetailBox">
+			<table class="search">
+			<colgroup>
+			<col width="33%" /> 
+			<col width="33%" />
+			<col width="33%" /> 
+			</colgroup>
+			<tr> 
+				<td colspan="3">
+					<div class="cate">
+						<select name="cate1" style="display:none;">
+							<option value="">1차분류 선택</option>
+							<!-- DYNAMIC @loop_cate1@ -->
+							<option value="{{cate}}">{{cate_name}}</option>
+							<!-- DYNAMIC @loop_cate1@ -->
+						</select>	
+					</div>
+					<div class="cate">
+						<select name="cate2" style="display:none;">
+							<option value="">2차분류 선택</option>							
+						</select>	
+					</div>
+					<div class="cate">
+						<select name="cate3" style="display:none;">
+							<option value="">3차분류 선택</option>							
+						</select>	
+					</div>
+					<div class="cateLast">
+						<select name="cate4" style="display:none;">
+							<option value="">4차분류 선택</option>							
+						</select>	
+					</div>
+				</td>
+			</tr>	
+			<tr> 
+				<td colspan="3">
+					<select name="date_type" style="display:none;">
+						<option value="">상품등록일</option>
+						<option value="moddate">상품수정일</option>
+					</select>						
+					<div class="requireLeft"><input type="text" name="s_date" class="ip2 dates" value="{{s_date}}" data-date-picker='1' /></div>
+					<div class="floatLeft" style="padding:0 0 0 15px;">~</div>
+					<div class="requireLeft"><input type="text" name="e_date" class="ip2 dates" value="{{e_date}}" data-date-picker='1' /></div>
+					<div class="floatLeft" style="padding-left:15px;">
+						<button class="btns2" type="button" data-s_date='{{DATE1}}' data-e_date='{{DATE1}}'>오늘</button>
+						<button class="btns2" type="button" data-s_date='{{DATE2}}' data-e_date='{{DATE1}}'>3일</button>
+						<button class="btns2" type="button" data-s_date='{{DATE3}}' data-e_date='{{DATE1}}'>7일</button>
+						<button class="btns2" type="button" data-s_date='{{DATE4}}' data-e_date='{{DATE1}}'>1개월</button>
+						<button class="btns2" type="button" data-s_date='{{DATE5}}' data-e_date='{{DATE1}}'>3개월</button>
+						<button class="btns2" type="button" data-s_date='{{DATE6}}' data-e_date='{{DATE1}}'>6개월</button>
+						<button class="btns2" type="button" data-s_date='' data-e_date=''>전체</button>					
+					</div>
+				</td>
+			</tr>	
+			<tr> 
+				<td>
+					<select name="field2" style="display:none;">
+						<option value="multi">통합검색</option>
+						<option value="name">상품명</option>
+						<option value="uid">상품번호</option>
+						<option value="model">모델명</option>
+						<option value="keyword">검색키워드</option>
+						<option value="goods_code">자체상품코드</option>				
+					</select>	
+					<input type="text" name="keyword2" class="ip" value="{{keyword2}}" />
+				</td>
+				<td>
+					<select name="field3" style="display:none;">
+						<option value="multi">통합검색</option>
+						<option value="name">상품명</option>
+						<option value="uid">상품번호</option>
+						<option value="model">모델명</option>
+						<option value="keyword">검색키워드</option>
+						<option value="goods_code">자체상품코드</option>				
+					</select>	
+					<input type="text" name="keyword3" class="ip" value="{{keyword3}}" />										
+				</td>			
+				<td>
+					<select name="field4" style="display:none;">
+						<option value="multi">통합검색</option>
+						<option value="name">상품명</option>
+						<option value="uid">상품번호</option>
+						<option value="model">모델명</option>
+						<option value="keyword">검색키워드</option>
+						<option value="goods_code">자체상품코드</option>				
+					</select>	
+					<input type="text" name="keyword4" class="ip" value="{{keyword4}}" />					
+				</td>
+			</tr>	
+			<tr> 
+				<td>
+					<select name="display_use" style="display:none;">
+						<option value="">진열상태</option>
+						<option value="1">진열함</option>
+						<option value="0">진열안함</option>						
+					</select>							
+				</td>
+				<td>
+					<select name="sale_use" style="display:none;">
+						<option value="">판매상태</option>
+						<option value="1">판매함</option>
+						<option value="0">판매안함</option>
+					</select>						
+				</td>			
+				<td>
+					<select name="option_use" style="display:none;">
+						<option value="">옵션유무</option>
+						<option value="1">사용함</option>
+						<option value="0">사용안함</option>
+					</select>						
+				</td>
+			</tr>	
+			<tr> 
+				<td>
+					<select name="mileage_type" style="display:none;">
+						<option value="">마일리지</option>
+						<option value="1">환경설정 사용</option>
+						<option value="2">없음</option>		
+						<option value="3">별도설정(회원등급별)</option>		
+						<option value="4">별도설정(회원공통)</option>		
+					</select>							
+				</td>
+				<td>
+					<select name="delivery_type" style="display:none;">
+						<option value="">배송비</option>
+						<option value="1">환경설정 사용</option>
+						<option value="2">무료배송</option>		
+						<option value="3">착불</option>		
+						<option value="4">별도책정(고정)</option>	
+						<option value="5">별도책정(개당)</option>	
+					</select>						
+				</td>			
+				<td>
+					<select name="engine_use" style="display:none;">
+						<option value="">상품외부 연동</option>
+						<option value="1">사용함</option>
+						<option value="0">사용안함</option>
+					</select>						
+				</td>
+			</tr>	
+			<tr> 
+				<td>
+					<select name="order_priority" style="display:none;">
+						<option value="">진열 우선순위</option>
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>						
+					</select>							
+				</td>
+				<td>
+					<select name="qty_type" style="display:none;">
+						<option value="">재고</option>
+						<option value="0">한정판매</option>		
+						<option value="1">무제한</option>						
+					</select>						
+				</td>			
+				<td>
+					<select name="vendor" style="display:none;">
+						<option value="">판매사</option>
+						<option value="X">본사</option>
+						<!-- DYNAMIC @loop_vendor@ -->
+						<option value='{{vendor_id}}'>{{vendor_name}} ({{vendor_id}})</option>
+						<!-- DYNAMIC @loop_vendor@ -->
+					</select>						
+				</td>
+			</tr>	
+			<tr> 
+				<td colspan="3" style="background-color:#fff">
+					<label><input type='checkbox' name="limit_qty" value="1" {{checked_limit_qty_1}} /><span></span> 구매수량제한상품</label>&nbsp;&nbsp;&nbsp;&nbsp;
+					<label><input type='checkbox' name="cate_hide" value="1" {{checked_cate_hide_1}} /><span></span> 분류숨김상품</label>&nbsp;&nbsp;&nbsp;&nbsp;
+					<label><input type='checkbox' name="soldout" value="1" {{checked_soldout_1}} /><span></span> 품절상품</label>&nbsp;&nbsp;&nbsp;&nbsp;
+					<label><input type='checkbox' name="option_soldout" value="1" {{checked_option_soldout_1}} /><span></span> 옵션중일부품절인상품</label>&nbsp;&nbsp;&nbsp;&nbsp;
+					<label><input type='checkbox' name="commission_type" value="1" {{checked_commission_type_1}} /><span></span> 판매사개별수수료상품</label>&nbsp;&nbsp;&nbsp;&nbsp;
+					<label><input type='checkbox' name="information_use" value="3" {{checked_information_use_3}} /><span></span> 이용안내직접등록상품</label>&nbsp;&nbsp;&nbsp;&nbsp;
+				</td>
+			</tr>
+			</table>					
+		</div>	
+		<div class="btnSearchSubmitBox">
+			<div class="btnCircleSearch"><div class="btnCircleSearchTitle">검색</div><i class="xi-search xi-x"></i></div>
+			<div class="btnCircleReset"><div class="btnCircleResetTitle">초기화</div><i class="xi-undo xi-x"></i></div>						
+		</div>
+	</div>
+	</form>
+
+	<script>
+	<!--	
+		
+		$("form[name=searchForm] select[name='field']").val('{{field}}').heapbox({'width' : '200px'});
+		$("form[name=searchForm] select[name='cate1']").val('{{cate1}}').show().heapbox({
+			'width' : '100%',
+			'zindex': 8,
+			'heapsize' : '452px',
+			'onChange': function(value){ cateChange(value, 1); }
+		});
+		$("form[name=searchForm] select[name='cate2']").val('{{cate2}}').show().heapbox({
+			'width' : '100%',
+			'zindex': 8,
+			'heapsize' : '452px',
+			'onChange': function(value){ cateChange(value, 2); }
+		});
+		$("form[name=searchForm] select[name='cate3']").val('{{cate3}}').show().heapbox({
+			'width' : '100%',
+			'zindex': 8,
+			'heapsize' : '452px',
+			'onChange': function(value){ cateChange(value, 3); }
+		});
+		$("form[name=searchForm] select[name='cate4']").val('{{cate4}}').show().heapbox({
+			'width' : '100%',
+			'zindex': 8,
+			'heapsize' : '452px',
+			'onChange': function(value){
+							$("form[name=searchForm] input[name='cate']").val(value);
+						}
+		});
+		$("form[name=searchForm] select[name='date_type']").val('{{date_type}}').show().heapbox({'width' : '170px', 'zindex':7});
+		$("form[name=searchForm] select[name='field2']").val('{{field2}}').show().heapbox({'width' : '170px', 'zindex':6});
+		$("form[name=searchForm] select[name='field3']").val('{{field3}}').show().heapbox({'width' : '170px', 'zindex':6});
+		$("form[name=searchForm] select[name='field4']").val('{{field4}}').show().heapbox({'width' : '170px', 'zindex':6});
+		$("form[name=searchForm] select[name='display_use']").val('{{display_use}}').show().heapbox({'width' : '99%', 'zindex':5});
+		$("form[name=searchForm] select[name='sale_use']").val('{{sale_use}}').show().heapbox({'width' : '99%', 'zindex':5});
+		$("form[name=searchForm] select[name='option_use']").val('{{option_use}}').show().heapbox({'width' : '99%', 'zindex':5});
+		$("form[name=searchForm] select[name='mileage_type']").val('{{mileage_type}}').show().heapbox({'width' : '99%', 'zindex':4});
+		$("form[name=searchForm] select[name='delivery_type']").val('{{delivery_type}}').show().heapbox({'width' : '99%', 'zindex':4});
+		$("form[name=searchForm] select[name='engine_use']").val('{{engine_use}}').show().heapbox({'width' : '99%', 'zindex':4});
+		$("form[name=searchForm] select[name='order_priority']").val('{{order_priority}}').show().heapbox({'width' : '99%', 'zindex':3});
+		$("form[name=searchForm] select[name='qty_type']").val('{{qty_type}}').show().heapbox({'width' : '99%', 'zindex':3});
+		$("form[name=searchForm] select[name='vendor']").val('{{vendor}}').show().heapbox({'width' : '99%', 'heapsize' : '400px', 'zindex':3});
+
+		$('.searchDetail').hide();
+	//-->
+	</script>
+
+	<div class="empty60"></div>
+	
+	<div class="listTop">
+		<form name='listSearchForm' method='get' action='{{PHP_SELF}}?{{searchstring}}' />
+		<div class="listLeft size14">
+			전체 : <b class="orange">{{ATOTAL}}</b>건 
+			<!-- DYNAMIC @is_search@ -->
+			, 검색 : <b class="orange">{{TOTAL}}</b>건
+			<!-- DYNAMIC @is_search@ -->
+		</div>
+		<div class="listRight size10">
+			<div class="floatLeft">
+				<select name="sort">
+					<option value="re_uid ASC">등록일 역순</option>
+					<option value="re_uid DESC">등록일 순</option>
+					<option value="moddate DESC">수정일 역순</option>
+					<option value="moddate ASC">수정일 순</option>
+					<option value="name DESC">상품명 역순</option>
+					<option value="name ASC">상품명 순</option>
+					<option value="price DESC">판매가 역순</option>
+					<option value="price ASC">판매가 순</option>
+				</select>
+				&nbsp;&nbsp;
+			</div>
+			<div class="floatLeft">				
+				<select name="limit">
+					<option value="10">10개 보기</option>
+					<option value="20">20개 보기</option>
+					<option value="30">30개 보기</option>
+					<option value="40">40개 보기</option>
+					<option value="50">50개 보기</option>
+					<option value="60">60개 보기</option>
+					<option value="70">70개 보기</option>
+					<option value="80">80개 보기</option>
+					<option value="90">90개 보기</option>
+					<option value="100">100개 보기</option>
+				</select>
+			</div>
+		</div>
+		</form>
+	</div>
+
+	<div class="empty10"></div>
+	<div class="listLine"></div>
+	<div class="listSelect" style="width:46%;">
+		<div class="floatLeft">
+			<button class="graButtonWhite secDelete" type="button"><span class="text"><i class="xi-file-check-o xi-x"></i> 선택삭제</span></button>
+			<button class="graButtonWhite secCopy" type="button"><span class="text"><i class="xi-file-check-o xi-x"></i> 선택복사</span></button>
+		</div>
+		
+		<form name='modifyForm1' />
+		<div class="firstLine">			
+			<select name="display_use_yn">					
+				<option value=''>선택 진열변경</option>
+				<option value='1'>진열함</option>
+				<option value='2'>진열안함</option>
+			</select>			
+			<script>
+				$("form[name=modifyForm1] select[name='display_use_yn']").heapbox({
+					'width' : '145px', 
+					'zindex' : 2,
+					'onChange': function(value){
+										if(!value) return;
+										displaySaleYn('display', value);
+									}
+				});
+			</script>
+		</div>
+		<div class="line">
+			<select name="sale_use_yn">					
+				<option value=''>선택 판매변경</option>
+				<option value='1'>판매함</option>
+				<option value='2'>판매안함</option>
+			</select>			
+			<script>
+				$("form[name=modifyForm1] select[name='sale_use_yn']").heapbox({
+					'width' : '145px', 
+					'zindex' : 2,
+					'onChange': function(value){
+										if(!value) return;
+										displaySaleYn('sale',value);										
+									}
+				});
+			</script>			
+		</div>
+		</form>
+	</div>
+
+	<div class="listSelectR">
+		<button class="graident1 graButton btnWrite" type="button"><i class="fas fa-link"></i> 상품등록</button>
+		<button class="graident2 graButton btnCate" type="button"><i class="xi-focus-frame xi-x"></i> 분류변경</button>
+		<button class="graident3 graButton btnExcel" type="button"><i class="xi-focus-frame xi-x"></i> 엑셀다운로드</button>
+		<button class="graident4 graButton btnConf" type="button"><i class="xi-focus-frame xi-x"></i> 노출항목설정</button>
+	</div>
+	
+	<div id="listArea" class="scrolls">		
+		<!-- DYNAMIC @is_list_area@ -->
+		<form name="listForm" method="post" action='goods_post.php?{{addstring}}' target='HFrm'>
+		<input type="hidden" name="mode" />
+		<input type="hidden" name="value" />
+		<table class="listIn">
+		<colgroup>			
+			<col style="width:50px"  />		<!-- 선택 --> 
+			<!-- DYNAMIC @loop_list_width@ -->
+			<col style="width:{{list_width}}px"  />		<!-- {{list_title}} --> 
+			<!-- DYNAMIC @loop_list_width@ -->
+			<col style="width:60px"  />		<!-- 처리 --> 
+		</colgroup>
+		<thead> 
+		<tr> 
+			<th><label><input type='checkbox' name="check_all" id="check_all" value="1" /><span></span></label></th>
+			<!-- DYNAMIC @loop_list_title@ -->
+			<th>{{list_title}}</th>			
+			<!-- DYNAMIC @loop_list_title@ -->
+			<th>수정</th>
+		</tr>
+		</thead>
+		<tbody>
+		<!-- DYNAMIC @loop_list@ -->
+		<tr>			
+			<td><label><input type='checkbox' name="item[]" value="{{UID}}" /><span></span></label></td>
+			<!-- DYNAMIC @loop_list_show@ -->
+			<!-- DYNAMIC @is_list_no@ -->
+			<td class="number">{{NUM}}</td>
+			<!-- DYNAMIC @is_list_no@ -->
+			<!-- DYNAMIC @is_list_uid@ -->
+			<td class="number">{{UID}}</td>
+			<!-- DYNAMIC @is_list_uid@ -->
+			<!-- DYNAMIC @is_list_image@ -->
+			<td><a href="{{SMain}}?channel=view&uid={{UID}}" title="사용자페이지상품보기" target="_blank"><img src="../../image/goods/img{{IMAGE3}}" alt="{{NAME}} 이미지" width="80" /></a></td>
+			<!-- DYNAMIC @is_list_image@ -->
+			<!-- DYNAMIC @is_list_name@ -->
+			<td style="text-align:left">
+				<div><a href="goods_info.php?mode=modify&uid={{UID}}{{addstring}}" title="상품정보수정"  class="underLine">{{NAME}}</a> {{ICON}}</div>
+				<!-- DYNAMIC @is_displays@ -->
+				<div class="barDisplay">{{DISPLAYS}}</div>
+				<!-- DYNAMIC @is_displays@ -->
+				<div class="category">{{CATE}}</div>
+				<!-- DYNAMIC @is_cate_more@ -->
+				<div class="cateMoreIcon"><i class="xi-angle-down btnCateMore" data-uid='{{UID}}'></i></div>
+				<div class="empty5"></div>
+				<div id="cate_more_{{UID}}" class="cateMore">{{CATE_MORE}}</div>
+				<!-- DYNAMIC @is_cate_more@ -->
+			</td>
+			<!-- DYNAMIC @is_list_name@ -->
+			<!-- DYNAMIC @is_list_vendor@ -->
+			<td>
+				<div class='btnVCrm cursorPoint center' data-id='{{VENDOR_ID}}'>
+					<div class="empty5"></div>
+					<div class='barId'>{{VENDOR_ID}}</div>
+					<div class="empty5"></div>
+					<div class='barName2'>{{VENDOR}}</div>
+				</div>			
+			</td>
+			<!-- DYNAMIC @is_list_vendor@ -->
+			<!-- DYNAMIC @is_list_price@ -->
+			<td class="number">{{PRICE}}</td>
+			<!-- DYNAMIC @is_list_price@ -->
+			<!-- DYNAMIC @is_list_orig_price@ -->
+			<td class="number">{{ORIG_PRICE}}</td>
+			<!-- DYNAMIC @is_list_orig_price@ -->
+			<!-- DYNAMIC @is_list_commission@ -->
+			<td class="number">{{COMMISSION}}% {{COMMISSION_TYPE}}</td>
+			<!-- DYNAMIC @is_list_commission@ -->
+			<!-- DYNAMIC @is_list_consumer_price@ -->
+			<td class="number">{{CONSUMER_PRICE}}</td>
+			<!-- DYNAMIC @is_list_consumer_price@ -->
+			<!-- DYNAMIC @is_list_display_use@ -->
+			<td>{{DISPLAY_USE}}</td>
+			<!-- DYNAMIC @is_list_display_use@ -->
+			<!-- DYNAMIC @is_list_sale_use@ -->
+			<td>{{SALE_USE}}</td>
+			<!-- DYNAMIC @is_list_sale_use@ -->
+			<!-- DYNAMIC @is_list_qty@ -->
+			<td>{{QTY_TYPE}}</td>
+			<!-- DYNAMIC @is_list_qty@ -->
+			<!-- DYNAMIC @is_list_option_use@ -->
+			<td>{{OPTION_USE}}</td>
+			<!-- DYNAMIC @is_list_option_use@ -->
+			<!-- DYNAMIC @is_list_mileage_type@ -->
+			<td>{{mileage_TYPE}}</td>
+			<!-- DYNAMIC @is_list_mileage_type@ -->
+			<!-- DYNAMIC @is_list_delivery_type@ -->
+			<td>{{DELIVERY_TYPE}}</td>
+			<!-- DYNAMIC @is_list_delivery_type@ -->
+			<!-- DYNAMIC @is_list_goods_code@ -->
+			<td>{{GOODS_CODE}}</td>
+			<!-- DYNAMIC @is_list_goods_code@ -->
+			<!-- DYNAMIC @is_list_signdate@ -->
+			<td class="number">{{SIGNDATE}}<br />{{MODDATE}}</td>
+			<!-- DYNAMIC @is_list_signdate@ -->
+			<!-- DYNAMIC @loop_list_show@ -->
+			<td><i class="fas fa-edit masterTooltip" title="수정하기" onclick="window.location.href='goods_info.php?mode=modify&uid={{UID}}{{addstring}}'"></i></td>		
+		</tr>
+		<!-- DYNAMIC @loop_list@ -->
+		<!-- DYNAMIC @empty_list@ -->
+		<tr>
+			<td colspan="{{list_cnt}}" class="emptyList"><i class="fas fa-quote-left"></i>&nbsp;&nbsp;등록(검색)된 상품이 없습니다!&nbsp;&nbsp;<i class="fas fa-quote-right"></i></td>
+		<tr>
+		<!-- DYNAMIC @empty_list@ -->
+		</tbody>
+		</table>		
+		</form>
+		<!-- DYNAMIC @is_list_area@ -->		
+	</div>
+
+	<div class="listSelectB" style="width:46%;">
+		<div class="floatLeft">
+			<button class="graButtonWhite secDelete" type="button"><span class="text"><i class="xi-file-check-o xi-x"></i> 선택삭제</span></button>
+			<button class="graButtonWhite secCopy" type="button"><span class="text"><i class="xi-file-check-o xi-x"></i> 선택복사</span></button>
+		</div>
+
+		<form name='modifyForm2' />
+		<div class="firstLine">			
+			<select name="display_use_yn">					
+				<option value=''>선택 진열변경</option>
+				<option value='1'>진열함</option>
+				<option value='2'>진열안함</option>
+			</select>			
+			<script>
+				$("form[name=modifyForm2] select[name='display_use_yn']").heapbox({
+					'width' : '145px', 
+					'zindex' : 2,
+					'onChange': function(value){
+										if(!value) return;
+										displaySaleYn('display',value);
+									}
+				});
+			</script>
+		</div>
+		<div class="line">
+			<select name="sale_use_yn">					
+				<option value=''>선택 판매변경</option>
+				<option value='1'>판매함</option>
+				<option value='2'>판매안함</option>
+			</select>			
+			<script>
+				$("form[name=modifyForm2] select[name='sale_use_yn']").heapbox({
+					'width' : '145px', 
+					'zindex' : 2,
+					'onChange': function(value){
+										if(!value) return;
+										displaySaleYn('sale',value);										
+									}
+				});
+			</script>			
+		</div>
+		</form>
+	</div>
+
+	<div class="listSelectRB"></div>
+	<div class="listLineB"></div>
+
+	<div class="paging">{{PAGING}}</div>
+
+</div>
+
+<script src="../../lib/jquery.timeliny.js?ver={{ver}}"></script>
+<script>
+<!--	
+	
+	var defaultUrl		= "{{PHP_SELF}}?{{searchstring}}";
+	var defaultSort		= "{{sort}}";
+	var defaultLimit	= "{{limit}}";
+	var defaultPage		= "{{page}}";
+	var pagingType		= '{{PAGING_TYPE}}';	
+	var lastPage		= '{{total_page}}';
+	var defaultTotal	= '{{TOTAL}}';
+	var listMove		= 1;
+
+// -->
+</script>
+<script src="../common/listProc.js?ver={{ver}}"></script>
+<script>
+<!--
+
+	var listAreaX		= "";
+	var listAreaLeft	= ""
+	var listAreaDown	= false;
+	
+	function displaySaleYn(type, vls) {
+		if(!type || !vls) return;
+		var ret = listFormCheck();
+		if(!ret) {
+			$("form[name=modifyForm1] select[name='" + type + "_use_yn']").val('').heapbox('update');
+			$("form[name=modifyForm2] select[name='" + type + "_use_yn']").val('').heapbox('update');
+			return;
+		}
+		
+		$("form[name=listForm] input[name='mode']").val(type);
+		$("form[name=listForm] input[name='value']").val(vls);
+		$("form[name=listForm]").submit();	
+	}
+	
+	$(function() {
+		
+		$('.listSelectRB').html($('.listSelectR').html());
+				
+		$(".btnVCrm").each(function(i) {
+			if(!$(this).find('.barId').html()) $(this).find('.barId').hide();
+		});
+
+		$('.btns2').click(function(e) {
+			$("form[name=searchForm] input[name='s_date']").val($(this).attr('data-s_date'));
+			$("form[name=searchForm] input[name='e_date']").val($(this).attr('data-e_date'));			
+			return;
+		});
+		
+		$('.secDelete').click(function(e) {
+			var ret = listFormCheck();
+			if(!ret) return false;
+
+			alertify.confirm('상품삭제', '정말로 선택된 상품을 삭제 하시겠습니까?<br />삭제 후 복구가 불가능 합니다.', function() { 
+				$("form[name=listForm] input[name='mode']").val('delete');
+				$("form[name=listForm]").submit(); }
+				, function(){ });
+
+		});
+
+		$('.secCopy').click(function(e) {
+			var ret = listFormCheck();
+			if(!ret) return false;
+
+			$("form[name=listForm] input[name='mode']").val('copy');
+			$("form[name=listForm]").submit();
+		});
+
+		$('.btnWrite').click(function(e) {
+			window.location.href = "goods_info.php";			
+		});
+
+		$('.btnConf').click(function(e) {
+			iframeWidth = '850px';
+			iframeHeight = '.7';
+			iframeView("../common/popup_list_conf.php?type=goods", "상품리스트 노출항목 설정 <i class='xi-arrows xi-x colorDGary masterTooltip' title='항목을 마우스로 누르고 상/하/좌/우로 이동하시면 순서를 변경 하실 수 있습니다.'></i>");
+			resetTooltip();
+		});	
+
+		$('.btnExcel').click(function(e) {
+			iframeWidth = '850px';
+			iframeHeight = '.6';
+			iframeView("../common/popup_excel_down.php?type=goods{{addstring}}", "엑셀다운로드 설정");			
+		});	
+
+		$('.btnCate').click(function(e) {
+			iframeWidth = '1058px';
+			iframeHeight = '.9';	
+			iframeView("./popup_goods_cate.php?{{addstring}}", "분류변경");			
+		});	
+
+		$('.optionView').click(function(e) {
+			iframeWidth = '1058px';
+			iframeHeight = '.9';			
+			iframeView("popup_goods_option.php?uid="+$(this).attr('data-uid'), "["+$(this).attr('gname')+"] 옵션 설정");			
+		});		
+
+		$('.btnCateMore').click(function(e) {			
+			$t = $('#cate_more_'+$(this).attr('data-uid'));
+			if($t.css('display')=='none') {
+				$t.slideDown("fast");
+				$(this).addClass('rotate180');	
+				$(this).removeClass('rotate180r');	
+			}
+			else {
+				$t.slideUp("fast");
+				$(this).addClass('rotate180r');		
+				$(this).removeClass('rotate180');		
+			}
+		});		
+
+		$('.btnVCrm').click(function(e) {
+			var id = $(this).attr("data-id");
+			if(!id) return;
+			iframeWidth = '950px';
+			iframeHeight = '.8';
+			iframeView("../vendor/popup_vendor_crm.php?id=" + id, "판매사 CRM보기");			
+		});	
+
+		<!-- DYNAMIC @is_search_open@ -->
+		$('.expensionArrow').trigger('click');
+		
+		if(cate_select[1]) cateChange(cate_select[1], 1);
+		<!-- DYNAMIC @is_search_open@ -->			
+
+	});
+	
+	var cate_select = new Array('','{{cate1}}','{{cate2}}','{{cate3}}','{{cate4}}');
+	checkAllRe();
+
+//-->
+</script>

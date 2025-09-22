@@ -1,0 +1,599 @@
+<div class="content">
+	
+	<form name='searchForm' method='get' action='{{PHP_SELF}}'>
+	<div class="searchBox">
+		<div class="floatLeft">
+			<select name="field">
+				<option value="multi2">통합검색</option>
+				<option value="order_num">주문번호</option>
+				<option value="g_delivery_info">송장번호</option>
+				<option value="id">아이디</option>
+				<option value="name">주문자명</option>
+				<option value="cell">주문자 연락처</option>
+				<option value="email">주문자 이메일</option>
+				<option value="name2">수령자명</option>
+				<option value="cell2">수령자 연락처</option>
+				<option value="bank_info">입금자명</option>
+				<option value="g_name">상품명</option>
+				<option value="g_uid">상품번호</option>
+				<option value="g_code">자체상품코드</option>
+				<option value="g_vendor">판매사아이디</option>
+			</select>			
+		</div>
+		<div class="searchBoxIn">
+			<input type="text" name="keyword" value="{{keyword}}" data-search-btn="1" data-on-enter="1" />
+			<p class="resetIcon resetIconBtn"><i class="xi-undo masterTooltip" title="초기화"></i></p>
+		</div>
+
+		<div class="expensionArrow">
+			<div class="box"></div>
+			<i class="xi-arrow-down box_down"></i>			
+		</div>
+	</div>
+	<div class="searchDetail">
+		<div class="searchDetailBox">
+			<table class="search">
+			<colgroup>
+			<col width="33%" /> 
+			<col width="33%" />
+			<col width="33%" /> 
+			</colgroup>
+			<tr> 
+				<td colspan="3">
+					<select name="date_type" style="display:none;">
+						<option value="signdate">주문일</option>
+						<option value="status_date">결제일</option>
+					</select>						
+					<div class="requireLeft"><input type="text" name="s_date" class="ip2 dates" value="{{s_date}}" data-date-picker='1' /></div>
+					<div class="floatLeft" style="padding:0 0 0 15px;">~</div>
+					<div class="requireLeft"><input type="text" name="e_date" class="ip2 dates" value="{{e_date}}" data-date-picker='1' /></div>
+					<div class="floatLeft" style="padding-left:15px;">
+						<button class="btns2" type="button" data-s_date='{{DATE1}}' data-e_date='{{DATE1}}'>오늘</button>
+						<button class="btns2" type="button" data-s_date='{{DATE2}}' data-e_date='{{DATE1}}'>3일</button>
+						<button class="btns2" type="button" data-s_date='{{DATE3}}' data-e_date='{{DATE1}}'>7일</button>
+						<button class="btns2" type="button" data-s_date='{{DATE4}}' data-e_date='{{DATE1}}'>1개월</button>
+						<button class="btns2" type="button" data-s_date='{{DATE5}}' data-e_date='{{DATE1}}'>3개월</button>
+						<button class="btns2" type="button" data-s_date='{{DATE6}}' data-e_date='{{DATE1}}'>6개월</button>
+						<button class="btns2" type="button" data-s_date='' data-e_date=''>전체</button>					
+					</div>
+				</td>
+			</tr>	
+			<tr> 
+				<td>
+					<select name="field2" style="display:none;">
+						<option value="multi2">통합검색</option>
+						<option value="order_num">주문번호</option>
+						<option value="g_delivery_info">송장번호</option>
+						<option value="id">아이디</option>
+						<option value="name">주문자명</option>
+						<option value="cell">주문자 연락처</option>
+						<option value="email">주문자 이메일</option>
+						<option value="name2">수령자명</option>
+						<option value="cell2">수령자 연락처</option>
+						<option value="bank_info">입금자명</option>
+						<option value="g_name">상품명</option>
+						<option value="g_uid">상품번호</option>
+						<option value="g_code">자체상품코드</option>
+						<option value="g_vendor">판매사아이디</option>
+					</select>	
+					<input type="text" name="keyword2" class="ip" value="{{keyword2}}" />
+				</td>
+				<td>
+					<select name="field3" style="display:none;">
+						<option value="multi2">통합검색</option>
+						<option value="order_num">주문번호</option>
+						<option value="g_delivery_info">송장번호</option>
+						<option value="id">아이디</option>
+						<option value="name">주문자명</option>
+						<option value="cell">주문자 연락처</option>
+						<option value="email">주문자 이메일</option>
+						<option value="name2">수령자명</option>
+						<option value="cell2">수령자 연락처</option>
+						<option value="bank_info">입금자명</option>
+						<option value="g_name">상품명</option>
+						<option value="g_uid">상품번호</option>
+						<option value="g_code">자체상품코드</option>
+						<option value="g_vendor">판매사아이디</option>
+					</select>	
+					<input type="text" name="keyword3" class="ip" value="{{keyword3}}" />										
+				</td>			
+				<td>
+					<select name="field4" style="display:none;">
+						<option value="multi2">통합검색</option>
+						<option value="order_num">주문번호</option>
+						<option value="g_delivery_info">송장번호</option>
+						<option value="id">아이디</option>
+						<option value="name">주문자명</option>
+						<option value="cell">주문자 연락처</option>
+						<option value="email">주문자 이메일</option>
+						<option value="name2">수령자명</option>
+						<option value="cell2">수령자 연락처</option>
+						<option value="bank_info">입금자명</option>
+						<option value="g_name">상품명</option>
+						<option value="g_uid">상품번호</option>
+						<option value="g_code">자체상품코드</option>	
+						<option value="g_vendor">판매사아이디</option>
+					</select>	
+					<input type="text" name="keyword4" class="ip" value="{{keyword4}}" />					
+				</td>
+			</tr>		
+			<tr> 
+				<td>
+					<select name="range1" style="display:none;">
+						<option value="pay_total">결제금액</option>									
+					</select>	
+					<div class="range">
+						<div><input type="text" name="s_range1" style="font-size:14px" class="only_num_format" value="{{s_range1}}" /></div>
+						<div>~</div>
+						<div><input type="text" name="e_range1" style="font-size:14px" class="only_num_format" value="{{e_range1}}" /></div>
+					</div>
+				</td>
+				<td>
+					<select name="pay_type" style="display:none;">
+						<option value="">결제수단</option>
+						<option value="B">무통장</option>
+						<option value="C">카드결제</option>
+						<option value="R">실시간계좌이체</option>
+						<option value="V">가상계좌이체</option>
+						<option value="H">핸드폰결제</option>
+						<option value="M">마일리지</option>
+						<option value="TAX">무통장/실시간계좌이체/가상계좌이체</option>
+					</select>						
+				</td>
+				<td>
+					<select name="pay_status" style="display:none;">
+						<option value="">결제상태</option>
+						<option value="A">미결제</option>
+						<option value="B">가상계좌발급완료</option>
+						<option value="C">결제완료</option>
+						<option value="D">결제실패</option>
+					</select>							
+				</td>				
+			</tr>	
+			<tr> 
+				<td>
+					<select name="mobile" style="display:none;">
+						<option value="">주문경로</option>
+						<option value="Y">모바일</option>
+						<option value="N">PC</option>
+					</select>						
+				</td>				
+				<td>
+					<select name="member" style="display:none;">
+						<option value="">회원여부</option>
+						<option value="1">회원</option>
+						<option value="2">비회원</option>
+					</select>							
+				</td>
+				<td>
+					<select name="cash_receipts" style="display:none;">
+						<option value="">현금영수증 신청</option>
+						<option value="1">신청</option>
+						<option value="2">신청안함</option>
+					</select>							
+				</td>
+			</tr>	
+			<tr> 
+				<td>
+					<select name="new" style="display:none;">
+						<option value="">첫주문/재주문</option>						
+						<option value="1">첫주문</option>
+						<option value="0">재주문</option>
+					</select>						
+				</td>				
+				<td>
+					<select name="use_mileage" style="display:none;">
+						<option value="">마일리지사용</option>
+						<option value="1">사용함</option>
+						<option value="2">사용안함</option>
+					</select>							
+				</td>
+				<td>
+					<select name="use_coupon" style="display:none;">
+						<option value="">장바구니쿠폰사용</option>
+						<option value="1">사용함</option>
+						<option value="2">사용안함</option>
+					</select>							
+				</td>
+			</tr>				
+			</table>					
+		</div>	
+		<div class="btnSearchSubmitBox">
+			<div class="btnCircleSearch"><div class="btnCircleSearchTitle">검색</div><i class="xi-search xi-x"></i></div>
+			<div class="btnCircleReset"><div class="btnCircleResetTitle">초기화</div><i class="xi-undo xi-x"></i></div>						
+		</div>
+	</div>
+	</form>
+
+	<script>
+	<!--	
+		
+		$("form[name=searchForm] select[name='field']").val('{{field}}').heapbox({'width' : '200px'});
+		$("form[name=searchForm] select[name='date_type']").val('{{date_type}}').show().heapbox({'width' : '160px', 'zindex':7});
+		$("form[name=searchForm] select[name='field2']").val('{{field2}}').show().heapbox({'width' : '160px', 'zindex':6});
+		$("form[name=searchForm] select[name='field3']").val('{{field3}}').show().heapbox({'width' : '160px', 'zindex':6});
+		$("form[name=searchForm] select[name='field4']").val('{{field4}}').show().heapbox({'width' : '160px', 'zindex':6});
+		$("form[name=searchForm] select[name='pay_status']").val('{{pay_status}}').show().heapbox({'width' : '99%', 'zindex':5});		
+		$("form[name=searchForm] select[name='range1']").val('{{range1}}').show().heapbox({'width' : '160px', 'zindex':5});
+		$("form[name=searchForm] select[name='pay_type']").val('{{pay_type}}').show().heapbox({'width' : '99%', 'zindex':5});
+		$("form[name=searchForm] select[name='mobile']").val('{{mobile}}').show().heapbox({'width' : '99%', 'zindex':4});
+		$("form[name=searchForm] select[name='member']").val('{{member}}').show().heapbox({'width' : '99%', 'zindex':4});
+		$("form[name=searchForm] select[name='cash_receipts']").val('{{cash_receipts}}').show().heapbox({'width' : '99%', 'zindex':4});		
+		$("form[name=searchForm] select[name='new']").val('{{new}}').show().heapbox({'width' : '99%', 'zindex':3});
+		$("form[name=searchForm] select[name='use_mileage']").val('{{use_mileage}}').show().heapbox({'width' : '99%', 'zindex':3});
+		$("form[name=searchForm] select[name='use_coupon']").val('{{use_coupon}}').show().heapbox({'width' : '99%', 'zindex':3});
+		
+		$('.searchDetail').hide();
+	//-->
+	</script>
+
+	<div class="empty60"></div>
+	
+	<div class="listTop">
+		<form name='listSearchForm' method='get' action='{{PHP_SELF}}?{{searchstring}}' />
+		<div class="listLeft size14">
+			전체 : <b class="orange">{{ATOTAL}}</b>건 
+			<!-- DYNAMIC @is_search@ -->
+			, 검색 : <b class="orange">{{TOTAL}}</b>건
+			<!-- DYNAMIC @is_search@ -->
+		</div>
+		<div class="listRight size10">
+			<div class="floatLeft">
+				<select name="sort">
+					<option value="uid DESC">주문일 역순</option>
+					<option value="uid ASC">주문일 순</option>
+				</select>
+				&nbsp;&nbsp;
+			</div>
+			<div class="floatLeft">				
+				<select name="limit">
+					<option value="10">10개 보기</option>
+					<option value="20">20개 보기</option>
+					<option value="30">30개 보기</option>
+					<option value="40">40개 보기</option>
+					<option value="50">50개 보기</option>
+					<option value="60">60개 보기</option>
+					<option value="70">70개 보기</option>
+					<option value="80">80개 보기</option>
+					<option value="90">90개 보기</option>
+					<option value="100">100개 보기</option>
+				</select>
+			</div>
+		</div>
+		</form>
+	</div>
+
+	<div class="empty10"></div>
+	<div class="listLine"></div>
+	<div class="listSelect" style="width:46%;">
+		<div class="floatLeft">
+			<button class="graButtonWhite secStatus0" type="button" style="width:180px"><span class="text"><i class="xi-file-check-o xi-x"></i> 선택 입금대기중처리</span></button>
+			<button class="graButtonWhite secStatus1" type="button" style="width:180px"><span class="text"><i class="xi-file-check-o xi-x"></i> 선택 결제완료처리</span></button>
+			<button class="graButtonWhite secStatus9" type="button" style="width:180px"><span class="text"><i class="xi-file-check-o xi-x"></i> 선택 주문취소처리</span></button>
+		</div>
+	</div>
+
+	<div class="listSelectR">
+		<button class="graident2 graButton btnPrint" type="button"><i class="xi-focus-frame xi-x"></i> 선택 주문서인쇄</button>
+		<button class="graident3 graButton btnExcel" type="button"><i class="xi-focus-frame xi-x"></i> 엑셀다운로드</button>
+		<button class="graident4 graButton btnConf" type="button"><i class="xi-focus-frame xi-x"></i> 노출항목설정</button>
+	</div>
+	
+	<div id="listArea" class="scrolls">
+		<!-- DYNAMIC @is_list_area@ -->
+		<form name="listForm" method="post" action='order_post.php?{{addstring}}' target='HFrm'>
+		<input type="hidden" name="mode" />
+		<input type="hidden" name="order_num" />
+		<table class="listIn">
+		<colgroup>			
+			<col style="width:50px"  />		<!-- 선택 --> 
+			<!-- DYNAMIC @loop_list_width@ -->
+			<col style="width:{{list_width}}px"  />		<!-- {{list_title}} --> 
+			<!-- DYNAMIC @loop_list_width@ -->			
+		</colgroup>
+		<thead> 
+		<tr> 
+			<th><label><input type='checkbox' name="check_all" id="check_all" value="1" /><span></span></label></th>
+			<!-- DYNAMIC @loop_list_title@ -->
+			<th>{{list_title}}</th>			
+			<!-- DYNAMIC @loop_list_title@ -->
+		</tr>
+		</thead>
+		<tbody>
+		<!-- DYNAMIC @loop_list@ -->
+		<tr>
+			<td><label><input type='checkbox' name="item[]" value="{{UID}}" class="ckeckItem" /><span></span></label></td>
+			<!-- DYNAMIC @loop_list_show@ -->
+			<!-- DYNAMIC @is_list_no@ -->
+			<td class="number">{{NUM}}</td>
+			<!-- DYNAMIC @is_list_no@ -->
+			<!-- DYNAMIC @is_list_signdate@ -->
+			<td class="number">
+				{{SIGNDATE}}
+				<!-- DYNAMIC @is_new@ -->
+				<div class="barNew">첫구매</div>
+				<!-- DYNAMIC @is_new@ -->
+			</td>		
+			<!-- DYNAMIC @is_list_signdate@ -->
+			<!-- DYNAMIC @is_list_order_num@ -->
+			<td class="number">
+				<a href="order_info.php?order_num={{ORDER_NUM}}{{addstring}}">{{ORDER_NUM}}</a>				
+				<!-- DYNAMIC @is_btn_cancel_all@ -->
+				<div class="empty5"></div>
+				<button class="btnsSmall btnCancelAll" type="button" data-num="{{ORDER_NUM2}}">주문취소</button>
+				<!-- DYNAMIC @is_btn_cancel_all@ -->
+				<!-- DYNAMIC @is_btn_cancel_all2@ -->
+				<div class="empty5"></div>
+				<button class="btnsSmall btnCancelAll2" type="button" data-num="{{ORDER_NUM2}}">주문취소</button>
+				<!-- DYNAMIC @is_btn_cancel_all2@ -->
+			</td>
+			<!-- DYNAMIC @is_list_order_num@ -->
+			<!-- DYNAMIC @is_list_name@ -->
+			<td>
+				{{NAME}}
+				<!-- DYNAMIC @is_member@ -->
+				<center>
+				<div class='btnCrm cursorPoint' data-id='{{MEMBER_ID}}'>
+					<div class="empty5"></div>
+					<div class='barId'>{{MEMBER_ID}}</div>
+					<div class="empty5"></div>
+					<div class='barName2'>{{MEMBER_LEVEL}}</div>
+				</div>
+				</center>
+				<!-- DYNAMIC @is_member@ -->
+			</td>	
+			<!-- DYNAMIC @is_list_name@ -->
+			<!-- DYNAMIC @is_list_goods@ -->
+			<td style="text-align:left">
+				<div class="goods btnGoodsMores cursorPoint" data-uid='{{UID}}'>{{GOODS}}</div>
+				<div class="goodsMoreIcon"><i class="xi-angle-down btnGoodsMore btnGoodsMore{{UID}}" data-uid='{{UID}}'></i></div>
+				<div class="empty5"></div>
+				<div id="goods_more_{{UID}}" class="goodsMore">
+					<table class="listIn" style="border-top:1px solid #ccc;">
+					<colgroup>
+					<col />
+					<col width="100" />					
+					<col width="80" />
+					</colgroup>
+					<tbody>
+					<!-- DYNAMIC @loop_goods@ -->	
+					<tr class="listInSmall">
+						<td data-ttt=1 style="text-align:left; font-size:12px;">{{GOODS_NAME}} {{GOODS_VENDOR}}</td>
+						<td data-ttt=1 class="number" style="font-size:13px;">{{GOODS_PRICE}} x {{GOODS_QTY}}</td>
+						<td data-ttt=1  style="font-size:12px;">{{GOODS_STATUS}}</td>
+					</tr>
+					<!-- DYNAMIC @loop_goods@ -->
+					</tbody>
+					</table>
+				</div>				
+			</td>
+			<!-- DYNAMIC @is_list_goods@ -->
+			<!-- DYNAMIC @is_list_goods_total@ -->
+			<td class="number" style="text-align:right">{{GOODS_TOTAL}}</td>
+			<!-- DYNAMIC @is_list_goods_total@ -->
+			<!-- DYNAMIC @is_list_delivery_total@ -->
+			<td class="number" style="text-align:right">{{DELIVERY_TOTAL}}</td>
+			<!-- DYNAMIC @is_list_delivery_total@ -->
+			<!-- DYNAMIC @is_list_discount_total@ -->
+			<td class="number" style="text-align:right">{{DISCOUNT_TOTAL}}</td>
+			<!-- DYNAMIC @is_list_discount_total@ -->
+			<!-- DYNAMIC @is_list_pay_total@ -->
+			<td class="number" style="text-align:right">{{PAY_TOTAL}}</td>
+			<!-- DYNAMIC @is_list_pay_total@ -->
+			<!-- DYNAMIC @is_list_cancel_total@ -->
+			<td class="number" style="text-align:right">{{CANCEL_TOTAL}}</td>
+			<!-- DYNAMIC @is_list_cancel_total@ -->
+			<!-- DYNAMIC @is_list_pay_type@ -->
+			<td>{{PAY_TYPE}}</td>
+			<!-- DYNAMIC @is_list_pay_type@ -->
+			<!-- DYNAMIC @is_list_pay_status@ -->
+			<td>{{PAY_STATUS}}</td>
+			<!-- DYNAMIC @is_list_pay_status@ -->
+			<!-- DYNAMIC @is_list_cnts1@ -->
+			<td>{{CNTS_1}}</td>
+			<!-- DYNAMIC @is_list_cnts1@ -->
+			<!-- DYNAMIC @is_list_cnts2@ -->
+			<td>{{CNTS_2}}</td>
+			<!-- DYNAMIC @is_list_cnts2@ -->
+			<!-- DYNAMIC @is_list_cnts3@ -->
+			<td>{{CNTS_3}}</td>
+			<!-- DYNAMIC @is_list_cnts3@ -->
+			<!-- DYNAMIC @is_list_cnts4@ -->
+			<td>{{CNTS_4}}</td>
+			<!-- DYNAMIC @is_list_cnts4@ -->
+			<!-- DYNAMIC @is_list_cnts5@ -->
+			<td>{{CNTS_5}}</td>
+			<!-- DYNAMIC @is_list_cnts5@ -->
+			<!-- DYNAMIC @is_list_cnts6@ -->
+			<td>{{CNTS_6}}</td>	
+			<!-- DYNAMIC @is_list_cnts6@ -->
+			<!-- DYNAMIC @loop_list_show@ -->
+		</tr>
+		<!-- DYNAMIC @loop_list@ -->
+		<!-- DYNAMIC @empty_list@ -->
+		<tr>
+			<td colspan="{{list_cnt}}" class="emptyList"><i class="fas fa-quote-left"></i>&nbsp;&nbsp;등록(검색)된 주문내역이 없습니다!&nbsp;&nbsp;<i class="fas fa-quote-right"></i></td>
+		<tr>
+		<!-- DYNAMIC @empty_list@ -->
+		</tbody>
+		</table>
+		</form>
+		<!-- DYNAMIC @is_list_area@ -->	
+	</div>
+
+	<div class="listSelectB" style="width:46%;">
+		<div class="floatLeft">
+			
+		</div>
+	</div>
+
+	<div class="listSelectRB"></div>
+	<div class="listLineB"></div>
+
+	<div class="paging">{{PAGING}}</div>
+
+</div>
+
+<script src="../../lib/jquery.timeliny.js?ver={{ver}}"></script>
+<script>
+<!--	
+	
+	var defaultUrl		= "{{PHP_SELF}}?{{searchstring}}";
+	var defaultSort		= "{{sort}}";
+	var defaultLimit	= "{{limit}}";
+	var defaultPage		= "{{page}}";
+	var pagingType		= '{{PAGING_TYPE}}';	
+	var lastPage		= '{{total_page}}';
+	var defaultTotal	= '{{TOTAL}}';
+	var listMove		= 1;
+
+// -->
+</script>
+<script src="../common/listProc.js?ver={{ver}}"></script>
+<script>
+<!--
+	var listAreaX		= "";
+	var listAreaLeft	= ""
+	var listAreaDown	= false;
+
+	function timelinyResetCallBackSub() {
+		
+		if($(".btnGoodsMore").length) {
+			$('.btnGoodsMore').unbind('click').bind('click',function(e) {
+				$t = $('#goods_more_'+$(this).attr('data-uid'));
+				if($t.css('display')=='none') {
+					$t.slideDown("fast");
+					$(this).addClass('rotate180');	
+					$(this).removeClass('rotate180r');	
+				}
+				else {
+					$t.slideUp("fast");
+					$(this).addClass('rotate180r');		
+					$(this).removeClass('rotate180');		
+				}
+			});
+		}
+		
+		if($(".btnGoodsMores").length) {
+			$('.btnGoodsMores').unbind('click').bind('click',function(e) {
+				uid	= $(this).attr('data-uid');
+				$t = $('#goods_more_' + uid);
+				if($t.css('display')=='none') {
+					$t.slideDown("fast");
+					$('.btnGoodsMore' + uid).addClass('rotate180');	
+					$('.btnGoodsMore' + uid).removeClass('rotate180r');	
+				}
+				else {
+					$t.slideUp("fast");
+					$('.btnGoodsMore' + uid).addClass('rotate180r');		
+					$('.btnGoodsMore' + uid).removeClass('rotate180');		
+				}
+			});
+		}
+		
+		if($(".btnCancelAll").length) {
+			$(".btnCancelAll").click(function(e){
+				var self	= this;
+				
+				alertify.confirm('선택주문 전체상품 주문취소', '정말로 선택한 주문의 전체상품을 주문취소 하시겠습니까?', function() { 
+					$("form[name=listForm] input[name='mode']").val("status95");
+					$("form[name=listForm] input[name='order_num']").val($(self).attr("data-num"));
+					$("form[name=listForm]").submit(); }
+					, function(){ });			
+			});	
+		}
+
+		if($(".btnCancelAll2").length) {
+			$(".btnCancelAll2").click(function(e){
+				var num		= $(this).attr("data-num");
+
+				iframeWidth = '950px';
+				iframeHeight = '.8';
+				iframeView("popup_order_status_change2.php?order_num=" + num + "&status=95", "주문취소처리");
+			});	
+		}
+	}
+
+
+	$(function() {
+		
+		$('.listSelectB').html($('.listSelect').html());
+		$('.listSelectRB').html($('.listSelectR').html());
+				
+		$('.btns2').click(function(e) {
+			$("form[name=searchForm] input[name='s_date']").val($(this).attr('data-s_date'));
+			$("form[name=searchForm] input[name='e_date']").val($(this).attr('data-e_date'));			
+			return;
+		});
+
+		$('.secStatus0').click(function(e) {
+			var ret = listFormCheck();
+			if(!ret) return false;
+
+			alertify.confirm('입금대기중처리', '정말로 선택된 주문을 입금대기중처리를 하시겠습니까?<br />결제완료 처리로 인해 발생한 매출내역은 삭제 됩니다.', function() { 
+				$("form[name=listForm] input[name='mode']").val('secStatus0');
+				$("form[name=listForm]").submit(); }
+				, function(){ });			
+		});
+
+		$('.secStatus1').click(function(e) {
+			var ret = listFormCheck();
+			if(!ret) return false;
+
+			alertify.confirm('결제완료처리', '정말로 선택된 주문을 결제완료 처리를 하시겠습니까?', function() { 
+				$("form[name=listForm] input[name='mode']").val('secStatus1');
+				$("form[name=listForm]").submit(); }
+				, function(){ });			
+		});
+
+		$('.secStatus9').click(function(e) {
+			var ret = listFormCheck();
+			if(!ret) return false;
+
+			alertify.confirm('주문취소처리', '정말로 선택된 주문을 취소처리를 하시겠습니까?<br />주문취소는 입금대기중상태일 경우만 처리 됩니다.', function() { 
+				$("form[name=listForm] input[name='mode']").val('secStatus9');
+				$("form[name=listForm]").submit(); }
+				, function(){ });			
+		});
+
+		$('.btnPrint').click(function(e) {
+			var ret = listFormCheck();
+			if(!ret) return false;
+
+			iframeWidth = '1000px';
+			iframeHeight = '.8';
+			iframeView("popup_order_print.php?vendor=1&order_num=" + ret, "주문서 인쇄");
+		});	
+
+		$('.btnExcel').click(function(e) {
+			iframeWidth = '850px';
+			iframeHeight = '.6';
+			iframeView("../common/popup_excel_down.php?type=order{{addstring}}", "엑셀다운로드 설정");			
+		});	
+
+		$('.btnConf').click(function(e) {
+			iframeWidth = '850px';
+			iframeHeight = '.7';
+			iframeView("../common/popup_list_conf.php?type=order", "주문리스트 노출항목 설정 <i class='xi-arrows xi-x colorDGary masterTooltip' title='항목을 마우스로 누르고 상/하/좌/우로 이동하시면 순서를 변경 하실 수 있습니다.'></i>");
+			resetTooltip();
+		});	
+
+		$('.btnCrm').click(function(e) {
+			var id = $(this).attr("data-id");
+			iframeWidth = '950px';
+			iframeHeight = '.8';
+			iframeView("../member/popup_member_crm.php?id=" + id, "회원 CRM보기");			
+		});	
+
+		timelinyResetCallBackSub();
+		
+		<!-- DYNAMIC @is_search_open@ -->
+		$('.expensionArrow').trigger('click');
+		<!-- DYNAMIC @is_search_open@ -->			
+
+	});
+	
+	checkAllRe();
+
+//-->
+</script>

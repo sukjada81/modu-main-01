@@ -1,0 +1,312 @@
+<!-- DYNAMIC @is_banner_MAINT@ -->
+<div id="mainRolling">
+	<div class="swiper-container">
+		<div class="swiper-wrapper">
+			<!-- DYNAMIC @loop_banner_MAINT@ -->
+			<div class="swiper-slide">
+				<a href="{{B_LINK}}" {{B_TARGET}}>
+					<div style="background-image:url({{B_IMAGE_URL}});">&nbsp;</div>
+				</a>
+			</div>		
+			<!-- DYNAMIC @loop_banner_MAINT@ -->
+		</div>
+		<!-- Add Arrows -->
+	    <div class="swiper-button-next"><i class="xi-angle-right-thin xi-3x"></i></div>
+		<div class="swiper-button-prev"><i class="xi-angle-left-thin xi-3x"></i></div>
+		<!-- Add Pagination -->
+		<div class="swiper-pagination"></div>
+	</div>
+</div>
+
+<script>
+<!--
+	 
+	var swiperT = new Swiper('#mainRolling .swiper-container', {
+		loop: true,
+		navigation: {
+			nextEl: '.swiper-button-next',
+			prevEl: '.swiper-button-prev',
+		},
+		pagination: {
+			el: '.swiper-pagination',
+			clickable: true,
+		},
+		autoplay: {
+			delay: 3500,
+	        disableOnInteraction: false,
+		},
+	});
+
+	swiperNaviHS('#mainRolling');
+
+//-->
+</script>
+<!-- DYNAMIC @is_banner_MAINT@ -->
+
+<div id="contents">
+	
+	<div class="mainBannerCenter">
+		<!-- DYNAMIC @is_banner_MAINCL@ -->
+		<div class="mainBannerCenterL">
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					<!-- DYNAMIC @loop_banner_MAINCL@ -->
+					<div class="swiper-slide">
+						<a href="{{B_LINK}}" {{B_TARGET}}>{{B_IMAGE}}</a>
+					</div>
+					<!-- DYNAMIC @loop_banner_MAINCL@ -->
+				</div>
+				<!-- Add Arrows -->
+				<div class="swiper-button-next"><i class="xi-angle-right-thin xi-2x"></i></div>
+				<div class="swiper-button-prev"><i class="xi-angle-left-thin xi-2x"></i></div>
+				<!-- Add Pagination -->
+				<div class="swiper-pagination"></div>
+			</div>
+
+			<script>
+			<!--
+				 
+				var swiperCL = new Swiper('.mainBannerCenterL .swiper-container', {
+					loop: true,
+					navigation: {
+						nextEl: '.swiper-button-next',
+						prevEl: '.swiper-button-prev',
+					},
+					pagination: {
+						el: '.swiper-pagination',
+						clickable: true,
+					},
+					autoplay: {
+						delay: 3500,
+						disableOnInteraction: false,
+					},
+				});
+
+				swiperNaviHS('.mainBannerCenterL');
+
+			//-->
+			</script>			
+		</div>
+		<!-- DYNAMIC @is_banner_MAINCL@ -->
+
+		<!-- DYNAMIC @is_banner_MAINCR@ -->
+		<div class="mainBannerCenterR">
+			<div class="mainBannerCenterRIn">
+				<!-- DYNAMIC @loop_banner_MAINCR@ -->
+				<div>
+					<a href="{{B_LINK}}" {{B_TARGET}}>{{B_IMAGE}}</a>
+				</div>
+				<!-- DYNAMIC @loop_banner_MAINCR@ -->
+			</div>
+		</div>	
+		<!-- DYNAMIC @is_banner_MAINCR@ -->
+	</div>
+
+	<!-- DYNAMIC @loop_display_goods@ -->
+	
+	<!-- DYNAMIC @is_display_goods_item@ -->	
+	<div class="{{v}}GoodsItem">			
+		<h2 class="goodsItemTitle fontSCDream weight300" id="{{v}}Title">&nbsp;</h2>
+		<div class="swiper-container">
+			<div class="swiper-wrapper">
+				<!-- DYNAMIC @loop_goods_item@ -->
+				<div class="swiper-slide goodsItemBox">
+					<div class="goodsItem">
+						<ul>				
+							<li>
+								<a href="{{LINK}}"><img src="{{IMAGE}}" alt="{{NAME}}" height="285" /></a>
+								<!-- DYNAMIC @is_soldout@ -->	
+								<span class="soldoutIcon">품절</span>
+								<!-- DYNAMIC @is_soldout@ -->	
+							</li>
+							<li><a href="{{LINK}}">{{NAME_CODE_ABLE}}</a></li>
+							<li>
+								<div>￦{{PRICE}}</div>
+								<!-- DYNAMIC @is_coupon@ -->	
+								<div class="couponIcon">쿠폰</div>						
+								<!-- DYNAMIC @is_coupon@ -->
+								<!-- DYNAMIC @is_sale@ -->	
+								<div class="salePrice">{{SALE}}%&nbsp;<i class="xi-arrow-down"></i></div>
+								<!-- DYNAMIC @is_sale@ -->
+								<!-- DYNAMIC @is_orig_price@ -->
+								<div class="origPrice"><s>{{ORIG_PRICE}}</s></div>
+								<!-- DYNAMIC @is_orig_price@ -->
+							</li>
+							<li>{{ICON}}</li>
+						</ul>
+					</div>
+				</div>
+				<!-- DYNAMIC @loop_goods_item@ -->						
+			</div>			
+		</div>
+		<div class="swiper-button-next swiper-button-next{{v}} circleBtn swiper-button-main" style="right:-14px; width:35px; height:40px; color:#fff; padding:0 0 0 5px;"><i class="xi-angle-right-thin xi-x"></i></div>
+		<div class="swiper-button-prev swiper-button-prev{{v}} circleBtn swiper-button-main" style="left:-20px; width:35px; height:40px; color:#fff; padding:0 5px 0 0;"><i class="xi-angle-left-thin xi-x"></i></div>
+	</div>		
+
+	<script>
+	<!--
+		<!-- DYNAMIC @is_display_goods_type1@ -->	 
+		if($('.{{v}}GoodsItem .swiper-container .swiper-slide').length > 4) var loop{{v}} = true;
+		else																var loop{{v}} = false;
+
+		var swiper{{v}} = new Swiper('.{{v}}GoodsItem .swiper-container', {
+			loop: loop{{v}},
+			slidesPerView: 4,
+			spaceBetween: 15,
+			<!-- DYNAMIC @is_display_goods_type1_group@ -->
+			slidesPerGroup: 4,
+			<!-- DYNAMIC @is_display_goods_type1_group@ -->
+			navigation: {
+				nextEl: '.swiper-button-next{{v}}',
+				prevEl: '.swiper-button-prev{{v}}',
+			},			
+			autoplay: {
+				delay: 3500,
+				disableOnInteraction: false,
+			},
+		});
+
+		$('.{{v}}GoodsItem').hover(function(e){
+			swiper{{v}}.autoplay.stop();
+		},function() {
+			swiper{{v}}.autoplay.start();			
+		});
+		<!-- DYNAMIC @is_display_goods_type1@ -->
+		<!-- DYNAMIC @is_display_goods_type0@ -->
+		$('.{{v}}GoodsItem .swiper-slide').removeClass('swiper-slide');
+		$('.{{v}}GoodsItem .swiper-wrapper').removeClass('swiper-wrapper');
+		$('.swiper-button-next{{v}}, .swiper-button-prev{{v}}').hide();
+		<!-- DYNAMIC @is_display_goods_type0@ -->
+	//-->
+	</script>
+	<!-- DYNAMIC @is_display_goods_item@ -->
+	
+	<!-- DYNAMIC @is_cate_goods_item@ -->
+	<div class="categoryGoodsItem">			
+		<h2 class="goodsItemTitle fontSCDream weight300">CATEGORY BEST ITEMS</h2>
+		<div class="alignCenter">
+			<!-- DYNAMIC @loop_cate_menu@ -->
+			<div class="fontSCDream weight300 categoryMenu" data-vls='{{v}}'>{{CATE_NAME}}<span class="arrow rotate225"></span></div>
+			<!-- DYNAMIC @loop_cate_menu@ -->
+		</div>
+
+		<!-- DYNAMIC @loop_cate_goods@ -->	
+		<div class="{{v}}GoodsItem cateGoodsItem">
+			<h2 class="goodsItemTitle">&nbsp;</h2>
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					<!-- DYNAMIC @loop_cate_goods_item@ -->
+					<div class="swiper-slide goodsItemBox">
+						<div class="goodsItem">
+							<ul>				
+								<li>
+									<a href="{{LINK}}"><img src="{{IMAGE}}" alt="{{NAME}}" height="285" /></a>
+									<!-- DYNAMIC @is_soldout2@ -->	
+									<span class="soldoutIcon">품절</span>
+									<!-- DYNAMIC @is_soldout2@ -->	
+								</li>
+								<li><a href="{{LINK}}">{{NAME_CODE_ABLE}}</a></li>
+								<li>
+									<div>￦{{PRICE}}</div>
+									<!-- DYNAMIC @is_coupon2@ -->	
+									<div class="couponIcon">쿠폰</div>						
+									<!-- DYNAMIC @is_coupon2@ -->
+									<!-- DYNAMIC @is_sale2@ -->	
+									<div class="salePrice">{{SALE}}%&nbsp;<i class="xi-arrow-down"></i></div>
+									<!-- DYNAMIC @is_sale2@ -->
+									<!-- DYNAMIC @is_orig_price2@ -->
+									<div class="origPrice"><s>{{ORIG_PRICE}}</s></div>
+									<!-- DYNAMIC @is_orig_price2@ -->
+								</li>
+								<li>{{ICON}}</li>
+							</ul>
+						</div>
+					</div>
+					<!-- DYNAMIC @loop_cate_goods_item@ -->						
+				</div>			
+			</div>
+			<div class="swiper-button-next swiper-button-next{{v}} circleBtn swiper-button-main" style="right:-14px; width:35px; height:40px; color:#fff; padding:0 0 0 5px;"><i class="xi-angle-right-thin xi-x"></i></div>
+			<div class="swiper-button-prev swiper-button-prev{{v}} circleBtn swiper-button-main" style="left:-20px; width:35px; height:40px; color:#fff; padding:0 5px 0 0;"><i class="xi-angle-left-thin xi-x"></i></div>
+		</div>		
+
+		<script>
+		<!--
+			<!-- DYNAMIC @is_cate_goods_type1@ -->	 
+			if($('.{{v}}GoodsItem .swiper-container .swiper-slide').length > 4) var loop{{v}} = true;
+			else																var loop{{v}} = false;
+
+			var swiper{{v}} = new Swiper('.{{v}}GoodsItem .swiper-container', {
+				loop: loop{{v}},
+				slidesPerView: 4,
+				spaceBetween: 15,
+				<!-- DYNAMIC @is_cate_goods_type1_group@ -->
+				slidesPerGroup: 4,
+				<!-- DYNAMIC @is_cate_goods_type1_group@ -->
+				navigation: {
+					nextEl: '.swiper-button-next{{v}}',
+					prevEl: '.swiper-button-prev{{v}}',
+				},			
+				autoplay: {
+					delay: 3500,
+					disableOnInteraction: false,
+				},
+			});
+
+			$('.{{v}}GoodsItem').hover(function(e){
+				swiper{{v}}.autoplay.stop();
+			},function() {
+				swiper{{v}}.autoplay.start();			
+			});
+			<!-- DYNAMIC @is_cate_goods_type1@ -->
+			<!-- DYNAMIC @is_cate_goods_type0@ -->
+			$('.{{v}}GoodsItem .swiper-slide').removeClass('swiper-slide');
+			$('.{{v}}GoodsItem .swiper-wrapper').removeClass('swiper-wrapper');
+			$('.swiper-button-next{{v}}, .swiper-button-prev{{v}}').hide();
+			<!-- DYNAMIC @is_cate_goods_type0@ -->
+		//-->
+		</script>
+		<!-- DYNAMIC @loop_cate_goods@ -->
+
+		<div style="height:500px;"></div>
+	</div>		
+	
+	<script>
+	<!--
+		$(".categoryGoodsItem .categoryMenu").hover(function(e){
+			if($(this).hasClass('hover')) return;
+			$('.categoryGoodsItem .categoryMenu').removeClass('hover');
+			$('.categoryGoodsItem .categoryMenu').find('span').stop().hide();
+			$('.categoryGoodsItem .categoryMenu').stop().animate({'padding': '4px 15px 6px 15px'}, 'fast');
+			$('.cateGoodsItem').css({'opacity' : 0});
+
+			$(this).addClass('hover');
+			$(this).find('span').fadeIn();
+			$(this).stop().animate({'padding': '4px 20px 6px 20px'}, 'fast');
+			$('.' + $(this).attr('data-vls') + 'GoodsItem').css({'opacity' : 1});
+		});
+
+		$(function() {
+			$(".categoryGoodsItem .categoryMenu").first().trigger('mouseover');
+		});
+
+	//-->
+	</script>
+	<!-- DYNAMIC @is_cate_goods_item@ -->
+
+	<!-- DYNAMIC @is_custom_code@ -->
+	<div class="mainCustomCode">{{CUSTOM_CODE}}</div>
+	<!-- DYNAMIC @is_custom_code@ -->
+
+	<!-- DYNAMIC @loop_display_goods@ -->
+
+	<script>
+	<!--
+		if($('#bestTitle').length) $('#bestTitle').html('STEADY SELLER');
+		if($('#recoTitle').length) $('#recoTitle').html('MD\'s CHOICE');
+		if($('#newTitle').length) $('#newTitle').html('NEW ARRIVAL');
+	//-->
+	</script>
+
+</div>	
+
+<div class="empty40"></div>

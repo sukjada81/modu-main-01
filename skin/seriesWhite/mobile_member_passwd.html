@@ -1,0 +1,49 @@
+<div id="contents" class="wide">
+	
+	<h2 class="contentTitle">비밀번호 변경</h2>
+
+	<div class="empty20"></div>
+
+	<form name='registForm' method='post' action='php/regist_post.php' enctype="multipart/form-data" target='HFrm'>
+	<input type="hidden" name="mode" value="passwd" />
+	<div class="registBox inputBox">
+		<ul>			
+			<li>
+				<input type='password' name='orig_passwd' required="required" data-title="기존 비밀번호" data-msg="기존 비밀번호를" data-icon-no=1 />
+			</li>
+			<li>
+				<input type='password' name='passwd' required="required" data-title="새로운 비밀번호" data-detail='영문, 숫자, 특수문자 2가지 이상 조합 8~20자' data-msg="새로운 비밀번호를" data-check-password='1' />
+			</li>
+			<li>
+				<input type='password' name='re_passwd' required="required" data-title="새로운 비밀번호확인" data-detail='영문, 숫자, 특수문자 2가지 이상 조합 8~20자' data-msg="새로운 비밀번호확인을" data-check-password='2' data-check-field='document.registForm.passwd' data-on-enter=1 />
+			</li>
+		</ul>
+	</div>
+	
+	<div class="empty20"></div>
+
+	<div class="btnShineBox">
+		<div class="displayInline width100"><button class="fontSCDream weight300 shine fixWidth" type="submit">비밀번호 변경</button></div>
+		<div class="btnPrev"><i class="xi-arrow-left xi-x"></i></div>
+		<div class="btnPrevTitle fontNoto">이전페이지</div>
+	</div>
+
+	<div class="empty30"></div>
+	
+</div>	
+
+<script>
+<!--
+	
+	var contentBtnHeight = 75;
+	if($('.btnShineBox').length) btnShineBoxPositionTop = $('.btnShineBox').offset().top;
+	else btnShineBoxPositionTop = 0;
+
+	function infoReset() {
+		$("form[name=registForm] input[name='orig_passwd']").val('').trigger('focus');
+		$("form[name=registForm] input[name='passwd']").val('').trigger('focus');
+		$("form[name=registForm] input[name='re_passwd']").val('').trigger('focus').trigger('blur');
+	}
+		
+//-->
+</script>

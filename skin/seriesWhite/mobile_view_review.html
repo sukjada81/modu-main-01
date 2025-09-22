@@ -1,0 +1,38 @@
+<div id="listArea">
+	<!-- DYNAMIC @is_list_area@ -->
+	<div class="comment_list">
+	<ul>
+		<!-- DYNAMIC @loop_list@ -->
+		<li class="comment_title">
+			<!-- DYNAMIC @is_files@ -->
+			<i class="xi-camera xi-x"></i>
+			<!-- DYNAMIC @is_files@ -->
+			<span>
+				<!-- DYNAMIC @loop_stars@ -->
+				<i class="xi-star"></i>
+				<!-- DYNAMIC @loop_stars@ -->					
+			</span>
+			<span class="name">{{NAME}}</span>
+			<span class="date">{{SIGNDATE}}</span>					
+		</li>
+		<li class="comment_content">
+			<!-- DYNAMIC @is_op_name@ -->
+			<div class="options">선택옵션 <span>{{OP_NAME}}</span></div>
+			<!-- DYNAMIC @is_op_name@ -->
+			{{CONTENT}}
+			<!-- DYNAMIC @is_attach@ -->
+			<div class="empty10"></div>
+			<a href="#review" class="image" data-uid="{{UID}}">
+				<!-- DYNAMIC @loop_attach@ -->
+				<div class="imageBg" style="background-image: url('image/review/{{attach_name}}')">
+					<div class="icon_pop"><i class="xi-focus-frame xi-x"></i></div>
+				</div>
+				<!-- DYNAMIC @loop_attach@ -->
+			</a>
+			<!-- DYNAMIC @is_attach@ -->
+			<div class="empty1"></div>
+		</li>
+		<!-- DYNAMIC @loop_list@ -->
+	</ul>
+	<!-- DYNAMIC @is_list_area@ -->
+</div>

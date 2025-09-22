@@ -1,0 +1,48 @@
+<div id="listArea">
+	<!-- DYNAMIC @is_list_area@ -->
+	<table class="listIn">
+	<colgroup>
+	<col width="100%" />
+	</colgroup>
+	<tbody>
+	<!-- DYNAMIC @loop_list@ -->			
+	<tr class="listTitle listSubject" data-num='{{UID}}' data-uid="{{UID}}" data-secret="{{SECRET}}">
+		<td class="tleft">
+			<div class="empty10"></div>
+			<!-- DYNAMIC @is_secret@ -->
+			<i class="xi-lock-o xi-x" title="비밀글"></i>
+			<!-- DYNAMIC @is_secret@ -->
+			{{SUBJECT}}			
+			<div class="empty10"></div>
+			<div class="size12 colorGray">{{ANSWER_TYPE}} | {{NAME}} | <span class="fontMontserrat">{{SIGNDATE}}</span></div>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" class="content content{{UID}}">
+			<div class="inquiry">
+				<div class="titles">Q</div>
+				<div class="content">					
+					{{CONTENT}}
+					<!-- DYNAMIC @is_attach@ -->
+					<div class="image" data-uid="{{UID}}">
+						<!-- DYNAMIC @loop_attach@ -->
+						<img src="image/inquiry/{{attach_name}}" alt="" />
+						<!-- DYNAMIC @loop_attach@ -->
+					</div>
+					<!-- DYNAMIC @is_attach@ -->					
+				</div>
+				<!-- DYNAMIC @is_answer@ -->	
+				<div class="empty20"></div>
+				<div class="titles">A</div>
+				<div class="content">					
+					{{ANSWER}}		
+				</div>
+				<!-- DYNAMIC @is_answer@ -->	
+			</div>
+		</td>
+	<tr>
+	<!-- DYNAMIC @loop_list@ -->	
+	</tbody>
+	</table>
+	<!-- DYNAMIC @is_list_area@ -->
+</div>

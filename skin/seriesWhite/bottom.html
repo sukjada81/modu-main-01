@@ -1,0 +1,141 @@
+<div id="footer">
+	<div id="copyMenu">
+		<ul class="floatLeft" style="width:600px;">
+			<li style="padding-left:0"><a href='{{Main}}'>HOME</a></li>
+			<li><a href='{{Main}}?channel=agreement'>AGREEMENT</a></li>
+			<li class="weight500"><a href='{{Main}}?channel=privacy'>PRIVACY POLICY</a></li>			
+			<li><a href='{{Main}}?channel=cs_center'>CS CENTER</a></li>
+		</ul>
+		<!-- DYNAMIC @is_vendor_link@ -->
+		<ul class="floatRight">
+			<li style="padding-left:0"><a href='{{Main}}?channel=regist_vendor'>입점신청</a></li>
+			<li><a href='vendor/'>입점사로그인</a></li>			
+		</ul>
+		<!-- DYNAMIC @is_vendor_link@ -->
+	</div>	
+
+	<script>
+	<!--
+		copyMenus	= new textMenus("copyMenu");
+	//-->
+	</script>
+
+	<div id="copyArea">		
+		<div id="copyText">
+			<div class="copyCsCenter">
+				<div>CS CENTER</div>
+				<p class="num">{{CO_TEL}}</p>
+				<p>MON FRI <span class="num">{{CS_TIME1}}</span></p>
+				<p>SAT <span class="num">{{CS_TIME2}}</span></p>
+				<p>SUN/HOLIDAY <span>{{CS_TIME3}}</span></p>
+				<p>LUNCH <span class="num">{{CS_TIME4}}</span></p>
+			</div>
+
+			<div class="copyBankAccount">
+				<div>BANK ACCOUNT</div>				
+				<!-- DYNAMIC @loop_bank@ -->
+				<p>{{BANK_NAME}}&nbsp;&nbsp;<span class="num">{{BANK_NUM}}</span>&nbsp;&nbsp;{{BANK_OWNER}}</p>
+				<!-- DYNAMIC @loop_bank@ -->				
+			</div>
+
+			<div class="copyCompanyInformation">
+				<div>COMPANY INFORMATION</div>
+				<p>CAMPANY&nbsp;&nbsp;<span>{{CO_NAME}}</span>&nbsp;&nbsp;&nbsp;&nbsp;OWNER&nbsp;&nbsp;<span>{{CO_OWNER}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+					<a href="https://www.ftc.go.kr/bizCommPop.do?wrkr_no={{CO_NUM3}}" target="_blank"><i class="xi-external-link"></i>&nbsp;사업자정보확인</a>
+				</p>
+				<p>BUSINESS LICENSE&nbsp;&nbsp;<span class="num">{{CO_NUM1}}</span>&nbsp;&nbsp;&nbsp;&nbsp;MAIL-ORDER LICENSE&nbsp;&nbsp;<span>{{CO_NUM2}}</span></p>
+				<p>ADDRESS&nbsp;&nbsp;<span>{{CO_ADDR}}</span>&nbsp;&nbsp;&nbsp;&nbsp;FAX&nbsp;&nbsp;<span class="num">{{CO_FAX}}</span></p>
+				<!-- DYNAMIC @is_return_address@ -->
+				<p>RETURN ADDRESS&nbsp;&nbsp;<span>{{CO_ADDR}}</span></p>
+				<!-- DYNAMIC @is_return_address@ -->
+				<p>MASTER&nbsp;&nbsp;<span>{{CO_ADMIN}}</span>&nbsp;&nbsp;&nbsp;&nbsp;E-MAIL&nbsp;&nbsp;<a href="mailto:{{CO_EMAIL}}"><span>{{CO_EMAIL}}</span></a></p>
+			</div>
+		</div>		
+		<div id="copyIcon">			
+			<!-- DYNAMIC @is_icon1@ -->
+			<p><span>국세청 현금영수증 가맹점</span> <img src="img/icon_cash.gif" alt="국세청 현금영수증 가맹점" /></p>
+			<!-- DYNAMIC @is_icon1@ -->
+			<!-- DYNAMIC @is_icon2@ -->
+			<p><span>SSL 결제보안인증 사이트</span> <img src="img/icon_ssl.gif" alt="SSL 결제보안인증 사이트" />&nbsp;</p>
+			<!-- DYNAMIC @is_icon2@ -->
+			<!-- DYNAMIC @is_icon3@ -->
+			<p><span>공정거래위원회 인증표준약관사용</span> <img src="img/icon_ftc.gif" alt="공정거래위원회 인증표준약관사용" /></p>
+			<!-- DYNAMIC @is_icon3@ -->
+		</div>		
+		
+		<div id="copyRight" class="gdDefault">
+			COPYRIGHT <i class="xi-copyright"></i>&nbsp;&nbsp;{{CO_SHOP_NAME}}&nbsp;&nbsp;ALL RIGHTS RESERVED.
+		</div>
+	</div>
+	
+	<div class="clear">&nbsp;</div>
+
+</div>
+
+<div id="btnQuickMenu">
+	<div class="btns">
+		<div><i id="btnQuickSearh" class="xi-search xi-x" title="검색"></i></div>
+		<div id="btnQuickRecent">
+			<i class="xi-clock-o xi-x" title="최근본상품"></i>
+			<p class="recent_view_cnt">{{RECENT_VIEW_CNT}}</p>		
+		</div>
+		<div id="btnQuickCart">
+			<i class="xi-cart-o xi-x" title="장바구니"></i>
+			<p class="cart_cnt">{{CART_CNT}}</p>
+		</div>		
+	</div>	
+</div>
+
+<div id="btnTopDown">
+	<div class="btnCircle"><div class="btnCircleTitle">상단으로 가기</div><i class="xi-angle-up-thin"></i></div>
+	<div class="empty10">&nbsp;</div>
+	<div class="btnCircle"><div class="btnCircleTitle">하단으로 가기</div><i class="xi-angle-down-thin"></i></div>
+</div>
+
+<div id="rightBoxHoldMenu">
+	<div class="title">최근본 상품 <i class="xi-close xi-x recentClose" title="닫기"></i></div>
+	<div class="item">
+		<!-- DYNAMIC @loop_recent_view@ -->
+		<div class="date">{{DATES}} <span>{{WEEKS}}</span></div>
+		<div class="goods">
+			<!-- DYNAMIC @loop_recent_view_goods@ -->
+			<div id="recentView_{{RECENT_UID}}">
+				<a href="{{Main}}?channel=view&uid={{UID}}"><img src="image/goods/img{{IMAGE}}" alt="{{NAME}}" /></a>
+				<i class="xi-close recentDel" data-uid='{{RECENT_UID}}' title="삭제"></i>
+			</div>
+			<!-- DYNAMIC @loop_recent_view_goods@ -->
+		</div>	
+		<div class="empty20"></div>
+		<!-- DYNAMIC @loop_recent_view@ -->
+		<!-- DYNAMIC @loop_empty_recent_view@ -->
+		<div class="empty"> 최근본 상품이 없습니다.</div>
+		<!-- DYNAMIC @loop_empty_recent_view@ -->
+	</div>
+</div>
+
+<!-- DYNAMIC @is_popup_init@ -->
+<script src="lib/jssor.slider.min.js??ver={{ver}}"></script>
+<!-- DYNAMIC @is_popup_init@ -->
+
+<script>
+<!--
+
+<!-- DYNAMIC @loop_popup@ -->
+$.fn.btobPopup({
+	position: '{{POP_POSITION}}',
+	posx: '{{POP_POSX}}',
+	posy: '{{POP_POSY}}',
+	width: '{{POP_WIDTH}}',
+	height: '{{POP_HEIGHT}}',
+	content: "{{POP_CONTENT}}",
+	name: "{{POP_NAME}}",
+	link: "{{POP_LINK}}",
+	cookie: "{{POP_COOKIE}}",
+	img: "{{POP_IMG}}"
+});
+<!-- DYNAMIC @loop_popup@ -->
+
+// -->
+</script>
+
+<iframe name="HFrm" style="display:none;width:100%; "></iframe>

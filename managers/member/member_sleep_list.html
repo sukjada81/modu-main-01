@@ -1,0 +1,191 @@
+<div class="content">
+	
+	<form name='searchForm' method='get' action='{{PHP_SELF}}'>
+	<div class="searchBox">
+		<div class="floatLeft">
+			<select name="field">
+				<option value="multi">통합검색</option>
+				<option value="name">회원명</option>
+				<option value="id">아이디</option>
+				<option value="email">이메일</option>								
+				<option value="cell">휴대폰번호</option>
+			</select>			
+		</div>
+		<div class="searchBoxIn">
+			<input type="text" name="keyword" value="{{keyword}}" data-search-btn="1" data-on-enter="1" />
+			<p class="resetIcon resetIconBtn"><i class="xi-undo masterTooltip" title="초기화"></i></p>
+		</div>		
+	</div>	
+	</form>
+
+	<script>
+	<!--	
+		
+		$("form[name=searchForm] select[name='field']").val('{{field}}').heapbox({'width' : '200px'});		
+	//-->
+	</script>
+
+	<div class="empty60"></div>
+	
+	<div class="listTop">
+		<form name='listSearchForm' method='get' action='{{PHP_SELF}}?{{searchstring}}' />
+		<div class="listLeft size14">
+			전체 : <b class="orange">{{ATOTAL}}</b>건 
+			<!-- DYNAMIC @is_search@ -->
+			, 검색 : <b class="orange">{{TOTAL}}</b>건
+			<!-- DYNAMIC @is_search@ -->
+		</div>
+		<div class="listRight size10">
+			<div class="floatLeft">
+				<select name="sort">
+					<option value="uid DESC">휴면회원전환일 역순</option>
+					<option value="uid ASC">휴면회원전환일 순</option>
+					<option value="name DESC">이름 역순</option>
+					<option value="name ASC">이름 순</option>					
+				</select>
+				&nbsp;&nbsp;
+			</div>
+			<div class="floatLeft">				
+				<select name="limit">
+					<option value="10">10개 보기</option>
+					<option value="20">20개 보기</option>
+					<option value="30">30개 보기</option>
+					<option value="40">40개 보기</option>
+					<option value="50">50개 보기</option>
+					<option value="60">60개 보기</option>
+					<option value="70">70개 보기</option>
+					<option value="80">80개 보기</option>
+					<option value="90">90개 보기</option>
+					<option value="100">100개 보기</option>
+				</select>
+			</div>
+		</div>
+		</form>
+	</div>
+
+	<div class="empty10"></div>
+	<div class="listLine"></div>
+	<div class="listSelect" style="width:46%;">
+		<div class="floatLeft">
+			<button class="graButtonWhite secDelete" type="button"><span class="text"><i class="xi-file-check-o xi-x"></i> 선택탈퇴처리</span></button>
+			<button class="graButtonWhite secRestore" type="button"><span class="text"><i class="xi-file-check-o xi-x"></i> 선택휴면해제</span></button>
+		</div>		
+	</div>
+
+	<div id="listArea">		
+		<!-- DYNAMIC @is_list_area@ -->
+		<form name="listForm" method="post" action='member_post.php?{{addstring}}' target='HFrm'>
+		<input type="hidden" name="mode" />
+		<input type="hidden" name="value" />
+		<table class="listIn" class="fixed-header">
+		<colgroup>			
+			<col style="width:50px"  />			<!-- 선택 --> 
+			<col style="width:60px"  />			<!-- 번호 --> 
+			<col style="width:120px"  />		<!-- 이름 --> 
+			<col style="width:120px"  />		<!-- 아이디 --> 	
+			<col style="width:120px"  />		<!-- 회원등급 --> 
+			<col />								<!-- 이메일 --> 
+			<col style="width:100px"  />		<!-- 마일리지 --> 
+			<col style="width:110px"  />		<!-- 최종접속일 -->
+			<col style="width:110px"  />		<!-- 최종주문일 -->
+			<col style="width:110px"  />		<!-- 회원가입일 -->
+			<col style="width:110px"  />		<!-- 휴면회원전환일 --> 
+		</colgroup>
+		<thead> 
+		<tr> 
+			<th><label><input type='checkbox' name="check_all" id="check_all" value="1" /><span></span></label></th>			
+			<th>번호</th>
+			<th>이름</th>
+			<th>아이디</th>
+			<th>회원등급</th>
+			<th>이메일</th>
+			<th>마일리지</th>
+			<th>최종접속일</th>
+			<th>최종주문일</th>
+			<th>회원가입일</th>
+			<th>휴면회원전환일</th>
+		</tr>
+		</thead>
+		<tbody>
+		<!-- DYNAMIC @loop_list@ -->
+		<tr>			
+			<td><label><input type='checkbox' name="item[]" value="{{UID}}" /><span></span></label></td>
+			<td class="number">{{NUM}}</td>
+			<td>{{NAME}}</td>
+			<td>{{ID}}</td>
+			<td>{{LEVEL}}</td>
+			<td>{{EMAIL}}</td>
+			<td class="number">{{MILEAGE}}</td>
+			<td class="number">{{LOGIN_TIME}}</td>
+			<td class="number">{{ORDER_TIME}}</td>
+			<td class="number">{{SIGNDATE}}</td>
+			<td class="number">{{SLEEP_TIME}}</td>
+
+		</tr>
+		<!-- DYNAMIC @loop_list@ -->
+		<!-- DYNAMIC @empty_list@ -->
+		<tr>
+			<td colspan="11" class="emptyList"><i class="fas fa-quote-left"></i>&nbsp;&nbsp;등록(검색)된 휴먼회원이 없습니다!&nbsp;&nbsp;<i class="fas fa-quote-right"></i></td>
+		<tr>
+		<!-- DYNAMIC @empty_list@ -->
+		</tbody>
+		</table>		
+		</form>
+		<!-- DYNAMIC @is_list_area@ -->		
+	</div>
+
+	<div class="listSelectB" style="width:46%;"></div>
+	<div class="listSelectRB"></div>
+	<div class="listLineB"></div>
+
+	<div class="paging">{{PAGING}}</div>
+
+</div>
+
+<script src="../../lib/jquery.timeliny.js?ver={{ver}}"></script>
+<script>
+<!--	
+	
+	var defaultUrl		= "{{PHP_SELF}}?{{searchstring}}";
+	var defaultSort		= "{{sort}}";
+	var defaultLimit	= "{{limit}}";
+	var defaultPage		= "{{page}}";
+	var pagingType		= '{{PAGING_TYPE}}';	
+	var lastPage		= '{{total_page}}';
+	var defaultTotal	= '{{TOTAL}}';
+
+// -->
+</script>
+<script src="../common/listProc.js?ver={{ver}}"></script>
+<script>
+<!--
+	
+	$(function() {
+		
+		$('.listSelectB').html($('.listSelect').html());		
+		
+		$('.secDelete').click(function(e) {
+			var ret = listFormCheck();
+			if(!ret) return false;
+
+			alertify.confirm('회원탈퇴처리', '정말로 선택된 회원을 탈퇴처리 하시겠습니까?<br />탈퇴처리시 해당 회원의 모든정보가 사라지며 복구 할 수 없습니다.', function() { 
+				$("form[name=listForm] input[name='mode']").val('sleep_delete');
+				$("form[name=listForm]").submit(); }
+				, function(){ });
+		});
+
+		$('.secRestore').click(function(e) {
+			var ret = listFormCheck();
+			if(!ret) return false;
+
+			alertify.confirm('휴먼회제', '정말로 선택한 회원을 휴면회원 상태에서 해제하시겠습니까?<br />해제 시 해당 회원은 다시 서비스를 정상적으로 이용하실 수 있습니다.', function() { 
+				$("form[name=listForm] input[name='mode']").val('sleep_restore');
+				$("form[name=listForm]").submit(); }
+				, function(){ });
+		});
+
+	});
+
+
+//-->
+</script>

@@ -1,0 +1,245 @@
+<div class="content">
+	
+	<form name='searchForm' method='get' action='{{PHP_SELF}}'>
+	<div class="searchBox">
+		<div class="floatLeft">
+			<select name="field">
+				<option value="name">모음전명</option>
+				<option value="goods_name">상품명</option>
+			</select>			
+		</div>
+		<div class="searchBoxIn">
+			<input type="text" name="keyword" value="{{keyword}}" data-search-btn="1" data-on-enter="1" />
+			<p class="resetIcon resetIconBtn"><i class="xi-undo masterTooltip" title="초기화"></i></p>
+		</div>
+
+		<div class="expensionArrow">
+			<div class="box"></div>
+			<i class="xi-arrow-down box_down"></i>			
+		</div>
+	</div>
+	<div class="searchDetail">
+		<div class="searchDetailBox">
+			<table class="search">
+			<colgroup>
+			<col width="33%" /> 
+			<col width="33%" />
+			<col width="33%" /> 
+			</colgroup>
+			<tr> 
+				<td>
+					<select name="discount_yn">
+						<option value="">할인여부</option>
+						<option value="Y">사용함</option>
+						<option value="N">사용안함</option>						
+					</select>							
+				</td>
+				<td>
+					<select name="status">
+						<option value="">진행상태</option>
+						<option value="1">준비중</option>
+						<option value="2">진행중</option>
+						<option value="3">종료</option>
+					</select>						
+				</td>			
+				<td>
+					<select name="cate_info">
+						<option value="">모음전분류</option>
+						<option value="1">사용함</option>
+						<option value="0">사용안함</option>
+					</select>
+				</td>
+			</tr>			
+			</table>					
+		</div>	
+		<div class="btnSearchSubmitBox">
+			<div class="btnCircleSearch"><div class="btnCircleSearchTitle">검색</div><i class="xi-search xi-x"></i></div>
+			<div class="btnCircleReset"><div class="btnCircleResetTitle">초기화</div><i class="xi-undo xi-x"></i></div>						
+		</div>
+	</div>
+	</form>
+
+	<script>
+	<!--	
+		$("form[name=searchForm] select[name='field']").val('{{field}}').heapbox({'width' : '200px'});
+		$("form[name=searchForm] select[name='discount_yn']").val('{{discount_yn}}').heapbox({'width' : '91%'});
+		$("form[name=searchForm] select[name='status']").val('{{status}}').heapbox({'width' : '91%'});
+		$("form[name=searchForm] select[name='cate_info']").val('{{cate_info}}').heapbox({'width' : '91%'});
+		
+		$('.searchDetail').hide();
+	//-->
+	</script>
+
+	<div class="empty60"></div>
+	
+	<div class="listTop">
+		<form name='listSearchForm' method='get' action='{{PHP_SELF}}?{{searchstring}}' />
+		<div class="listLeft size14">
+			전체 : <b class="orange">{{ATOTAL}}</b>건 
+			<!-- DYNAMIC @is_search@ -->
+			, 검색 : <b class="orange">{{TOTAL}}</b>건
+			<!-- DYNAMIC @is_search@ -->
+		</div>
+		<div class="listRight size10">
+			<div class="floatLeft">
+				<select name="sort">
+					<option value="uid DESC">등록일 역순</option>
+					<option value="uid ASC">등록일 순</option>					
+				</select>
+				&nbsp;&nbsp;
+			</div>
+			<div class="floatLeft">				
+				<select name="limit">
+					<option value="10">10개 보기</option>
+					<option value="20">20개 보기</option>
+					<option value="30">30개 보기</option>
+					<option value="40">40개 보기</option>
+					<option value="50">50개 보기</option>
+					<option value="60">60개 보기</option>
+					<option value="70">70개 보기</option>
+					<option value="80">80개 보기</option>
+					<option value="90">90개 보기</option>
+					<option value="100">100개 보기</option>
+				</select>
+			</div>
+		</div>
+		</form>
+	</div>
+
+	<div class="empty10"></div>
+	<div class="listLine"></div>
+	<div class="listSelect">
+		<button class="graButtonWhite secDelete" type="button"><span class="text"><i class="xi-file-check-o xi-x"></i> 선택삭제</span></button>
+	</div>
+
+	<div class="listSelectR">
+		<button class="graident1 graButton btnWrite" type="button"><i class="fas fa-link"></i> 모음전등록</button>
+	</div>
+	
+	<div id="listArea">
+		<!-- DYNAMIC @is_list_area@ -->
+		<form name="listForm" method="post" action='exhibition_post.php?{{addstring}}' target='HFrm'>
+		<input type="hidden" name="mode" />
+		<table class="listIn fixed-header">
+		<colgroup>
+		<col width="5%" /> 
+		<col width="5%" /> 
+		<col width="46%" />
+		<col width="5%" />
+		<col width="8%" />
+		<col width="8%" />
+		<col width="8%" />
+		<col width="10%" />
+		<col width="8%" />
+		<col width="5%" />
+		</colgroup>
+		<thead> 
+		<tr> 
+			<th><label><input type='checkbox' name="check_all" id="check_all" value="1" /><span></span></label></th>
+			<th>번호</th>
+			<th>모음전명 <i class="xi-link"></i> / 할인 기간</th>
+			<th>할인</th>
+			<th>할인률</th>
+			<th>진행상태</th>
+			<th>상품수 <i class="xi-link"></i></th>
+			<th>등록일</th>
+			<th>링크</th>
+			<th>처리</th>
+		</tr>
+		</thead>
+		<tbody>
+		<!-- DYNAMIC @loop_list@ -->		
+		<tr>
+			<td><label><input type='checkbox' name="item[]" value="{{UID}}" class="ckeckItem" /><span></span></label></td>
+			<td class="number">{{NUM}}</td>
+			<td style="text-align:left">
+				<div><a href="exhibition_info.php?mode=modify2&uid={{UID}}{{addstring}}" title="수정하기"  class="underLine">{{NAME}}</a></div>
+				<div class="category fontMontserrat" style="font-size:14px">{{S_DATE}}</div>
+			</td>
+			<td>{{DISCOUNT_YN}}</td>
+			<td class="number">{{DISCOUNT}}%</td>
+			<td>{{STATUS}}</td>
+			<td class="number">{{CNTS}}</td>
+			<td class="number">{{SIGNDATE}}</td>
+			<td><a href="../../index.php?channel=exhibition&uid={{UID}}" target="_blank"><i class="fas fa-desktop masterTooltip" title="쇼핑몰 모음전"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-clipboard-check size12 masterTooltip btnExhibitionUrl" title="링크복사" data-uid='{{UID}}'></i></td>		
+			<td><i class="fas fa-edit masterTooltip" title="수정하기" onclick="window.location.href='exhibition_info.php?mode=modify2&uid={{UID}}{{addstring}}'"></i></td>		
+		</tr>
+		<!-- DYNAMIC @loop_list@ -->
+		<!-- DYNAMIC @empty_list@ -->
+		<tr>
+			<td colspan="10" class="emptyList"><i class="fas fa-quote-left"></i>&nbsp;&nbsp;등록(검색)된 모음전이 없습니다!&nbsp;&nbsp;<i class="fas fa-quote-right"></i></td>
+		<tr>
+		<!-- DYNAMIC @empty_list@ -->
+		</tbody>
+		</table>
+		</form>
+		<!-- DYNAMIC @is_list_area@ -->
+	</div>
+
+	<div class="listSelectB"></div>
+	<div class="listSelectRB"></div>
+	<div class="listLineB"></div>
+
+	<div class="paging">{{PAGING}}</div>
+
+</div>
+
+<script src="../../lib/jquery.timeliny.js?ver={{ver}}"></script>
+<script>
+<!--	
+	
+	var defaultUrl		= "{{PHP_SELF}}?{{searchstring}}";
+	var defaultSort		= "{{sort}}";
+	var defaultLimit	= "{{limit}}";
+	var defaultPage		= "{{page}}";
+	var pagingType		= '{{PAGING_TYPE}}';	
+	var lastPage		= '{{total_page}}';
+	var defaultTotal	= '{{TOTAL}}';
+
+// -->
+</script>
+<script src="../common/listProc.js?ver={{ver}}"></script>
+<script>
+<!--
+	
+	$(function() {
+		
+		$('.listSelectB').html($('.listSelect').html());
+		$('.listSelectRB').html($('.listSelectR').html());
+		
+		$('.secDelete').click(function(e){
+			var ret = listFormCheck();
+			if(!ret) return false;
+
+			alertify.confirm('모음전삭제', '정말로 선택된 모음전을 삭제 하시겠습니까?<br />진행중인 모음전 할인이 있는 경우 상품의 할인이 없어 집니다.', function() { 
+				$("form[name=listForm] input[name='mode']").val('delete');
+				$("form[name=listForm]").submit(); }
+				, function(){ });
+
+		});
+
+		$('.btnWrite').click(function(e){
+			window.location.href = "exhibition_info.php";
+		});
+
+		var clipboard = new ClipboardJS('.btnExhibitionUrl', {
+			text: function(trigger) {							
+				return '{{URL}}?channel=exhibition&uid=' + $(trigger).attr('data-uid');
+			}
+		});
+
+		clipboard.on('success', function(e) {
+			alertify.success('클립보드에 복사 되었습니다.');						
+			clipboard.destroy();
+		});	
+
+		<!-- DYNAMIC @is_search_open@ -->
+		$('.expensionArrow').trigger('click');
+		<!-- DYNAMIC @is_search_open@ -->	
+
+		checkAllRe();
+
+	});
+
+//-->
+</script>

@@ -1,0 +1,166 @@
+<form name='signForm' method='post' action='design_post.php' target='HFrm'>					
+<input type="hidden" name="mode" value="skin" />
+
+<div class="content">
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;사용중인 스킨
+	</div>
+
+	<table class="listIn">
+	<colgroup>
+	<col width="15%" /> 
+	<col width="15%" /> 
+	<col width="15%" /> 
+	<col width="55%" /> 	
+	</colgroup>
+	<thead>
+	<tr> 
+		<th>스킨썸네일</th>
+		<th>스킨명</th>
+		<th>스킨경로</th>
+		<th>스킨설명</th>
+	</tr>
+	</thead>
+	<tbody>
+	<!-- DYNAMIC @is_skin@ -->
+	<tr>
+		<td><img src="{{SKIN_THUM}}" alt="{{SKIN_NAME}}" /></td>
+		<td>{{SKIN_NAME}}</td>
+		<td>{{SKIN_PATH}}</td>
+		<td>{{SKIN_DESC}}</td>
+	</tr>
+	<!-- DYNAMIC @is_skin@ -->
+	<!-- DYNAMIC @no_skin@ -->
+	<tr>
+		<td colspan="4" style="padding:20px 0">사용중인 스킨이 없습니다. 아래 스킨선택에서 사용할 스킨을 선택 하시기 바랍니다.</td>
+	</tr>
+	<!-- DYNAMIC @no_skin@ -->
+	</tbody>
+	</table>
+
+	<div class="empty60"></div>
+
+	<!-- DYNAMIC @is_skin_ing@ -->
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;작업중인 스킨 <a href="../../index.php?skin_ing=Y" target="_blank" class="link"><i class="fas fa-link masterTooltip" title="작업중인 스킨보기"></i></a>
+	</div>
+
+	<table class="listIn">
+	<colgroup>
+	<col width="15%" /> 
+	<col width="15%" /> 
+	<col width="15%" /> 
+	<col width="50%" /> 	
+	</colgroup>
+	<thead>
+	<tr> 
+		<th>스킨썸네일</th>
+		<th>스킨명</th>
+		<th>스킨경로</th>
+		<th>스킨설명</th>
+		<th>해제</th>
+	</tr>
+	</thead>
+	<tbody>
+	<!-- DYNAMIC @is_skin_ing_info@ -->
+	<tr>
+		<td><img src="{{SKIN_THUM}}" alt="{{SKIN_NAME}}" /></td>
+		<td>{{SKIN_NAME}}</td>
+		<td>{{SKIN_PATH}}</td>
+		<td>{{SKIN_DESC}}</td>
+		<td><label><input type='checkbox' name="itemIngX" value="1" /><span></span></label></td>
+	</tr>
+	<!-- DYNAMIC @is_skin_ing_info@ -->
+	</tbody>
+	</table>
+
+	<div class="empty60"></div>
+	<!-- DYNAMIC @is_skin_ing@ -->
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;스킨선택 <i class="xi-help xi-x colorDGary masterTooltip" title="- 사용하실 스킨을 선택 후 저장하기를 누르시면 됩니다.[BR]- 작업중인 스킨이 있다면 작업에 선택 후 저장하기를 누르시면 됩니다.[BR]- 작업스킨은 고객에는 적용이 되지 않으며 사용자 페이지 접속시 skin_ing=Y 파라미터로 접속시에만 적용이 됩니다."></i>
+	</div>
+
+	<table class="listIn fixed-header" id="skinConf">
+	<colgroup>
+	<col width="15%" /> 
+	<col width="15%" /> 
+	<col width="15%" /> 
+	<col width="45%" />
+	<col width="5%" />
+	<col width="5%" />
+	</colgroup>
+	<thead>
+	<tr> 
+		<th>스킨썸네일</th>
+		<th>스킨명</th>
+		<th>스킨경로</th>
+		<th>스킨설명</th>
+		<th>사용</th>
+		<th>작업</th>
+	</tr>
+	</thead>
+	<tbody>	
+	<!-- DYNAMIC @loop_skin@ -->
+	<tr>
+		<td><img src="{{SKIN_THUM}}" alt="{{SKIN_NAME}}" /></td>
+		<td>{{SKIN_NAME}}</td>
+		<td>{{SKIN_PATH}}</td>
+		<td>{{SKIN_DESC}}</td>
+		<td><label><input type='checkbox' name="item[]" value="{{skin_info}}" class="ckeckItem" /><span></span></label></td>
+		<td><label><input type='checkbox' name="itemIng[]" value="{{skin_info}}" class="ckeckItemIng" /><span></span></label></td>
+	</tr>
+	<!-- DYNAMIC @loop_skin@ -->
+	</tbody>
+	</table>
+
+	<div class="empty60"></div>
+
+	<div class="btnSubmitBox">
+		<button class="weight300 shine" type="submit">저장하기</button>
+	</div>
+
+</div>
+
+</form>
+
+<script src="../../lib/fancyTable.js?ver={{ver}}"></script>
+<script>
+<!--
+	$(function() {		
+
+		$("#skinConf").fancyTable({
+			sortColumn:2, // column number for initial sorting
+			sortable: true,
+			pagination: true, // default: false
+			perPage: 100,
+			searchable: false,	
+		});
+
+		$('.ckeckItem').on('click', function(e){
+			if(!$(this).prop("checked")) {
+				$(this).prop("checked",false);
+			}
+			else {
+				$("form[name=signForm] input[name='item[]']:checkbox:checked").each(function(i) {
+					$(this).prop("checked",false);
+				});
+				$(this).prop("checked",true);
+			}
+		});	
+
+		$('.ckeckItemIng').on('click', function(e){
+			if(!$(this).prop("checked")) {
+				$(this).prop("checked",false);
+			}
+			else {
+				$("form[name=signForm] input[name='itemIng[]']:checkbox:checked").each(function(i) {
+					$(this).prop("checked",false);
+				});
+				$(this).prop("checked",true);
+			}
+		});	
+	});
+//-->
+</script>

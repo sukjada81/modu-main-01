@@ -1,0 +1,549 @@
+<form name='cateForm' method='post' action='cate_post.php' enctype="multipart/form-data" target='HFrm'>					
+<input type="hidden" name="mode" value="write" />
+<input type="hidden" name="cate_dep" value="1" />
+<input type="hidden" name="cate" value="" />
+<input type="hidden" name="cate_order1" value="" />
+<input type="hidden" name="cate_order2" value="" />
+<input type="hidden" name="cate_order3" value="" />
+<input type="hidden" name="cate_order4" value="" />
+<input type="hidden" name="cate_location_name1" value="" />
+<input type="hidden" name="cate_location_name2" value="" />
+<input type="hidden" name="cate_location_name3" value="" />
+<input type="hidden" name="cate_location_name4" value="" />
+<input type="hidden" name="img_del1" value="" />
+<input type="hidden" name="img_del2" value="" />
+<input type="hidden" name="img_del3" value="" />
+
+
+<div class="content">
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;상품분류 선택
+	</div>
+
+	<table class="listIn">
+	<colgroup>
+	<col width="25%" /> 
+	<col width="25%" />
+	<col width="25%" /> 
+	<col width="25%" />	
+	</colgroup>
+	<thead>
+	<tr> 
+		<th>1차분류 <i class="xi-arrows xi-x colorDGary masterTooltip" title="등록된 항목을 마우스로 누르고 아래 위로 이동하시면 순서를 변경 하실 수 있습니다."></i></th>
+		<th>2차분류 <i class="xi-arrows xi-x colorDGary masterTooltip" title="등록된 항목을 마우스로 누르고 아래 위로 이동하시면 순서를 변경 하실 수 있습니다."></i></th>
+		<th>3차분류 <i class="xi-arrows xi-x colorDGary masterTooltip" title="등록된 항목을 마우스로 누르고 아래 위로 이동하시면 순서를 변경 하실 수 있습니다."></i></th>
+		<th>4차분류 <i class="xi-arrows xi-x colorDGary masterTooltip" title="등록된 항목을 마우스로 누르고 아래 위로 이동하시면 순서를 변경 하실 수 있습니다."></i></th>
+	</tr>
+	</thead>
+	<tbody class="cateSortable">
+	<tr>
+		<td>
+			<ul id="cateSortable1"></ul>
+		</td>
+		<td>
+			<div class="bgCircle" id="unLink2"><i class="fas fa-unlink"></i></div>
+			<ul id="cateSortable2"></ul>
+		</td>
+		<td>
+			<div class="bgCircle" id="unLink3"><i class="fas fa-unlink"></i></div>
+			<ul id="cateSortable3"></ul>
+		</td>
+		<td>
+			<div class="bgCircle" id="unLink4"><i class="fas fa-unlink"></i></div>
+			<ul id="cateSortable4"></ul>
+		</td>
+	</tr>	
+	</tbody>
+	</table>
+
+	<div class="empty60"></div>
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;상품분류 등록 / 수정 / 삭제
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>
+	<tr> 
+		<td>선택된 분류</td>
+		<td colspan="3">
+			<span id="cateLocation">없음</span>
+			<button class="btns" type="button" id="cateRelease"><span class="text"><i class="xi-close masterTooltip"></i> 선택해제</span></button>	
+		</td>
+	</tr>
+	<tr> 
+		<td>처리 타입 <i class="xi-help xi-x colorDGary masterTooltip" title="- 등록은 상품분류를 선택하지 않을 경우 1차분류가 등록되며 선택된 경우 선택된 상품분류의 하위분류가 등록됩니다.[BR]- 수정/삭제는 상품분류가 선택되어야만 가능 합니다."></i></td>
+		<td colspan="3">
+			<label id="cateWrite"><input type='radio' name="type" value="0" checked="checked" /><span class="radio"></span> 상품분류 등록</label>&nbsp;&nbsp;
+			<label id="cateMod"><input type='radio' name="type" value="1" /><span class="radio"></span> 상품분류 수정</label>&nbsp;&nbsp;
+			<label id="cateDel"><input type='radio' name="type" value="2" /><span class="radio"></span> 상품분류 삭제 <i class="xi-help xi-x colorDGary masterTooltip" title="삭제시 하위분류가 존재할 경우 하위분류 모두 삭제가 되며 해당분류의 상품은 분류미선택으로 변경됩니다."></i></label>
+		</td>
+	</tr>
+	<tr> 
+		<td>상품분류명 </td>
+		<td><input type='text' name='cate_name' value='{{cate_name}}' required="required" data-msg="상품분류명을" /></td>		
+		<td>사용여부 <i class="xi-help xi-x colorDGary masterTooltip" title="- 사용여부를 설정 하실 수 있으며 하위분류가 있는경우 같이 적용 받습니다.[BR]- 상위분류에서 사용안함으로 설정되었을 경우 하위분류에서는 사용여부를 변경 할 수 없습니다.[BR]- 사용안함일 경우 해당 상품분류는 노출이 되지 않으며 해당 분류의 하위 분류도 모두 사용안함으로 변경 됩니다.[BR]- 사용안함일 해당분류 및 하위분류를 대표분류로 사용하는 상품이 노출 되지 않습니다."></i></td>
+		<td>
+			<label><input type='radio' name="used" value="1" {{checked_used_1}} checked="checked" /><span class="radio"></span> 사용함</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="used" value="0" {{checked_used_0}} /><span class="radio"></span> 사용안함</label>
+		</td>					
+	</tr>
+	<tr> 
+		<td>접근권한 <i class="xi-help xi-x colorDGary masterTooltip" title="상품분류에 접근권한이 설정된 경우 하위 상품분류에도 적용이 됩니다."></i></td>
+		<td colspan="3">
+			<label><input type='radio' name="access_type" value="0" {{checked_access_type_0}} checked="checked" onclick="accessType()" /><span class="radio"></span> 전체(회원 + 비회원)</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="access_type" value="1" {{checked_access_type_1}} onclick="accessType()" /><span class="radio"></span> 회원전용</label>&nbsp;&nbsp;
+			<label><input type='radio' name="access_type" value="2" {{checked_access_type_2}} onclick="accessType()" /><span class="radio"></span> 특정 회원등급</label>
+		</td>
+	</tr>
+	<tr id="memberLevel"> 
+		<td>접근 회원등급 <i class="xi-help xi-x colorDGary masterTooltip" title="상위 상품분류에 접근권한이 없는 등급은 경우 하위 상품분류에 접근권한이 있어도 접근이 제한 됩니다."></i></td>
+		<td colspan="3" class="size085">
+			<!-- DYNAMIC @loop_level@ -->
+			<label for="checkbox-{{uid}}">&nbsp;{{name}}</label>
+			<input type="checkbox" name="access_level[]" id="checkbox-{{uid}}" class="inputSearch" value="{{level}}" />
+			<!-- DYNAMIC @loop_level@ -->			
+		</td>
+	</tr>
+	<tr> 
+		<td>분류 이미지 <i class="xi-help xi-x colorDGary masterTooltip" title="분류 이미지는 사용하는 스킨에 따라 사용되는 이미지가 다르며 사이즈가 있는경우 사이즈에 맞게 이미지를 등록 하시면 됩니다."></i></td>
+		<td colspan="3">
+			<table class="listIn">
+			<colgroup>
+			<col width="33%" /> 
+			<col width="33%" />
+			<col width="33%" /> 
+			</colgroup>
+			<thead>
+			<tr> 
+				<th>이미지 #1</th>
+				<th>이미지 #2</th>
+				<th>이미지 #3</th>
+			</tr>
+			</thead>
+			<tbody class="imageUP">
+			<tr> 
+				<td id="cate_image1">{{CATE_IMAGE1_HELP}}</td>
+				<td id="cate_image2">{{CATE_IMAGE2_HELP}}</td>
+				<td id="cate_image3">{{CATE_IMAGE3_HELP}}</td>
+			</tr>
+			<tr>
+				<td>
+					<button class="fileinput-button btns" type="button">
+						<span class="text"><i class="xi-upload"></i> 이미지 업로드</span>
+						<input type="file" name="image1" class="imageBtn" num="1" />
+					</button>
+					<button class="filedel-button btns" type="button" id="imageDel1">
+						<span class="text"><i class="xi-close masterTooltip"></i> 이미지 삭제</span>
+					</button>
+				</td>
+				<td>
+					<button class="fileinput-button btns" type="button">
+						<span class="text"><i class="xi-upload"></i> 이미지 업로드</span>
+						<input type="file" name="image2" class="imageBtn" num="2" />
+					</button>
+					<button class="filedel-button btns" type="button" id="imageDel2">
+						<span class="text"><i class="xi-close masterTooltip"></i> 이미지 삭제</span>
+					</button>
+				</td>
+				<td>
+					<button class="fileinput-button btns" type="button">
+						<span class="text"><i class="xi-upload"></i> 이미지 업로드</span>
+						<input type="file" name="image3" class="imageBtn" num="3" />
+					</button>
+					<button class="filedel-button btns" type="button" id="imageDel3">
+						<span class="text"><i class="xi-close masterTooltip"></i> 이미지 삭제</span>
+					</button>
+				</td>
+			</tr>
+			<tr>
+				<td id="imgWidth">
+					<img id="image1" alt="이미지 업로드#1" src="../common/img/blank.gif" />
+				</td>
+				<td>
+					<img id="image2" alt="이미지 업로드#2" src="../common/img/blank.gif" />
+				</td>
+				<td>
+					<img id="image3" alt="이미지 업로드#3" src="../common/img/blank.gif" />
+				</td>
+			</tr>
+			</tbody>
+			</table>
+					
+		</td>
+	</tr>
+	</table>
+
+	<div class="empty60"></div>
+
+	<div class="btnSubmitBox">
+		<div class="displayInline"><button class="weight300 shine" type="submit">저장하기</button></div>
+		<div class="btnPrev"><i class="xi-arrow-left xi-x"></i></div>
+	</div>
+
+</div>
+
+</form>
+
+
+<script>
+<!--
+
+	var form = document.cateForm;
+
+	{{tmps1}}
+	{{tmps2}}
+
+	function accessType(){
+		if($("form[name=cateForm] input:radio[name=access_type]:checked").val()=='2') $("#memberLevel").show();
+		else $("#memberLevel").hide();
+	}
+			
+	function cateDefault(){		
+		$("form[name=cateForm] input[name=mode]").val("write");
+		$("form[name=cateForm] input[name=cate_name]").val("");
+		if($("form[name=cateForm] input:radio[name=used]:input[value=1]").prop('disabled')) $("form[name=cateForm] input:radio[name=used]:input[value=0]").prop('checked', true);
+		else $("form[name=cateForm] input:radio[name=used]:input[value=1]").prop('checked', true);
+		$("form[name=cateForm] input:radio[name=access_type]:input[value=0]").prop('checked', true);	
+		
+		accessType();
+		accessLevel();		
+
+		for(i=1; i<4; i++) putImage(i);
+	}
+
+	function cateAdd(num, cate, cate_name){
+		var insertCode		=  '<li class="cateItem'+num+'" id="'+cate+'" data-idx="'+cate+'">'+cate_name+'</li>';
+		$('#cateSortable'+num).append(insertCode);
+		cateDefault();
+		cateClickSet(num);
+	}
+
+	function cateMod(cate, cate_sub, cate_name) {
+		if(cate_sub==1) {
+			cate_name += '→';			
+		}
+		else {
+			cate_name = str_replace("→","",cate_name);			
+		}
+		$('#'+cate).html(cate_name);
+	}
+
+	function cateMod2(cate, cate_sub) {
+		if(cate_sub==1) {
+			cate_name = $('#'+cate).html()+'→';			
+		}
+		else {
+			cate_name = str_replace("→","",$('#'+cate).html());			
+		}
+		$('#'+cate).html(cate_name);
+	}
+
+	function cateDel(cate, cate_parent) {
+		$('#'+cate).remove();				
+		if($("form[name=cateForm] input[name=cate_dep]").val() > 1) {
+			$('#'+cate_parent).mousedown();
+		}
+		else $('#cateRelease').click();
+	}
+
+	function accessLevel(vls) {
+		$("form[name=cateForm] input:checkbox[name='access_level[]']").prop('checked', false);
+		
+		if(vls){
+			$("form[name=cateForm] input:checkbox[name='access_level[]']").each(function(i) {
+				if(vls.indexOf(',' + $(this).val() + ',') != -1) {
+					$(this).prop('checked', true);
+				}				
+			});			
+		}		
+		$("form[name=cateForm] input:checkbox[name='access_level[]']").checkboxradio( "refresh" );
+	}
+
+	function putImage(num, vls, size) {
+		if(vls) {
+			$("#image"+num).attr("src", "../../image/category/"+vls);
+			if(parseInt($("#imgWidth").css('width')) < parseInt(size)) {
+				$("#image"+num).css({'width':'95%'});
+			}
+			else $("#image"+num).css({'width':size});
+
+			$("#imageDel"+num).css({opacity:0.1, display:"inline-block"}).stop().animate({width:'show', opacity:1.0}, 'fast');
+		}	
+		else {
+			if($("#imageDel"+num).css('display')!='none') {
+				$("#image"+num).attr("src", "../common/img/blank.gif");
+				$("#image"+num).css({'width':'1'});
+				$("#imageDel"+num).animate({width:'hide'}, 'fast');
+				$("form[name=cateForm] input[name=image" + num + "]").val();
+			}
+		}
+	}
+
+	function getCateInfo(cate) {
+		if(!cate) return;
+		
+		var data = new FormData();
+		data.append('cate', cate);
+
+		$.ajax({
+				url: 'cate_info_json.php', 
+				type: 'POST',
+				data: data, 
+				cache: false,
+				dataType: 'json',
+				processData: false, 
+				contentType: false, 
+				success: function(data, textStatus, jqXHR) {					
+					if(typeof(data.error) === 'undefined') {						
+						$.each(data, function(key, value) {
+							$("form[name=cateForm] input[name=cate_name]").val(data[key].name);
+							$("form[name=cateForm] input:radio[name=used]:input[value="+data[key].used+"]").prop('checked', true);
+							$("form[name=cateForm] input:radio[name=access_type]:input[value="+data[key].access_type+"]").prop('checked', true);							
+
+							if(data[key].parent_used=='0') $("form[name=cateForm] input:radio[name=used]:input[value=1]").prop('disabled', true);
+							else $("form[name=cateForm] input:radio[name=used]:input[value=1]").prop('disabled', false);
+
+							accessType();
+							accessLevel(data[key].access_level) ;
+							putImage(1, data[key].image1, data[key].img_size1);
+							putImage(2, data[key].image2, data[key].img_size1);
+							putImage(3, data[key].image3, data[key].img_size1);
+
+							$('#cate_image1').html(data[key].cate_image1_help);
+							$('#cate_image2').html(data[key].cate_image2_help);
+							$('#cate_image3').html(data[key].cate_image3_help);
+						});
+
+						getCateSubInfo(cate);
+					}
+					else {
+						alertify.error(data.error);
+					}
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+					alertify.error(textStatus);
+				}		
+			});
+	}
+
+	function getCateSubInfo(cate) {
+		if(!cate) return;
+
+		var data = new FormData();
+		data.append('cate', cate);
+		
+		$.ajax({
+				url: 'cate_sub_info_json.php', 
+				type: 'POST',
+				data: data, 
+				cache: false,
+				dataType: 'json',
+				processData: false, 
+				contentType: false, 
+				success: function(data, textStatus, jqXHR) {					
+					if(typeof(data.error) === 'undefined') {
+						var insertCode = '';
+						var num = parseInt($("form[name=cateForm] input[name=cate_dep]").val()) + 1;
+						var ck = 0;
+
+						$.each(data, function(key, value) {
+							insertCode =  '<li class="cateItem' + num + '" id="' + data[key].id + '" data-idx="' + data[key].id + '">' + data[key].name + '</li>';
+							$('#cateSortable'+num).append(insertCode);
+							ck = 1;
+						});
+
+						if(ck==0) {
+							$('#unLink'+num).html('<i class="xi-close"></i>').fadeIn(100);
+							for(i=num+1;i<5; i++) {
+								$('#unLink'+i).html('<i class="fas fa-unlink"></i>');
+							}	
+						}
+						else {
+							$('#unLink'+num).fadeOut(100);
+						}
+
+						cateClickSet(num);
+						cateSortable(num);
+					}
+					else {
+						alertify.error(data.error);
+					}
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+					alertify.error(textStatus);
+				}		
+			});
+
+	}
+
+	function cateClickSet(num) {
+		$('.cateItem'+num).unbind('mousedown').bind('mousedown', function(e){
+			var cate_name	= '';
+			var idx			= $(this).attr('data-idx');
+			$("form[name=cateForm] input[name=cate]").val(idx);
+			$("form[name=cateForm] input[name=cate_dep]").val(num);
+			
+			$('.cateItem'+num).removeClass('select');
+			$(this).addClass('select');
+		
+			$("form[name=cateForm] input[name=cate_location_name" + num + "]").val(str_replace("→","",$(this).html()));
+			
+			for(i= 1 ; i <= num; i ++) {
+				if(i==1) cate_name = $("form[name=cateForm] input[name=cate_location_name" + i + "]").val();
+				else cate_name +=  " > " + $("form[name=cateForm] input[name=cate_location_name" + i + "]").val();
+			}
+			$('#cateLocation').html(cate_name + ' (분류코드:' + $("form[name=cateForm] input[name=cate]").val() + ')');
+
+			$("form[name=cateForm] input[name=mode]").val("modify");
+			$('#cateRelease').fadeIn('200');
+
+			if(num==4) $("#cateWrite").fadeOut('200');
+			else $("#cateWrite").fadeIn('200');
+
+			$("#cateMod").fadeIn('200');
+			$("#cateDel").fadeIn('200');
+			$("form[name=cateForm] input:radio[name=type]:input[value=1]").prop('checked', true);
+		
+			for(i=(num+1);i<5; i++) {
+				$('#cateSortable'+i).html('');
+			}			
+			getCateInfo($("form[name=cateForm] input[name=cate]").val());
+			
+		});
+	}
+
+	function cateSortable(num) {
+		$('#cateSortable'+num).sortable({
+			placeholder: "highlight",
+			cursor : "move",
+			update : function(e, ui) {
+				$('form[name=cateForm] input[name=cate_order'+num+']').val($(this).sortable("toArray", { attribute : 'data-idx'}));				
+
+				var data = new FormData();
+				data.append('dep', num);
+				data.append('order', $('form[name=cateForm] input[name=cate_order'+num+']').val());
+				
+				$.ajax({
+					url: 'cate_sort_json.php', 
+					type: 'POST',
+					data: data, 
+					cache: false,
+					dataType: 'json',
+					processData: false, 
+					contentType: false, 
+					success: function(data, textStatus, jqXHR) {
+						if(typeof(data.error) === 'undefined') {						
+							alertify.success(data.success);
+						}
+						else {
+							alertify.error(data.error);
+						}
+					},
+					error: function(jqXHR, textStatus, errorThrown) {
+						alertify.error(textStatus);
+					}		
+				});
+			}
+		});
+
+		$('form[name=cateForm] input[name=cate_order'+num+']').val($('#cateSortable'+num).sortable("toArray", { attribute : 'data-idx'}));
+	}
+
+
+	$(function() {
+
+		var insertCode = '';
+		for(i=0,cnt=CATEname.length;i<cnt;i++){			
+			insertCode	=  '<li class="cateItem1" id="'+CATEnum[i][0]+'" data-idx="'+CATEnum[i][0]+'">'+CATEname[i][0]+'</li>';
+			$('#cateSortable1').append(insertCode);
+		}
+		
+		cateClickSet(1);
+		cateSortable(1);		
+
+		$('#cateRelease').on('click', function(e){
+			$("form[name=cateForm] input[name=cate]").val('');
+			$("form[name=cateForm] input[name=cate_dep]").val(1);
+			$('#cateSortable2').html('');
+			$('#cateSortable3').html('');
+			$('#cateSortable4').html('');
+			$('#cateLocation').html('없음');
+			$('.cateItem1').removeClass('select');			
+			$('#cateRelease').hide();
+			$("form[name=cateForm] input:radio[name=type]:input[value=0]").prop('checked', true);
+			$("#cateMod").fadeOut(200);
+			$("#cateDel").fadeOut(200);
+			cateDefault();
+			
+			for(i=2;i<5; i++) {
+				$('#unLink'+i).html('<i class="fas fa-unlink"></i>').fadeIn(100);;			
+			}	
+		});
+		
+		$(".content input:radio[name=type]").on('click', function(e){
+			if($(this).val()=='0'){
+				$("form[name=cateForm] input[name=mode]").val("write");
+				cateDefault();
+			}
+			else if($(this).val()=='1'){
+				$("form[name=cateForm] input[name=mode]").val("modify");
+				$('#cateSortable' + (parseInt($("form[name=cateForm] input[name=cate_dep]").val()) + 1)).html('');
+				getCateInfo($("form[name=cateForm] input[name=cate]").val());				
+			}
+			else if($(this).val()=='2'){
+				alertify.alert("분류삭제시 복구가 되지 않습니다. 주의 하시기 바랍니다.");
+				$("form[name=cateForm] input[name=mode]").val("delete");
+				$('#cateSortable' + (parseInt($("form[name=cateForm] input[name=cate_dep]").val()) + 1)).html('');
+				getCateInfo($("form[name=cateForm] input[name=cate]").val());				
+			}
+		});
+		
+		$('.imageBtn').on('change', function(e){		
+
+			if(!CommonCheckImage($(this))) return;
+
+			if(e.target.files[0]) {
+				var num = $(this).attr("num");
+				var reader = new FileReader();
+				reader.onload = function (e) {
+					var image = new Image();
+					image.src = e.target.result;
+
+					image.onload = function(){                             
+						$("#image"+num).attr("src", this.src);
+
+						if(parseInt($("#imgWidth").css('width')) < parseInt(this.width)) {
+							$("#image"+num).css({'width':'95%'});
+						}
+						else $("#image"+num).css({'width':this.width});
+
+						$("#imageDel"+num).css({opacity:0.1, display:"inline-block"}).stop().animate({width:'show', opacity:1.0}, 'fast');
+			        };                      
+				}
+				reader.readAsDataURL(e.target.files[0]);
+			}
+		});
+
+		$('.filedel-button').on('click', function(e){		
+			var num = str_replace("imageDel","",this.id);
+			$("#image"+num).attr("src", "../common/img/blank.gif");
+			$("#image"+num).css({'width':'1'});
+			$("#imageDel"+num).animate({width:'hide'}, 'fast');
+			if($("form[name=cateForm] input:radio[name=type]:checked").val()=='1') {
+				$("form[name=cateForm] input[name=img_del" + num + "]").val(1);
+			}
+		});
+		
+		accessType();
+		
+	});
+
+//-->
+</script>

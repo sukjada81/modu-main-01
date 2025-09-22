@@ -1,0 +1,97 @@
+<link href="../../lib/summernote-lite.css?ver={{ver}}" rel="stylesheet">
+<script src="../../lib/summernote-lite.js?ver={{ver}}"></script>
+<script src="../../lib/summernote-ko-KR.js"></script>
+
+<form name='signForm' method='post' action='design_post.php' enctype="multipart/form-data" target='HFrm'>
+<input type="hidden" name="mode" value="mail_order" />
+
+<div class="content">
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;주문관련 설정
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>	
+	<tr> 
+		<td>상품구매 발송여부 <i class="xi-help xi-x colorDGary masterTooltip" title="발송함에 체크시 상품구매시 자동 발송 됩니다."></td>
+		<td colspan="3" style="padding:20px;">
+			<div>
+				<label><input type='radio' name="send1" value="0" {{checked_send1_0}} /><span class="radio"></span> 발송안함</label>&nbsp;&nbsp;
+				<label><input type='radio' name="send1" value="1" {{checked_send1_1}} /><span class="radio"></span> 발송함</label>
+			</div>			
+		</td>
+	</tr>	
+	<tr> 
+		<td>상품구매 내용 <i class="xi-help xi-x colorDGary masterTooltip" title="- 치환코드안내[BR]- {ORDER_TYPE} : 미결제시 주문, 결제시 결제, {ORDER_DATE} : 주문일시, {ORDER_NUM} : 주문번호, {GOODS_TOTAL} : 주문 상품수[BR]- {LOOP_VENDOR_START} ~ {LOOP_VENDOR_END} : 본사 및 판매사 반복[BR]- {VENDOR_NAME} : 판매사명, {DELIVERY_MESSAGE} : 판매사 배송비 안내[BR]- {LOOP_GOODS_START} ~ {LOOP_GOODS_END} : 상품정보 반복[BR]- {G_NAME} : 상품명,  {G_OPTION} : 상품옵션명(있는 경우만 노출), {DELIVERY} : 상품배송비, {COUPON_INFO} : 쿠폰정보, {DISCOUNT_INFO} : 할인정보[BR]- {SUM_PRICE} : 상품합계, {SUM_ORIG_PRICE} : 상품할인전합계, {MILEAGES} : 상품마일리지, {QTY} : 주문수량[BR]- {PAY_INFO} : 결제정보, {RECIEVER_INFO} : 배송지정보"></td>
+		<td colspan="3" style="padding:20px;">
+			<XMP class="sn_content_code1" style="display:none">{{content_code1}}</XMP>
+			<input type="hidden" name="content_code1" data-notefor=".sn_content_code1" value= "" />
+		</td>
+	</tr>
+	<tr> 
+		<td>상품발송 발송여부 <i class="xi-help xi-x colorDGary masterTooltip" title="발송함에 체크시 상품발송시 자동 발송 됩니다."></td>
+		<td colspan="3" style="padding:20px;">
+			<div>
+				<label><input type='radio' name="send2" value="0" {{checked_send1_0}} /><span class="radio"></span> 발송안함</label>&nbsp;&nbsp;
+				<label><input type='radio' name="send2" value="1" {{checked_send1_1}} /><span class="radio"></span> 발송함</label>
+			</div>			
+		</td>
+	</tr>	
+	<tr> 
+		<td>상품발송 내용 <i class="xi-help xi-x colorDGary masterTooltip" title="- 치환코드안내[BR]- {ORDER_DATE} : 주문일시, {ORDER_NUM} : 주문번호[BR]- {GOODS_NAME} : 상품명[BR]- {DELIVERY_DATE} : 배송일시,  {DELIVERY_NAME} : 택배사, {DELIVERY_NUM} : 송장번호[BR]- {RECIEVER_INFO} : 배송지정보"></td>
+		<td colspan="3" style="padding:20px;">
+			<XMP class="sn_content_code2" style="display:none">{{content_code2}}</XMP>
+			<input type="hidden" name="content_code2" data-notefor=".sn_content_code2" value= "" />
+		</td>
+	</tr>	
+	</table>
+	
+	<div class="empty60"></div>
+
+	<div class="btnSubmitBox">
+		<div class="displayInline"><button class="weight300 shine" type="submit">저장하기</button></div>
+	</div>
+
+</div>
+
+</form>
+
+<script>
+<!--
+		
+	$(function() {
+		
+		$('.sn_content_code1').summernote({						
+			'lang' : 'ko-KR',
+			'height' : '300px',
+			'dialogsFade' : true,
+			'imgSync' : false,
+			callbacks: {
+				onImageUpload:function( files,editor,welEditable) {
+					snUpImage(files, this, 'mail/order' );
+				}
+			}
+		});	
+
+		$('.sn_content_code2').summernote({						
+			'lang' : 'ko-KR',
+			'height' : '300px',
+			'dialogsFade' : true,
+			'imgSync' : false,
+			callbacks: {
+				onImageUpload:function( files,editor,welEditable) {
+					snUpImage(files, this, 'mail/order' );
+				}
+			}
+		});	
+		
+	});	
+
+//-->
+</script>

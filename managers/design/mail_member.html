@@ -1,0 +1,135 @@
+<link href="../../lib/summernote-lite.css?ver={{ver}}" rel="stylesheet">
+<script src="../../lib/summernote-lite.js?ver={{ver}}"></script>
+<script src="../../lib/summernote-ko-KR.js"></script>
+
+<form name='signForm' method='post' action='design_post.php' enctype="multipart/form-data" target='HFrm'>
+<input type="hidden" name="mode" value="mail_member" />
+
+<div class="content">
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;회원관련 설정
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>	
+	<tr> 
+		<td>회원가입 발송여부 <i class="xi-help xi-x colorDGary masterTooltip" title="발송함에 체크시 회원가입시 자동 발송 됩니다."></td>
+		<td colspan="3" style="padding:20px;">
+			<div>
+				<label><input type='radio' name="send1" value="0" {{checked_send1_0}} /><span class="radio"></span> 발송안함</label>&nbsp;&nbsp;
+				<label><input type='radio' name="send1" value="1" {{checked_send1_1}} /><span class="radio"></span> 발송함</label>
+			</div>			
+		</td>
+	</tr>	
+	<tr> 
+		<td>회원가입 내용 <i class="xi-help xi-x colorDGary masterTooltip" title="- 치환코드안내[BR]- {SHOPNAME} : 쇼핑몰명[BR]- {ID} : 회원아이디[BR]- {SMSYN} : SMS수신동의여부[BR]- {SMSDATE} : SMS수신동의여부설정일[BR]- {MAILLINGYN} : 메일링수신동의여부[BR]- {MAILLINGDATE} : 메일링수신동의여부설정일"></td>
+		<td colspan="3" style="padding:20px;">
+			<XMP class="sn_content_code1" style="display:none">{{content_code1}}</XMP>
+			<input type="hidden" name="content_code1" data-notefor=".sn_content_code1" value= "" />
+		</td>
+	</tr>
+	<tr> 
+		<td>판매사가입 발송여부 <i class="xi-help xi-x colorDGary masterTooltip" title="발송함에 체크시 판매사가입시 자동 발송 됩니다."></td>
+		<td colspan="3" style="padding:20px;">
+			<div>
+				<label><input type='radio' name="send3" value="0" {{checked_send3_0}} /><span class="radio"></span> 발송안함</label>&nbsp;&nbsp;
+				<label><input type='radio' name="send3" value="1" {{checked_send3_1}} /><span class="radio"></span> 발송함</label>
+			</div>			
+		</td>
+	</tr>	
+	<tr> 
+		<td>판매사가입 내용 <i class="xi-help xi-x colorDGary masterTooltip" title="- 치환코드안내[BR]- {SHOPNAME} : 쇼핑몰명[BR]- {ID} : 회원아이디"></td>
+		<td colspan="3" style="padding:20px;">
+			<XMP class="sn_content_code3" style="display:none">{{content_code3}}</XMP>
+			<input type="hidden" name="content_code3" data-notefor=".sn_content_code3" value= "" />
+		</td>
+	</tr>	
+	<tr> 
+		<td>인증번호내용 <i class="xi-help xi-x colorDGary masterTooltip" title="- 회원비밀호 찾기 인증이나 관리자 페이지 로그인 인증에 사용 됩니다.[BR]- 치환코드안내[BR]- {SHOPNAME} : 쇼핑몰명[BR]- {AUTHCODE} : 인증번호"></td>
+		<td colspan="3" style="padding:20px;">
+			<XMP class="sn_content_code2" style="display:none">{{content_code2}}</XMP>
+			<input type="hidden" name="content_code2" data-notefor=".sn_content_code2" value= "" />
+		</td>
+	</tr>	
+	<tr> 
+		<td>휴먼회원전환내용 <i class="xi-help xi-x colorDGary masterTooltip" title="- 쇼핑몰 마지막 로그인이 1년 이상 경과된 회원에게 한달전에 발송되는 메일 입니다.[BR]- 치환코드안내[BR]- {SHOPNAME} : 쇼핑몰명[BR]- {ID} : 회원아이디[BR]- {SLP_DATE} : 휴먼회원전환예정일"></td>
+		<td colspan="3" style="padding:20px;">
+			<XMP class="sn_content_code4" style="display:none">{{content_code4}}</XMP>
+			<input type="hidden" name="content_code4" data-notefor=".sn_content_code4" value= "" />
+		</td>
+	</tr>	
+	</table>
+	
+	<div class="empty60"></div>
+
+	<div class="btnSubmitBox">
+		<div class="displayInline"><button class="weight300 shine" type="submit">저장하기</button></div>
+	</div>
+
+</div>
+
+</form>
+
+<script>
+<!--
+		
+	$(function() {
+		
+		$('.sn_content_code1').summernote({						
+			'lang' : 'ko-KR',
+			'height' : '300px',
+			'dialogsFade' : true,
+			'imgSync' : false,
+			callbacks: {
+				onImageUpload:function( files,editor,welEditable) {
+					snUpImage(files, this, 'mail/member' );
+				}
+			}
+		});	
+
+		$('.sn_content_code2').summernote({						
+			'lang' : 'ko-KR',
+			'height' : '300px',
+			'dialogsFade' : true,
+			'imgSync' : false,
+			callbacks: {
+				onImageUpload:function( files,editor,welEditable) {
+					snUpImage(files, this, 'mail/member' );
+				}
+			}
+		});	
+
+		$('.sn_content_code3').summernote({						
+			'lang' : 'ko-KR',
+			'height' : '300px',
+			'dialogsFade' : true,
+			'imgSync' : false,
+			callbacks: {
+				onImageUpload:function( files,editor,welEditable) {
+					snUpImage(files, this, 'mail/member' );
+				}
+			}
+		});	
+
+		$('.sn_content_code4').summernote({						
+			'lang' : 'ko-KR',
+			'height' : '300px',
+			'dialogsFade' : true,
+			'imgSync' : false,
+			callbacks: {
+				onImageUpload:function( files,editor,welEditable) {
+					snUpImage(files, this, 'mail/member' );
+				}
+			}
+		});	
+		
+	});	
+
+//-->
+</script>

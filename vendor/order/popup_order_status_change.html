@@ -1,0 +1,149 @@
+<style>
+body { min-width:930px; background-color:#fff; }
+#contentBox { min-width:930px; min-height:300px; top:20px; background-color:#fff; border:0; box-shadow: none; -webkit-box-shadow: none; }
+#contentBox .content { min-width:900px; margin:20px; clear:both; }
+</style>
+
+<form name='orderForm' method='post' action='order_post.php' target='HFrm'>					
+<input type="hidden" name="order_num" value="{{order_num}}" />
+<input type="hidden" name="uid" value="{{uid}}" />
+<input type="hidden" name="mode" value="status_change_{{status}}{{status2}}" />
+
+<div class="content">
+	
+	<!-- DYNAMIC @is_order_info@ -->	
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;결제 정보
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>
+	<tr> 
+		<td>결제금액</td>
+		<td>{{pay_total}}원</td>
+		<td>취소/환불된금액</td>
+		<td>{{cancel_total}}원</td>		
+	</tr>
+	<tr> 
+		<td>마일리지 사용</td>
+		<td>{{use_mileage}}원</td>
+		<td>배송비</td>
+		<td>{{delivery_total}}원</td>
+	</tr>
+	<tr> 
+		<td>결제수단</td>
+		<td colspan="3">{{pay_type}}</td>
+	</tr>
+	<tr> 
+		<td>결제상태</td>
+		<td>
+			{{pay_status}}				
+		</td>	
+		<td>결제완료일</td>
+		<td>{{status_date}}</td>
+	</tr>
+	<!-- DYNAMIC @is_pay_type_B@ -->
+	<tr> 
+		<td>입금계좌</td>
+		<td>{{bank_info}}</td>
+		<td>입금자명</td>
+		<td>{{remittance_name}}</td>
+	</tr>
+	<!-- DYNAMIC @is_pay_type_B@ -->
+	<tr> 
+		<td>현금영수증 <i class="xi-help xi-x colorDGary masterTooltip" title="현금영수증발습시 자동으로 취소 됩니다."></i></td>
+		<td colspan="3">{{cash_receipts_yn}}</td>
+	</tr>
+	</table>
+
+	<div class="empty50"></div>	
+	<!-- DYNAMIC @is_order_info@ -->	
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;상품 정보
+	</div>
+
+	<table class="listIn">
+	<colgroup>
+	<col width="52%" /> 
+	<col width="20%" />
+	<col width="13%" /> 
+	<col width="15%" />	
+	</colgroup>
+	<thead> 
+	<tr> 
+		<th>상품명</th>
+		<th>상품가</th>
+		<th>개별배송비</th>
+		<th>처리상태</th>						
+	</tr>
+	<thead> 
+	<tbody>
+	<!-- DYNAMIC @loop_goods@ -->	
+	<tr>
+		<td style="text-align:left">{{GOODS_NAME}} {{GOODS_VENDOR}}</td>
+		<td class="number" style="text-align:right">{{GOODS_PRICE}} x {{GOODS_QTY}}</td>
+		<td class="number">{{DELIVERY}}</td>
+		<td>{{GOODS_STATUS}}</td>
+	</tr>
+	<!-- DYNAMIC @loop_goods@ -->
+	</table>
+
+	<div class="empty50"></div>
+
+	<!-- DYNAMIC @is_delivery_info@ -->	
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;교환발송 정보
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>
+	<tr> 
+		<td>배송 정보</td>
+		<td colspan="3">
+			<select name="delivery" required="required" data-msg="배송업체를">
+				<option value="">배송업체 선택</option>
+				<!-- DYNAMIC @loop_delivery@ -->
+				<option value="{{delivery_num}}">{{delivery_name}}</option>
+				<!-- DYNAMIC @loop_delivery@ -->
+			</select>			
+			<script>
+				$("form[name=orderForm] select[name='delivery']").val('{{delivery}}').heapbox({'width' : '200px'});
+			</script>
+			<div class="requireLeft">			
+				<input type='text' name='delivery_number' value='{{delivery_number}}' style="width:400px" placeholder="송장번호" required="required" data-msg="송장번호를" />
+			</div>
+		</td>
+	</tr>
+	</table>
+	<!-- DYNAMIC @is_delivery_info@ -->	
+	
+	<div class="empty100"></div>	
+	
+</div>
+
+<div class="btnSubmitBoxPop">
+	<div class="displayInline"><button class="weight300 shine" type="submit">처리하기</button></div>		
+</div>
+
+</form>
+
+<iframe name="HFrm" style="display:none"></iframe>
+
+
+<script>
+<!--
+	
+
+//-->
+</script>

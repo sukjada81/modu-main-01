@@ -1,0 +1,50 @@
+<!-- DYNAMIC @is_list_area@ -->
+<div>	
+	<div class="widgetTitle">오늘의 방문자 <span data-id="count"><i class="xi-renew masterTooltipWidget" title="새로고침"></i></span></div>
+	<a href="../etcs/count_statistics.php">
+	<div class="widgetStatistics">
+		<span><i class="xi-desktop masterTooltipWidget" title="PC"></i> {{PTOTAL}}</span><p>{{TOTAL}}</p><span><i class="xi-tablet masterTooltipWidget" title="모바일"></i> {{MTOTAL}}</span>
+	</div>
+	<div class="widgetDetail">
+		<div>뷰 <span>{{CNT1}}</span></div>
+		<div>재방문 <span>{{CNT2}}</span></div>		
+		<div>신규 <span>{{CNT3}}</span></div>		
+	</div>
+	</a>
+	<div style="height:0px"></div>
+	<div id="chart_count" style="width: 100%; height: 90px;"></div>	
+</div>	
+
+<script>
+	
+	google.charts.load('current', {'packages':['corechart']});
+	google.charts.setOnLoadCallback(drawChartCount);
+
+	function drawChartCount() {
+		var data = google.visualization.arrayToDataTable([
+			['Year', ''],
+			['{{date1}}', {{value1}}],
+			['{{date2}}', {{value2}}],
+			['{{date3}}', {{value3}}],
+			['{{date4}}', {{value4}}],
+			['{{date5}}', {{value5}}]
+		]);
+
+		var options = {
+			title: '',		  
+			animation: { startup: true, duration: 200, easing: 'linear', },
+			chartArea: {width: '100%', height: '96%', backgroundColor:'transparent', },
+			pointSize: 3,
+			tooltip: { textStyle : {fontSize:12, fontColor: '#fff', fontName:'fontMontserrat' ,}, trigger: 'both', },
+			hAxis: {title: '', textPosition: 'none', },
+			vAxis: {minValue: 0, textPosition: 'none', gridlines : {count : 0}, baselineColor : 'transparent',},
+			backgroundColor : { 'fill': 'transparent', 'opacity': 100 }, 
+			colors:['#efefef'],
+			legend : {position: 'top', textStyle: { fontSize: 0.1} },		  	 
+		};
+
+		var chart = new google.visualization.AreaChart(document.getElementById('chart_count'));
+		chart.draw(data, options);				
+	}
+</script>
+<!-- DYNAMIC @is_list_area@ -->

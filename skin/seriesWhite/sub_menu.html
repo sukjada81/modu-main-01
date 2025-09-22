@@ -1,0 +1,52 @@
+<div class="subMenuOpen">
+	<div class="menu_bar menu_bar_1"></div><div class="menu_bar menu_bar_2"></div><div class="menu_bar menu_bar_3"></div>
+</div>
+<div id="subMenuAll">
+	<div id="subMenuAllIn">
+		<!-- DYNAMIC @loop_sub_menu@ -->
+		<ul class="subMenuBox">
+			<li><a href='{{Main}}?channel={{MENU_CHANNEL}}' class="underLine">{{MENU_NAME}}</a></li>
+			<!-- DYNAMIC @loop_sub_menu_sub@ -->
+			<li><a href='{{Main}}?channel={{SMENU_CHANNEL}}' class="sub underLineThin">{{SMENU_NAME}}</a></li>
+			<!-- DYNAMIC @loop_sub_menu_sub@ -->									
+		</ul>
+		<!-- DYNAMIC @loop_sub_menu@ -->
+		<div class="subMenuAllClose">
+			<i class="xi-close-thin xi-x" title="닫기"></i>
+		</div>
+	</div>
+</div>
+<div class="contentLocation">
+	<a href="{{Main}}?channel={{MASTER_MENU_CHANNEL}}" class="underLineThin">{{MASTER_MENU_NAME}}</a>
+	<!-- DYNAMIC @is_sub_menu_name1@ -->
+	&nbsp;&nbsp;<i class='xi-angle-right-thin'></i>&nbsp;{{SELECT_MENU_NAME1}}
+	<!-- DYNAMIC @is_sub_menu_name1@ -->
+	<!-- DYNAMIC @is_sub_menu_name0@ -->
+	&nbsp;&nbsp;<i class='xi-angle-right-thin'></i>&nbsp;{{SELECT_MENU_NAME}}
+	<!-- DYNAMIC @is_sub_menu_name0@ -->
+</div>
+
+<script>
+<!--
+
+$('.subMenuOpen').click(function(e){
+	if($('.menu_bar_2').css('opacity') == 0) {
+		$('.menu_bar_1').removeClass('rotate225').addClass('rotate225r').animate({top:'0px'}, "fast");
+		$('.menu_bar_3').removeClass('rotate315').addClass('rotate225r').animate({top:'0px'}, "fast");
+		$('.menu_bar_2').animate({opacity:1}, "fast");
+		$('#subMenuAllIn').slideUp('fast');
+	}
+	else {
+		$('.menu_bar_1').removeClass('rotate225r').addClass('rotate225').animate({top:'5px'}, "fast");
+		$('.menu_bar_3').removeClass('rotate225r').addClass('rotate315').animate({top:'-5px'}, "fast");
+		$('.menu_bar_2').animate({opacity:0}, "fast");
+		$('#subMenuAllIn').slideDown('fast');
+	}
+});
+
+$('.subMenuAllClose').click(function(e){
+	$('.subMenuOpen').trigger('click');
+});
+
+//-->
+</script>

@@ -1,0 +1,46 @@
+<style>
+body { min-width:830px; background-color:#fff; }
+#contentBox { min-width:830px; min-height:300px; top:20px; background-color:#fff; border:0; box-shadow: none; -webkit-box-shadow: none; }
+#contentBox .content { min-width:800px; margin:20px; clear:both; }
+</style>
+
+<form name='deliveryConfForm' method='post' action='conf_post.php?mode=delivery_im_areas_add' target='HFrm'>
+
+<div class="content">
+	
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>
+	<tr> 
+		<td>우편번호</td>
+		<td colspan="3"><input type='text' name='postcode' required="required" data-msg="우편번호를" /></td>
+	</tr>
+	<tr> 
+		<td>주소</td>
+		<td colspan="3"><input type='text' name='address' required="required" data-msg="주소를" /></td>
+	</tr>
+	</table>
+
+	<div class="empty100"></div>	
+	
+</div>
+
+<div class="btnSubmitBoxPop">
+	<div class="displayInline"><button class="weight300 shine" type="submit">지역 추가하기</button></div>		
+</div>
+
+</form>
+
+<iframe name="HFrm" style="display:none"></iframe>
+
+
+<script>
+<!--
+	
+
+//-->
+</script>

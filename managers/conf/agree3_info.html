@@ -1,0 +1,84 @@
+<link href="../../lib/summernote-lite.css?ver={{ver}}" rel="stylesheet">
+<script src="../../lib/summernote-lite.js?ver={{ver}}"></script>
+<script src="../../lib/summernote-ko-KR.js"></script>
+
+<div class="content">
+	
+	<div class="contentTitle">
+		<i class="xi-paper xi-x"></i>&nbsp;&nbsp개인정보 수집 및 이용 동의설정
+	</div>
+	
+	<form name='agreeForm' method='post' action='conf_post.php?mode=agree3' target='HFrm'>					
+	
+	<table>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	<tr> 
+		<td>회원가입시 내용 <i class="xi-help xi-x colorDGary masterTooltip" title="- 치환코드안내[BR]- {JOINFORM} : 회원가입 항목"></i></td>
+		<td colspan="3">
+			 <div class="detailEditerOn">
+				<XMP class="sn_explains1" style="display:none">{{explains1}}</XMP>	
+				<input type="hidden" name="explains1" required="required" value= "" data-msg="회원가입시 내용을 입력하세요." data-notefor=".sn_explains1" />
+			</div>
+		</td>
+	</tr>
+	<tr> 
+		<td>비회원 구매시 내용 </td>
+		<td colspan="3">
+			 <div class="detailEditerOn">
+				<XMP class="sn_explains2" style="display:none">{{explains2}}</XMP>	
+				<input type="hidden" name="explains2" required="required" value= "" data-msg="비회원 구매시 내용을 입력하세요." data-notefor=".sn_explains2" />
+			</div>
+		</td>
+	</tr>
+	<tr> 
+		<td>비회원 글 작성시 내용</td>
+		<td colspan="3">
+			 <div class="detailEditerOn">
+				<XMP class="sn_explains3" style="display:none">{{explains3}}</XMP>	
+				<input type="hidden" name="explains3" required="required" value= "" data-msg="비회원 글 작성시 내용을 입력하세요." data-notefor=".sn_explains3" />
+			</div>
+		</td>
+	</tr>
+	</table>	
+
+	<div class="empty60" ></div>
+
+	<div class="btnSubmitBox btnCenter">
+		<div class="displayInline"><button class="weight300 shine" type="submit">저장하기</button></div>
+	</div>
+
+	</form>	
+	
+
+</div>
+
+<script>
+<!--
+	
+	$(function() {	
+		
+		$('.sn_explains1').summernote({						
+			'lang' : 'ko-KR',
+			'height' : '300px',
+			'dialogsFade' : true
+		});	
+
+		$('.sn_explains2').summernote({						
+			'lang' : 'ko-KR',
+			'height' : '300px',
+			'dialogsFade' : true
+		});	
+
+		$('.sn_explains3').summernote({						
+			'lang' : 'ko-KR',
+			'height' : '300px',
+			'dialogsFade' : true
+		});			
+		
+	});
+
+//-->
+</script>

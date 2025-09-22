@@ -1,0 +1,43 @@
+<div id="contents">		
+	<h2 class="contentTitle">비회원 주문조회</h2>
+
+	<form name='loginForm' method='post' action='{{Main}}?channel=order_detail_guest'>
+
+	<div class="loginBox">
+		<div>
+			<div class="floatRight">
+				<ul>
+					<li class="last"><a href='{{Main}}?channel=login' class="underLineSelected" style="font-size:18px">회원 로그인</a></li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="empty30"></div>
+
+		<div class="inputBox">
+			<ul>
+				<li>
+					<input type="text" maxlength="20" value="" required="required" data-title="이름" data-msg="이름을" data-icon-no=1 data-toname="name" />
+				</li>
+				<li>
+					<input type="text" maxlength="20" value="" required="required" data-title="핸드폰번호" data-msg="핸드폰번호를" data-detail="주문시 입력한 핸드폰번호 ('-'없이)" data-icon-no=1 data-toname="cell" />
+				</li>
+				<li>
+					<input type='password' name='passwd' required="required" data-title="비밀번호" data-msg="비밀번호를" data-detail="주문시 입력한 비밀번호" data-icon-no=1 data-on-enter=1 />
+				</li>
+			</ul>		
+		</div>		
+
+		<div class="empty20"></div>
+
+		<div class="btnShineBox" style="background:#fff">
+			<div class="displayInline width100"><button class="fontSCDream weight300 shine black" type="submit">확인하기</button></div>		
+		</div>	
+		
+		<div class="empty20"></div>
+
+	</div>	
+	
+	</form>
+
+</div>	

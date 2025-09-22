@@ -1,0 +1,51 @@
+<form name='signForm' method='post' action='vendor_post.php' enctype="multipart/form-data" target='HFrm'>
+<input type="hidden" name="mode" value="passwd" />
+
+<div class="content">
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;업체 비밀번호 변경
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>	
+	<tr> 
+		<td>아이디</td>
+		<td colspan="3">{{v_my_id}}</td>	
+	</tr>
+	<tr> 
+		<td>기존 비밀번호 <i class="xi-help xi-x colorDGary masterTooltip" title="현재 사용하고 있는 비밀번호를 입력 하시면 됩니다."></i></td>
+		<td colspan="3"><input type='password' name='orig_passwd' required="required" data-msg="기존 비밀번호를" /></td>
+	</tr>
+	<tr> 
+		<td>변경할 비밀번호 <i class="xi-help xi-x colorDGary masterTooltip" title="변경할 비밀번호를 입력 하시면 됩니다."></i></td>
+		<td colspan="3"><input type='password' name='passwd' placeholder="영문, 숫자, 특수문자 2가지 이상 조합 8~20자" required="required" data-msg="변경할 비밀번호를" data-check-password='1' /></td>
+	</tr>
+	<tr> 	
+		<td>변경할 비밀번호 확인 <i class="xi-help xi-x colorDGary masterTooltip" title="변경할 비밀번호와 동일하게 입력 하시면 됩니다."></i></td>
+		<td colspan="3"><input type='password' name='re_passwd' placeholder="영문, 숫자, 특수문자 2가지 이상 조합 8~20자" required="required" data-msg="변경할 비밀번호 확인을" data-check-password='2' data-check-field='document.signForm.passwd' /></td>
+	</tr>
+	</table>		
+
+	<div class="empty60" ></div>
+
+	<div class="btnSubmitBox">
+		<div class="displayInline"><button class="weight300 shine" type="submit">업체 비밀번호 변경하기</button></div>
+		<div class="btnPrev"><i class="xi-arrow-left xi-x"></i></div>
+		<div class="btnPrevTitle">이전페이지</div>		
+	</div>
+
+</div>
+
+</form>
+
+<script>
+<!--
+
+//-->
+</script>

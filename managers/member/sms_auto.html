@@ -1,0 +1,189 @@
+<form name='smsForm' method='post' action='sms_auto_post.php' target='HFrm'>
+
+<div class="content">
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;문자메시지 알림설정
+	</div>
+
+	<div class="empty30" ></div>
+
+	<div class="sms_box">
+		<!-- DYNAMIC @loop_list@ -->
+		<div class="sms_auto_box">
+			<div class="title">{{TITLE}}</div>
+			<div data-uid="{{UID}}">
+				<div class="item">
+					<textarea name="message1_{{UID}}" {{DISABLE1}} data-num="1">{{MESSAGE1}}</textarea>
+					<!-- DYNAMIC @is_kakao1@ -->
+					<input type="text" name="template_id1_{{UID}}" value="{{TEMPLATE_ID1}}" placeholder="카카오 알림톡 templateId 입력" {{DISABLE1}} />
+					<!-- DYNAMIC @is_kakao1@ -->
+					<div><label><input type='checkbox' name="ck_message1_{{UID}}" value="1" {{CK_MESSAGE1}} {{DISABLE1}} /><span></span> {{TTL}}에게 자동발송</label></div>
+					<p class="fontMontserrat"><span class="colorOrange message1_{{UID}}_cnt">0</span> / 2000</p>
+				</div>
+				<div class="item">
+					<textarea name="message2_{{UID}}" {{DISABLE2}} data-num="2">{{MESSAGE2}}</textarea>
+					<!-- DYNAMIC @is_kakao2@ -->
+					<input type="text" name="template_id2_{{UID}}" value="{{TEMPLATE_ID2}}" placeholder="카카오 알림톡 templateId 입력" {{DISABLE2}} />
+					<!-- DYNAMIC @is_kakao2@ -->
+					<div><label><input type='checkbox' name="ck_message2_{{UID}}" value="1" {{CK_MESSAGE2}} {{DISABLE2}} /><span></span> 관리자에게 자동발송</label></div>
+					<p class="fontMontserrat"><span class="colorOrange message2_{{UID}}_cnt">0</span> / 2000</p>
+				</div>
+			</div>
+		</div>
+		<!-- DYNAMIC @loop_list@ -->
+	</div>
+
+	<div class="empty60" ></div>
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;치환코드 안내
+	</div>
+
+	<table class="listIn">
+	<colgroup>
+	<col width="13%" /> 
+	<col width="20%" />
+	<col width="14%" /> 
+	<col width="20%" />
+	<col width="13%" /> 
+	<col width="20%" />	
+	</colgroup>
+	<thead> 
+	<tr> 
+		<th>치환코드</th>
+		<th>치환되는 값</th>
+		<th>치환코드</th>
+		<th>치환되는 값</th>
+		<th>치환코드</th>
+		<th>치환되는 값</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>{SHOPNAME}</td>
+		<td>쇼핑몰명</td>
+		<td>{NAME}</td>
+		<td>회원명</td>
+		<td>{AUTHCODE}</td>
+		<td>인증코드</td>
+	</tr>
+	<tr>
+		<td>{ORDER_NAME}</td>
+		<td>주문자명</td>
+		<td>{ORDER_NUM}</td>
+		<td>주문번호</td>
+		<td>{PRICE}</td>
+		<td>주문금액</td>
+	</tr>
+	<tr>
+		<td>{ACCOUNT}</td>
+		<td>입금계좌정보</td>
+		<td>{DELIVERY_NAME}</td>
+		<td>택배사명</td>
+		<td>{DELIVERY_NUM}</td>
+		<td>송장번호</td>
+	</tr>
+	<tr>
+		<td>{GOODS_NAME}</td>
+		<td>상품명</td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	</tbody>
+	</table>
+
+	<!-- DYNAMIC @is_kakao3@ -->
+	<div class="empty60" ></div>
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;카카오 알림톡 템플릿 치환코드 안내
+	</div>
+
+	<table class="listIn">
+	<colgroup>
+	<col width="13%" /> 
+	<col width="20%" />
+	<col width="14%" /> 
+	<col width="20%" />
+	<col width="13%" /> 
+	<col width="20%" />	
+	</colgroup>
+	<thead> 
+	<tr> 
+		<th>치환코드</th>
+		<th>치환되는 값</th>
+		<th>치환코드</th>
+		<th>치환되는 값</th>
+		<th>치환코드</th>
+		<th>치환되는 값</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>#{SHOPNAME}</td>
+		<td>쇼핑몰명</td>
+		<td>{NAME}</td>
+		<td>회원명</td>
+		<td>#{AUTHCODE}</td>
+		<td>인증코드</td>
+	</tr>
+	<tr>
+		<td>#{ORDER_NAME}</td>
+		<td>주문자명</td>
+		<td>#{ORDER_NUM}</td>
+		<td>주문번호</td>
+		<td>#{PRICE}</td>
+		<td>주문금액</td>
+	</tr>
+	<tr>
+		<td>#{ACCOUNT}</td>
+		<td>입금계좌정보</td>
+		<td>#{DELIVERY_NAME}</td>
+		<td>택배사명</td>
+		<td>#{DELIVERY_NUM}</td>
+		<td>송장번호</td>
+	</tr>
+	<tr>
+		<td>#{GOODS_NAME}</td>
+		<td>상품명</td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	</tbody>
+	</table>
+	<!-- DYNAMIC @is_kakao3@ -->
+
+	<div class="empty60" ></div>
+
+	<div class="btnSubmitBox">
+		<div class="displayInline"><button class="weight300 shine" type="submit">설정 저장하기</button></div>
+		<div class="btnPrev"><i class="xi-arrow-left xi-x"></i></div>
+		<div class="btnPrevTitle">이전페이지</div>		
+	</div>
+
+</div>
+
+</form>
+
+<script>
+<!--
+
+	$('form[name=smsForm] textarea').keyup(function(event){
+		var uid = $(this).parent().parent().attr("data-uid");		
+		var num = $(this).attr("data-num");
+		$('.message' + num + '_' + uid + '_cnt').html(rtnBite($(this).val()));
+	});	
+
+	$('form[name=smsForm] textarea').each(function(i){
+		var uid = $(this).parent().parent().attr("data-uid");		
+		var num = $(this).attr("data-num");
+		$('.message' + num + '_' + uid + '_cnt').html(rtnBite($(this).val()));		
+	});
+
+//-->
+</script>

@@ -1,0 +1,353 @@
+<!-- DYNAMIC @is_name1@ -->
+<link href="../../lib/summernote-lite.css?ver={{ver}}" rel="stylesheet">
+<script src="../../lib/summernote-lite.js?ver={{ver}}"></script>
+<script src="../../lib/summernote-ko-KR.js"></script>
+<!-- DYNAMIC @is_name1@ -->
+
+<style>
+#contentBox { min-height:300px; top:20px; background-color:#fff; border:0; box-shadow: none; -webkit-box-shadow: none; }
+.ip_style {  border:1px solid #d4d4d4; height: 20px; width:460px; padding:5px; margin-left:178px; font-size:0.9em; font-family: 'Noto Sans KR', sans-serif; float:left; }
+.ip_style:focus { border:1px solid #c04706 }
+</style>
+
+<form name='goodsForm' method='post' action='goods_post.php?back=_modify{{addstring}}' target='HFrm'>					
+<input type="hidden" name="item" />
+<input type="hidden" name="mode" value="{{mode}}" />
+
+<div class="content">
+	<table>
+	<colgroup>
+	<col width="24%" /> 
+	<col width="76%" />	
+	</colgroup>
+	<tr> 
+		<td>변경 범위 </td>
+		<td>
+			<label id="proc_type1"><input type='radio' name="proc_type1" value="1" /><span class="radio"></span> 선택내역</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="proc_type1" value="2" checked="checked" /><span class="radio"></span> 검색내역({{TOTALS1}}개 상품)</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="proc_type1" value="3" /><span class="radio"></span> 전체내역({{TOTALS2}}개 상품)</label>&nbsp;&nbsp;	
+		</td>
+	</tr>	
+	<!-- DYNAMIC @is_delivery@ -->
+	<tr> 
+		<td>배송비 <i class="xi-help xi-x colorDGary masterTooltip" title="환경설정이 무료배송, 착불인 경우 개별 설정의 무료, 착불 설정은 적용되지 않습니다."></i></td>
+		<td>	
+			<div>
+				<label><input type='radio' name="delivery_type" value="1" checked="checked" /><span class="radio"></span> 환경설정 사용({{conf_delivery}})</label> 
+				<a href="../conf/delivery_info.php" target="_blank" class="link"><i class="fas fa-link masterTooltip" title="환경설정 > 배송정책설정"></i></a>
+				<div class="empty20"></div>
+				<label class="{{delivery_type_disable1}}"><input type='radio' name="delivery_type" value="2" {{delivery_type_disable2}} /><span class="radio"></span> 무료배송</label>&nbsp;&nbsp;
+				<label class="{{delivery_type_disable1}}"><input type='radio' name="delivery_type" value="3" {{delivery_type_disable2}} /><span class="radio"></span> 착불</label>				
+			</div>
+			<div class="empty20"></div>
+			<div class="floatLeft">
+				<label><input type='radio' name="delivery_type" value="4" /><span class="radio"></span> 별도책정(고정)</label>&nbsp;&nbsp;
+				<label><input type='radio' name="delivery_type" value="5" /><span class="radio"></span> 별도책정(<input type="text" name="delivery_type_qty" value="1" style="width:40px; font-size:16px;" class="only_num_format darks" /> 개당)</label>&nbsp;&nbsp;
+			</div>
+			<div class="requireLeft" style="width:200px;">
+				<input type="text" name="delivery_price" style="width:80px; font-size:14px;" class="only_num_format darks" readonly data-msg="별도책정 배송비를" /> 원
+			</div>
+
+			<div class="delivery_im_areas floatLeft" style="clear:both; padding-top:20px; display:none;">
+				<label><input type="checkbox" name="delivery_im_areas1_used" value="1" /><span></span> 제주도 추가 배송비</label>  <input type='text' name='delivery_im_areas1_price' style="width:100px; font-size:16px;" class="only_num_format" value="0" />원&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;
+				<label><input type="checkbox" name="delivery_im_areas2_used" value="1" /><span></span> 제주도외 도서산간 추가 배송비</label>  <input type='text' name='delivery_im_areas2_price' style="width:100px; font-size:16px;" class="only_num_format" value="0" />원
+			</div>
+		</td>
+	</tr>
+	<!-- DYNAMIC @is_name@ -->
+	<tr> 
+		<td>상품명 앞 문구 추가</td>
+		<td id="air_pos_prev_name">
+			<div class="sn_prev_name"></div>	
+			<input type="hidden" name="prev_name" value= "" data-notefor=".sn_prev_name" />
+		</td>
+	</tr>
+	<tr> 
+		<td>상품명 뒷 문구 추가</td>
+		<td id="air_pos_next_name">
+			<div class="sn_next_name"></div>	
+			<input type="hidden" name="next_name" value= "" data-notefor=".sn_next_name" />
+		</td>
+	</tr>
+	<tr>
+		<td>문구 변경 <i class="xi-help xi-x colorDGary masterTooltip" title="상품명중 특정문구를 일괄 변경할 수 있습니다."></i></td>
+		<td id="air_pos_next_name">
+			<input type='text' name='change_name' value='' placeholder="변경할 문구" /><br /><br />
+			<input type='text' name='changed_name' value='' placeholder="변경될 문구" data-on-enter="1" />	
+		</td>
+	</tr>
+	<!-- DYNAMIC @is_name@ -->
+	<!-- DYNAMIC @is_price@ -->
+	<tr> 
+		<td>판매가 처리 <i class="xi-help xi-x colorDGary masterTooltip" title="- 현재 판매가에서 입력한 금액 만큼 할증(+) 이나 할인(-) 처리 됩니다.[BR]- 적용 수수료율에 맞게 공급가도 변경 됩니다."></i></td>
+		<td>
+			<div class="floatLeft">
+				<select name="price_type1">
+					<option value="+">+</option>
+					<option value="-">-</option>
+				</select>			
+				<script>
+					$("form[name=goodsForm] select[name='price_type1']").val('+').heapbox({'width' : '66px', 'zindex':7});
+				</script>
+			</div>
+			<div class="floatLeft" style="padding:0 10px 0 10px;">		
+				<input type="text" name="price" style="width:120px; font-size:14px;" class="input_price1 only_num_format" data-num="1" />
+			</div>
+			<div class="floatLeft">
+				<select name="price_type12">
+					<option value="w">원</option>
+					<option value="p">%</option>				
+				</select>
+				<script>
+					$("form[name=goodsForm] select[name='price_type12']").val('w').heapbox({'width' : '76px', 'zindex':7,
+						'onChange':function(value){
+							if(value == 'p') {
+								$('.input_price1').unbind('keyup');
+								$('.input_price1').keypress(function(event) {
+									if(event.which && (event.which < 46 || event.which > 57) ) {
+										event.preventDefault();
+									}		
+								}).keyup(function(){
+									if( $(this).val() != null && $(this).val() != '' ) {
+										$(this).val( $(this).val().replace(/[^0-9.]/g, '') );
+									}
+								});
+							}
+							else {
+								$('.input_price1').unbind('keyup');
+								$('.input_price1').keyup(function(event){		
+									var position = $(this).caret();
+									var length	 = $(this).val().length;
+									if(jQuery.trim($(this).val()) != null && jQuery.trim($(this).val()) != '' ) {
+										$(this).val($(this).val().replace(/[^0-9]/g, '').replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,'));
+										if(length!=$(this).val().length) $(this).caret(position+1);
+										else $(this).caret(position);
+									}		
+								});
+							}
+						}
+					});
+				</script>
+			</div>
+		</td>
+	</tr>	
+	<tr> 
+		<td>공급가 처리 <i class="xi-help xi-x colorDGary masterTooltip" title="- 현재 공급가에서 입력한 금액 만큼 할증(+) 이나 할인(-) 처리 됩니다.[BR]- 적용 수수료율에 맞게 판매가도 변경 됩니다."></i></td>
+		<td>
+			<div class="floatLeft">
+				<select name="price_type2">
+					<option value="+">+</option>
+					<option value="-">-</option>
+				</select>			
+				<script>
+					$("form[name=goodsForm] select[name='price_type2']").val('+').heapbox({'width' : '66px', 'zindex':6});
+				</script>
+			</div>
+			<div class="floatLeft" style="padding:0 10px 0 10px;">		
+				<input type="text" name="orig_price" style="width:120px; font-size:14px;" class="input_price2 only_num_format" data-num="2" />
+			</div>
+			<div class="floatLeft">
+				<select name="price_type22">
+					<option value="w">원</option>
+					<option value="p">%</option>				
+				</select>
+				<script>
+					$("form[name=goodsForm] select[name='price_type22']").val('w').heapbox({'width' : '76px', 'zindex':6,
+						'onChange':function(value){
+							if(value == 'p') {
+								$('.input_price2').unbind('keyup');
+								$('.input_price2').keypress(function(event) {
+									if(event.which && (event.which < 46 || event.which > 57) ) {
+										event.preventDefault();
+									}		
+								}).keyup(function(){
+									if( $(this).val() != null && $(this).val() != '' ) {
+										$(this).val( $(this).val().replace(/[^0-9.]/g, '') );
+									}
+								});
+							}
+							else {
+								$('.input_price2').unbind('keyup');
+								$('.input_price2').keyup(function(event){		
+									var position = $(this).caret();
+									var length	 = $(this).val().length;
+									if(jQuery.trim($(this).val()) != null && jQuery.trim($(this).val()) != '' ) {
+										$(this).val($(this).val().replace(/[^0-9]/g, '').replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,'));
+										if(length!=$(this).val().length) $(this).caret(position+1);
+										else $(this).caret(position);
+									}		
+								});
+							}
+						}
+					});
+				</script>
+			</div>
+		</td>
+	</tr>	
+	<tr> 
+		<td>소비자가 처리 <i class="xi-help xi-x colorDGary masterTooltip" title="현재 소비자가에서 입력한 금액 만큼 할증(+) 이나 할인(-) 처리 됩니다."></i></td>
+		<td>
+			<select name="price_type3">
+				<option value="+">+</option>
+				<option value="-">-</option>
+			</select>			
+			<script>
+				$("form[name=goodsForm] select[name='price_type3']").val('+').heapbox({'width' : '66px', 'zindex':5});
+			</script>
+			&nbsp;&nbsp;
+			<input type="text" name="consumer_price" style="width:120px; font-size:14px;" class="only_num_format" /> 원
+		</td>
+	</tr>	
+	<!-- DYNAMIC @is_price@ -->
+	<!-- DYNAMIC @is_image@ -->
+	<tr>
+		<td>상세이미지(대표) <i class="xi-help xi-x colorDGary masterTooltip" title="등록된 이미지보다 작을 경우 이미지가 흐려보일 수 있습니다."></i></td>
+		<td>
+			<input type='text' name='image1' value='' placeholder="가로 사이즈" style="width:70px; font-size:14px;" class="only_num" /> px
+			&nbsp;&nbsp;<font class='colorLgray size09'>(등록된 이미지 가로 사이즈 : {{SIZE1}}px , 선택된 스킨 이미지 가로 사이즈 : {{SIZE21}}px)</font>
+		</td>
+	</tr>
+	<tr>
+		<td>목록이미지 <i class="xi-help xi-x colorDGary masterTooltip" title="상세이미지 사용에 체크 하시면 상세이미지를 이용하여 사이즈를 변경 합니다."></i></td>
+		<td>
+			<input type='text' name='image2' value='' placeholder="가로 사이즈" style="width:70px; font-size:14px;" class="only_num" /> px
+			&nbsp;&nbsp;<label><input type='checkbox' name="image1_use1" value="1" /><span></span> 상세이미지 사용</label>
+			&nbsp;&nbsp;<font class='colorLgray size09'>(등록된 이미지 가로 사이즈 : {{SIZE2}}px , 선택된 스킨 이미지 가로 사이즈 : {{SIZE22}}px)</font>
+		</td>
+	</tr>
+	<tr>
+		<td>작은 목록이미지 <i class="xi-help xi-x colorDGary masterTooltip" title="상세이미지 사용에 체크 하시면 상세이미지를 이용하여 사이즈를 변경 합니다."></i></td>
+		<td>
+			<input type='text' name='image3' value='' placeholder="가로 사이즈" style="width:70px; font-size:14px;" class="only_num" /> px
+			&nbsp;&nbsp;<label><input type='checkbox' name="image1_use2" value="1" /><span></span> 상세이미지 사용</label>
+			&nbsp;&nbsp;<font class='colorLgray size09'>(등록된 이미지 가로 사이즈 : {{SIZE3}}px , 선택된 스킨 이미지 가로 사이즈 : {{SIZE23}}px)</font>
+		</td>
+	</tr>
+	<tr>
+		<td>추가 이미지 <i class="xi-help xi-x colorDGary masterTooltip" title="추가 이미지는 상세이미지와 사이즈가 동일 합니다."></i></td>
+		<td>
+			<input type='text' name='other_image' value='' placeholder="가로 사이즈" style="width:70px; font-size:14px;" class="only_num" /> px			
+			&nbsp;&nbsp;<font class='colorLgray size09'>(등록된 이미지 가로 사이즈 : {{SIZE1}}px , 선택된 스킨 이미지 가로 사이즈 : {{SIZE21}}px)</font>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" style="background-color:#fff; text-align:left; padding-left:20px;">
+			<div class="floatLeft"><i class="xi-warning xi-2x"></i></div>
+			<div class="floatLeft" style="padding:4px 0 0 20px;font-size:0.9em">								
+				이미지가 변경되는 상품수가 많을 경우 서버에 부하를 줄 수 있으며 처리 속도가 느려질 수 있습니다.
+			</div>
+		</td>
+	</tr>
+	<!-- DYNAMIC @is_image@ -->
+	</table>
+</div>
+
+<div class="btnSubmitBoxPop">
+	<div class="displayInline"><button class="weight300 shine" type="submit">일괄변경</button></div>		
+</div>
+
+</form>
+
+<iframe name="HFrm" style="display:none"></iframe>
+
+<script>
+<!--
+	
+	var goods_price_limit1  = '{{goods_price_limit1}}';
+	var goods_price_limit2  = '{{goods_price_limit2}}';
+
+	function ckmileageType() {
+		if($('form[name=goodsForm] input[name=mileage_type]:checked').val()=='4') {
+			dipslayDarkShow('form[name=goodsForm] input[name=mileage_common]');
+			$("#level_mileage").hide();
+			resetTooltip();
+		}
+		else {
+			if($('form[name=goodsForm] input[name=mileage_type]:checked').val()=='3') {
+				$("#level_mileage").show();
+				$(".level_mileage").attr('readonly',false);
+			}
+			else {
+				$("#level_mileage").hide();
+				$(".level_mileage").attr('readonly',true);
+			}
+			dipslayDarkHide('form[name=goodsForm] input[name=mileage_common]');
+		}
+	}
+
+	function ckDeliveryType() {
+		if($('form[name=goodsForm] input[name=delivery_type]:checked').val()=='4' || $('form[name=goodsForm] input[name=delivery_type]:checked').val()=='5') {
+			dipslayDarkShow('form[name=goodsForm] input[name=delivery_price]');
+			resetTooltip();
+		}
+		else {
+			dipslayDarkHide('form[name=goodsForm] input[name=delivery_price]');
+		}
+		
+		if($('form[name=goodsForm] input[name=delivery_type]:checked').val()=='5') {
+			dipslayDarkShow('form[name=goodsForm] input[name=delivery_type_qty]');
+		}
+		else {
+			dipslayDarkHide('form[name=goodsForm] input[name=delivery_type_qty]');		
+		}
+
+		if($('form[name=goodsForm] input[name=delivery_type]:checked').val()=='1') $(".delivery_im_areas").hide();
+		else $(".delivery_im_areas").show();
+	}
+	
+	$('#air_pos_prev_name').append('<p class="requireIcon size09 fontMontserrat" style="left:680px; right:0; font-size:14px;"><span class="colorOrange" id="air_pos_prev_name_cnt">0</span> / 30</p>');	
+	$('#air_pos_next_name').append('<p class="requireIcon size09 fontMontserrat" style="left:680px; right:0; font-size:14px;"><span class="colorOrange" id="air_pos_next_name_cnt">0</span> / 30</p>');	
+
+	$(function() {		
+		var ret = [];
+		$("form[name=listForm] input[name='item[]']:checkbox:checked", parent.document).each(function(i) {
+			ret.push($(this).val());
+		});
+
+		if(ret.length==0) {
+			$("#proc_type1").addClass('colorLLgray');
+			$("form[name=goodsForm] input:radio[name=proc_type1]:input[value=1]").attr('disabled',true);		
+		}		
+		else {
+			$("form[name=goodsForm] input[name='item']").val(ret);
+			$("form[name=goodsForm] input:radio[name=proc_type1]:input[value=1]").attr('checked',true);		
+		}
+		
+		<!-- DYNAMIC @is_name2@ -->
+		$('.sn_prev_name').summernote({
+			'maxTextLength' : '30',
+			'airMode' : true,
+			'airPos' : 'air_pos_prev_name',
+			'lang' : 'ko-KR',
+			'dialogsFade' : true,
+			'nextFocus' : '.sn_next_name'
+		});		
+
+		$('.sn_next_name').summernote({
+			'maxTextLength' : '30',
+			'airMode' : true,
+			'airPos' : 'air_pos_next_name',
+			'lang' : 'ko-KR',
+			'dialogsFade' : true,
+			'nextFocus' : $("form[name=goodsForm] input[name='change_name']")
+		});		
+		<!-- DYNAMIC @is_name2@ -->
+
+		$('form[name=goodsForm] input[name=mileage_type]').click(function(e){
+			ckmileageType();
+		});
+
+		$('form[name=goodsForm] input[name=delivery_type]').click(function(e){
+			ckDeliveryType();
+		});
+
+		$('form[name=goodsForm] input[name=price], form[name=goodsForm] input[name=orig_price]').blur(function(e){
+			var num = $(this).attr("data-num");
+			if($("form[name=goodsForm] select[name='price_type" + num + "2']").val() == 'w') {
+				$(this).val(priceLimit($(this).val()));			
+			}
+		});	
+	});
+
+//-->
+</script>

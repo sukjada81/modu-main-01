@@ -1,0 +1,57 @@
+<div id="contents">		
+	<h2 class="contentTitle">주문 완료</h2>
+	
+	<div class="empty50"></div>
+
+	<div class="fontSCDream center">
+		<div class="iconRegistOk center">
+			<div style="padding-top:30px"><i class="xi-check-thin xi-5x"></i></div>
+		</div>
+		<div class="empty40"></div>
+		<div class="weight400 size30">{{TTL}} 완료 되었습니다.</div>
+		<div class="empty20"></div>
+		<div class="lineHeight colorGray">
+			<b class="colorBlack">{{GOODS_NAME}}</b>의 주문이 정상적으로 접수 되었습니다.<br />
+			주문정보는 회원일 경우 마이페이지 > 주문내역 에서 확인 하실 수 있으며<br />			
+			비회원일 경우 가입시입력한 이름, 핸드폰번호, 비밀번호로 주문내역을 확인 하실 수 있습니다.
+		</div>
+		
+		<!-- DYNAMIC @is_bank_info@ -->
+		<div class="empty50"></div>
+		<div class="orderOkBox">			
+			<p>{{BANK_INFO1}} 계좌에 {{BANK_INFO2}} 으로 <b>{{PAY_TOTAL}}</b>원을 입금 해 주시면 됩니다.</p>
+			<!-- DYNAMIC @is_bank_date@ -->
+			<span class="msg">{{BANK_DATE}}까지 미입금시 자동으로 주문이 취소됩니다.</span>
+			<!-- DYNAMIC @is_bank_date@ -->
+		</div>
+		<!-- DYNAMIC @is_bank_info@ -->
+
+		<!-- DYNAMIC @is_bank_info2@ -->
+		<div class="empty50"></div>
+		<div class="orderOkBox">			
+			<p>{{BANK_INFO1}} {{BANK_INFO2}} {{BANK_INFO3}} 계좌에 <b>{{PAY_TOTAL}}</b>원을 입금 해 주시면 됩니다.</p>
+			<!-- DYNAMIC @is_bank_date2@ -->
+			<span class="msg">{{BANK_DATE}}까지 미입금시 자동으로 주문이 취소됩니다.</span>
+			<!-- DYNAMIC @is_bank_date2@ -->
+		</div>
+		<!-- DYNAMIC @is_bank_info2@ -->
+
+		<!-- DYNAMIC @is_pay_info@ -->
+		<div class="empty50"></div>
+		<div class="orderOkBox">			
+			<p>결제가 완료 되었습니다.</p>
+			<span class="msg">{{PAY_INFO}}</span>			
+		</div>
+		<!-- DYNAMIC @is_pay_info@ -->
+	</div>	
+
+	<div class="empty100"></div>
+	
+	<div class="center" style="width:800px;">		
+		<a href="{{Main}}"><button class="shineButton" style="width:392px;" type="button">메인페이지</button></a>				
+		<a href="{{Main}}?channel=order_list"><button class="shineButton shineButtonBlack" style="width:392px;margin-left:10px;" type="button">주문내역확인</button></a>		
+	</div>
+
+	<div class="empty50"></div>
+	
+</div>

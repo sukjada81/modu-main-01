@@ -1,0 +1,60 @@
+<link href="../../lib/summernote-lite.css?ver={{ver}}" rel="stylesheet">
+<script src="../../lib/summernote-lite.js?ver={{ver}}"></script>
+<script src="../../lib/summernote-ko-KR.js"></script>
+
+<form name='signForm' method='post' action='design_post.php' enctype="multipart/form-data" target='HFrm'>
+<input type="hidden" name="mode" value="mail_common" />
+
+<div class="content">
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;공통 디자인 설정
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>	
+	<tr> 
+		<td>공통 디자인 <i class="xi-help xi-x colorDGary masterTooltip" title="- 메일 발송시 사용되는 공통디자인을 설정 하시면 됩니다.[BR]- 치환코드안내[BR]- {CONTENT} : 내용[BR]- {CSURL} : 고객센터링크[BR]- {COMPANY} : 회사명[BR]- {OWNER} : 대표자명[BR]- {COMPNUM} : 사업자등록번호[BR]- {ADDRESS} : 주소[BR]- {TEL} : 대표번호[BR]- {SHOPNAME} : 쇼핑몰명"></td>
+		<td colspan="3" style="padding:20px;">
+			<XMP class="sn_content_code" style="display:none">{{content_code}}</XMP>
+			<input type="hidden" name="content_code" data-notefor=".sn_content_code" value= "" />
+		</td>
+	</tr>	
+	</table>
+	
+	<div class="empty60"></div>
+
+	<div class="btnSubmitBox">
+		<div class="displayInline"><button class="weight300 shine" type="submit">저장하기</button></div>
+	</div>
+
+</div>
+
+</form>
+
+<script>
+<!--
+		
+	$(function() {
+		
+		$('.sn_content_code').summernote({						
+			'lang' : 'ko-KR',
+			'height' : '500px',
+			'dialogsFade' : true,
+			'imgSync' : false,
+			callbacks: {
+				onImageUpload:function( files,editor,welEditable) {
+					snUpImage(files, this, 'mail/common' );
+				}
+			}
+		});	
+		
+	});	
+
+//-->
+</script>

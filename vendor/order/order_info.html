@@ -1,0 +1,281 @@
+<form name='orderForm' method='post' action='order_post.php?{{addstring}}' enctype="multipart/form-data" target='HFrm'>
+<input type="hidden" name="order_num" value="{{order_num}}" />
+<input type="hidden" name="mode" value="" />
+
+<div class="content">
+	
+	<div class="orderContent">
+			
+		<div class="contentTitle">
+			<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;주문상품 {{TOTAL}}개
+		</div>
+		
+		<div class="orderList">
+			<!-- DYNAMIC @loop_order@ -->
+			<div class="vendorList" data-vendor='{{VENDOR}}'>						
+				<div class="listInfo">
+					<label><input type='checkbox' name="select_{{VENDOR}}" value="1" /><span></span></label> 
+					{{VENDOR_NAME}}
+					<span class="delivery">배송비 : {{DELIVERY_MESSAGE}} {{DELIVERY_ADD_MESSAGE}}</span>
+				</div>
+				<!-- DYNAMIC @loop_order_goods@ -->
+				<div class="listItem">
+					<div class="floatLeft"><label><input type='checkbox' name="item[]" value="{{UID}}" class="select_{{VENDOR}}" {{DISABLED}} /><span></span></label></div>
+					<div class="listItemImg"><a href="{{G_LINK}}" target="_blank" title="쇼핑몰상세보기"><img src="{{G_IMAGE}}" alt="{{G_NAME}}" height="60" /></a></div>
+					<div class="listItemDetail">
+						<div><a href="{{G_LINK2}}" target="_blank" title="상품정보수정" class="underLine colorBlack">{{G_NAME}}</a></div>
+						<!-- DYNAMIC @is_option@ -->
+						<div>{{G_OPTION}}</div>
+						<!-- DYNAMIC @is_option@ -->
+						<div>							
+							배송비 : {{DELIVERY}}
+							<!-- DYNAMIC @is_delivery_add@ -->
+							&nbsp;&nbsp;|&nbsp;&nbsp;추가배송비 : {{DELIVERY_ADD}}
+							<!-- DYNAMIC @is_delivery_add@ -->
+							<!-- DYNAMIC @is_delivery_info@ -->
+							&nbsp;&nbsp;|&nbsp;&nbsp;{{DELIVERY_INFO}}							
+							<button class="btnsSmall btnDeliveryTracking" type="button" data-url="{{delivery_url}}" data-num="{{delivery_number}}"><span class="text">배송조회</span></button>
+							<!-- DYNAMIC @is_delivery_info@ -->
+						</div>
+					</div>
+					<div class="listItemQty">	
+						{{QTY}}개
+					</div>
+					<div class="listItemStatus">	
+						{{STATUS}}
+						<div>{{STATUS_DATE}}</div>
+						<!-- DYNAMIC @is_log@ -->
+						<div class="empty1"></div>
+						<button class="btnsSmall btnOrderLog" type="button" data-uid="{{UID}}" data-gname="{{G_NAME}}"><span class="text">로그</span></button>
+						<!-- DYNAMIC @is_log@ -->
+					</div>
+					<div class="listItemPrice">						
+						<div>
+							<span>{{SUM_PRICE}}</span>원
+						</div>						
+					</div>						
+				</div>			
+				<!-- DYNAMIC @loop_order_goods@ -->
+				<div class="listSum">
+					<div>상품공급가 <span><font class="listItemPrices">{{VENDOR_PRICE}}</font>원</span></div>
+					<div><i class="xi-plus-thin xi-x"></i></div>
+					<div>배송비 <span><font class="listItemDelivery">{{VENDOR_DELIVERY}}</font>원</span></div>
+					<div><i class="xi-minus-thin xi-x"></i></div>
+					<div>취소금액 <span><font>{{VENDOR_CANCEL}}</font>원</span></div>					
+					<div><i class="xi-drag-handle xi-x"></i></div>
+					<div>정산금액 <span><font class="listItemTotal">{{VENDOR_TOTAL}}</font>원</span></div>			
+				</div>
+				<!-- DYNAMIC @is_delivery@ -->				
+				<div class="empty20"></div>				
+				<div class="orderProc">
+					<div class="floatLeft" style="padding-top:5px"><i class="xi-check-thin xi-x"></i> 선택한 상품을 </div>
+					<div class="requireLeft">
+						<select name="status">
+							<option value="">처리상태 선택</option>							
+							<option value="2">배송준비중</option>
+							<option value="3">배송중</option>							
+						</select>			
+						<script>
+							$("form[name=orderForm] select[name='status']").val('').heapbox({'width' : '150px'});
+						</script>
+					</div>
+					<div class="requireLeft">
+						<select name="delivery">
+							<option value="">배송업체 선택</option>
+							<!-- DYNAMIC @loop_delivery@ -->
+							<option value="{{delivery_num}}">{{delivery_name}}</option>
+							<!-- DYNAMIC @loop_delivery@ -->
+						</select>			
+						<script>
+							$("form[name=orderForm] select[name='delivery']").val('').heapbox({'width' : '200px'});
+						</script>
+					</div>
+					<div class="requireLeft">			
+						<input type='text' name='delivery_number' value='{{delivery_number}}' style="width:200px; font-size:1.1em" placeholder="송장번호" />
+					</div>
+					<div class="requireLeft size12">	
+						<button class="btns" type="button" id="statusChange"><span class="text"><i class="xi-check-circle xi-x"></i> 일괄처리</span></button>
+					</div>
+				</div>				
+				<!-- DYNAMIC @is_delivery@ -->
+				<div class="empty30"></div>
+			</div>
+			<!-- DYNAMIC @loop_order@ -->
+		</div>				
+
+		<div class="empty30"></div>	
+
+		<div class="contentTitle">
+			<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;주문정보
+		</div>
+
+		<table>
+		<colgroup>
+		<col width="16%" /> 
+		<col width="34%" />
+		<col width="16%" /> 
+		<col width="34%" />	
+		</colgroup>	
+		<tr> 
+			<td>주문번호</td>
+			<td class="number">{{order_num}}</td>
+			<td>주문일시</td>
+			<td class="number">{{order_date}}</td>
+		</tr>
+		<tr> 
+			<td>결제수단</td>
+			<td>{{pay_type}}</td>		
+			<td>결제상태</td>
+			<td>{{pay_status}}</td>
+		</tr>
+		<!-- DYNAMIC @is_status_date@ -->
+		<tr> 
+			<td>결제완료일</td>
+			<td colspan="3" class="number">{{status_date}}</td>
+		</tr>
+		<!-- DYNAMIC @is_status_date@ -->
+		<tr> 
+			<td>주문자명</td>
+			<td colspan="3">
+				{{name}}
+				<!-- DYNAMIC @is_member@ -->
+				/ {{MEMBER_ID}}
+				<!-- DYNAMIC @is_member@ -->
+			</td>
+		</tr>
+		<tr> 
+			<td>주문자 연락처</td>
+			<td class="number">{{cell}}</td>
+			<td>주문자 이메일</td>
+			<td>{{email}}</td>
+		</tr>
+		<tr> 
+			<td>수령자명</td>
+			<td>{{name2}}</td>
+			<td>수령자 연락처</td>
+			<td class="number">{{cell2}}</td>
+		</tr>
+		<tr> 
+			<td>배송지</td>
+			<td colspan="3">({{postcode}}) {{address1}} {{address2}}</td>
+		</tr>
+		<tr> 
+			<td>요청사항</td>
+			<td colspan="3">{{message}}</td>
+		</tr>
+		<tr> 
+			<td>메모 <i class="xi-help xi-x colorDGary masterTooltip" title="본사와 판매사가 같이 사용하는 메모 입니다."></i></td>
+			<td colspan="3">
+				<textarea name="memo" style="height:60px;">{{memo}}</textarea>
+				<div style="padding-top:10px;"><button class="btns" type="button" id="memo"><span class="text"><i class="xi-check-circle xi-x"></i> 메모저장</span></button></div>
+			</td>
+		</tr>		
+		</table>
+	</div>
+
+	<div class="orderSum">
+		<div class="priceInfo">
+			<div>상품공급가 <span><font class="itemPrice">{{VENDOR_PRICE}}</font>원</span></div>			
+			<div>배송비 <span> + <font class="itemDelivery">{{VENDOR_DELIVERY}}</font>원</span></div>
+			<div>취소금액 <span> - <font class="itemDelivery">{{VENDOR_CANCEL}}</font>원</span></div>			
+		</div>
+		<div class="priceTotal">
+			정산금액 <span><font class="itemSum">{{VENDOR_TOTAL}}</font>원</span>
+		</div>
+		<div class="empty10"></div>
+		<button class="shineButton btnPrev1" style="width:100%" type="button">이전페이지</button>	
+		<div class="empty10"></div>					
+		<button class="shineButton btnPrint" style="width:100%" type="button">주문서인쇄</button>			
+	</div>
+	
+	<div class="empty60" ></div>
+</div>
+
+</form>
+
+<script>
+<!--
+
+	var is_cancel		= '{{is_cancel}}';
+	var sumPositionTop	= $(".orderSum").offset().top - 80;
+	
+	$(function() {
+		
+		if(is_cancel == 1) {
+			$(".orderProc").hide();			
+		}
+
+		$(".vendorList").each(function(i){								
+			var vendor = $(this).attr('data-vendor');
+
+			$("form[name=orderForm] input[name='select_" + vendor + "']").click(function(e) {
+				if($(this).prop("checked")) {
+					$(".select_" + vendor).each(function(i2){
+						if(!$(this).prop("disabled")) $(this).prop("checked", true);
+					});
+				}
+				else $(".select_" + vendor).prop("checked", false);
+			});
+		});
+
+		$(".btnPrev1").click(function(e){
+			window.history.back();
+		});	
+
+		$('#statusChange').click(function(e) {
+			var ret = [];
+			$("form[name=orderForm] input[name='item[]']:checkbox:checked").each(function(i) {
+				ret.push($(this).val());
+			});
+
+			if(ret.length == 0) {
+				alertify.alert("선택된 주문상품이 없습니다.")
+				return false;
+			}			
+			
+			if(!$("form[name=orderForm] select[name='status']").val()) {
+				alertify.alert("처리상태를 선택 하세요.")
+				return false;
+			}
+			$("form[name=orderForm] input[name='mode']").val("statusChange");
+			$("form[name=orderForm]").submit();			
+		});
+		
+		$(".btnDeliveryTracking").click(function(e){
+			var url = $(this).attr("data-url");
+			var num	= $(this).attr("data-num");
+
+			if(!url || !num) {
+				alertify.error("배송정보가 입력되지 않았거나 잘못 되었습니다. 고객센테에 문의 하시기 바랍니다.");
+				return false;
+			}
+		
+			window.open(url + num, "");
+		});
+
+		$('.btnOrderLog').click(function(e) {
+			iframeWidth = '850px';
+			iframeHeight = '.6';	
+			iframeView("popup_order_log.php?og_uid=" + $(this).attr('data-uid'), "["+$(this).attr('data-gname')+"] 로그 기록");			
+		});		
+
+		$('#memo').click(function(e) {
+			$("form[name=orderForm] input[name='mode']").val("memo");
+			$("form[name=orderForm]").submit();			
+		});
+
+		$('.btnPrint').click(function(e) {
+			iframeWidth = '1000px';
+			iframeHeight = '.8';
+			iframeView("popup_order_print.php?order_num={{order_num}}", "주문서 인쇄");
+		});	
+				
+	});		
+
+	$(window).resize(function(){ 		
+		left = parseInt($('#contentBox').position().left) + parseInt($('.orderList').css('width')) + 72;
+		$('.orderSum').css("left", left);
+	});
+
+//-->
+</script>

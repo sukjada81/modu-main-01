@@ -1,0 +1,53 @@
+<!-- DYNAMIC @is_list_area@ -->
+<div>
+	<div class="widgetTitle">알림 <span data-id="notice"><i class="xi-renew masterTooltipWidget" title="새로고침"></i></span></div>
+	<div class="display-table" style="height:170px;">		
+		<div class="display-table-row">
+			<div class="display-table-cell">
+				<div class="widgetDetail notice">
+					<!-- DYNAMIC @is_inquiry@ -->
+					<div class="notice"><i class="xi-bell xi-x"></i> <a href="../etcs/inquiry_list.php?answer=1" class="underLineThinWhite">미답변 상품문의가 <span>{{CNT1}}</span> 건 있습니다.</a></div>
+					<!-- DYNAMIC @is_inquiry@ -->
+					<!-- DYNAMIC @is_counsel@ -->
+					<div class="notice"><i class="xi-bell xi-x"></i> <a href="../board/board.php?b_id=counsel" class="underLineThinWhite">미답변 1:1문의가 <span>{{CNT2}}</span> 건 있습니다.</a></div>
+					<!-- DYNAMIC @is_counsel@ -->
+					<!-- DYNAMIC @is_vcounsel@ -->
+					<div class="notice"><i class="xi-bell xi-x"></i> <a href="../board/board.php?b_id=vcounsel" class="underLineThinWhite">미답변 판매사 1:1문의가 <span>{{CNT3}}</span> 건 있습니다.</a></div>
+					<!-- DYNAMIC @is_vcounsel@ -->
+					<!-- DYNAMIC @is_order_status1@ -->
+					<div class="notice"><i class="xi-bell xi-x"></i> <a href="../order/order_change_list.php?status=1" class="underLineThinWhite">교환/반품 요청 주문상품이<span>{{CNT4}}</span> 건 있습니다.</a></div>
+					<!-- DYNAMIC @is_order_status1@ -->
+					<!-- DYNAMIC @is_order_status2@ -->
+					<div class="notice"><i class="xi-bell xi-x"></i> <a href="../order/order_change_list.php?status=2" class="underLineThinWhite">교환/반품 처리중인 주문상품이<span>{{CNT5}}</span> 건 있습니다.</a></div>
+					<!-- DYNAMIC @is_order_status2@ -->
+					<!-- DYNAMIC @is_order_status3@ -->
+					<div class="notice"><i class="xi-bell xi-x"></i> <a href="../order/order_change_list.php?status=3" class="underLineThinWhite">환불처리할 주문상품이<span>{{CNT6}}</span> 건 있습니다.</a></div>
+					<!-- DYNAMIC @is_order_status3@ -->
+					<!-- DYNAMIC @is_vendor_goods@ -->
+					<div class="notice"><i class="xi-bell xi-x"></i> <a href="../vendor/vendor_goods_list.php?auth_ck=N" class="underLineThinWhite">판매사 미승인 상품이<span>{{CNT8}}</span> 건 있습니다.</a></div>
+					<!-- DYNAMIC @is_vendor_goods@ -->
+					<!-- DYNAMIC @is_cash_receipts@ -->
+					<div class="notice"><i class="xi-bell xi-x"></i> <a href="../order/cash_receipts_list.php?status=0" class="underLineThinWhite">현굼영수증 발행요청이 <span>{{CNT9}}</span> 건 있습니다.</a></div>
+					<!-- DYNAMIC @is_cash_receipts@ -->
+					<!-- DYNAMIC @is_order_cancel_cp@ -->
+					<div class="notice"><i class="xi-bell xi-x"></i> <a href="../order/order_cancel_cp_log_list.php?status=1&proc=0" class="underLineThinWhite">전자결제 주문취소연동 오류가<span>{{CNT7}}</span> 건 있습니다.</a></div>
+					<!-- DYNAMIC @is_order_cancel_cp@ -->
+					<!-- DYNAMIC @is_delivery_api@ -->
+					<div class="notice"><i class="xi-bell xi-x"></i> <a href="../etcs/delivery_api_log_list.php" class="underLineThinWhite">스마트택배 API연동 오류 로그확인 바랍니다.</a></div>
+					<!-- DYNAMIC @is_delivery_api@ -->
+					<!-- DYNAMIC @empty_list@ -->
+					<div class="widgetEmptyList"><i class="fas fa-quote-left"></i>&nbsp;&nbsp;알림사항이 없습니다!&nbsp;&nbsp;<i class="fas fa-quote-right"></i></div>
+					<!-- DYNAMIC @empty_list@ -->		
+				</div>
+			</div>
+		</div>
+	</div>	
+</div>	
+
+<script>
+
+	$(".widgetDetail.notice").css("height", 170);		
+	$(".widgetDetail.notice").mCustomScrollbar({theme:"dark-3"});	
+
+</script>
+<!-- DYNAMIC @is_list_area@ -->

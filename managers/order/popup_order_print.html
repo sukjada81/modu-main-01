@@ -1,0 +1,157 @@
+<style>
+body { min-width:940px; background-color:#fff; }
+#contentBox { min-width:940px; min-height:300px; top:20px; background-color:#fff; border:0; box-shadow: none; -webkit-box-shadow: none; }
+#contentBox .content { min-width:940px; margin:20px; clear:both; }
+</style>
+
+<div class="content">	
+
+	<div class="helpPrint">
+		인쇄가이드
+		<div class="empty10"></div>
+		<div class="size08">인터넷 익스플로러 : 브라우저의 [도구 메뉴]-[인터넷옵션]-[고급]-[인쇄] 에서 [배경색 및 이미지 인쇄] 체크</div>
+		<div class="empty5"></div>
+		<div class="size08">크롬 or 엣지&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: 인쇄창 - [기타설정] - [배경그래픽] 체크</div>
+	</div>
+
+	<!-- DYNAMIC @loop_order@ -->
+	<div style="page-break-before: always;">
+		<div class="gapLine"></div>
+
+		<div class="contentTitle">
+			<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;주문상품 {{TOTAL}}개
+		</div>
+
+		<table class="listIn">
+		<col width="6%" /> 
+		<col width="10%" />
+		<col width="" />
+		<col width="6%" />
+		<col width="10%" />
+		<col width="10%" />
+		<col width="10%" />
+		<col width="10%" />
+		<col width="10%" />
+		<thead>
+		<tr> 
+			<th>번호</th>
+			<th>이미지</th>
+			<th>주문상품</th>
+			<th>수량</th>
+			<th>상품금액</th>
+			<th>할인금액</th>
+			<th>개별배송비</th>
+			<th>총주문금액</th>
+			<th>처리상태</th>
+		</tr>
+		</thead>
+		<tbody>	
+		<!-- DYNAMIC @loop_order_goods@ -->
+		<tr>
+			<td class="number {{colorDgray}}">{{NUM}}</td>
+			<td><img src="{{G_IMAGE}}" alt="{{G_NAME}}" height="60" /></a></td>
+			<td style="text-align:left" class="{{colorDgray}}">	
+				{{G_NAME}} 
+				<!-- DYNAMIC @is_option@ -->
+				{{G_OPTION}}
+				<!-- DYNAMIC @is_option@ -->
+			</td>
+			<td class="number {{colorDgray}}">{{QTY}}</td>	
+			<td class="number {{colorDgray}}">{{ORIG_PRICE}}</td>
+			<td class="number {{colorDgray}}">{{SALE_PRICE}}</td>
+			<td class="number {{colorDgray}}">{{DELIVERY}}</td>
+			<td class="number {{colorDgray}}">{{SUM_PRICE}}</td>		
+			<td class="{{colorDgray}}">{{STATUS}}</td>
+		<tr>
+		<!-- DYNAMIC @loop_order_goods@ -->
+		</tbody>
+		</table>
+
+		<div class="empty30"></div>	
+
+		<div class="contentTitle">
+			<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;주문정보
+		</div>
+
+		<table>
+		<colgroup>
+		<col width="16%" /> 
+		<col width="34%" />
+		<col width="16%" /> 
+		<col width="34%" />	
+		</colgroup>
+		<tr> 
+			<td>주문번호</td>
+			<td class="number">{{order_num}}</td>
+			<td>주문일시</td>
+			<td class="number">{{order_date}}</td>
+		</tr>
+		<tr> 
+			<td>결제수단</td>
+			<td>{{pay_type}}</td>		
+			<td>결제상태</td>
+			<td>{{pay_status}}</td>
+		</tr>
+		<!-- DYNAMIC @is_status_date@ -->
+		<tr> 
+			<td>결제완료일</td>
+			<td colspan="3" class="number">{{status_date}}</td>
+		</tr>
+		<!-- DYNAMIC @is_status_date@ -->		
+		<tr> 
+			<td>주문자명</td>
+			<td colspan="3">
+				{{name}}
+				<!-- DYNAMIC @is_member@ -->
+				/ {{MEMBER_ID}}
+				<!-- DYNAMIC @is_member@ -->
+			</td>
+		</tr>
+		<tr> 
+			<td>주문자 연락처</td>
+			<td class="number">{{cell}}</td>
+			<td>주문자 이메일</td>
+			<td>{{email}}</td>
+		</tr>
+		<tr> 
+			<td>수령자명</td>
+			<td>{{name2}}</td>
+			<td>수령자 연락처</td>
+			<td class="number">{{cell2}}</td>
+		</tr>
+		<tr> 
+			<td>배송지</td>
+			<td colspan="3">({{postcode}}) {{address1}} {{address2}}</td>
+		</tr>
+		<tr> 
+			<td>요청사항</td>
+			<td colspan="3">{{message}}</td>
+		</tr>		
+		</table>
+	</div>
+	<!-- DYNAMIC @loop_order@ -->
+	
+</div>
+
+<div class="empty100"></div>	
+	
+<div class="btnSubmitBoxPop">
+	<div class="displayInline"><button class="weight300 shine" type="submit">인쇄하기</button></div>		
+</div>
+
+
+
+<script>
+<!--
+	$(".btnSubmitBoxPop .displayInline .shine").click(function(e){
+		$(".helpPrint").hide();
+		$(".gapLine").hide();
+		$(".btnSubmitBoxPop").hide();
+		window.print();
+		$(".btnSubmitBoxPop").show();
+		$(".helpPrint").show();
+		$(".gapLine").show();
+	});	
+
+//-->
+</script>

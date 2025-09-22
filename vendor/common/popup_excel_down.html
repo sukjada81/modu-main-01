@@ -1,0 +1,115 @@
+<style>
+body { min-width:840px; background-color:#fff; }
+#contentBox { min-width:840px; min-height:400px; top:20px; background-color:#fff; border:0; box-shadow: none; -webkit-box-shadow: none; }
+#contentBox .content { min-width:800px; margin:20px; clear:both; }
+</style>
+
+<form name='signForm' method='post' action='popup_excel_down_post.php?{{addstring}}' target='HFrm'>					
+<input type="hidden" name="type" value="{{type}}" />
+<input type="hidden" name="item" />
+
+<div class="content">
+	<table>
+	<colgroup>
+	<col width="24%" /> 
+	<col width="76%" />	
+	</colgroup>
+	<tr> 
+		<td>다운로드 범위 </td>
+		<td>
+			<label id="proc_type1"><input type='radio' name="down_type" value="1" /><span class="radio"></span> 선택내역</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="down_type" value="2" checked="checked" /><span class="radio"></span> 검색내역</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="down_type" value="3" /><span class="radio"></span> 전체내역</label>&nbsp;&nbsp;	
+		</td>
+	</tr>	
+	<tr> 
+		<td>파일명</td>
+		<td>
+			<div style="float:left; display:inline-block; position:relative; width:420px;">
+				<input type='text' name='name' value="{{name}}" style="width:400px;" required="required" data-check-file-name="1" data-msg="파일명을" />
+			</div>
+		</td>		
+	</tr>
+	<tr> 
+		<td>비밀번호 사용여부 <i class="xi-help xi-x colorDGary masterTooltip" title="비밀번호 사용시 zip파일로 압축되어 다운되며 압축해제시 비밀번호를 입력 하셔야 됩니다."></i></td>
+		<td>
+			<label><input type='radio' name="passwd_use" value="1" checked="checked" /><span class="radio"></span> 사용함</label>&nbsp;&nbsp;	
+			<label><input type='radio' name="passwd_use" value="2" /><span class="radio"></span> 사용안함</label>&nbsp;&nbsp;
+		</td>
+	</tr>	
+	<tr> 
+		<td>비밀번호 <i class="xi-help xi-x colorDGary masterTooltip" title="영문, 숫자, 특수문자(!@#$%^&+=_) 2가지 이상 조합 8~20자만 가능합니다."></i></td>
+		<td>
+			<div style="float:left; display:inline-block; position:relative; width:420px;">
+				<input type='password' name='passwd' placeholder="영문, 숫자, 특수문자 2가지 이상 조합 8~20자" style="width:400px;" required="required" data-msg="비밀번호를" data-check-password='1' />
+			</div>
+		</td>			
+	</tr>	
+	<tr> 
+		<td>비밀번호 확인</td>
+		<td>
+			<div style="float:left; display:inline-block; position:relative; width:420px;">
+				<input type='password' name='re_passwd' required="required" style="width:400px;" data-msg="비밀번호확인을" data-check-password='2' data-check-field='document.signForm.passwd' data-on-enter="1" />
+			</div>
+		</td>
+	</tr>
+
+	</table>
+</div>
+
+<div class="btnSubmitBoxPop">
+	<div class="displayInline"><button class="weight300 shine" type="submit">다운로드</button></div>		
+</div>
+
+</form>
+
+<iframe name="HFrm" style="display:none"></iframe>
+
+<script>
+<!--
+
+	function ckPasswd() {
+
+		var nameArr = new Array('passwd','re_passwd');
+
+		if($('form[name=signForm] input[name=passwd_use]:checked').val()=='1') {
+			for(i=0;i<nameArr.length;i++) {
+				dipslayDarkShow('form[name=signForm] input[name='+nameArr[i]+']', 4);
+			}			
+			resetTooltip();
+		}
+		else {
+			for(i=0;i<nameArr.length;i++) {
+				dipslayDarkHide('form[name=signForm] input[name='+nameArr[i]+']', 2);
+			}			
+		}
+	}
+
+	function fileDown() {
+		$('form[name=signForm]').attr('action','popup_excel_down_load.php');
+		$('form[name=signForm]').submit();
+		parent.alertify.closeAll('iframeDialog');
+	}
+
+	$(function() {		
+		var ret = [];
+		$("form[name=listForm] input[name='item[]']:checkbox:checked", parent.document).each(function(i) {
+			ret.push($(this).val());
+		});
+
+		if(ret.length==0) {
+			$("#proc_type1").addClass('colorLLgray');
+			$("form[name=signForm] input:radio[name=down_type]:input[value=1]").attr('disabled',true);		
+		}		
+		else {
+			$("form[name=signForm] input[name='item']").val(ret);
+			$("form[name=goodsForm] input:radio[name=down_type1]:input[value=1]").attr('checked',true);		
+		}
+
+		$('form[name=signForm] input[name=passwd_use]').click(function(e){
+			ckPasswd();
+		});
+	});
+
+//-->
+</script>

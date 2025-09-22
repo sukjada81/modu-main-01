@@ -1,0 +1,218 @@
+<link href="../../lib/summernote-lite.css?ver={{ver}}" rel="stylesheet">
+<script src="../../lib/summernote-lite.js?ver={{ver}}"></script>
+<script src="../../lib/summernote-ko-KR.js"></script>
+
+<form name='writeForm' method='post' action='../../board/board_post.php?{{addstring}}' enctype="multipart/form-data" target='HFrm'>
+<input type="hidden" name="b_id" value="{{b_id}}" />
+<input type="hidden" name="b_mode" value="{{b_mode}}" />
+<input type="hidden" name="uid" value="{{uid}}" />
+<input type="hidden" name="temp_upload" value="{{temp_upload}}" />
+<input type="hidden" name="ck_w1" value="{{ck_w1}}" />
+<input type="hidden" name="ck_w2" value="{{ck_w2}}" />
+<input type="hidden" name="vendor" value="1" />
+
+<div class="content">
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp{{TTL}}
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>
+	<tr> 
+		<td>옵션</td>
+		<td colspan="3">
+			<div>
+				<!-- DYNAMIC @is_secret@ -->
+				<label><input type='checkbox' name="secret" value="1" {{checked_secret_1}} {{secret_disable}} /><span class="checkbox"></span> 비밀글</label>
+				<!-- DYNAMIC @is_secret@ -->
+			</div>
+		</td>		
+	</tr>
+	<!-- DYNAMIC @is_cate@ -->
+	<tr> 
+		<td>분류</td>
+		<td colspan="3">
+			<select name="cate">
+				<!-- DYNAMIC @loop_cate@ -->
+				<option value="{{cate_num}}">{{cate_name}}</option>
+				<!-- DYNAMIC @loop_cate@ -->
+			</select>
+			<script>
+			<!--
+				$("form[name=writeForm] select[name='cate']").val('{{cate}}').heapbox({'width' : '300px'});
+				if(!$("form[name=writeForm] select[name='cate']").val()) $("form[name=writeForm] select[name='cate']").val($("form[name=writeForm] select[name='cate'] option:first").val());
+			//-->
+			</script>
+		</td>		
+	</tr>
+	<!-- DYNAMIC @is_cate@ -->
+	<tr> 
+		<td>제목</td>
+		<td colspan="3">
+			<input type="text" name="subject" value="{{subject}}" required="required" data-msg="제목을" />
+		</td>
+	</tr>
+	<!-- DYNAMIC @loop_add@ -->
+	<tr> 
+		<td>{{ADD_TITLE}}</td>
+		<td colspan="3">
+			<input type="text" name="add{{i}}" value="{{ADD_VALUE}}" {{add_required}} data-msg="{{ADD_TITLE}}을(를)" />
+		</td>
+	</tr>
+	<!-- DYNAMIC @loop_add@ -->
+	<!-- DYNAMIC @loop_attach@ -->
+	<tr class="attach{{i}} {{display}}" data-num="{{i}}"> 
+		<td>첨부파일 <i class="xi-help xi-x colorDGary masterTooltip" title="이미지, 문서, 압축파일만 등록 가능 합니다."></i></td>
+		<td colspan="3">
+			<div class="attachBox">
+				<div class="btnBoxIcon">
+					<i class="fas fa-plus-circle fa-2x"></i>											
+				</div>												
+				<input type="file" name="attach_file{{i}}" class="uploadBtn" />
+				<input type="hidden" name="attach_del{{i}}" value="" />
+				<div class="file_name">{{attach_name}}</div> 
+				<div class="btnBoxIcon2">
+					<i class="fas fa-edit masterTooltip" title="변경하기"></i>
+					<i class="xi-close-thin masterTooltip delete" title="삭제"></i>
+				</div>
+			</div>		
+		</td>
+	</tr>
+	<!-- DYNAMIC @loop_attach@ -->
+	<!-- DYNAMIC @loop_links@ -->
+	<tr class="links{{i}} {{display}}" data-num="{{i}}"> 
+		<td>관련링크</td>
+		<td colspan="3">
+			<input type="text" name="links[]" value="{{links_name}}" data-check-domain="1" data-next-focus="3" />
+		</td>
+	</tr>
+	<!-- DYNAMIC @loop_links@ -->
+	<tr> 
+		<td>내용</td>
+		<td colspan="3" style="padding:20px;">
+			<XMP class="sn_content" style="display:none">
+				<!-- DYNAMIC @is_reply@ -->
+				<p></p>
+				<br /><br /><br /><br />
+				<p>======== 원본글 ==========</p>
+				<div style="border-left:2px solid #666; padding:10px;">						
+					{{content}}
+				</div>
+				<!-- DYNAMIC @is_reply@ -->
+				<!-- DYNAMIC @is_write@ -->
+				{{content}}
+				<!-- DYNAMIC @is_write@ -->
+			</XMP>
+
+			<input type="hidden" name="content" value= ""  required="required" data-notefor=".sn_content" />
+		</td>
+	</tr>
+
+	</table>
+	
+	<div class="empty60"></div>
+
+	<div class="btnSubmitBox">
+		<div class="displayInline"><button class="weight300 shine" type="submit">{{TTL}}하기</button></div>
+		<div class="btnPrev"><i class="xi-arrow-left xi-x"></i></div>
+		<div class="btnPrevTitle">이전페이지</div>		
+	</div>
+	
+</div>
+
+</form>
+
+<script>
+<!--
+	
+	var contentBtnHeight = 75;
+	btnShineBoxPositionTop = 0;
+
+	$(function() {
+		$('.sn_content').summernote({						
+			'lang' : 'ko-KR',
+			'height' : '300px',
+			'placeholder' : '내용을 입력해 주세요.',		
+			'dialogsFade' : true,
+			callbacks: {
+				onImageUpload:function( files,editor,welEditable) {
+					snUpImageBo(files, this, '{{temp_upload}}', '{{b_id}}');
+				}			
+			}
+		});	
+
+		$('.uploadBtn').on('change', function(e){
+
+			if(!CommonCheckAll($(this))) return;
+
+			var num		= $(this).parents('tr').attr('data-num');
+			var obj		= $(".attach" + num);		
+			var name	= $(this).val().split('\\');		
+
+			obj.find(".file_name").html(name[name.length - 1]);
+			obj.find(".btnBoxIcon").hide();
+			obj.find(".btnBoxIcon2").show();
+			if(num < 5) $(".attach" + (parseInt(num) + 1)).show();
+						
+		});
+
+		$(".attachBox .delete").click(function(e){
+			var num		= $(this).parents('tr').attr('data-num');
+			var obj		= $(".attach" + num);	
+
+			obj.find(".file_name").html('');
+			obj.find("input:file").val('');
+			obj.find("input:hidden").val('1');
+			obj.find(".btnBoxIcon").show();
+			obj.find(".btnBoxIcon2").hide();
+		});
+
+		$('.attachBox').find('.fa-edit').click(function(e){
+			var num		= $(this).parents('tr').attr('data-num');
+			var obj		= $(".attach" + num);	
+
+			obj.find("input:file").trigger('click');
+		});
+
+		$(".attachBox .file_name").each(function(i) {
+			if($(this).html().length) {
+				var num		= $(this).parents('tr').attr('data-num');
+				var obj		= $(".attach" + num);		
+				
+				obj.find(".btnBoxIcon").hide();
+				obj.find(".btnBoxIcon2").show();
+				if(num < 5) $(".attach" + (parseInt(num) + 1)).show();
+			}
+		});
+
+		$("form[name=writeForm] input[name='links[]']").blur(function(e) {
+			if($(this).val()) {
+				var num		= $(this).parents('tr').attr('data-num');
+				if(num < 5) {
+					$(".links" + (parseInt(num) + 1)).show();
+					$(".links" + (parseInt(num) + 1)).find('input').focus();
+				}
+			}
+			
+		});
+
+		$("form[name=writeForm] input[name='links[]']").each(function(i) {
+			if($(this).val()) {
+				var num		= $(this).parents('tr').attr('data-num');
+				if(num < 5) $(".links" + (parseInt(num) + 1)).show();
+			}
+			
+		});
+
+		if($('.btnShineBox').length) btnShineBoxPositionTop = $('.btnShineBox').offset().top;
+		
+	});
+
+//-->
+</script>

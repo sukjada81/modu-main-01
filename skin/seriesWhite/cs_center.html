@@ -1,0 +1,89 @@
+<div id="contents">
+	
+	{{SUB_MENUS}}
+	
+	<h2 class="contentTitle">고객센터</h2>
+	
+	<div class="empty30"></div>
+
+	<div class="cs_top clearfix">
+		<div class="cs_title">
+			무엇을 도와드릴까요?
+			<div>항상 고객님의 입장에서 의견을 귀담아 듣겠습니다.</div>
+		</div>
+		
+		<div class="cs_time">
+			<div><i class="xi-headset xi-x"></i> {{CO_TEL}}</div>
+			<div><span>평일</span> {{CS_TIME1}}</div>
+			<div><span>토</span> {{CS_TIME2}}</div>
+			<div><span>일/공휴일</span> {{CS_TIME3}}</div>
+			<div><span>점심</span> {{CS_TIME4}}</div>
+		</div>
+	</div>
+	<div class="cs_step clearfix">
+		<div class="step">
+			<div>STEP  <span>01</span></div>
+			<div><img src="img/icon_help01.gif" alt="" /> FAQ 검색</div>
+			<div>자주찾는 질문에서 궁금하신 사항을 검색 하시면 됩니다.</div>
+		</div>
+		<div class="step">
+			<div>STEP  <span>02</span></div>
+			<div><img src="img/icon_help02.gif" alt="" /> 1:1 고객문의<a href='{{Main}}?channel=cs_board&b_id=counsel' class="underLineThin">문의하기</a></div>
+			<div>1:1 고객문의를 이용하시면 친절하게 답변 드립니다.</div>
+		</div>
+		<div class="step last">
+			<div>STEP <span>03</span></div>
+			<div><img src="img/icon_help03.gif?t={t}" alt="" /> 고객콜센터문의</div>
+			<div>고객콜센터에 문의 하시면 친절하게 답변 드립니다.</div>
+		</div>
+	</div>
+
+	<div class="empty30"></div>
+
+	<div class="cs_faq">
+		자주 찾는 질문 <a href='{{Main}}?channel=cs_board&b_id=faq' class="underLineThin">전체보기</a>
+		<div class="cs_faq_search">
+			<form name='searchForm' method='get' action='{{Main}}'>
+			<input type="hidden" name="channel" value="cs_board" />
+			<input type="hidden" name="b_id" value="faq" />
+
+			자주 찾는 질문 검색
+			<div>
+				<input type="text" name="keyword" value="{{keyword}}" required="required" autocomplete="off" placeholder="검색어입력" data-msg="검색어를" data-on-enter="1" data-search-btn="1" />
+			</div>
+
+			<p class="empty20"></p>
+
+			<!-- DYNAMIC @loop_faq_cate@ -->
+			<span class="faqCate underLineThin" data-cate="{{cate_num}}">#{{cate_name}}</span>
+			<!-- DYNAMIC @loop_faq_cate@ -->
+			</form>
+		</div>
+	</div>
+
+	<div class="cs_notice">
+		공지사항 <p><a href='{{Main}}?channel=cs_board&b_id=notice' class="underLineThin">전체보기</a></p>
+		<p class="empty10"></p>
+		<!-- DYNAMIC @loop_notice@ -->
+		<div><a href="{{Main}}?channel=cs_board&b_id=notice&b_mode=view&uid={{UID}}" class="underLineThin">{{SUBJECT}}</a><span>{{DATE}}</span></div>
+		<!-- DYNAMIC @loop_notice@ -->
+	</div>
+
+	
+
+	<div class="empty30"></div>
+
+</div>
+
+
+<script>
+<!--	
+	
+	$('.faqCate').click(function(e) {	
+		var cate = $(this).attr("data-cate");				
+		window.location.href = "{{Main}}?channel=cs_board&b_id=faq&cate=" + cate;		
+	});	
+
+
+// -->
+</script>

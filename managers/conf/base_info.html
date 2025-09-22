@@ -1,0 +1,184 @@
+<form name='basicForm' method='post' action='conf_post.php?mode=basic' enctype="multipart/form-data" target='HFrm'>					
+
+<div class="content">
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;운영 정보 설정
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>
+	<tr> 
+		<td>쇼핑몰 주소 <i class="xi-help xi-x colorDGary masterTooltip" title="'http://' 미입력시 자동으로 'http://' 가 적용 됩니다. 'https://'일 경우 'https://'를 입력 하시기 바랍니다."></i> </td>
+		<td><input type='text' name='basic_url' value='{{basic_url}}' placeholder="http://funcher.kr" required="required" data-msg="쇼핑몰 주소를" data-check-domain='1' /></td>
+		<td>쇼핑몰명</td>
+		<td><input type='text' name='basic_name' value='{{basic_name}}' required="required" data-msg="쇼핑몰명을" /></td>
+	</tr>
+	<tr> 
+		<td>관리자명 <i class="xi-help xi-x colorDGary masterTooltip" title="입력한 정보는 쇼핑몰 화면 가장 하단영역 관리(개인정보 보호) 책임자에 노출됩니다."></i></td>
+		<td><input type='text' name='basic_admin' value='{{basic_admin}}' required="required" data-msg="관리자명을" /></td>
+		<td>관리자 이메일  <i class="xi-help xi-x colorDGary masterTooltip" title="입력한 정보는 쇼핑몰 화면 가장 하단영역 관리(개인정보 보호) 책임자에 노출됩니다."></i></td>
+		<td><input type='text' name='basic_email' value='{{basic_email}}' required="required" data-msg="관리자 이메일을" data-ck-email='1' /></td>
+	</tr>
+	<tr> 
+		<td>고객센터 운영시간</td>
+		<td colspan="3">
+			평일 <input type='text' name='basic_cs_time1' value='{{basic_cs_time1}}' placeholder="미등록시 : 09:00 ~ 18:00" style="width:43%" />
+			&nbsp;&nbsp;토&nbsp;&nbsp;요&nbsp;&nbsp;일 <input type='text' name='basic_cs_time2' value='{{basic_cs_time2}}' placeholder="미등록시 : 휴무" style="width:43%" />
+			<div class="empty20"></div>
+			휴일 <input type='text' name='basic_cs_time3' value='{{basic_cs_time3}}' placeholder="미등록시 : 휴무" style="width:43%" />
+			&nbsp;&nbsp;점심시간 <input type='text' name='basic_cs_time4' value='{{basic_cs_time4}}' placeholder="미등록시 : 12:00 ~ 13:00" style="width:43%" />		
+		</td>		
+	</tr>
+	<tr> 
+		<td>상단 타이틀 <i class="xi-help xi-x colorDGary masterTooltip" title="쇼핑몰 접속시 브라우저 상단에 노출되는 문구 (한글기준 10자 이내로 작성 권장)"></i></td>
+		<td colspan="3"><input type='text' name='basic_title' value='{{basic_title}}' style="width:99%" placeholder="예) 쇼핑몰 모두복지몰" /></td>		
+	</tr>
+	<tr> 
+		<td>검색엔진 간략설명 <i class="xi-help xi-x colorDGary masterTooltip" title="검색엔진 최적화 메타태그용 쇼핑몰 간략 설명 (한글기준 공백포함 최대 80자 작성 권장)"></i></td>
+		<td colspan="3"><input type='text' name='basic_description' value='{{basic_description}}' style="width:99%" placeholder="예) 쇼핑몰 사이트 입니다. 몰인몰기능이 기본 제공되며 관리자기능이 쉽고 편리하게 제작 되었습니다." /></td>
+	</tr>
+	<tr> 
+		<td>대표 이미지<i class="xi-help xi-x colorDGary masterTooltip" title="검색엔진 및 SNS에 사용되는 이미지 입니다."></i></td>
+		<td colspan="3">
+			<div class="btnBox2 floatLeft" >
+				<div id="btn_image" class="btnBoxIcon">
+					<i class="fas fa-plus-circle fa-2x"></i>											
+				</div>												
+				<input type="file" name="image1" class="imageBtn" data-num="1" />
+				<img id="image1" alt="목록이미지" src="../common/img/blank.gif" />
+				<div id="btn2_image1" class="btnBoxIcon2" data-num="1">
+					<i class="fas fa-edit masterTooltip btnImgEdit" title="변경하기"></i>
+					<i class="xi-close masterTooltip btnImgDel" title="삭제하기"></i>
+				</div>
+			</div>
+			<div class="floatLeft" style="padding:25px 0 0 20px;">
+				<span class="size09">권장 이미지 사이즈 : <span id="oimgSize1">191px x 100px</span></span><br />
+				<span class="size09">등록 이미지 사이즈 : <span id="imgSize1"></span></span>
+			</div>
+		</td>
+	</tr>
+	<tr> 
+		<td>검색엔진 키워드 <i class="xi-help xi-x colorDGary masterTooltip" title="검색엔진 최적화 메타태그용 쇼핑몰 키워드 (10개 이내로 입력 권장)"></i><i class="xi-info xi-x colorDGary masterTooltip" title="쉼표(,) 또는 세미콜론(;) 또는 Enter키를 통해 값을 연속적으로 입력 하시면 됩니다."></i></td>
+		<td colspan="3">
+			<input id="basic_keyword" name="basic_keyword" type="text" value="{{basic_keyword}}" class='taginput' />
+			<script>$('#basic_keyword').tagsInput({ 'placeholder' : '예) 쇼핑몰 솔루션, 모두복지몰, 몰인몰', 'delimiter': [',', ';'] });</script>
+		</td>
+	</tr>
+	<tr> 
+		<td>추천 검색어 <i class="xi-help xi-x colorDGary masterTooltip" title="쇼핑몰 추천 검색어(24시간 이내의 검색어로 집계)가 없을 경우 기본 노출되는 검색키워드 (10개 까지 입력 가능, 사용하는 스킨에 따라 다른 이름이거나 없을 수 있음)"></i><i class="xi-info xi-x colorDGary masterTooltip" title="쉼표(,) 또는 세미콜론(;) 또는 Enter키를 통해 값을 연속적으로 입력 하시면 됩니다."></i></td>
+		<td colspan="3">
+			<input id="basic_real_keyword" name="basic_real_keyword" type="text" value="{{basic_real_keyword}}" class='taginput' />
+			<script>$('#basic_real_keyword').tagsInput({ 'placeholder' : '예) 몰인몰', 'delimiter': [',', ';'], 'nfocus' : '#comp_name' });</script>
+		</td>
+	</tr>	
+	</table>
+
+	<div class="empty60"></div>
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;회사 정보 설정
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>
+	<tr> 
+		<td>상호(회사명)</td>
+		<td><input type='text' id="comp_name" name='comp_name' value='{{comp_name}}' required="required" data-msg="상호(회사명)을" /></td>
+		<td>대표자명</td>
+		<td><input type='text' name='comp_owner' value='{{comp_owner}}' required="required" data-msg="대표자명을" /></td>
+	</tr>
+	<tr> 
+		<td>사업자등록번호</td>
+		<td><input type='text' name='comp_license_no1' value='{{comp_license_no1}}' placeholder="예) 100-20-30000" required="required" data-msg="사업자등록번호를" /></td>
+		<td>통신판매 신고번호</td>
+		<td><input type='text' name='comp_license_no2' value='{{comp_license_no2}}' placeholder="예) 2019-서울구로-0001" required="required" data-msg="통신판매신고번호를" /></td>
+	</tr>
+	<tr> 
+		<td>업태</td>
+		<td><input type='text' name='comp_type' value='{{comp_type}}' /></td>
+		<td>종목</td>
+		<td><input type='text' name='comp_item' value='{{comp_item}}' /></td>
+	</tr>
+	<tr> 
+		<td>사업장 주소</td>
+		<td colspan="3">
+			<div style="position:relative"><input type='text' name='comp_postcode_search' style="width:98%" placeholder="경대로 144 (도로명 + 건물번호) or 신암동 645-1 (지역명(동/리) + (번지, 건물명, 아파트명)) + 엔터키" data-zip-search='1' /></div>
+			<div class="empty10"></div>
+			<div class="floatLeft" style="width:8%"><input type='text' name='comp_postcode' value='{{comp_postcode}}' style="width:80%" placeholder="우편번호" /></div>
+			<div class="floatLeft" style="width:42%; position:relative"><input type='text' name='comp_address1' value='{{comp_address1}}' placeholder="사업장 주소" required="required" data-msg="사업장주소를" /></div>
+			<div class="floatLeft" style="width:50%"><input type='text' name='comp_address2' value='{{comp_address2}}' placeholder="사업장 상세주소" /></div>
+		</td>
+	</tr>
+	<tr> 
+		<td>교환/반품지 주소</td>
+		<td colspan="3">
+			<button class="btns" type="button" style="width:15%" id="eqAddr"><span class="text">사업장 주소와 동일</span></button>
+			<div class="empty10"></div>
+			<div style="position:relative"><input type='text' name='comp_rtn_postcode_search' style="width:98%" placeholder="경대로 144 (도로명 + 건물번호) or 신암동 645-1 (지역명(동/리) + (번지, 건물명, 아파트명)) + 엔터키" data-zip-search='1' /></div>
+			<div class="empty10"></div>
+			<div class="floatLeft" style="width:8%"><input type='text' name='comp_rtn_postcode' value='{{comp_rtn_postcode}}' style="width:80%" placeholder="우편번호" /></div>
+			<div class="floatLeft" style="width:42%"><input type='text' name='comp_rtn_address1' value='{{comp_rtn_address1}}' placeholder="교환/반품지 주소" /></div>
+			<div class="floatLeft" style="width:50%"><input type='text' name='comp_rtn_address2' value='{{comp_rtn_address2}}' placeholder="교환/반품지 상세주소" /></div>
+		</td>
+	</tr>
+	<tr> 
+		<td>대표이메일  <i class="xi-help xi-x colorDGary masterTooltip" title="대표 이메일은 상품 주문 또는 회원가입시 고객에게 발송되는 메일의 발신자 정보로 사용되며, 운영자가 수신하는 기본 메일입니다."></i></td>
+		<td colspan="3">
+			<p style="position:relative"><input type='text' name='comp_email' value='{{comp_email}}' style="width:98%" required="required" data-msg="대표이메일을" data-ck-email='1' /></p>
+		</td>
+	</tr>
+	<tr> 
+		<td>대표전화</td>
+		<td><input type='text' name='comp_tel' value='{{comp_tel}}' placeholder="예) 02-0000-0000" required="required" data-msg="대표전화번호를" /></td>
+		<td>대표팩스</td>
+		<td><input type='text' name='comp_fax' value='{{comp_fax}}' placeholder="예) 02-0000-0000" data-on-enter="1" /></td>
+	</tr>
+	</table>		
+
+	<div class="empty60" ></div>
+
+	<div class="btnSubmitBox">
+		<div class="displayInline"><button class="weight300 shine" type="submit">저장하기</button></div>
+	</div>
+
+</div>
+
+</form>
+
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+<!--
+	
+	<!-- DYNAMIC @loop_image@ -->
+	putImage('{{image}}', '{{i}}');
+	<!-- DYNAMIC @loop_image@ -->
+
+	$(function() {	
+		
+		$('#eqAddr').click(function(e){
+			f = document.basicForm;
+
+			f.comp_rtn_postcode.value = f.comp_postcode.value;
+			f.comp_rtn_address1.value = f.comp_address1.value;
+			f.comp_rtn_address2.value = f.comp_address2.value;
+
+		});
+		
+		zipSearch('comp');
+		zipSearch('comp_rtn');
+
+	});
+
+//-->
+</script>

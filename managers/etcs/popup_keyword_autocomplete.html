@@ -1,0 +1,45 @@
+<style>
+body { min-width:840px; background-color:#fff; }
+#contentBox { min-width:840px; min-height:200px; top:20px; background-color:#fff; border:0; box-shadow: none; -webkit-box-shadow: none; }
+#contentBox .content { min-width:800px; margin:20px; clear:both; }
+</style>
+
+
+<form name='signForm' method='post' action='keyword_autocomplete_post.php?{{addstring}}' target='HFrm'>					
+<input type="hidden" name="mode" value="write" />
+
+<div class="content">
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;자동완성 검색어 등록
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="24%" /> 
+	<col width="76%" />	
+	</colgroup>
+	<tr> 
+		<td>키워드</td>
+		<td colspan="3"><p style="position:relative"><input type='text' name='keyword' value='' style="width:98%" required="required" data-msg="키워드를을" data-on-enter="1" /></p></td>		
+	</tr>	
+	</table>
+</div>
+
+<div class="btnSubmitBoxPop">
+	<div class="displayInline"><button class="weight300 shine" type="submit">자동완성 검색어 등록</button></div>	
+</div>
+
+</form>
+
+<iframe name="HFrm" style="display:none"></iframe>
+
+<script LANGUAGE="JavaScript">
+<!--
+		
+	$(function() {		
+		$("form[name=signForm] input[name='keyword']").focus();
+	});
+
+//-->
+</script>

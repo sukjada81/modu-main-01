@@ -1,0 +1,20 @@
+<!-- DYNAMIC @is_list_area@ -->
+<div>	
+	<div class="widgetTitle black"><a href="../board/board.php?b_id=notice">공지사항</a> <span data-id="board_notice"><i class="xi-renew masterTooltipWidget" title="새로고침"></i></span></div>
+	<div class="widgetList widgetListGray widgetBoardList">
+		<!-- DYNAMIC @loop_list@ -->		
+		<a href="../board/board.php?b_id=notice&b_mode=view&uid={{UID}}">
+		<div>
+			<ul>
+				<li>{{SUBJECT}}</li>
+				<li>{{DATE}}</li>
+			</ul>			
+		</div>
+		</a>
+		<!-- DYNAMIC @loop_list@ -->
+		<!-- DYNAMIC @empty_list@ -->
+		<div class="widgetEmptyList"><i class="fas fa-quote-left"></i>&nbsp;&nbsp;등록된 공지사항이 없습니다!&nbsp;&nbsp;<i class="fas fa-quote-right"></i></div>
+		<!-- DYNAMIC @empty_list@ -->
+	</div>
+</div>
+<!-- DYNAMIC @is_list_area@ -->

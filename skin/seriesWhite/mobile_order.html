@@ -1,0 +1,437 @@
+<style>
+.alertify-notifier .ajs-message {  bottom:50px;  }
+.heapBox { font-family: 'SCDream', sans-serif; font-size:14px; clear:both; display:inline-block; line-height:28px; position:relative; z-index:10; float:left; padding:16px 13px 3px 16px; min-height:41px; text-align:left; }
+</style>
+
+<!-- DYNAMIC @is_cp_HFrm@ -->
+<iframe name="HFrmOrder" id="HFrmOrder" src="plugin/{{cp_check}}/mobile_order.php"></iframe>
+<!-- DYNAMIC @is_cp_HFrm@ -->
+
+<div id="contents" class="wide">	
+	
+	<h2 class="contentTitle">주문결제</h2>
+	
+	<div class="empty30"></div>
+	
+	<form name="orderForm" method="post" action="php/order_post.php" target='HFrm'>
+	<input type="hidden" name="direct" value="{{direct}}" />
+	<input type="hidden" name="coupon_uid" value="" />
+	<input type="hidden" name="use_coupon" value="0" />
+	<input type="hidden" name="pay_total" value="0" />
+	<input type="hidden" name="pay_type" value="" required="required" data-msg="결제수단을 선택하시기 바랍니다." />
+	<input type="hidden" name="good_name" value="{{CP_GOODS_NAME}}" />
+	<input type="hidden" name="bask_cntx" value="{{TOTAL}}" />
+	<input type="hidden" name="payment_install_range" value="{{payment_install_range}}" />
+	<input type="hidden" name="payment_install_range2" value="{{payment_install_range2}}" />
+
+	<div>
+		<div class="orderContent">
+			<div class="empty10"></div>
+			<div class="sub_title">주문상품 ({{TOTAL}}개) <span><button class="shineButtonSmall btnViewGoods" style="margin-left:10px;width:100px" type="button"><i class="xi-eye-o xi-x"></i> 상품보기</button><button class="shineButtonSmall btnHideGoods" style="margin-left:10px;width:100px; display:none" type="button"><i class="xi-eye-off-o xi-x"></i> 상품숨기기</button></span></div>
+			<div class="empty20"></div>	
+			<div class="cartList">
+				<!-- DYNAMIC @loop_cart@ -->
+				<div class="cartVendorList">						
+					<div class="listInfo" data-vendor="{{VENDOR}}" data-delivery3="{{VENDOR_DELIVERY3}}">
+						{{VENDOR_NAME}}
+						<span class="delivery" style="font-size:12px;line-height:16px;">배송비 : {{DELIVERY_MESSAGE}} {{DELIVERY_ADD_MESSAGE}}</span>
+					</div>
+					<!-- DYNAMIC @loop_cart_goods@ -->
+					<div class="listItem" style="display:none;">
+						<div class="listItemImg"><a href="{{G_LINK}}"><img src="{{G_IMAGE}}" alt="{{G_NAME}}" /></a></div>
+						<div class="listItemDetail" style="width:calc(100% - 90px)">
+							<div><a href="{{G_LINK}}">{{G_NAME}}</a></div>
+							<!-- DYNAMIC @is_option@ -->
+							<div><b class="option_name">{{G_OPTION}}</b></div>	
+							<!-- DYNAMIC @is_option@ -->
+							<div>
+								배송비 : {{DELIVERY}}
+								<!-- DYNAMIC @is_delivery_add@ -->
+								&nbsp;&nbsp;|&nbsp;&nbsp;추가배송비 : {{DELIVERY_ADD}}
+								<!-- DYNAMIC @is_delivery_add@ -->							
+							</div>					
+						</div>
+						<div class="empty10"></div>
+						<div class="listItemPrice">
+							<!-- DYNAMIC @is_coupon@ -->	
+							<div class="couponIconS">C</div>
+							<!-- DYNAMIC @is_coupon@ -->
+							<!-- DYNAMIC @is_discount@ -->	
+							<div class="discountIconS">{{DISCOUNT}}%&nbsp;<i class="xi-arrow-down"></i></div>
+							<!-- DYNAMIC @is_discount@ -->
+							<div>
+								<span class='total_price'>{{SUM_PRICE}}</span>원								
+							</div>							
+							<!-- DYNAMIC @is_orig_price@ -->							
+							<div class="orig_price"><s><span class='total_orig_price'>{{SUM_ORIG_PRICE}}</span>원</s></div>
+							<!-- DYNAMIC @is_orig_price@ -->
+							<!-- DYNAMIC @is_mileage@ -->
+							<div class="fontMontserrat mileage_price">{{MILEAGES}}P</div>
+							<!-- DYNAMIC @is_mileage@ -->
+						</div>
+						<div class="listItemQty2">{{QTY}}개</div>
+					</div>			
+					<!-- DYNAMIC @loop_cart_goods@ -->
+					<div class="listSum">
+						<div>상품금액 <span><b class="listItemPrices">{{VENDOR_PRICE}}</b>원</span></div>
+						<div>할인금액 <span> - <b class="listItemDiscount">{{VENDOR_DISCOUNT}}</b>원</span></div>
+						<div>배송비 <span> + <b class="listItemDelivery">{{VENDOR_DELIVERY}}</b>원</span></div>
+						<div>주문금액 <span> <b class="listItemTotal">{{VENDOR_TOTAL}}</b>원</span></div>
+					</div>
+					<div class="empty30"></div>
+				</div>
+				<!-- DYNAMIC @loop_cart@ -->						
+			</div>
+			<div class="empty20"></div>
+			<div class="sub_title">주문자 / 배송정보 <span class="addDelivery">추가 배송비 <b class="add_delivery fontMontserrat">0</b>원</span></div>
+			<div class="registBox inputBox">
+				<ul>
+					<!-- DYNAMIC @is_member1@ -->
+					<li class="texts">
+						{{my_name}} / {{my_email}}
+						<input type="hidden" name="name" value="{{my_name}}" />
+						<input type="hidden" name="email" value="{{my_email}}" />						
+					<li>
+					<li class="">
+						<input type="text" name="cell" maxlength="12" value="{{cell}}" required="required" class="only_num" data-title="핸드폰번호" data-detail="('-'없이)" data-msg="핸드폰번호를" data-check-cell='1' />
+					</li>
+					<li class="texts">
+						<ul>
+							<!-- DYNAMIC @is_recent_address@ -->
+							<li class="{{ck_address1}} recentAddr1">최근 배송지</li>
+							<!-- DYNAMIC @is_recent_address@ -->
+							<li class="{{ck_address0}} recentAddr2">신규등록</li>
+						</ul>
+						<div class="empty1"></div>
+					<li>
+					<!-- DYNAMIC @is_member1@ -->			
+					<!-- DYNAMIC @is_guest1@ -->			
+					<li class="separation2">
+						<input type="text" name="name" maxlength="20" required="required" value="{{my_name}}" data-title="주문자명" data-msg="주문자명을" />
+					</li>
+					<li class="separation3">
+						<input type="text" name="cell" maxlength="12" value="{{cell}}" required="required" class="only_num" data-title="핸드폰번호" data-detail="('-'없이)" data-msg="핸드폰번호를" data-check-cell='1' />
+					</li>
+					<li class="separation2">
+						<input type="text" name="email" required="required"  value="{{my_email}}" data-title="이메일주소" data-msg="이메일주소를" data-check-email="1" />
+					</li>			
+					<li class="separation3">
+						<input type="password" name="passwd" value="" required="required" data-title="비밀번호" data-msg="비밀번호를" data-detail="비회원 주문 확인 시 입력할 비밀번호를 입력해주세요." />
+					</li>
+					<!-- DYNAMIC @is_guest1@ -->
+				</ul>
+				<ul class="recent_address">
+					<li>
+						<!-- DYNAMIC @loop_recent_address@ -->
+						<p style="float:left;"><button class="shineButtonSmall btnRecentAddr btnRecentAddr{{ck}}" style="margin-left:10px;" type="button" data-name="{{recent_name}}" data-cell="{{recent_cell}}" data-postcode="{{recent_postcode}}" data-address1="{{recent_address1}}" data-address2="{{recent_address2}}" >{{recent_name}}</button></p>
+						<!-- DYNAMIC @loop_recent_address@ -->
+						<div class="empty10"></div>
+					</li>
+					<li>
+						<div class="recent_name"></div>
+						<div class="recent_address2"></div>
+
+					</li>
+				</ul>
+				<ul class="new_address">
+					<li class="separation2">
+						<input type="text" name="name2" maxlength="20" required="required" value="{{my_name}}" data-title="받는사람" data-msg="받는사람을" />
+					</li>
+					<li class="separation3">
+						<input type="text" name="cell2" maxlength="12" value="{{cell}}" required="required" class="only_num" data-title="받는사람 연락처" data-detail="('-'없이)" data-msg="받는사람 연락처를" data-check-cell='1' />
+					</li>
+					<li class="separation1">
+						<input type="text" name="postcode_search" value="" data-title="주소검색" data-detail="청와대로 1 (도로명 + 건물번호, 지역명 + (번지))" data-zip-search='1' />
+					</li>
+					<li class="separation" style="width:28%">
+						<input type="text" name="postcode" value="{{postcode}}" readonly class="readonly" data-title="우편번호" />
+					</li>
+					<li class="separation" style="width:2%"></li>
+					<li class="separation" style="width:70%">
+						<input type="text" name="address1" value="{{address1}}" required="required" readonly class="readonly" data-title="주소" data-msg="주소검색후 주소를" />
+					</li>
+					<li style="clear:both">
+						<input type="text" name="address2" value="{{address2}}" data-title="상세주소" />
+					</li>
+				</ul>
+				<ul>
+					<li>
+						<select name="default_message">
+							<option value="">배송시 요청사항을 선택해주세요.</option>
+							<!-- DYNAMIC @loop_message@ -->
+							<option value="{{message}}">{{message}}</option>
+							<!-- DYNAMIC @loop_message@ -->
+							<option value="input">기타 직접입력</option>
+						</select>
+						<div class="empty1"></div>
+						<script>
+						<!--
+							$("form[name=orderForm] select[name='default_message']").val('').heapbox({'width' : '99%', 'top' : '63px',
+								'onChange': function(value){												
+												if(value == 'input') {
+													$(".input_message").show();	
+													$("form[name=orderForm] input[name='message']").focus();
+												}
+												else $(".input_message").hide();
+											}
+							});					
+						//-->
+						</script>
+					</li>
+					<li class="input_message displayNone">
+						<input type="text" name="message" value="" data-title="배송시 요청사항" data-detail="최대 50자까지 입력가능" />
+					</li>
+				</ul>	
+			</div>
+			
+			<!-- DYNAMIC @is_member2@ -->
+			<div class="sub_title"> 마일리지/ 장바구니 쿠폰 사용</div>
+			<div class="registBox inputBox">
+				<ul>
+					<li class="separation2">
+						<input type="text" name="use_mileage" maxlength="10" value="" class="only_num_format" {{mileage_disabled}} data-title="마일리지 사용" data-detail="보유마일리지 {{mileage}}P" data-check-mileage="1" data-mileage="{{mileage}}" />
+						<p style="position:absolute; top:15px; right:15px;"><button class="shineButtonSmall btnMileageAll" style="margin-left:10px;" type="button">전액사용</button></p>
+					</li>
+					<li class="separation3">
+						<select name="coupon">
+							<option value="">{{coupon_ttl}}</option>
+							<!-- DYNAMIC @loop_coupon@ -->
+							<option value="{{coupon_uid}}|{{coupon_discount}}">{{coupon_msg}}</option>
+							<!-- DYNAMIC @loop_coupon@ -->						
+						</select>
+						<div class="empty1"></div>
+						<script>
+						<!--
+							$("form[name=orderForm] select[name='coupon']").val('').heapbox({'width' : '99%', 'top' : '63px', 'zindex' : '7', 'bgcolor' : '{{coupon_bg}}',
+								'onChange': function(value){
+												if(!value) {
+													$("form[name=orderForm] input[name='coupon_uid']").val('');
+													$("form[name=orderForm] input[name='use_coupon']").val('0');
+												}
+												else {
+													value2 = value.split('|');	
+													$("form[name=orderForm] input[name='coupon_uid']").val(value2[0]);
+													$("form[name=orderForm] input[name='use_coupon']").val(value2[1]);
+												}
+												totalProc();											
+											}
+							});							
+
+						//-->
+						</script>
+					</li>
+				</ul>
+			</div>
+			<!-- DYNAMIC @is_member2@ -->
+
+			<div class="sub_title"> 결제수단 선택</div>
+			<div class="registBox inputBox">
+				<!-- DYNAMIC @is_pay_typeB@ -->
+				<div class="pay_type pay_typeB" data-vls="B" >
+					무통장 입금	
+				</div>
+				<!-- DYNAMIC @is_pay_typeB@ -->
+				<!-- DYNAMIC @is_pay_typeC@ -->
+				<div class="pay_type pay_typeC" data-vls="C">
+					카드결제
+				</div>
+				<!-- DYNAMIC @is_pay_typeC@ -->
+				<!-- DYNAMIC @is_pay_typeR@ -->
+				<div class="pay_type pay_typeR" data-vls="R">
+					실시간계좌이체
+				</div>
+				<!-- DYNAMIC @is_pay_typeR@ -->
+				<!-- DYNAMIC @is_pay_typeV@ -->
+				<div class="pay_type pay_typeV" data-vls="V">
+					가상계좌이체<!-- DYNAMIC @is_escrowV@ --><span>(에스크로)</span><!-- DYNAMIC @is_escrowV@ -->
+				</div>
+				<!-- DYNAMIC @is_pay_typeV@ -->
+				<!-- DYNAMIC @is_pay_typeH@ -->
+				<div class="pay_type pay_typeH" data-vls="H">
+					휴대폰결제
+				</div>
+				<!-- DYNAMIC @is_pay_typeH@ -->
+				<div class="pay_type pay_typeM select displayNone" data-vls="M">
+					마일리지사용
+				</div>
+
+				<div class="empty20"></div>
+				
+				<ul class="pay_type_info pay_typeB_info">
+					<li class="separation2">
+						<input type="text" name="remittance_name" value="{{my_name}}" required='required' data-title="입금자명" data-msg="입금자명을" />
+					</li>
+					<li class="separation3">
+						<select name="remittance_bank" required='required' data-msg="입금은행을">
+							<option value="">입금하실 은행을 선택하세요</option>
+							<!-- DYNAMIC @loop_bank@ -->
+							<option value="{{bank_infos}}">{{bank_infos}}</option>
+							<!-- DYNAMIC @loop_bank@ -->
+						</select>
+						<div class="empty1"></div>
+						<script>
+						<!--
+							$("form[name=orderForm] select[name='remittance_bank']").val('').heapbox({'width' : '99%', 'top' : '63px', 'zindex' : '6'});
+
+						//-->
+						</script>
+					</li>
+				</ul>
+
+				<!-- DYNAMIC @is_cash_receipts@ -->
+				<ul class="cash_receipts">
+					<li class="separation2">
+						<select name="cash_receipts_type" {{cash_receipts_require}} data-msg="현금영수증 발행용도를">
+							<option value="">현금영수증 신청</option>
+							<option value="1">소득공제용</option>
+							<option value="2">지출증빙용</option>
+						</select>
+						<div class="empty1"></div>
+						<script>
+						<!--
+							$("form[name=orderForm] select[name='cash_receipts_type']").val('').heapbox({'width' : '99%', 'top' : '63px', 'zindex' : '5',
+								'onChange': function(value){
+									$t = $(".cash_receipts_num");
+									$t.parent().find('.inputTitle').remove();
+									
+									if(value == '2') {
+										$t.attr("data-title", "사업자등록번호");
+										$t.attr("data-msg", "사업자등록번호를");
+									}
+									else {
+										$t.attr("data-title", "핸드폰번호");
+										$t.attr("data-msg", "핸드폰번호를");
+									}
+
+									if($t.attr("data-detail"))	tmp_detail	= '<span>' + $t.attr("data-detail") + '</span>';
+									else						tmp_detail	= '';
+									if($t.prop("required") && !$t.attr("data-icon-no"))		req_icon	= '&nbsp;<i class="xi-check-circle"></i>';
+									else													req_icon	= '';
+									$t.parent().append('<p class="inputTitle">' + $t.attr("data-title") + req_icon + tmp_detail + '</p>');	
+								}							
+							});
+
+						//-->
+						</script>
+					</li>
+					<li class="separation3">
+						<input type="text" name="cash_receipts_num" class="cash_receipts_num" value="" {{cash_receipts_require}} data-title="핸드폰번호" data-msg="핸드폰번호를" data-detail="('-'없이)" />
+					</li>
+				</ul>
+				<!-- DYNAMIC @is_cash_receipts@ -->					
+			</div>
+
+			<!-- DYNAMIC @is_guest2@ -->		
+			<div class="sub_title">비회원 구매시 동의</div>
+			<div class="empty20"></div>
+			<div class="agreeBox" style="width:calc(100% - 42px); padding-bottom:40px;">		
+				<button class="graButton checkAll" style="width:100%" type="button"><span class="text">전체 약관에 동의</button>		
+				<div class="empty10"></div>
+				<div class="empty20"></div>
+				<p>
+					<label><input type='checkbox' name="agree2" value="1" class="checkAllItem" required="required" data-alert="1" data-msg-done="쇼핑몰 이용약관동의는 필수 동의 사항입니다.<br />약관에 동의하셔야 구매가 이 가능합니다." /><span class="checkbox"></span>[필수] 쇼핑몰 이용약관 동의</label>
+					<a href="#genericIframe1" class="cursorPoint documentAll1">전문보기 <i class='xi-angle-right-thin'></i></a>
+				</p>
+				<div class="empty10"></div>
+				<p>
+					<label><input type='checkbox' name="agree3" value="1" class="checkAllItem" required="required" data-alert="1" data-msg-done="비회원 구매시 개인정보 수집 및 이용에 대한 동의는 필수 동의 사항입니다.<br />개인정보 수집 및 이용에 대해 동의하셔야 구매가 가능합니다." /><span class="checkbox"></span>[필수] 비화원 구매시 개인정보 수집 및 이용에 대한 동의</label>
+					<a href="#genericIframe2" class="cursorPoint documentAll2">전문보기 <i class='xi-angle-right-thin'></i></a>
+				</p>				
+			</div>
+			<script>$(".recent_address").hide();</script>
+			<!-- DYNAMIC @is_guest2@ -->
+
+			<div class="empty10"></div>
+		</div>
+
+		<div class="cartSum">
+			<div class="priceInfo">
+				<div>상품금액 <span><b class="itemPrice">{{SUM_PRICES}}</b>원</span></div>
+				<div>상품할인금액 <span> - <b class="itemDiscount">{{SUM_DISCOUNT}}</b>원</span></div>
+				<div>장바구니쿠폰할인 <span> - <b class="itemDiscount2">0</b>원</span></div>
+				<div>마일리지사용 <span> - <b class="itemMileage2">0</b>원</span></div>
+				<div>배송비 <span> + <b class="itemDelivery">{{SUM_DELIVERY}}</b>원</span></div>
+			</div>
+			<div class="priceTotal">
+				결제금액 <span><b class="itemSum">{{SUM_TOTAL}}</b>원</span>
+			</div>
+			<div class="mileageTotal">적립혜택 <span><b class="itemMileage">{{SUM_MILEAGE}}</b>P</span></div>
+		</div>
+	</div>	
+
+	<div class="btnFixOrder" id="btnFixOrder">
+		<div class="bottomDefault">			
+			<div class="btnOrder" style="width:100%"><b class="colorWhite"><span class="itemSum">{{SUM_TOTAL}}</span>원 결제하기</b></div>
+		</div>		
+	</div>
+
+	<button class="btnOrderHide" type="submit"></button>
+
+	<div class="documentAll1Info">
+		<div>{{AGREEMENT}}</div>
+	</div>
+
+	<div class="documentAll2Info">
+		<div>{{PRIVACY}}</div>
+	</div>
+	
+	</form>
+
+	<div class="empty100"></div>
+	
+</div>	
+
+<script src="//ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
+<script>
+<!--
+	
+	var fixedBottom			= 1;
+	var default_required	= $(".cash_receipts_num").prop("required");
+	var	default_delivery	= "{{SUM_DELIVERY}}";
+
+	$(".addDelivery").hide();
+
+	zipSearch();
+
+	<!-- DYNAMIC @loop_chnage_qty@ -->
+	alertify.error('{{msg}}');
+	<!-- DYNAMIC @loop_chnage_qty@ -->
+	
+	function recentTrigger() {
+		<!-- DYNAMIC @is_recent_address2@ -->
+		$(".recentAddr1").trigger('click');
+		<!-- DYNAMIC @is_recent_address2@ -->
+	}	
+
+	$('.checkAll').click(function(e) {	
+		$('.checkAllItem').prop('checked', true);
+	});
+
+	$('.documentAll1').click(function(e) {	
+		genericDialogView($('.documentAll1Info')[0], '이용약관');
+	});	
+
+	$('.documentAll2').click(function(e) {	
+		genericDialogView2($('.documentAll2Info')[0], '개인정보 수집 동의');
+	});	
+
+	$(function() {
+
+		$("#topUtil").css("border-bottom", "1px solid #f3f3f3");
+		$("#topUtil .icon").hide();
+		$("#topContent").hide();
+		$("#fixMenu").hide();
+		$("#footer").hide();		
+		$(".topContentEmpty").hide();		
+		$(".bottomEmpty").show();
+		
+		$('.btnOrder').click(function() {
+			$(".btnOrderHide").trigger("click");
+		});		
+
+	});
+
+// -->
+</script>
+
+<script src="{{skin}}/js/orderProc.js?ver={{ver}}"></script>

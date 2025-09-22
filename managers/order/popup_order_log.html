@@ -1,0 +1,42 @@
+<style>
+body { min-width:840px; background-color:#fff; }
+#contentBox { min-width:840px; min-height:300px; top:20px; background-color:#fff; border:0; box-shadow: none; -webkit-box-shadow: none; }
+#contentBox .content { min-width:800px; margin:20px; clear:both; }
+</style>
+
+<div class="content">
+		
+	<table class="listIn fixed-header-pop" style="width:800px">
+	<col width="10%" /> 
+	<col width="25%" />
+	<col width="25%" />
+	<col width="20%" />
+	<col width="20%" />	
+	<thead>
+	<tr> 
+		<th>번호</th>
+		<th>처리일시</th>
+		<th>처리자</th>
+		<th>변경전 주문상태</th>
+		<th>변경후 주문상태</th>
+	</tr>
+	</thead>
+	<tbody>	
+	<!-- DYNAMIC @loop_list@ -->
+	<tr>
+		<td class="number">{{NUM}}</td>
+		<td class="number">{{STATUS_DATE}}</td>
+		<td>{{ID}}</td>
+		<td>{{PREV_STATUS}}</td>
+		<td>{{STATUS}}</td>
+	<tr>
+	<!-- DYNAMIC @loop_list@ -->
+	<!-- DYNAMIC @empty_list@ -->
+	<tr>
+		<td colspan="5" class="emptyList"><i class="fas fa-quote-left"></i>&nbsp;&nbsp;로그 기록이 없습니다!&nbsp;&nbsp;<i class="fas fa-quote-right"></i></td>
+	<tr>
+	<!-- DYNAMIC @empty_list@ -->
+	</tbody>
+	</table>
+	
+</div>
