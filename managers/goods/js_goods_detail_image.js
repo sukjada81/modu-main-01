@@ -157,8 +157,8 @@ $(function() {
 
 		if(cnt == 0) alertify.error("등록 가능 한 이미지 파일이 없습니다.");	
 
-		type = str_replace("_image", "", this.id);		
-
+		// type = str_replace("_image", "", this.id);		
+		type = this.id.replace("_image", "");
 		if(type=='other') {
 			if(other_image_cnt + cnt > 10) {
 				alertify.alert('추가 이미지는 10개까지 등록이 가능 합니다.');
@@ -220,8 +220,8 @@ $(function() {
 			e.stopPropagation();
 			e.preventDefault();
 
-			var type = str_replace("ImageSortable", "", this.id);
-		
+			// var type = str_replace("ImageSortable", "", this.id);
+			var type = this.id.replace("ImageSortable", "");
 			if(type == 'other') var type_color = "#fff";
 			else				var type_color = "#efefef";
 
@@ -234,8 +234,8 @@ $(function() {
 		});
 		dropZone.on('drop',function(e){
 			e.preventDefault();
-			var type = str_replace("ImageSortable", "", this.id);
-
+			// var type = str_replace("ImageSortable", "", this.id);
+			var type = this.id.replace("ImageSortable", "");
 			if(type == 'other') var type_color = "#fff";
 			else				var type_color = "#efefef";
 
