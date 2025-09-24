@@ -175,6 +175,44 @@
 
 </form>
 
+<script>
+// ✅ 엑셀 파일 유효성 검사 (기존 CommonCheckExcel 대체 최소 구현)
+if (typeof window.CommonCheckExcel !== 'function') {
+  window.CommonCheckExcel = function ($input) {
+    try {
+      const el = $input && $input[0];
+      const file = el && el.files && el.files[0];
+      if (!file) {
+        (window.alertify?.error || alert)("엑셀 파일을 선택하세요.");
+        return false;
+      }
+
+      // 확장자 검사: xls / xlsx
+      const name = (file.name || "").toLowerCase();
+      if (!/\.(xls|xlsx)$/.test(name)) {
+        (window.alertify?.error || alert)("엑셀 파일(xls, xlsx)만 등록 가능합니다.");
+        // 잘못된 파일 선택 초기화
+        $input.val("");
+        return false;
+      }
+
+      // (선택) 용량 제한: 20MB
+      const MAX = 20 * 1024 * 1024;
+      if (file.size > MAX) {
+        (window.alertify?.error || alert)("파일 용량이 20MB를 초과했습니다.");
+        $input.val("");
+        return false;
+      }
+
+      return true;
+    } catch (e) {
+      console.error(e);
+      (window.alertify?.error || alert)("파일 확인 중 오류가 발생했습니다.");
+      return false;
+    }
+  };
+}
+</script>
 
 <script>
 <!--
