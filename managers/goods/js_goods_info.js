@@ -1,3 +1,11 @@
+
+// PHP str_replace를 JS에서 흉내내는 전역 함수 — 최소 변경 패치
+if (typeof window.str_replace !== 'function') {
+  window.str_replace = function (search, replace, subject) {
+    return (subject ?? '').toString().split(search).join(replace);
+  };
+}
+
 $('#air_pos_name').append('<p class="requireIcon" style="left:950px"><i class="fas fa-pen-square masterTooltip" title="필수 입력사항 입니다."></i></p>');	
 $('#air_pos_name').append('<p class="requireIcon size09" style="left:980px; right:0"><span class="colorOrange" id="air_pos_name_cnt">0</span> / 55</p>');	
 $('#air_pos_detail').append('<p class="requireIcon size09" style="left:970px; right:0"><span class="colorOrange" id="air_pos_detail_cnt">0</span> / 220</p>');	
