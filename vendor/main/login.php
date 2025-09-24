@@ -61,12 +61,12 @@ else $SAVEID = $checkedsid = "";
 
 <center>
 	<div class="loginBg1 alignLeft fontRoboto colorWhite size08">
-		<span class="small-title">모두복지몰</span><span class="size10"></span>	
+		<span class="small-title">더도매</span><span class="size10"></span>	
 	</div>
 	<div class="loginBg2">
 		<div class="loginTitle fontRoboto">
 			<span class="textShadow size30" >Vendor Administrator Login Page!</span><br /><br />
-			<span class="size14">모두복지몰 ShoppingMall Solution Version.</span>
+			<span class="size14">더도매 ShoppingMall Solution Version.</span>
 		</div>
 	</div>
 	<div class="loginBg3"></div>

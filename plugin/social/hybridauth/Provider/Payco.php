@@ -7,7 +7,7 @@
 
 /**
  * Hybrid_Providers_Payco provider adapter based on OAuth2 protocol
- * Copyright (c) 2022모두복지몰
+ * Copyright (c) 2022더도매
  */
 
 namespace Hybridauth\Provider;
