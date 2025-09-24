@@ -6,6 +6,20 @@ if (typeof window.str_replace !== 'function') {
   };
 }
 
+// PHP number_format 대체 — 최소 변경 폴리필
+if (typeof window.number_format !== 'function') {
+  window.number_format = function (n, decimals = 0) {
+    // 숫자 변환(콤마 제거 후)
+    const num = parseFloat(String(n ?? '').replace(/,/g, '')) || 0;
+    // 소수 자릿수 고정
+    const fixed = Number.isFinite(decimals) && decimals >= 0
+      ? num.toFixed(decimals)
+      : Math.round(num).toString();
+    // 천단위 콤마
+    return fixed.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  };
+}
+
 $('#air_pos_name').append('<p class="requireIcon" style="left:950px"><i class="fas fa-pen-square masterTooltip" title="필수 입력사항 입니다."></i></p>');	
 $('#air_pos_name').append('<p class="requireIcon size09" style="left:980px; right:0"><span class="colorOrange" id="air_pos_name_cnt">0</span> / 55</p>');	
 $('#air_pos_detail').append('<p class="requireIcon size09" style="left:970px; right:0"><span class="colorOrange" id="air_pos_detail_cnt">0</span> / 220</p>');	
