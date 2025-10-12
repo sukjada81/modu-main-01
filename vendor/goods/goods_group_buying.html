@@ -1,0 +1,214 @@
+<form name='goodsForm' method='post' action='goods_post.php' enctype="multipart/form-data" target='HFrm' onsubmit="return false;">					
+<input type="hidden" name="mode" value="excel" />
+
+<div class="content">
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;일괄상품등록
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="34%" />
+	<col width="16%" /> 
+	<col width="34%" />	
+	</colgroup>
+	<tr> 
+		<td>엑셀파일 등록</td>
+		<td colspan="3">
+			<div class="btnBox2">						
+				<div id="btn_excel" class="btnBoxIcon">
+					<i class="fas fa-plus-circle fa-2x"></i>											
+				</div>												
+				<input type="file" name="excel" class="excelBtn" required="required" data-msg="엑셀파일을" />
+				<div class="excel_name"></div> 
+				<div id="btn2_excel" class="btnBoxIcon2">
+					<i class="fas fa-edit masterTooltip" title="변경하기"></i>
+				</div>
+			</div>			
+		</td>
+	</tr>
+	<tr> 
+		<td>분류코드매칭 <i class="xi-help xi-x colorDGary masterTooltip" title="타사 쇼핑몰에서 이전 할 경우 타사 쇼핑몰 분류코드를 이용하여 현 쇼핑몰 분류코드와 매칭하여 등록 할 수 있습니다."></i></td>
+		<td colspan="3">
+			<label><input type='checkbox' name="matching" value="1" /><span></span> 사용함</label>&nbsp;&nbsp;
+			<button class="btns" type="button" style="width:18%" id="cateMatch"><span class="text"><i class="xi-cog xi-x"></i> 분류코드 매칭설정</span></button>
+		</td>
+	</tr>
+	<tr> 
+		<td>타서버 이미지복사 <i class="xi-help xi-x colorDGary masterTooltip" title="상품 상세정보에 링크된 타서버 이미지를 본 쇼핑몰에 저장 후 링크를 변경하는 기능입니다."></i></td>
+		<td colspan="3">
+			<label><input type='checkbox' name="img_copy" value="1" /><span></span> 사용함</label>&nbsp;&nbsp;
+		</td>
+	</tr>
+	<tr> 
+		<td>엑셀파일 안내</td>
+		<td colspan="3">
+			샘플파일은 다운받으신 후 xls파일이나 xlsx파일로 저장 후 등록 하시면 됩니다. <br />
+			대량상품 등록일 경우 서버 부하 및 처리 시간이 많이 걸릴 수 있으니 분할해서 등록 하시기 바랍니다.<br /><br />
+			<button class="btns" type="button" style="width:18%" id="sampleDwon"><span class="text"><i class="xi-download xi-x"></i> 엑셀샘플 다운로드</span></button>
+		</td>
+	</tr>
+	</table>
+
+	<div class="empty60"></div>
+
+	<div class="btnSubmitBox">
+		<div class="displayInline"><button class="weight300 shine" type="submit">상품 등록하기</button></div>		
+	</div>
+
+	<div class="empty60"></div>
+
+	<div class="contentTitle">
+		<i class="xi-file-text xi-x"></i>&nbsp;&nbsp;상품정보 엑셀 작성 안내
+	</div>
+
+	<table>
+	<colgroup>
+	<col width="16%" /> 
+	<col width="54%" />	
+	</colgroup>
+	<tr> 
+		<td>상품명 <i class="fas fa-pen-square masterTooltip" title="필수 입력사항 입니다."></i></td>
+		<td>Apple 아이폰 12 프로 256GB</td>
+	</tr>
+	<tr> 
+		<td>대표분류코드 <i class="fas fa-pen-square masterTooltip" title="필수 입력사항 입니다."></i></td>
+		<td>101001000000&nbsp;&nbsp;<font class="colorBlue">분류관리에서 등록된 분류코드</font></td>
+	</tr>
+	<tr> 
+		<td>소비자가</td>
+		<td>1,600,000</td>
+	</tr>
+	<tr> 
+		<td>판매가</td>
+		<td>1,500,000&nbsp;&nbsp;<font class="colorBlue">판매가입력시 공급가는 판매수수료율을 적용하여 자동으로 계산됩니다. 판매가와 공급가 둘중 하나는 필수 입력사항이며 둘다 입력시 판매가기준으로 적용 됩니다.</font></td>
+	</tr>
+	<tr> 
+		<td>공급가</td>
+		<td>1,300,000&nbsp;&nbsp;<font class="colorBlue">공급가입력시 판매가는 판매수수료율을 적용하여 자동으로 계산됩니다. 판매가와 공급가 둘중 하나는 필수 입력사항이며 둘다 입력시 판매가기준으로 적용 됩니다.</font></td>
+	<tr> 
+		<td>브랜드</td>
+		<td>아이폰</td>
+	</tr>
+	<tr> 
+		<td>제조사</td>
+		<td>Apple</td>
+	</tr>
+	<tr> 
+		<td>원산지</td>
+		<td>미국</td>
+	</tr>
+	<tr> 
+		<td>모델명</td>
+		<td>MGD73KH/A</td>
+	</tr>
+	<tr> 
+		<td>자체사품코드</td>
+		<td>A00001</td>
+	</tr>
+	<tr> 
+		<td>진열상태</td>
+		<td>Y&nbsp;&nbsp;<font class="colorBlue">'Y' : 진열함, 'Y'이외 값 : 진열안함</font></td>
+	</tr>
+	<tr> 
+		<td>판매상태</td>
+		<td>Y&nbsp;&nbsp;<font class="colorBlue">'Y' : 진열함, 'Y'이외 값 : 진열안함</font></td>
+	</tr>
+	<tr> 
+		<td>재고</td>
+		<td>무제한&nbsp;&nbsp;<font class="colorBlue">'무제한' : 무제한, 'XXX'(숫자) : XXX개, 옵션상품이 있는경우 옵션수량 적용</font></td>
+	</tr>
+	<tr> 
+		<td>검색키워드</td>
+		<td>아이폰, iphone, 애플, apple&nbsp;&nbsp;<font class="colorBlue">','(쉼표)를 이용하여 여러 키워드 등록</font></td>
+	</tr>
+	<tr> 
+		<td>상품간략설명</td>
+		<td>충전기 어댑터 미포함 상품 입니다. 충전기 별도구매가 필요합니다.</td>
+	</tr>
+	<tr> 
+		<td>상품상세설명</td>
+		<td>&ltimg src="http://funcher.kr/tmp_img/iphone12_1.jpg" />&ltbr />&ltimg src="http://funcher.kr/tmp_img/iphone12_2.jpg" /><br />&ltimg src="http://funcher.kr/tmp_img/iphone12_3.jpg" /></td>
+	</tr>
+	<tr> 
+		<td>옵션</td>
+		<td>
+			색상|RAM|*|화이트|64G||0||무제한||A00001|*|화이트|128G||50000||무제한||A00002|*|블랙|64G||0||무제한||A00003|*|블랙|128G||50000||무제한||A00004
+			<br /><font class="colorBlue">옵션명|옵션명...|*|옵션항목|옵션항목...||추가금액||재고 : 무제한 or XXX(숫자)||자체상품코드|*|옵션항목|옵션항목...||추가금액||재고 : 무제한 or XXX(숫자)||자체상품코드...</font>
+		</td>
+	</tr>
+	<tr> 
+		<td>상세이미지경로</td>
+		<td>http://funcher.kr/tmp_img/iphone12.jpg&nbsp;&nbsp;<font class="colorBlue">등록시 가져올 이미지 웹상 경로</font></td>
+	</tr>
+	<tr> 
+		<td>목록이미지경로</td>
+		<td>http://funcher.kr/tmp_img/iphone12.jpg&nbsp;&nbsp;<font class="colorBlue">미입력시 상세이미지를 이용하여 자동 등록 됩니다.</font></td>
+	</tr>
+	<tr> 
+		<td>작은목록이미지경로</td>
+		<td>http://funcher.kr/tmp_img/iphone12.jpg&nbsp;&nbsp;<font class="colorBlue">미입력시 상세이미지를 이용하여 자동 등록 됩니다.</font></td>
+	</tr>
+	<tr> 
+		<td>추가이미지경로</td>
+		<td>http://funcher.kr/tmp_img/iphone12_1.jpg|http://funcher.kr/tmp_img/iphone12_2.jpg|&nbsp;&nbsp;<font class="colorBlue">'|'를 이용하여 여러 이미지 등록</font></td>
+	</tr>http://funcher.kr/tmp_img/iphone12_3.jpg
+	<tr> 
+		<td>상품정보 제공고시</td>
+		<td>
+			<!-- DYNAMIC @loop_require@ -->
+			{{jum}}{{k}} : {{require_title}}
+			<!-- DYNAMIC @loop_require@ -->
+			<br /><font class="colorBlue">항목 번호 입력시 내용 뮨구 '상품상세 참조'로 입력 자동등록</font>
+		</td>
+	</tr>
+	<tr> 
+		<td>배송비</td>
+		<td>1&nbsp;&nbsp;<font class="colorBlue">1 : 환경설정 사용, 2 : 무료배송, 3 : 착불, 4 : 별도책정(고정) ex) 4|3000, 5 : 별도책정(개당) ex) 5|3000</font></td>
+	</tr>
+	</table>
+
+</div>
+
+</form>
+
+
+<script>
+<!--
+	$(function() {
+		
+		$('#cateMatch').click(function(e){
+			iframeWidth = '1058px';
+			iframeHeight = '.9';	
+			iframeView("./popup_cate_match.php", "분류코드 매칭");
+		});
+
+		$('#sampleDwon').click(function(e){
+			window.location.href = "../../managers/goods/goods_excel_sample.xlsx";
+		});
+
+		$('.excelBtn').on('change', function(e){
+
+			if(!CommonCheckExcel($(this))) return;
+			
+			$("#btn_excel").hide();
+			$("#btn2_excel").fadeIn(100);
+			var name = $("form[name=goodsForm] input[name='excel']").val().split('\\');		
+			$(".excel_name").html(name[name.length-1]);
+
+			$('.inputMessageBox').fadeOut('200').remove();
+						
+		});
+
+		$('#btn2_excel').find('.fa-edit').click(function(e){
+			$("form[name=goodsForm] input[name='excel']").trigger('click');
+		});
+		
+	});
+
+
+	
+//-->
+</script>
