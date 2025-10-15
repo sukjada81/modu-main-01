@@ -14,7 +14,8 @@
 	<div id="topMenu">	
 		<div id="utilMenu">
 			<ul>
-				<li class="first"><a href='#' onclick="bookmarksite('{{site_url}}','{{site_name}}'); return false;">BOOKMARK</a></li>					
+<!--				<li class="first"><a href='#' onclick="bookmarksite('{{site_url}}','{{site_name}}'); return false;">BOOKMARK</a></li>					-->
+                <li class="first"><a href='#' onclick="bookmarksite('{{site_url}}','{{site_name}}'); return false;">공급사센터</a></li>
 			</ul>
 			<div class='fff'></div>
 		</div>
@@ -22,10 +23,10 @@
 		<div id="homeMenu">
 			<ul>					
 				<!-- DYNAMIC @is_logout@ -->
-				<li class="first line"><a href='{{Main}}?channel=login'>LOGIN</a></li>
+				<li class="first line"><a href='{{Main}}?channel=login'>로그인</a></li>
 				<li>
 					<div style="position:relative">
-						<a href='{{Main}}?channel=regist'>JOIN</a>
+						<a href='{{Main}}?channel=regist'>회원가입</a>
 						<!-- DYNAMIC @is_join_point@ -->
 						<div id="joinPoint">
 							<div class="arrow"></div>
@@ -36,12 +37,12 @@
 				</li>
 				<!-- DYNAMIC @is_logout@ -->
 				<!-- DYNAMIC @is_login@ -->
-				<li class="first line"><a href='php/logout.php'>LOGOUT</a></li>						
+				<li class="first line"><a href='php/logout.php'>로그아웃</a></li>
 				<!-- DYNAMIC @is_login@ -->
-				<li class="line"><a href='{{Main}}?channel=order_list'>ORDER LIST </a></li>
+				<li class="line"><a href='{{Main}}?channel=order_list'>주문배송조회 </a></li>
 				<li class="line menuMy">
 					<div>
-						<a href='{{Main}}?channel=mypage'>MY SHOP <i class="xi-angle-down" id="menuMy"></i></a>
+						<a href='{{Main}}?channel=mypage'>마이페이지 <i class="xi-angle-down" id="menuMy"></i></a>
 						<div id="mypageBox">
 							<div class="emptys"></div>
 							<div class="rotate45 arrow"></div>
@@ -54,8 +55,8 @@
 						</div>							
 					</div>
 				</li>					
-				<li class="line"><a href='{{Main}}?channel=cart'>CART</a></li>
-				<li><a href='{{Main}}?channel=cs_center'>CS CENTER</a></li>
+				<li class="line"><a href='{{Main}}?channel=cart'>장바구니</a></li>
+<!--				<li><a href='{{Main}}?channel=cs_center'>CS CENTER</a></li>-->
 			</ul>
 		</div>
 	</div>
@@ -69,13 +70,16 @@
 		<div id="topBanner">
 			<div class="empty10">&nbsp;</div>
 			<!-- DYNAMIC @loop_banner_TOPL@ -->
-			<div><a href="{{B_LINK}}" {{B_TARGET}}>{{B_IMAGE}}</a></div>
+			<div><a href="{{B_LINK}}" {{B_TARGET}}>{{B_IMAGE}}</a>
+            </div>
 			<!-- DYNAMIC @loop_banner_TOPL@ -->
 		</div>
 		
 		<div id="logo">
 			<!-- DYNAMIC @loop_banner_LOGO@ -->				
-			<h1><a href="{{B_LINK}}" {{B_TARGET}}>{{B_IMAGE}}</a></h1>
+			<h1><a href="{{B_LINK}}" {{B_TARGET}}>{{B_IMAGE}}</a>
+                <img src=img/logo.png alt="로고 이미지">
+            </h1>
 			<!-- DYNAMIC @loop_banner_LOGO@ -->
 		</div>		
 		
@@ -84,10 +88,10 @@
 				<form name="TsearchForm" method="get" action="{{Main}}">
 				<input type="hidden" name="channel" value='search' />
 				<div class="floatLeft">
-					<input type="text" name="keyword" value="{{keyword}}" class="topKeyword fontSCDream size14" required="required" autocomplete="off" data-msg="검색어를" data-on-enter="1"  />
+					<input type="text" name="keyword" value="{{keyword}}" class="topKeyword fontSCDream size14"  placeholder="검색어를 입력하여주세요. (상품코드 / 공급사코드 / 상품명)" required="required" autocomplete="off" data-msg="검색어를" data-on-enter="1"  />
 				</div>
-				<div class="floatLeft" style="padding:6px 0 0 ">
-					<i class="xi-search size14 cursorPoint" id="keywordSearch" title="검색"></i>
+				<div class="floatRight" style="padding:8px 0 0; margin:0 8px 0">
+					<i class="xi-search size20 cursorPoint" id="keywordSearch" title="검색"></i>
 				</div>
 				</form>
 			</div>
