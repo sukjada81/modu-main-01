@@ -1,5 +1,14 @@
 var mobile_option_open = 0;
 
+function number_format(num) {
+	return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+function str_replace_all(find, replace, str) {
+	const regex = new RegExp(find.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "g");
+	return str.replace(regex, replace);
+}
+
 function option_value_proc(obj) {
 	if($(obj).hasClass('soldout')) return; 
 
@@ -90,7 +99,7 @@ function option_add(vls, info) {
 		$(".option_name" + i).html($(".option_tnum" + i).attr("data-name"));
 		if(i > 0) $(".option_snum" + i).html('');
 	}
-	title	= implode(" / ", title);
+	title	= title.join(" / "); //implode(" / ", title);
 
 	info	= info.split('|');
 	
@@ -103,7 +112,7 @@ function option_add(vls, info) {
 		price = info[4];
 	}
 	else {
-		price	= parseInt(str_replace(",", "", $("form[name=goodsForm] input[name='price']").val()));	
+		price	= parseInt(str_replace_all(",", "", $("form[name=goodsForm] input[name='price']").val()));
 		if(info[1] != 0) price += parseInt(info[1]);
 	}
 
@@ -191,7 +200,7 @@ function option_qty_proc(uid, type, obj) {
 		var price			= parseInt($(".option_item_" + uid).attr("data-goods_price"));		
 	}
 	else {
-		var price			= parseInt(str_replace(",", "", $("form[name=goodsForm] input[name='price']").val()));
+		var price			= parseInt(str_replace_all(",", "", $("form[name=goodsForm] input[name='price']").val()));
 		var price2			= parseInt($(".option_item_" + uid).attr("data-price"));
 	
 		if(price2 != 0) price += price2;
@@ -235,10 +244,10 @@ function qty_proc(type, obj) {
 	}
 	
 	if($("form[name=goodsForm] input[name='coupon_down_yn']").val() == '1') {
-		var price			= parseInt(str_replace(",", "", $("form[name=goodsForm] input[name='coupon_price']").val()));
+		var price			= parseInt(str_replace_all(",", "", $("form[name=goodsForm] input[name='coupon_price']").val()));
 	}
 	else {
-		var price			= parseInt(str_replace(",", "", $("form[name=goodsForm] input[name='price']").val()));
+		var price			= parseInt(str_replace_all(",", "", $("form[name=goodsForm] input[name='price']").val()));
 	}
 	
 	price	= price * qty;
@@ -251,7 +260,7 @@ function qty_proc(type, obj) {
 function option_del_proc(uid) {
 	$(".option_item_" + uid).remove();
 	if($(".option_list").children().length == 0) {
-		var price = parseInt(str_replace(",", "", $("form[name=goodsForm] input[name='price']").val()));
+		var price = parseInt(str_replace_all(",", "", $("form[name=goodsForm] input[name='price']").val()));
 		$(".total_price").html(number_format(price));
 	}
 	else price_total();
@@ -261,7 +270,7 @@ function price_total() {
 	var total = 0;
 	
 	$(".goodsDetail .option_list .option_item").each(function(i){								
-		total += parseInt(str_replace(",", "", $(this).find(".option_price").html()));
+		total += parseInt(str_replace_all(",", "", $(this).find(".option_price").html()));
 	});
 
 	$(".total_price").html(number_format(total));	
@@ -340,7 +349,7 @@ function orderProc() {
 								function() { window.location.href = "index.php?channel=cart"; }, 
 								function(){ 
 									if($("form[name=goodsForm] input[name='option_cnt']").val() != 0)  $(".option_list").html(''); 
-									var price = parseInt(str_replace(",", "", $("form[name=goodsForm] input[name='price']").val()));
+									var price = parseInt(str_replace_all(",", "", $("form[name=goodsForm] input[name='price']").val()));
 									$(".total_price").html(number_format(price));
 								});
 						}
@@ -374,7 +383,7 @@ function couponDownOk() {
 	$(".goodsDetail .option_list .option_item").each(function(i){
 		if($("form[name=goodsForm] input[name='option_cnt']").val() == 0) {
 			qty		= parseInt($(".qty_").val());
-			price	= parseInt(str_replace(",", "", $("form[name=goodsForm] input[name='coupon_price']").val()));
+			price	= parseInt(str_replace_all(",", "", $("form[name=goodsForm] input[name='coupon_price']").val()));
 
 			price	= price * qty;
 			$(".option_price").html(number_format(price));
