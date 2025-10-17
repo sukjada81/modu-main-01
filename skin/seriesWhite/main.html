@@ -1,23 +1,3 @@
-<!--&lt;!&ndash; DYNAMIC @is_banner_MAINT@ &ndash;&gt;-->
-<!--<div id="mainRolling">-->
-<!--	<div class="swiper-container">-->
-<!--		<div class="swiper-wrapper">-->
-<!--			&lt;!&ndash; DYNAMIC @loop_banner_MAINT@ &ndash;&gt;-->
-<!--			<div class="swiper-slide">-->
-<!--				<a href="{{B_LINK}}" {{B_TARGET}}>-->
-<!--					<div style="background-image:url({{B_IMAGE_URL}});">&nbsp;</div>-->
-<!--				</a>-->
-<!--			</div>		-->
-<!--			&lt;!&ndash; DYNAMIC @loop_banner_MAINT@ &ndash;&gt;-->
-<!--		</div>-->
-<!--		&lt;!&ndash; Add Arrows &ndash;&gt;-->
-<!--	    <div class="swiper-button-next"><i class="xi-angle-right-thin xi-3x"></i></div>-->
-<!--		<div class="swiper-button-prev"><i class="xi-angle-left-thin xi-3x"></i></div>-->
-<!--		&lt;!&ndash; Add Pagination &ndash;&gt;-->
-<!--		<div class="swiper-pagination"></div>-->
-<!--	</div>-->
-<!--</div>-->
-
 
 <!-- 메인 베너 영역 (좌: 메인배너 7 / 우: 이벤트배너 3) -->
 <section id="mainHero">
@@ -50,14 +30,190 @@
     <aside class="hero-right">
         <div class="event-list">
             <!-- DYNAMIC @is_banner_MAINT@ -->
-            <a class="event-card" href="{{B_LINK}}" {{B_TARGET}}>
-                <div class="bg" style="background-image:url({{B_IMAGE_URL}});"></div>
-            </a>
+<!--            <a class="event-card" href="{{B_LINK}}" {{B_TARGET}}>-->
+<!--                <div class="bg" style="background-image:url({{B_IMAGE_URL}});"></div>-->
+<!--            </a>-->
+
+            <div class="event-card" id="eventCard">
+                <div class="event-banner"></div>
+
+                <div class="event-head">
+                    <span class="brand">더도매09</span>
+                </div>
+
+                <div class="event-body">
+                    <h3 class="event-title" id="evTitle">제 000차 공동구매</h3>
+
+                    <!-- 시계 아이콘 -->
+                    <div class="event-status-wrap">
+                        <svg class="clock-icon" viewBox="0 0 50 50">
+                            <circle cx="25" cy="25" r="22" stroke="#0b2a50" stroke-width="3" fill="none" />
+                            <line x1="25" y1="25" x2="25" y2="12" stroke="#0b2a50" stroke-width="3" class="clock-hour" />
+                            <line x1="25" y1="25" x2="38" y2="25" stroke="#0b2a50" stroke-width="2" class="clock-minute" />
+                        </svg>
+                        <p class="event-status" id="evStatus">공구마감 (D-day)</p>
+                    </div>
+
+                    <p class="event-dday" id="evDday">D - 0일 00시간 00분</p>
+                    <small class="event-period" id="evPeriod">진행기간</small>
+                </div>
+            </div>
             <!-- DYNAMIC @is_banner_MAINT@ -->
         </div>
     </aside>
     <!-- DYNAMIC @is_banner_MAINT@ -->
 </section>
+
+<script>
+    /* D-Day 실시간 UI 반영*/
+    (function(){
+        const BRAND_TEXT = '더도매09';
+        const START_DAYS = [1, 11, 21]; // 시작일
+        const RUN_DAYS = 10;            // 진행일수: 10일 (1~10, 11~20, 21~30)
+        const BASE_SERIAL = 1;          // 차수 베이스(첫 시행을 1차로)
+
+        const two = n => String(n).padStart(2,'0');
+
+        // month 마지막 날짜
+        function lastDayOfMonth(y, m){ return new Date(y, m+1, 0).getDate(); }
+
+        // 해당 월의 모든 기간 배열 생성
+        function buildPeriods(y,m){
+            const max = lastDayOfMonth(y,m);
+            const periods = START_DAYS.map(sd => {
+                const start = new Date(y, m, sd, 0, 0, 0);
+                // 10일간 → 시작일부터 9일 뒤 23:59:59
+                const endDay = Math.min(sd + RUN_DAYS - 1, 30); // 규칙상 30일로 고정 종료
+                const end = new Date(y, m, endDay, 23, 59, 59);
+                // 만약 그 달의 일이 30 미만(2월 등)
+                if (end.getDate() > max) end.setDate(max), end.setHours(23,59,59,999);
+                return { start, end };
+            }).filter(p => p.start.getDate() <= max);
+            return periods;
+        }
+
+        // 현재 상태/다음 시작/차수 계산
+        function computeState(now){
+            const y = now.getFullYear(), m = now.getMonth();
+            let periods = buildPeriods(y,m);
+
+            // 현재 월에서 진행/대기 파악
+            for (const p of periods) {
+                if (now >= p.start && now <= p.end) {
+                    return {
+                        mode: 'running',
+                        current: p,
+                        nextStart: nextStartAfter(y, m, p.end),
+                        serial: serialNumber(p.start) // 차수
+                    };
+                }
+            }
+
+            // 아직 이번 달 첫 시작 전이면 그게 next
+            const upcoming = periods.find(p => now < p.start);
+            if (upcoming) {
+                return {
+                    mode: 'waiting',
+                    current: null,
+                    nextStart: upcoming.start,
+                    serial: serialNumber(upcoming.start)
+                };
+            }
+
+            // 이번 달 모두 종료 → 다음 달 1일 스타트
+            const ns = nextStartAfter(y, m, new Date(y,m,lastDayOfMonth(y,m),23,59,59));
+            return {
+                mode: 'waiting',
+                current: null,
+                nextStart: ns,
+                serial: serialNumber(ns)
+            };
+        }
+
+        // 기준 시점 이후의 다음 시작일
+        function nextStartAfter(y, m, afterDate){
+            // 이번 달 이후의 시작일 중 afterDate보다 큰 첫 번째
+            for (const sd of START_DAYS) {
+                const s = new Date(y, m, sd, 0,0,0);
+                if (s > afterDate) return s;
+            }
+            // 없으면 다음 달 1일
+            const nm = (m+1)%12, ny = m===11 ? y+1 : y;
+            return new Date(ny, nm, START_DAYS[0], 0,0,0);
+        }
+
+        // 차수 계산(베이스부터 누적).2025-01-01 기준
+        const BASE_ANCHOR = new Date(2025, 0, 1, 0,0,0); // 2025-01-01
+        function serialNumber(startDate){
+            // 기준일 부터 현재까지의 시작횟수를 카운트
+            let s = 0;
+            let y = BASE_ANCHOR.getFullYear(), m = BASE_ANCHOR.getMonth();
+            let cur = new Date(BASE_ANCHOR);
+            while (cur <= startDate) {
+                for (const sd of START_DAYS) {
+                    const d = new Date(y, m, sd, 0,0,0);
+                    if (d < BASE_ANCHOR) continue;
+                    if (d <= startDate) s++;
+                }
+                // 다음 달
+                m++; if (m>11){ m=0; y++; }
+                cur = new Date(y, m, 1, 0,0,0);
+            }
+            return BASE_SERIAL - 1 + s;
+        }
+
+        // 남은 시간 계산
+        function ddayText(from, to){
+            const diff = to - from;
+            const days = Math.floor(diff / (1000*60*60*24));
+            const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+            const mins = Math.floor((diff % (1000*60*60)) / (1000*60));
+            return `D - ${days}일 ${two(hours)}시간 ${two(mins)}분`;
+        }
+
+        function fmtPeriod(p){
+            const s = p.start, e = p.end;
+            return `${s.getMonth()+1}/${s.getDate()} ~ ${e.getMonth()+1}/${e.getDate()}`;
+        }
+
+        const $brand  = document.querySelector('.event-head .brand');
+        const $title  = document.getElementById('evTitle');
+        const $status = document.getElementById('evStatus');
+        const $dday   = document.getElementById('evDday');
+        const $period = document.getElementById('evPeriod');
+
+        $brand.textContent = BRAND_TEXT;
+
+        function tick(){
+            // 한국 시간 기준
+            const now = new Date();
+            const kstNow = new Date(now.getTime() + (9 * 60 + now.getTimezoneOffset()) * 60000);
+
+            const st = computeState(kstNow);
+
+            if (st.mode === 'running') {
+                $title.textContent = `제 ${st.serial}차 공동구매 진행중`;
+                $status.textContent = '공구마감 (D-day)';
+                $dday.textContent = ddayText(kstNow, st.current.end);
+                $period.textContent = `진행기간: ${fmtPeriod(st.current)}`;
+            } else {
+                $title.textContent = `제 ${st.serial}차 공동구매 오픈 예정`;
+                $status.textContent = '오픈까지 남은 시간';
+                $dday.textContent = ddayText(kstNow, st.nextStart);
+                // 예정 기간
+                const preview = { start: st.nextStart, end: (function(ns){
+                        const y=ns.getFullYear(), m=ns.getMonth(), sd=ns.getDate();
+                        const endDay = Math.min(sd + RUN_DAYS - 1, 30);
+                        return new Date(y, m, endDay, 23,59,59);
+                    })(st.nextStart) };
+                $period.textContent = `예정기간: ${fmtPeriod(preview)}`;
+            }
+        }
+
+        tick();
+        setInterval(tick, 1000); // 1초
+    })();
+</script>
 
 <script>
 <!--
@@ -93,7 +249,8 @@
 				<div class="swiper-wrapper">
 					<!-- DYNAMIC @loop_banner_MAINCL@ -->
 					<div class="swiper-slide">
-						<a href="{{B_LINK}}" {{B_TARGET}}>{{B_IMAGE}}</a>
+<!--						<a href="{{B_LINK}}" {{B_TARGET}}>{{B_IMAGE}}</a>-->
+                        <img src="./img/guide_banner_left.jpg" alt="사면 살수록 더 버는 더도매 가이드" />
 					</div>
 					<!-- DYNAMIC @loop_banner_MAINCL@ -->
 				</div>
@@ -130,16 +287,22 @@
 		</div>
 		<!-- DYNAMIC @is_banner_MAINCL@ -->
 
+        <div class="mainBannerCenterR">
+            <div class="mainBannerCenterRIn">
+                    <img src="img/guide_banner_right.jpg" alt="모이면 모일수록 더 싸지는 더도매09 가이드" />
+<!--                    <a href="{{B_LINK}}" {{B_TARGET}}>{{B_IMAGE}}</a>-->
+            </div>
+        </div>
 		<!-- DYNAMIC @is_banner_MAINCR@ -->
-		<div class="mainBannerCenterR">
-			<div class="mainBannerCenterRIn">
-				<!-- DYNAMIC @loop_banner_MAINCR@ -->
-				<div>
-					<a href="{{B_LINK}}" {{B_TARGET}}>{{B_IMAGE}}</a>
-				</div>
-				<!-- DYNAMIC @loop_banner_MAINCR@ -->
-			</div>
-		</div>	
+<!--		<div class="mainBannerCenterR">-->
+<!--			<div class="mainBannerCenterRIn">-->
+<!--				&lt;!&ndash; DYNAMIC @loop_banner_MAINCR@ &ndash;&gt;-->
+<!--				<div>-->
+<!--					<a href="{{B_LINK}}" {{B_TARGET}}>{{B_IMAGE}}</a>-->
+<!--				</div>-->
+<!--				&lt;!&ndash; DYNAMIC @loop_banner_MAINCR@ &ndash;&gt;-->
+<!--			</div>-->
+<!--		</div>	-->
 		<!-- DYNAMIC @is_banner_MAINCR@ -->
 	</div>
 

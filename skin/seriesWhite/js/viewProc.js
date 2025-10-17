@@ -1,14 +1,5 @@
 var mobile_option_open = 0;
 
-// function number_format(num) {
-// 	return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-// }
-//
-// function str_replace_all(find, replace, str) {
-// 	const regex = new RegExp(find.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "g");
-// 	return str.replace(regex, replace);
-// }
-
 function option_value_proc(obj) {
 	if($(obj).hasClass('soldout')) return; 
 

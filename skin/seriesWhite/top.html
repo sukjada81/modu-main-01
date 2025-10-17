@@ -1,20 +1,39 @@
-<!-- DYNAMIC @is_banner_TOPU@ -->
-<div class="topBannerU" style="">
-	<!-- DYNAMIC @loop_banner_TOPU@ -->
-	<div>
-		<a href="{{B_LINK}}" {{B_TARGET}}>{{B_IMAGE}}</a>
-	</div>
-	<!-- DYNAMIC @loop_banner_TOPU@ -->	
+
+<div id="topBannerU" class="topBannerU active">
+    <a href="{{B_LINK}}" {{B_TARGET}}>
+        <img src="./img/banner.png" alt="상단 배너" />
+    </a>
+    <button type="button" class="banner-close" aria-label="배너 닫기">×</button>
 </div>
-<script>var topBannerU = 1; </script>
-<!-- DYNAMIC @is_banner_TOPU@ -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const banner = document.getElementById('topBannerU');
+
+        function syncPushDown() {
+            const h = banner.classList.contains('active') ? banner.scrollHeight : 0;
+            document.documentElement.style.setProperty('--top-banner-h', h + 'px');
+        }
+        syncPushDown();
+
+        banner.addEventListener('click', e => {
+            if (e.target.closest('.banner-close')) {
+                banner.classList.remove('active');
+                syncPushDown();
+                banner.addEventListener('transitionend', () => {
+                    banner.style.display = 'none';
+                }, { once: true });
+            }
+        });
+        window.addEventListener('load', syncPushDown);
+    });
+</script>
 
 <div id="topUtil">	
 	
 	<div id="topMenu">	
 		<div id="utilMenu">
 			<ul>
-<!--				<li class="first"><a href='#' onclick="bookmarksite('{{site_url}}','{{site_name}}'); return false;">BOOKMARK</a></li>					-->
                 <li class="first"><a href='#' onclick="bookmarksite('{{site_url}}','{{site_name}}'); return false;">공급사센터</a></li>
 			</ul>
 			<div class='fff'></div>
@@ -166,7 +185,7 @@
         </div>
 	</div>	
 	
-	<div class="naviEmpty">&nbsp;</div>
+<!--	<div class="naviEmpty">&nbsp;</div>-->
 	
 	<div class="naviDefault">
 		
