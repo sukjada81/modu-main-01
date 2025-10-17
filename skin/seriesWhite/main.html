@@ -1,22 +1,63 @@
-<!-- DYNAMIC @is_banner_MAINT@ -->
-<div id="mainRolling">
-	<div class="swiper-container">
-		<div class="swiper-wrapper">
-			<!-- DYNAMIC @loop_banner_MAINT@ -->
-			<div class="swiper-slide">
-				<a href="{{B_LINK}}" {{B_TARGET}}>
-					<div style="background-image:url({{B_IMAGE_URL}});">&nbsp;</div>
-				</a>
-			</div>		
-			<!-- DYNAMIC @loop_banner_MAINT@ -->
-		</div>
-		<!-- Add Arrows -->
-	    <div class="swiper-button-next"><i class="xi-angle-right-thin xi-3x"></i></div>
-		<div class="swiper-button-prev"><i class="xi-angle-left-thin xi-3x"></i></div>
-		<!-- Add Pagination -->
-		<div class="swiper-pagination"></div>
-	</div>
-</div>
+<!--&lt;!&ndash; DYNAMIC @is_banner_MAINT@ &ndash;&gt;-->
+<!--<div id="mainRolling">-->
+<!--	<div class="swiper-container">-->
+<!--		<div class="swiper-wrapper">-->
+<!--			&lt;!&ndash; DYNAMIC @loop_banner_MAINT@ &ndash;&gt;-->
+<!--			<div class="swiper-slide">-->
+<!--				<a href="{{B_LINK}}" {{B_TARGET}}>-->
+<!--					<div style="background-image:url({{B_IMAGE_URL}});">&nbsp;</div>-->
+<!--				</a>-->
+<!--			</div>		-->
+<!--			&lt;!&ndash; DYNAMIC @loop_banner_MAINT@ &ndash;&gt;-->
+<!--		</div>-->
+<!--		&lt;!&ndash; Add Arrows &ndash;&gt;-->
+<!--	    <div class="swiper-button-next"><i class="xi-angle-right-thin xi-3x"></i></div>-->
+<!--		<div class="swiper-button-prev"><i class="xi-angle-left-thin xi-3x"></i></div>-->
+<!--		&lt;!&ndash; Add Pagination &ndash;&gt;-->
+<!--		<div class="swiper-pagination"></div>-->
+<!--	</div>-->
+<!--</div>-->
+
+
+<!-- 메인 베너 영역 (좌: 메인배너 7 / 우: 이벤트배너 3) -->
+<section id="mainHero">
+    <!-- DYNAMIC @is_banner_MAINT@ -->
+    <div class="hero-left">
+        <div id="mainRolling">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <!-- DYNAMIC @loop_banner_MAINT@ -->
+                    <div class="swiper-slide">
+                        <a href="{{B_LINK}}" {{B_TARGET}}>
+                            <div style="background-image:url({{B_IMAGE_URL}});">&nbsp;</div>
+                        </a>
+                    </div>
+                    <!-- DYNAMIC @loop_banner_MAINT@ -->
+                </div>
+
+                <!-- Add Arrows -->
+                <div class="swiper-button-next"><i class="xi-angle-right-thin xi-3x"></i></div>
+                <div class="swiper-button-prev"><i class="xi-angle-left-thin xi-3x"></i></div>
+                <!-- Add Pagination -->
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </div>
+    <!-- DYNAMIC @is_banner_MAINT@ -->
+
+    <!-- 이벤트 배너(단일? N개?) -->
+    <!-- DYNAMIC @is_banner_MAINT@ -->
+    <aside class="hero-right">
+        <div class="event-list">
+            <!-- DYNAMIC @is_banner_MAINT@ -->
+            <a class="event-card" href="{{B_LINK}}" {{B_TARGET}}>
+                <div class="bg" style="background-image:url({{B_IMAGE_URL}});"></div>
+            </a>
+            <!-- DYNAMIC @is_banner_MAINT@ -->
+        </div>
+    </aside>
+    <!-- DYNAMIC @is_banner_MAINT@ -->
+</section>
 
 <script>
 <!--

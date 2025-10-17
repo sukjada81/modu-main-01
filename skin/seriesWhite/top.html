@@ -77,8 +77,9 @@
 		
 		<div id="logo">
 			<!-- DYNAMIC @loop_banner_LOGO@ -->				
-			<h1><a href="{{B_LINK}}" {{B_TARGET}}>{{B_IMAGE}}</a>
+			<h1><a href='{{Main}}'>
                 <img src=img/logo.png alt="로고 이미지">
+            </a>
             </h1>
 			<!-- DYNAMIC @loop_banner_LOGO@ -->
 		</div>		
@@ -172,9 +173,13 @@
 		<div id="topNavis">
 			<ul>
 				<li class="cateAllOpen">
-					<div>
-						<div class="cate_bar cate_bar_1"></div><div class="cate_bar cate_bar_2"></div><div class="cate_bar cate_bar_3"></div>
-					</div>
+<!--					<div>-->
+<!--						<div class="cate_bar cate_bar_1"></div><div class="cate_bar cate_bar_2"></div><div class="cate_bar cate_bar_3"></div>-->
+<!--					</div>-->
+                    <button type="button" class="catebtn">
+                        <span class="ico" aria-hidden="true"></span>
+                        <span class="label">전체카테고리</span>
+                    </button>
 				</li>
 				<!-- DYNAMIC @loop_menu@ -->					
 				<li class="topNavi" data-num="{{k}}">						
@@ -186,8 +191,8 @@
 							<div class="rotate45 arrow"></div>
 							<div style="padding:8px; text-align:left;">
 								<!-- DYNAMIC @loop_menu_sub@ -->	
-								<div><a href='{{Main}}?channel=list&cate={{CATE}}'>{{CATE_NAME}}</a></div>			
-								<!-- DYNAMIC @loop_menu_sub@ -->	
+								<div><a href='{{Main}}?channel=list&cate={{CATE}}'>{{CATE_NAME}}</a></div>
+								<!-- DYNAMIC @loop_menu_sub@ -->
 							</div>
 						</div>	
 						<!-- DYNAMIC @is_menu_sub@ -->
@@ -199,19 +204,19 @@
 
 		<div id="cateAll">
 			<div id="cateAllIn">
-				<!-- DYNAMIC @loop_cate@ -->	
+				<!-- DYNAMIC @loop_cate@ -->
 				<ul class="cateBox">
 					<li><a href='{{Main}}?channel=list&cate={{CATE}}'>{{CATE_NAME}}</a></li>
-					<!-- DYNAMIC @loop_scate@ -->					
+					<!-- DYNAMIC @loop_scate@ -->
 					<li><a href='{{Main}}?channel=list&cate={{CATE}}' class="sub">{{CATE_NAME}}</a></li>
 					<!-- DYNAMIC @loop_scate@ -->
 				</ul>
-				<!-- DYNAMIC @loop_cate@ -->						
+				<!-- DYNAMIC @loop_cate@ -->
 				<div class="cateAllClose">
 					<i class="xi-close-thin xi-x" title="닫기"></i>
 				</div>
 			</div>
-		</div>		
+		</div>
 	</div>		
 </div>
 
