@@ -72,6 +72,19 @@ select::-ms-expand{display:none}
 .colorYellow { color:#ffff00; }
 .colorRed {color:#ff0000; }
 
+:root{
+	--brand:       #586848; /* 메인 그린 */
+	--brand-dark:  #46533A; /* 진한 그린(아이콘/테두리) */
+	--sage:        #A8B0A0; /* 연한 세이지(기타) */
+
+	--brand-15: #EEF0ED; /* hover */
+	--brand-8:  #F5F6F4; /* 2줄 배경 */
+	--brand-4:  #F8F9F8; /* 더 옅은 배경 */
+
+	/* 텍스트 */
+	--ink: #3F4C34;      /* 어두운 그린 계열 */
+}
+
 .lineHeight { line-height:2em }
 
 .alignLeft { text-align:left; }
@@ -485,18 +498,6 @@ body{
 			#searchResent .ranking span a { font-family: 'SCDream', sans-serif; font-size:12px; color:#666; }
 
 		#guideBtn_wrap{flex:0 0 auto;margin-left:auto;}
-			:root{
-				--brand:       #586848; /* 메인 그린 */
-				--brand-dark:  #46533A; /* 진한 그린(아이콘/테두리) */
-				--sage:        #A8B0A0; /* 연한 세이지(기타) */
-
-				--brand-15: #EEF0ED; /* hover */
-				--brand-8:  #F5F6F4; /* 2줄 배경 */
-				--brand-4:  #F8F9F8; /* 더 옅은 배경 */
-
-				/* 텍스트 */
-				--ink: #3F4C34;      /* 어두운 그린 계열 */
-			}
 			#ico_ul ul{
 				display:grid;
 				grid-template-columns:repeat(4, minmax(0,1fr));
@@ -546,7 +547,7 @@ body{
 
 
 		
-	.naviFixed {clear:both; top: 0px; width:100%;min-width:1200px;text-align:center;z-index:991; height:60px; background-color:#fff; border-bottom:1px solid #ccc;}
+	.naviFixed {clear:both; position: fixed; top: 0px; width:100%;min-width:1200px;text-align:center;z-index:991; height:60px; background-color:#fff; border-bottom:1px solid #ccc;}
 	.naviEmpty { clear:both; width:100%; height:52px; background-color:#fff; }
 	.naviDefault{ top:160px; width:100%;min-width:1200px; text-align:center;z-index:999; height:60px; background:#fff; margin-bottom: 10px;border-bottom: 1px solid rgba(244,244,244,1) }
 	.naviDefaultBU { top:230px; }
@@ -809,10 +810,11 @@ body{
 
 		/*.mainBannerCenter { clear:both; width:1200px; }*/
 	.mainBannerCenter {
+		clear:both;
 		width: 1200px;
 		height: 120px;
 		margin: 0 auto;
-		display: flex;                /* 핵심 */
+		display: flex;
 		justify-content: space-between;
 		align-items: stretch;
 		gap: 16px;                    /* 좌우 간격 */
@@ -833,8 +835,6 @@ body{
 		overflow: hidden;
 	}
 
-
-	/* 내부 이미지가 꽉 차게 */
 	.mainBannerCenter img,
 	.mainBannerCenter .swiper-container {
 		width: 100%;
@@ -851,7 +851,93 @@ body{
 	.mainBannerCenter .mainBannerCenterR .mainBannerCenterRIn div { float:left; padding-right:20px; }
 	.mainBannerCenter .mainBannerCenterR .mainBannerCenterRIn img { border-radius:16px }
 	.mainBannerCenter .mainBannerCenterR .mainBannerCenterRIn img:hover {filter:alpha(opacity=80) !important; -moz-opacity:0.8 !important; opacity:0.8 !important; background-color:#FFF;}
-	
+
+	/* 브랜드관 탭 UI */
+	.brandTabsWrap{
+		border-bottom: 1px solid #e5e7eb;
+	}
+	.BrandGoodsItem .swiper-container{
+		border: 1px solid #e5e7eb;
+	}
+	.brand-tabs{
+		display: flex;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		flex-wrap: nowrap;
+		width: 100%;
+	}
+
+	.brand-tabs li{
+		flex: 1 1 12.5%;
+		list-style: none;
+	}
+
+	.brand-tab{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 46px;
+		border: 1px solid #d0d7de;
+		border-bottom: none;
+		border-radius: 8px 8px 0 0;
+		background: var(--brand-15);
+		color: #6b7280;
+		font-weight: 600;
+		font-size: 15px;
+		text-align: center;
+		text-decoration: none;
+		transition: all .15s ease;
+		cursor: pointer;
+		user-select: none;
+	}
+
+	.brand-tabs li + li .brand-tab{
+		border-left: none;
+	}
+
+	.brand-tab:hover{
+		background: #eef2f7;
+		color: #374151;
+	}
+
+	.brand-tab.is-active,
+	.brand-tab[aria-selected="true"]{
+		background: #ffffff;
+		color: #111827;
+		font-weight: 700;
+		border-color: #c9d1d9;
+		box-shadow: 0 1px 0 #ffffff inset;
+	}
+
+	.brand-tab:focus-visible{
+		outline: 2px solid #60a5fa;
+		outline-offset: -2px;
+		z-index: 1;
+	}
+
+#middleBanner {
+	width: 1200px;
+	height: 120px;
+	margin: 40px auto;
+	border-radius: 12px;
+	overflow: hidden;
+	position: relative;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+#middleBanner img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 0.4s ease;
+}
+
+#middleBanner:hover img {
+	transform: scale(1.03);
+}
+
 	.bestGoodsItem, .recoGoodsItem, .newGoodsItem {  clear:both; position:relative; min-height: 400px; }
 	.cateGoodsItem { position:absolute; width:100%; clear:both; min-height: 400px; }
 	.goodsItemTitle { clear:both; padding:40px 0 40px 0; text-align:center }
