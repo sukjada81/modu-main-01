@@ -1,0 +1,571 @@
+<div id="contents">
+	<h2 class="contentTitle">BEST 50</h2>
+	<div class="empty30"></div>
+
+	<div class="listTopSelect">
+		<div class="floatLeft">
+			<div class="icon_th3 cursorPoint" data-cnt="3"></div>
+			<div class="icon_th4" data-cnt="4"></div>
+			<div class="icon_th6 cursorPoint" data-cnt="6"></div>
+		</div>
+	</div>
+
+	<div class="empty20"></div>
+
+	<!-- =========================
+       리스트(템플릿 루프)
+  ========================== -->
+	<div id="listArea">
+		<!-- DYNAMIC @loop_list@ -->
+		<div class="goodsItemBox">
+			<div class="goodsItem goodsItem4">
+				<ul>
+					<!-- 1) 썸네일(항상 동일 높이 / 없으면 흰색) -->
+					<li>
+						<a href="{{LINK}}" class="thumb-wrap">
+							<img src="{{IMAGE}}" alt="{{NAME}}" onerror="this.classList.add('is-missing')" />
+						</a>
+						<span class="rankIcon">{{ck}}</span>
+						<!-- DYNAMIC @is_soldout@ --><span class="soldoutIcon">품절</span><!-- DYNAMIC @is_soldout@ -->
+					</li>
+
+					<!-- 2) 카테고리/상품명 -->
+					<li>
+						<span class="badge bg-info text-dark">{{CATEGORY_NAME}}</span>
+						<div class="product-name"><a href="{{LINK}}">{{NAME_CODE_ABLE}}</a></div>
+					</li>
+
+					<!-- 3) 가격/적립/재고 -->
+					<li>
+						<div class="priceNow">￦{{PRICE}}</div>
+						<div class="save-badge"><span>현재</span><span>적립금 15,000원</span></div>
+						<div class="js-stock-text">판매 0개 / 재고 100개</div>
+					</li>
+
+					<!-- 4) 슬라이더 + 아코디언 + 버튼 -->
+					<li>
+						<div class="range-bar-wrap">
+							<input id="slider_accordion_{{ck}}" type="range" min="0" max="100" step="1"
+								class="threshold-slider" value="0">
+							<span class="range-percent" id="slider_percent_{{ck}}">0%</span>
+						</div>
+
+						<!-- 아코디언 -->
+						<div class="accordion" id="acc_{{ck}}">
+							<div class="accordion-item">
+								<h2 class="accordion-header" id="heading_{{ck}}">
+									<button class="accordion-button collapsed" type="button"
+										data-target="#collapse_{{ck}}" aria-expanded="false"
+										aria-controls="collapse_{{ck}}">
+										적립금은 10월 30일 공구마감후 반영됩니다.
+									</button>
+								</h2>
+								<div id="collapse_{{ck}}" class="accordion-collapse">
+									<div class="accordion-body">
+										<div class="mb-2">
+											<span class="badge bg-secondary">공동구매 기간</span><br>
+											<span class="small">2025-09-01 ~ 2025-10-30</span><br>
+											<span class="badge bg-warning text-dark">12일 남음</span>
+										</div>
+										<div class="mb-2"><span class="badge bg-secondary">총 판매수: 0개</span></div>
+										<div class="small">
+											수량: <span id="curVal_{{ck}}" class="badge bg-primary slider-value">0개</span>
+											|
+											단가: <span id="unitSaveDisplay_{{ck}}" class="badge bg-success">0.00</span>원
+											|
+											예상 적립금: <span id="realSaveDisplay_{{ck}}" class="badge bg-warning">0</span>원
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<button class="btn" onclick="location.href='{{LINK}}'">구매하기</button>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- DYNAMIC @loop_list@ -->
+
+		<!-- DYNAMIC @empty_list@ -->
+		<div class="emptyList fontSCDream weight300">등록된 상품이 없습니다.</div>
+		<!-- DYNAMIC @empty_list@ -->
+	</div>
+
+	<div class="empty30"></div>
+</div>
+
+<!-- ====== 스타일: 하나만 남기고 전부 교체 ====== -->
+<style>
+	/* 카드 그리드 */
+	#listArea .goodsItemBox {
+		padding: 8px;
+	}
+
+	#listArea .goodsItem {
+		background: #fff;
+		border: 1px solid #e9ecef;
+		border-radius: 14px;
+		overflow: hidden;
+		box-shadow: 0 2px 10px rgba(0, 0, 0, .06);
+	}
+
+	#listArea .goodsItem ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+	}
+
+	/* 1) 썸네일(정사각형 1:1) */
+	#listArea .goodsItem ul>li:first-child{
+	padding:12px 12px 0; position:relative;
+	}
+
+	/* 정사각형 박스 */
+	.thumb-wrap{
+	position:relative;
+	display:block; width:100%;
+	aspect-ratio: 1 / 1;      /* 핵심: 1:1 정사각형 */
+	border-radius:12px; overflow:hidden; background:#fff;
+	}
+
+	/* 이미지는 박스 안에서 꽉 채워 자르기 */
+	.thumb-wrap img{
+	position:absolute; inset:0; width:100%; height:100%;
+	object-fit:cover; display:block; background:#fff;
+	}
+	.thumb-wrap img.is-missing{ opacity:0; } /* 깨짐 아이콘 숨김 */
+
+	/* 모바일에서도 정사각형 유지: 별도 높이 지정 금지 */
+	@media (max-width:768px){
+	.thumb-wrap{ aspect-ratio:1/1; } /* 높이 값 넣지 않기 */
+	}
+	/* 깨진 아이콘 숨김 */
+
+	/* 랭크/품절 오버레이 */
+	.rankIcon {
+		position: absolute;
+		top: 18px;
+		left: 18px;
+		z-index: 2;
+		background: rgba(0, 0, 0, .75);
+		color: #fff;
+		font-weight: 700;
+		font-size: 12px;
+		padding: 4px 8px;
+		border-radius: 9999px;
+	}
+
+	.soldoutIcon {
+		position: absolute;
+		inset: 12px;
+		z-index: 3;
+		border-radius: 12px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: rgba(255, 255, 255, .9);
+		color: #111;
+		font-weight: 800;
+		font-size: 16px;
+	}
+
+	/* 2) 카테고리/상품명 (닫힌 상태 기준 카드 균일 높이) */
+	#listArea .goodsItem ul>li:nth-child(2) {
+		min-height: 84px;
+		padding: 10px 16px 0;
+	}
+
+	.badge.bg-info.text-dark {
+		background: #E8F3FF !important;
+		color: #0B74DE !important;
+		border-radius: 9999px;
+		font-weight: 700;
+		padding: 4px 8px;
+		font-size: 12px;
+		margin-bottom: 6px;
+		display: inline-block;
+	}
+
+	.product-name a {
+		color: #111;
+		text-decoration: none;
+		font-size: 14px;
+		line-height: 1.5;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		word-break: keep-all;
+	}
+
+	.product-name a:hover {
+		text-decoration: underline;
+	}
+
+	/* 3) 가격/적립/재고 (닫힌 기준 균일) */
+	#listArea .goodsItem ul>li:nth-child(3) {
+		min-height: 72px;
+		padding: 8px 16px 0;
+		display: grid;
+		grid-auto-rows: min-content;
+		row-gap: 6px;
+	}
+
+	.priceNow {
+		color: #E53935;
+		font-weight: 800;
+		font-size: 18px;
+	}
+
+	.save-badge {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		padding: 8px 12px;
+		border-radius: 16px;
+		background: #E6F3DB;
+		color: #222;
+		font-size: 13px;
+		font-weight: 700;
+		box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .03);
+	}
+
+	.save-badge>span:first-child {
+		background: #D9ECD0;
+		color: #3F93C9;
+		border-radius: 12px;
+		padding: 4px 8px;
+		font-weight: 800;
+	}
+
+	.js-stock-text {
+		color: #495057;
+		font-size: 13px;
+		font-weight: 600;
+	}
+
+	/* 4) 슬라이더 + 퍼센트 오른쪽 */
+	.range-bar-wrap {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		padding: 6px 16px 0;
+	}
+
+	.range-percent {
+		margin-left: auto;
+		min-width: 36px;
+		text-align: right;
+		color: #6b7280;
+		font-weight: 700;
+	}
+
+	.threshold-slider {
+		width: 100%;
+		pointer-events: none;
+	}
+
+	.threshold-slider::-webkit-slider-thumb {
+		pointer-events: auto;
+		-webkit-appearance: none;
+		height: 16px;
+		width: 16px;
+		border-radius: 50%;
+		background: #2d6bff;
+		border: 0;
+		margin-top: -6px;
+	}
+
+	.threshold-slider::-webkit-slider-runnable-track {
+		height: 4px;
+		background: #e5e7eb;
+		border-radius: 999px;
+	}
+
+	.threshold-slider::-moz-range-thumb {
+		pointer-events: auto;
+		height: 16px;
+		width: 16px;
+		border-radius: 50%;
+		background: #2d6bff;
+		border: 0;
+	}
+
+	.threshold-slider::-moz-range-track {
+		height: 4px;
+		background: #e5e7eb;
+		border-radius: 999px;
+	}
+
+	/* 아코디언 (닫힘=0, 열리면 확장) */
+	.accordion {
+		padding: 0 16px 12px;
+	}
+
+	.accordion-item {
+		border: 1px solid #D7E6FF;
+		border-radius: 12px;
+		background: #EAF3FF;
+		overflow: hidden;
+	}
+
+	.accordion-button {
+		width: 100%;
+		padding: 12px 14px;
+		background: transparent;
+		border: 0;
+		color: #344054;
+		font-size: 14px;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		line-height: 1.6;
+	}
+
+	.accordion-button::after {
+		content: "";
+		width: 10px;
+		height: 10px;
+		border-right: 2px solid #6B7280;
+		border-bottom: 2px solid #6B7280;
+		transform: rotate(-45deg);
+		transition: transform .2s ease;
+	}
+
+	.accordion-button[aria-expanded="true"]::after {
+		transform: rotate(45deg);
+	}
+
+	.accordion-collapse {
+		max-height: 0;
+		overflow: hidden;
+		padding: 0;
+		transition: max-height .25s ease;
+		background: #EAF3FF;
+	}
+
+	.accordion-collapse.show {
+		max-height: 600px;
+		padding: 0;
+	}
+
+	.accordion-body {
+		margin: 8px;
+		background: #fff;
+		border: 1px solid #E5E7EB;
+		border-radius: 10px;
+		padding: 12px 14px 14px;
+		font-size: 13px;
+		color: #374151;
+	}
+
+	.badge.bg-warning.text-dark {
+		background: #FFF3CD !important;
+		color: #664D03 !important;
+		border: 1px solid #FFE69C;
+		border-radius: 6px;
+		font-weight: 700;
+	}
+
+	/* 하단(버튼 고정 높이) */
+	#listArea .goodsItem ul>li:last-child {
+		padding: 0 16px 14px;
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	#listArea .goodsItem .btn {
+		height: 44px;
+		line-height: 44px;
+		background: #2D6BFF;
+		border: 0;
+		border-radius: 12px;
+		color: #fff;
+		box-shadow: 0 4px 14px rgba(45, 107, 255, .25);
+		font-weight: 700;
+		text-align: center;
+	}
+
+	#listArea .goodsItem .btn:hover {
+		background: #1F58F0;
+	}
+
+	/* === 4열 그리드 + 간격 === */
+#listArea{
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr)); /* 한 줄 4개 */
+  column-gap: 16px;   /* 좌우 간격 */
+  row-gap: 32px;      /* 위아래 간격 */
+}
+#listArea .goodsItemBox{ padding: 0 !important; }  /* 중복 여백 제거 */
+
+/* === 카드 안 썸네일: 1:1 정사각형 보장 === */
+#listArea .goodsItem ul>li:first-child{ padding:12px 12px 0; position:relative; }
+#listArea .thumb-wrap{
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;          /* 핵심: 1:1 정사각형 */
+  height: auto !important;      /* 남아있는 높이 고정 규칙 무력화 */
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+}
+#listArea .thumb-wrap img{
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  background: #fff;
+}
+#listArea .thumb-wrap img.is-missing{ opacity: 0; } /* 깨진 아이콘 숨김 */
+
+/* 반응형(선택): 화면 좁아질수록 3→2→1열 */
+@media (max-width: 1200px){
+  #listArea{ grid-template-columns: repeat(3, minmax(0,1fr)); }
+}
+@media (max-width: 768px){
+  #listArea{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
+@media (max-width: 480px){
+  #listArea{ grid-template-columns: 1fr; }
+}
+
+/* 카드 본문이 줄 맞추기 위해 전체 높이를 채우도록 */
+#listArea .goodsItem{ display: flex; flex-direction: column; height: 100%; }
+#listArea .goodsItem ul{ height: 100%; }
+
+
+</style>
+
+<script>
+	(function () {
+		// 이미지 없거나 에러 → 흰 박스
+		function normalizeImages() {
+			document.querySelectorAll('#listArea .thumb-wrap img').forEach((img) => {
+				const mark = () => img.classList.add('is-missing');
+				const src = img.getAttribute('src');
+				if (!src) { mark(); return; }
+				if (img.complete) { if (img.naturalWidth === 0) mark(); }
+				else { img.addEventListener('error', mark, { once: true }); }
+			});
+		}
+
+		// 같은 "줄(row)"의 카드 기준 높이를 동일화 (min-height 사용)
+		function equalizeByRow() {
+			const boxes = Array.from(document.querySelectorAll('#listArea .goodsItemBox'));
+			if (!boxes.length) return;
+
+			// 초기화: height/min-height 모두 제거
+			boxes.forEach(b => {
+				b.style.minHeight = ''; b.style.height = '';
+				const card = b.querySelector('.goodsItem');
+				if (card) { card.style.minHeight = ''; card.style.height = ''; }
+			});
+
+			// 같은 줄 묶기 (grid에서도 offsetTop 기준)
+			const rows = new Map();
+			boxes.forEach(b => {
+				const key = b.offsetTop;
+				if (!rows.has(key)) rows.set(key, []);
+				rows.get(key).push(b);
+			});
+
+			// 각 행의 "최소 높이"를 가장 큰 카드로 맞춰 둠
+			rows.forEach(group => {
+				const maxH = Math.max(...group.map(b => b.offsetHeight));
+				group.forEach(b => {
+					b.style.minHeight = maxH + 'px';
+					const card = b.querySelector('.goodsItem');
+					if (card) card.style.minHeight = '100%';
+				});
+			});
+		}
+
+		// 리플로우 타이밍에 맞춰 안전하게
+		let eqReq = 0;
+		function rafEqualize() {
+			if (eqReq) cancelAnimationFrame(eqReq);
+			eqReq = requestAnimationFrame(() => { equalizeByRow(); eqReq = 0; });
+		}
+
+		// 아코디언 토글 (전개/접힘 애니메이션 끝난 후 다시 맞춤)
+		function wireAccordion() {
+			document.querySelectorAll('#listArea .accordion-button').forEach((btn) => {
+				if (btn.dataset.bound) return; btn.dataset.bound = '1';
+				const sel = btn.getAttribute('data-target'); if (!sel) return;
+				const panel = document.querySelector(sel); if (!panel) return;
+
+				// 전개/접힘 클릭
+				btn.addEventListener('click', (e) => {
+					e.preventDefault();
+					const open = panel.classList.contains('show');
+					panel.classList.toggle('show', !open);
+					btn.classList.toggle('collapsed', open);
+					btn.setAttribute('aria-expanded', String(!open));
+
+					// 전환 종료 후에 줄 높이 재계산 (점프 방지)
+					const onDone = () => { panel.removeEventListener('transitionend', onDone); rafEqualize(); };
+					panel.addEventListener('transitionend', onDone, { once: true });
+
+					// 혹시 transition 없이 상태가 바뀌는 테마 대비, fallback
+					setTimeout(rafEqualize, 260);
+				});
+			});
+		}
+
+		// 슬라이더 표시(퍼센트/수량/예상 적립)
+		function wireSlider() {
+			document.querySelectorAll('#listArea input.threshold-slider').forEach((sl) => {
+				if (sl.dataset.bound) return; sl.dataset.bound = '1';
+				const id = sl.id.replace('slider_accordion_', '');
+				const per = document.getElementById('slider_percent_' + id);
+				const cur = document.getElementById('curVal_' + id);
+				const unit = document.getElementById('unitSaveDisplay_' + id);
+				const real = document.getElementById('realSaveDisplay_' + id);
+				const update = () => {
+					const v = +sl.value || 0, max = +sl.max || 1;
+					const pct = Math.round((v / Math.max(max, 1)) * 100);
+					if (per) per.textContent = pct + '%';
+					if (cur) cur.textContent = v.toLocaleString() + '개';
+					if (unit) unit.textContent = (0).toFixed(2);
+					if (real) real.textContent = (v * 15000).toLocaleString();
+				};
+				sl.addEventListener('input', update);
+				sl.addEventListener('change', update);
+				update();
+			});
+		}
+
+		// 변화 감지: 이미지/리사이즈/DOM 변경
+		function observeDynamicChanges() {
+			document.querySelectorAll('#listArea .thumb-wrap img').forEach((img) => {
+				img.addEventListener('load', rafEqualize, { once: true });
+				img.addEventListener('error', rafEqualize, { once: true });
+			});
+
+			const ro = new ResizeObserver(rafEqualize);
+			document.querySelectorAll('#listArea .goodsItem').forEach(el => ro.observe(el));
+
+			const mo = new MutationObserver(rafEqualize);
+			mo.observe(document.getElementById('listArea'), { childList: true, subtree: true });
+
+			window.addEventListener('resize', rafEqualize);
+		}
+
+		document.addEventListener('DOMContentLoaded', () => {
+			normalizeImages();
+			wireAccordion();
+			wireSlider();
+			observeDynamicChanges();
+			rafEqualize(); // 최초 1회
+		});
+	})();
+</script>

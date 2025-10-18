@@ -189,7 +189,7 @@ $tpl->scan_area("main");
 
 switch ($channel) {
 
-	case "list" : case "search" : case "best" : case "view" : case "new" : case "store" : case "store_cate" :
+	case "list" : case "search" : case "best" : case "view" : case "new" : case "group" : case "store" : case "store_cate" :
 	case "regist" : case "regist_ok" : case "regist_vendor" : case "regist_vendor_ok" : case "login" : case "passwd_search" : case "login_guest" :
 	case "agreement" : case "privacy" :	
 	case "cs_board" : case "cs_center" :
