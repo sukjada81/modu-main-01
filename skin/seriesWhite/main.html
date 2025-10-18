@@ -245,70 +245,123 @@
 	<div class="mainBannerCenter">
 		<!-- DYNAMIC @is_banner_MAINCL@ -->
 		<div class="mainBannerCenterL">
-			<div class="swiper-container">
-				<div class="swiper-wrapper">
-					<!-- DYNAMIC @loop_banner_MAINCL@ -->
-					<div class="swiper-slide">
-<!--						<a href="{{B_LINK}}" {{B_TARGET}}>{{B_IMAGE}}</a>-->
-                        <img src="./img/guide_banner_left.jpg" alt="사면 살수록 더 버는 더도매 가이드" />
-					</div>
-					<!-- DYNAMIC @loop_banner_MAINCL@ -->
-				</div>
-				<!-- Add Arrows -->
-				<div class="swiper-button-next"><i class="xi-angle-right-thin xi-2x"></i></div>
-				<div class="swiper-button-prev"><i class="xi-angle-left-thin xi-2x"></i></div>
-				<!-- Add Pagination -->
-				<div class="swiper-pagination"></div>
-			</div>
-
-			<script>
-			<!--
-				 
-				var swiperCL = new Swiper('.mainBannerCenterL .swiper-container', {
-					loop: true,
-					navigation: {
-						nextEl: '.swiper-button-next',
-						prevEl: '.swiper-button-prev',
-					},
-					pagination: {
-						el: '.swiper-pagination',
-						clickable: true,
-					},
-					autoplay: {
-						delay: 3500,
-						disableOnInteraction: false,
-					},
-				});
-
-				swiperNaviHS('.mainBannerCenterL');
-
-			//-->
-			</script>			
+            <img src="./img/guide_banner_left.jpg" alt="사면 살수록 더 버는 더도매 가이드" />
 		</div>
 		<!-- DYNAMIC @is_banner_MAINCL@ -->
 
         <div class="mainBannerCenterR">
             <div class="mainBannerCenterRIn">
-                    <img src="img/guide_banner_right.jpg" alt="모이면 모일수록 더 싸지는 더도매09 가이드" />
-<!--                    <a href="{{B_LINK}}" {{B_TARGET}}>{{B_IMAGE}}</a>-->
+                <img src="img/guide_banner_right.jpg" alt="모이면 모일수록 더 싸지는 더도매09 가이드" />
             </div>
         </div>
-		<!-- DYNAMIC @is_banner_MAINCR@ -->
-<!--		<div class="mainBannerCenterR">-->
-<!--			<div class="mainBannerCenterRIn">-->
-<!--				&lt;!&ndash; DYNAMIC @loop_banner_MAINCR@ &ndash;&gt;-->
-<!--				<div>-->
-<!--					<a href="{{B_LINK}}" {{B_TARGET}}>{{B_IMAGE}}</a>-->
-<!--				</div>-->
-<!--				&lt;!&ndash; DYNAMIC @loop_banner_MAINCR@ &ndash;&gt;-->
-<!--			</div>-->
-<!--		</div>	-->
-		<!-- DYNAMIC @is_banner_MAINCR@ -->
 	</div>
 
-	<!-- DYNAMIC @loop_display_goods@ -->
-	
-	<!-- DYNAMIC @is_display_goods_item@ -->	
+    <!-- 커스텀 GoodsItem(브랜드관) : start-->
+    <div class="BrandGoodsItem">
+        <h2 class="goodsItemTitle fontSCDream weight300" id="BrandTitle">파워 브랜드관&nbsp;</h2>
+        <div class="brandTabsWrap">
+            <ul class="brand-tabs" role="tablist">
+                <!-- DYNAMIC @loop_brand_tabs@ -->
+                <!-- <li role="presentation"><a href="javascript:void(0)" class="brand-tab" role="tab" aria-selected="false" data-brand="{{BRAND_CODE}}">{{BRAND_NAME}}</a></li> -->
+                <!-- DYNAMIC @loop_brand_tabs@ -->
+
+                <!-- 예시 탭 8개 (임시 하드코딩 / 나중에 위 루프로 대체) -->
+                <li><a href="javascript:void(0)" class="brand-tab is-active">더도매</a></li>
+                <li><a href="javascript:void(0)" class="brand-tab">더도매09</a></li>
+                <li><a href="javascript:void(0)" class="brand-tab">나이키</a></li>
+                <li><a href="javascript:void(0)" class="brand-tab">아디다스</a></li>
+                <li><a href="javascript:void(0)" class="brand-tab">한일전자</a></li>
+                <li><a href="javascript:void(0)" class="brand-tab">정관장</a></li>
+                <li><a href="javascript:void(0)" class="brand-tab">상생식품</a></li>
+                <li><a href="javascript:void(0)" class="brand-tab">나와니스</a></li>
+            </ul>
+        </div>
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide goodsItemBox">
+                    <div class="goodsItem">
+                        <ul>
+                            <li>
+                                <a href="{{LINK}}"><img src="{{IMAGE}}" alt="{{NAME}}" height="285" /></a>
+                                <!-- DYNAMIC @is_soldout@ -->
+                                <span class="soldoutIcon">품절</span>
+                                <!-- DYNAMIC @is_soldout@ -->
+                            </li>
+                            <li><a href="{{LINK}}">{{NAME_CODE_ABLE}}</a></li>
+                            <li>
+                                <div>￦{{PRICE}}</div>
+                                <!-- DYNAMIC @is_coupon@ -->
+                                <div class="couponIcon">쿠폰</div>
+                                <!-- DYNAMIC @is_coupon@ -->
+                                <!-- DYNAMIC @is_sale@ -->
+                                <div class="salePrice">{{SALE}}%&nbsp;<i class="xi-arrow-down"></i></div>
+                                <!-- DYNAMIC @is_sale@ -->
+                                <!-- DYNAMIC @is_orig_price@ -->
+                                <div class="origPrice"><s>{{ORIG_PRICE}}</s></div>
+                                <!-- DYNAMIC @is_orig_price@ -->
+                            </li>
+                            <li>{{ICON}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-button-next"><i class="xi-angle-right-thin xi-3x"></i></div>
+            <div class="swiper-button-prev"><i class="xi-angle-left-thin xi-3x"></i></div>
+        </div>
+    </div>
+    <script>
+        (function(){
+            document.addEventListener('click', function (e) {
+                const tab = e.target.closest('.brand-tab');
+                if (!tab) return;
+
+                e.preventDefault();
+                e.stopPropagation();
+                if (typeof e.stopImmediatePropagation === 'function') e.stopImmediatePropagation();
+
+                const tabsWrap = tab.closest('.brandTabsWrap');
+                if (!tabsWrap) return;
+                const tabsUl   = tabsWrap.querySelector('.brand-tabs');
+                const tabs     = tabsUl ? tabsUl.querySelectorAll('.brand-tab') : [];
+                tabs.forEach(t => {
+                    t.classList.remove('is-active');
+                    t.setAttribute('aria-selected','false');
+                });
+                tab.classList.add('is-active');
+                tab.setAttribute('aria-selected','true');
+
+                const section = tabsWrap.closest('[class$="GoodsItem"]') || tabsWrap.closest('.BrandGoodsItem');
+                if (section) {
+                    const swiperEl = section.querySelector('.swiper-container');
+                    if (swiperEl && swiperEl.swiper) {
+                        try {
+                            swiperEl.swiper.slideTo(0, 0);
+                            swiperEl.swiper.update();
+                        } catch(_) {}
+                    }
+
+                    // 훅: 나중에 백엔드/필터 연동 시 사용할 수 있도록 이벤트 쏘기
+                    section.dispatchEvent(new CustomEvent('brandTabChange', {
+                        detail: {
+                            name: tab.textContent.trim(),
+                            code: tab.dataset.brand || null
+                        },
+                        bubbles: true
+                    }));
+                }
+            }, true);
+        })();
+    </script>
+    <!-- 커스텀 GoodsItem(브랜드관) : end-->
+    <!-- 커스텀 중간홍보베너 : start-->
+    <div id="middleBanner">
+        <a href="#">
+            <img src="img/mid_banner.jpg" alt="중간홍보베너" />
+        </a>
+    </div>
+    <!-- 커스텀 중간홍보베너 : end-->
+    <!-- DYNAMIC @loop_display_goods@ -->
+    <!-- DYNAMIC @is_display_goods_item@ -->
 	<div class="{{v}}GoodsItem">			
 		<h2 class="goodsItemTitle fontSCDream weight300" id="{{v}}Title">&nbsp;</h2>
 		<div class="swiper-container">
@@ -316,20 +369,20 @@
 				<!-- DYNAMIC @loop_goods_item@ -->
 				<div class="swiper-slide goodsItemBox">
 					<div class="goodsItem">
-						<ul>				
+						<ul>
 							<li>
 								<a href="{{LINK}}"><img src="{{IMAGE}}" alt="{{NAME}}" height="285" /></a>
-								<!-- DYNAMIC @is_soldout@ -->	
+								<!-- DYNAMIC @is_soldout@ -->
 								<span class="soldoutIcon">품절</span>
-								<!-- DYNAMIC @is_soldout@ -->	
+								<!-- DYNAMIC @is_soldout@ -->
 							</li>
 							<li><a href="{{LINK}}">{{NAME_CODE_ABLE}}</a></li>
 							<li>
 								<div>￦{{PRICE}}</div>
-								<!-- DYNAMIC @is_coupon@ -->	
-								<div class="couponIcon">쿠폰</div>						
 								<!-- DYNAMIC @is_coupon@ -->
-								<!-- DYNAMIC @is_sale@ -->	
+								<div class="couponIcon">쿠폰</div>
+								<!-- DYNAMIC @is_coupon@ -->
+								<!-- DYNAMIC @is_sale@ -->
 								<div class="salePrice">{{SALE}}%&nbsp;<i class="xi-arrow-down"></i></div>
 								<!-- DYNAMIC @is_sale@ -->
 								<!-- DYNAMIC @is_orig_price@ -->
@@ -340,8 +393,8 @@
 						</ul>
 					</div>
 				</div>
-				<!-- DYNAMIC @loop_goods_item@ -->						
-			</div>			
+				<!-- DYNAMIC @loop_goods_item@ -->
+			</div>
 		</div>
 		<div class="swiper-button-next swiper-button-next{{v}} circleBtn swiper-button-main" style="right:-14px; width:35px; height:40px; color:#fff; padding:0 0 0 5px;"><i class="xi-angle-right-thin xi-x"></i></div>
 		<div class="swiper-button-prev swiper-button-prev{{v}} circleBtn swiper-button-main" style="left:-20px; width:35px; height:40px; color:#fff; padding:0 5px 0 0;"><i class="xi-angle-left-thin xi-x"></i></div>
