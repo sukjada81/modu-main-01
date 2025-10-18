@@ -61,9 +61,9 @@ if($reset == 0) {
 
 	################ DISPLAY GOODS ################
 	if($cate_info['cate_dep'] == 1) {
-		$main2_display		= $shop_config['design_main2_display_order'] ? $shop_config['design_main2_display_order'] : 'reco, best, new';
+		$main2_display		= $shop_config['design_main2_display_order'] ? $shop_config['design_main2_display_order'] : 'reco, best, new, group';
 		$main2_display_arr	= explode(",", $main2_display);
-		$display_check_arr  = array('reco' => 2, 'best' => 1, 'new' => 3); 
+		$display_check_arr  = array('reco' => 2, 'best' => 1, 'new' => 3, 'group' => 4); 
 
 		$goods_field = array();
 		foreach($default_goods_field as $k => $v) {

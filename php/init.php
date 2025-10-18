@@ -122,7 +122,7 @@ if(DEFAULT_PATH == "") {
 }
 
 ######################## 상품 쿠폰 / 이밴트 할인  설정 #############################
-$channel_goods_list = array('main', 'list', 'search', 'best', 'new', 'view', 'cart', 'order', 'exhibition', 'store', 'store_cate', 'my_favorite_store', 'store_list');
+$channel_goods_list = array('main', 'list', 'search', 'best', 'new', 'group', 'view', 'cart', 'order', 'exhibition', 'store', 'store_cate', 'my_favorite_store', 'store_list');
 if(in_array($channel, $channel_goods_list)) {
 
 	$default_goods_field = array('uid', 'image2', 'name', 'name_code_able', 'icon', 'price', 'orig_price', 'consumer_price', 'price_ment', 'cate', 'make', 'view_cnt', 'order_cnt', 'detail', 'exhibition', 'sale_use', 'option_use', 'qty_type', 'qty', 'option_soldout', 'moddate');
