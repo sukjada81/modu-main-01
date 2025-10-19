@@ -258,7 +258,7 @@
 
     <!-- 커스텀 GoodsItem(브랜드관) : start-->
     <div class="BrandGoodsItem">
-        <h2 class="goodsItemTitle fontSCDream weight300" id="BrandTitle">파워 브랜드관&nbsp;</h2>
+        <h2 class="goodsItemTitle fontSCDream weight600" id="BrandTitle">파워브랜드관&nbsp;</h2>
         <div class="brandTabsWrap">
             <ul class="brand-tabs" role="tablist">
                 <!-- DYNAMIC @loop_brand_tabs@ -->
@@ -279,6 +279,30 @@
         <div class="swiper-container">
             <div class="swiper-wrapper">
                 <div class="swiper-slide goodsItemBox">
+                    <div class="goodsItem">
+                        <ul>
+                            <li>
+                                <a href="{{LINK}}"><img src="{{IMAGE}}" alt="{{NAME}}" height="285" /></a>
+                                <!-- DYNAMIC @is_soldout@ -->
+                                <span class="soldoutIcon">품절</span>
+                                <!-- DYNAMIC @is_soldout@ -->
+                            </li>
+                            <li><a href="{{LINK}}">{{NAME_CODE_ABLE}}</a></li>
+                            <li>
+                                <div>￦{{PRICE}}</div>
+                                <!-- DYNAMIC @is_coupon@ -->
+                                <div class="couponIcon">쿠폰</div>
+                                <!-- DYNAMIC @is_coupon@ -->
+                                <!-- DYNAMIC @is_sale@ -->
+                                <div class="salePrice">{{SALE}}%&nbsp;<i class="xi-arrow-down"></i></div>
+                                <!-- DYNAMIC @is_sale@ -->
+                                <!-- DYNAMIC @is_orig_price@ -->
+                                <div class="origPrice"><s>{{ORIG_PRICE}}</s></div>
+                                <!-- DYNAMIC @is_orig_price@ -->
+                            </li>
+                            <li>{{ICON}}</li>
+                        </ul>
+                    </div>
                     <div class="goodsItem">
                         <ul>
                             <li>
@@ -360,10 +384,264 @@
         </a>
     </div>
     <!-- 커스텀 중간홍보베너 : end-->
+
+    <!-- 커스텀 GoodsItem(더도매 TOP 100) : start-->
+    <!-- ====== TOP 섹션 ====== -->
+    <section class="top100GoodsItem">
+        <div class="top100-head">
+            <h2 class="goodsItemTitle fontSCDream weight600">판매 베스트상품</h2>
+            <a class="top100-more" href="#">MORE +</a>
+        </div>
+        <div class="top100-main">
+            <div id="top1Slot" class="top1-slot"></div>
+            <div id="restGrid" class="rest-Grid"></div>
+        </div>
+    </section>
+
+    <template id="tpl-goods">
+        <div class="goodsItemBox">
+            <div class="goodsItem">
+                <ul>
+                    <li class="thumbWrap">
+                        <a href="{{LINK}}"><img src="{{IMAGE}}" alt="{{NAME}}" /></a>
+                        <!-- 순위 라벨 -->
+                        <span class="top100-rankRibbon"><small class="top100-best"></small><b class="top100-rnum">1</b></span>
+                        <!-- DYNAMIC @is_soldout@ -->
+                        <span class="soldoutIcon">품절</span>
+                        <!-- DYNAMIC @is_soldout@ -->
+                    </li>
+                    <li><a href="{{LINK}}">{{NAME_CODE_ABLE}}</a></li>
+                    <li>
+                        <div>￦{{PRICE}}</div>
+                        <!-- DYNAMIC @is_coupon@ -->
+                        <div class="couponIcon">쿠폰</div>
+                        <!-- DYNAMIC @is_coupon@ -->
+                        <!-- DYNAMIC @is_sale@ -->
+                        <div class="salePrice">{{SALE}}%&nbsp;<i class="xi-arrow-down"></i></div>
+                        <!-- DYNAMIC @is_sale@ -->
+                        <!-- DYNAMIC @is_orig_price@ -->
+                        <div class="origPrice"><s>{{ORIG_PRICE}}</s></div>
+                        <!-- DYNAMIC @is_orig_price@ -->
+                    </li>
+                    <li>{{ICON}}</li>
+                </ul>
+            </div>
+        </div>
+    </template>
+
+    <script>
+        //샘플 mock 데이터
+        const products = [
+            {
+                link: "#",
+                image: "image/goods/img2/1/10000.jpg?t=1758872418",
+                name: "테스트상품",
+                code: "W9001",
+                price: 9500,
+                coupon: true,
+                sale: 5,
+                origPrice: 10000,
+                soldout: false,
+                icon: "HIT"
+            },
+            {
+                link: "#",
+                image: "image/goods/img2/1/10034.jpg?t=1758692248",
+                name: "달콤한 상주 곶감 선물세트 1.5kg 국내산 명절 선물용",
+                code: "W9002",
+                price: 77000,
+                coupon: false,
+                sale: 0,
+                origPrice: 0,
+                soldout: false,
+                icon: "자율"
+            },
+            {
+                link: "#",
+                image: "image/goods/img2/1/10035.jpg?t=1758692248",
+                name: "달콤한 상주 곶감 선물세트 1kg 국내산 명절 선물용",
+                code: "W9003",
+                price: 58130,
+                coupon: false,
+                sale: 0,
+                origPrice: 0,
+                soldout: false,
+                icon: "자율"
+            },
+            {
+                link: "#",
+                image: "image/goods/img2/1/10037.jpg?t=1758692248",
+                name: "명품 투뿔 한우 선물세트 600g 꽃등심 불고기 소고기",
+                code: "W9004",
+                price: 115380,
+                coupon: false,
+                sale: 0,
+                origPrice: 0,
+                soldout: false,
+                icon: "자율"
+            },
+            {
+                link: "#",
+                image: "image/goods/img2/1/10032.jpg?t=1758692248",
+                name: "상생식품 ABC주스 과즙 건강즙 선물세트 80ml 30포",
+                code: "W9005",
+                price: 22750,
+                coupon: false,
+                sale: 0,
+                origPrice: 0,
+                soldout: false,
+                icon: "자율"
+            },
+            {
+                link: "#",
+                image: "image/goods/img2/1/10021.jpg?t=0",
+                name: "상생식품 도라지배즙 감기 건강즙 선물세트 80ml 30포",
+                code: "W9006",
+                price: 16750,
+                coupon: false,
+                sale: 0,
+                origPrice: 0,
+                soldout: false,
+                icon: "자율"
+            },
+            {
+                link: "#",
+                image: "image/goods/img2/1/10020.jpg?t=0",
+                name: "나우니스 강원도 감자쿠키 2종 선물세트 선택",
+                code: "W9007",
+                price: 22500,
+                coupon: false,
+                sale: 0,
+                origPrice: 0,
+                soldout: false,
+                icon: "자율"
+            }
+        ];
+
+        const $tpl  = document.getElementById('tpl-goods');
+        const $top1 = document.getElementById('top1Slot');
+        const $rest = document.getElementById('restGrid');
+        const won = n => Number(n||0).toLocaleString('ko-KR');
+        const nameCode = (n,c) => `<b>${c}</b> ${n}`;
+
+        function makeCard(p, rank){
+            const el = $tpl.content.firstElementChild.cloneNode(true);
+
+            el.querySelector('.top100-rnum').textContent = rank;
+            el.querySelector('.top100-best').textContent = (rank===1) ? 'BEST' : '';
+
+            el.querySelectorAll('a[href="{{LINK}}"]').forEach(a => a.href = p.link || '#');
+            const img = el.querySelector('img'); img.src = p.image || ''; img.alt = p.name || '';
+            el.querySelector('li:nth-child(2) a').innerHTML = nameCode(p.name, p.code);
+            el.querySelector('li:nth-child(3) > div').textContent = `￦${won(p.price)}`;
+
+            if(!p.coupon) el.querySelector('.couponIcon')?.remove();
+            if(!(p.sale>0)) el.querySelector('.salePrice')?.remove();
+            else el.querySelector('.salePrice').innerHTML = `${p.sale}%&nbsp;<i class="xi-arrow-down"></i>`;
+            if(!(p.origPrice>0)) el.querySelector('.origPrice')?.remove();
+            else el.querySelector('.origPrice s').textContent = won(p.origPrice);
+
+            return el;
+        }
+
+        $top1.appendChild(makeCard(products[0], 1));
+        $top1.querySelector('.goodsItemBox').classList.add('is-top1');
+
+        products.slice(1,7).forEach((p, i) => $rest.appendChild(makeCard(p, i+2)));
+    </script>
+    <!-- 커스텀 GoodsItem(더도매 TOP 100) : end-->
+
+    <!-- 커스텀 기획전 베너 : start-->
+    <section id="campaignSection" class="campaign-section">
+        <h2 class="goodsItemTitle fontSCDream weight600">특별기획전</h2>
+        <div class="campaign-grid" id="campaignGrid"></div>
+    </section>
+    <script>
+        // 기획전 mock 데이터
+        const campaigns = [
+            {
+                title: "원목 인테리어 기획전",
+                img: "img/event_banner_1.jpg",
+                url: "#",
+                date: "2025.10.01 ~ 2025.12.15",
+                status: "진행중"
+            },
+            {
+                title: "오피스 데일리템 기획전",
+                img: "img/event_banner_2.jpg",
+                url: "#",
+                date: "2025.10.01 ~ 2025.12.15",
+                status: "진행중"
+            },
+            {
+                title: "반려동물 기획전",
+                img: "img/event_banner_3.jpg",
+                url: "#",
+                date: "2025.10.01 ~ 2025.12.15",
+                status: "진행중"
+            },
+            {
+                title: "홈카페소품 기획전",
+                img: "img/event_banner_4.jpg",
+                url: "#",
+                date: "2025.10.01 ~ 2025.12.15",
+                status: "진행중"
+            },
+            {
+                title: "DIY리폼 기획전",
+                img: "img/event_banner_5.jpg",
+                url: "#",
+                date: "2025.10.01 ~ 2025.12.15",
+                status: "진행중"
+            },
+            {
+                title: "여름 패션의류 기획전",
+                img: "img/event_banner_6.jpg",
+                url: "#",
+                date: "2025.10.01 ~ 2025.12.15",
+                status: "진행중"
+            }
+        ];
+
+        // HTML 생성
+        const campaignGrid = document.getElementById("campaignGrid");
+        campaignGrid.innerHTML = campaigns.map(ev => `
+      <article class="campaign-card">
+        <a href="${ev.url}">
+          <img src="${ev.img}" alt="${ev.title}">
+          <span class="badge">${ev.status}</span>
+        </a>
+        <div class="campaign-info">
+          <div class="title">${ev.title}</div>
+          <div class="date">${ev.date}</div>
+        </div>
+      </article>
+    `).join('');
+    </script>
+    <!-- 커스텀 기획전 베너 : end-->
+
+    <!-- 커스텀 GoodsItem(MD 강추 상품) : todo..-->
+    <section id="MDSection" class="MD-section">
+        <h2 class="goodsItemTitle fontSCDream weight600">MD 강추 상품</h2>
+    </section>
+    <!-- 커스텀 GoodsItem(한정 특가 상품) : todo..-->
+    <section id="limitedSection" class="limited-section">
+        <h2 class="goodsItemTitle fontSCDream weight600">한정 특가 상품</h2>
+    </section>
+    <!-- 커스텀 GoodsItem(실시간 인기급상승 상품) : todo..-->
+    <section id="realSection" class="real-section">
+        <h2 class="goodsItemTitle fontSCDream weight600">실시간 인기급상승 상품</h2>
+    </section>
+    <!-- 커스텀 GoodsItem(오늘의 신상품) : todo..-->
+    <section id="newSection" class="new-section">
+        <h2 class="goodsItemTitle fontSCDream weight600">오늘의 신상품</h2>
+    </section>
+
+
     <!-- DYNAMIC @loop_display_goods@ -->
     <!-- DYNAMIC @is_display_goods_item@ -->
 	<div class="{{v}}GoodsItem">			
-		<h2 class="goodsItemTitle fontSCDream weight300" id="{{v}}Title">&nbsp;</h2>
+		<h2 class="goodsItemTitle fontSCDream weight600" id="{{v}}Title">&nbsp;</h2>
 		<div class="swiper-container">
 			<div class="swiper-wrapper">
 				<!-- DYNAMIC @loop_goods_item@ -->
@@ -440,7 +718,7 @@
 	
 	<!-- DYNAMIC @is_cate_goods_item@ -->
 	<div class="categoryGoodsItem">			
-		<h2 class="goodsItemTitle fontSCDream weight300">CATEGORY BEST ITEMS</h2>
+		<h2 class="goodsItemTitle fontSCDream weight600">CATEGORY BEST ITEMS</h2>
 		<div class="alignCenter">
 			<!-- DYNAMIC @loop_cate_menu@ -->
 			<div class="fontSCDream weight300 categoryMenu" data-vls='{{v}}'>{{CATE_NAME}}<span class="arrow rotate225"></span></div>
