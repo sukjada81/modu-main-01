@@ -1,154 +1,249 @@
-<!-- DYNAMIC @is_main@ -->	
+<!-- DYNAMIC @is_main@ -->
 <style>
-#topUtil .logo { float:left; text-align:left;font-family: 'SCDream', sans-serif; font-size:18px; line-height:1.8em; width:calc(100% - 80px) }
+    #topUtil .logo {
+        float: left;
+        text-align: left;
+        font-family: 'SCDream', sans-serif;
+        font-size: 18px;
+        line-height: 1.8em;
+        width: calc(100% - 80px)
+    }
 </style>
-<!-- DYNAMIC @is_main@ -->	
+<!-- DYNAMIC @is_main@ -->
 
-<div class="empty40"></div>
+<!-- <div class="empty40"></div> -->
 
-<div id="topUtil">	
+<div class="topLoginBar">
+    <!-- DYNAMIC @is_logout@ -->
+    <a href="{{Main}}?channel=login"><b class="underLineThinSelectedW">로그인</b></a>
+    <!-- DYNAMIC @is_logout@ -->
+    <!-- DYNAMIC @is_login@ -->
+    {{my_name}} 님
+    <!-- DYNAMIC @is_login@ -->
+    <!-- DYNAMIC @is_logout2@ -->
+    <li><a href="{{Main}}?channel=regist"> 회원가입</a></li>
+    <!-- DYNAMIC @is_logout2@ -->
+    <!-- DYNAMIC @is_login2@ -->
+    <li><a href="php/logout.php"> 로그아웃</a></li>
+    <!-- DYNAMIC @is_login2@ -->
+
+    <a href="#">고객센터</a>
+</div>
+<div class="headerWrap">
+    <div class="topmenu-box">
+        <!-- Left: 햄버거 -->
+        <div class="topHammune">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+
+        <!-- Center: 로고 -->
+        <div class="topLogo">
+            <a href="#">
+                <img src="../../image/logo.png" alt="로고 이미지">
+            </a>
+        </div>
+
+        <div class="topUser-box">
+            <!-- Right: 마이페이지 -->
+            <div class="topMypage">
+                <a href="#">
+                    <img src="../../image/icon/icon_user.png" alt="마이페이지">
+                </a>
+            </div>
+
+            <!-- Right: 장바구니 -->
+            <div class="topCart">
+                <a href="#">
+                    <div class="cartWrap">
+                        <img src="../../image/icon/icon_cart.png" alt="장바구니">
+                        <span class="cartCount">0</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="topSideMenuWrap">
+    <div class="topSideMenu">
+        <ul>
+            <!-- DYNAMIC @loop_cate@ -->
+            <li><a href="{{Main}}?channel=list&cate={{CATE}}">{{CATE_NAME}}</a></li>
+            <!-- DYNAMIC @loop_cate@ -->
+        </ul>
+    </div>
+    <div class="dim"></div>
+</div>
+
+
+<script>
+    const menuBtn = document.querySelector(".topHammune");
+    const topSideMenuWrap = document.querySelector(".topSideMenuWrap");
+    const dim = document.querySelector(".topSideMenuWrap .dim");
+
+    menuBtn.addEventListener("click", () => {
+        topSideMenuWrap.classList.add("active");
+    });
+
+    dim.addEventListener("click", () => {
+        topSideMenuWrap.classList.remove("active");
+    });
+</script>
+
+
+<!-- <div id="topUtil">
 	<div class="arrow">
 		<i class="xi-angle-left xi-x"></i>
 	</div>
-	<div class="logo">
-		<!-- DYNAMIC @loop_banner_LOGO@ -->				
-		<h1><a href="{{B_LINK}}" {{B_TARGET}}>{{B_IMAGE}}</a></h1>
-		<!-- DYNAMIC @loop_banner_LOGO@ -->
-	</div>		
-	<div class="icon">		
-		<a href="#topMenu" class="btnTopMenu topMenuView"><i class="xi-bars xi-x"></i></a>
-		<a href="#topSearch" class="btnTopSearch"><i class="xi-search xi-x" title="검색"></i></a>&nbsp;
-		<i class="xi-market xi-x btnTopCart"><span class="cart_cnt"></span></i>
-	</div>
+	<div class="logo"> -->
+<!-- DYNAMIC @loop_banner_LOGO@ -->
+<!-- <h1><a href="{{B_LINK}}" {{B_TARGET}}>{{B_IMAGE}}</a></h1> -->
+<!-- DYNAMIC @loop_banner_LOGO@ -->
+<!-- </div>
+<div class="icon">
+<a href="#topMenu" class="btnTopMenu topMenuView"><i class="xi-bars xi-x"></i></a>
+<a href="#topSearch" class="btnTopSearch"><i class="xi-search xi-x" title="검색"></i></a>&nbsp;
+<i class="xi-market xi-x btnTopCart"><span class="cart_cnt"></span></i>
 </div>
+</div> -->
 
-<div class="empty50 topContentEmpty"></div>
+<!-- <div class="empty50 topContentEmpty"></div> -->
 
-<div id="topContent">
+<!-- <div id="topContent">
 	<div class="topNavis">
 		<div class="swiper-container">
-			<div class="swiper-wrapper">
-				<!-- DYNAMIC @loop_menu@ -->
-				<div class="swiper-slide"><a href="{{URL}}">{{MENU}}</a></div>
-				<!-- DYNAMIC @loop_menu@ -->
-			</div>
-			<script>
-				
-				var swiper = new Swiper('.topNavis .swiper-container', { 
-								freeMode: true,										
-								slidesPerView: 'auto',
-								roundLengths: true
-							}); 
-			</script>
-		</div>				
-	</div>
+			<div class="swiper-wrapper"> -->
+<!-- DYNAMIC @loop_menu@ -->
+<!-- <div class="swiper-slide"><a href="{{URL}}">{{MENU}}</a></div> -->
+<!-- DYNAMIC @loop_menu@ -->
+<!-- </div>
+<script>
+
+var swiper = new Swiper('.topNavis .swiper-container', {
+    freeMode: true,
+    slidesPerView: 'auto',
+    roundLengths: true
+  });
+</script>
+</div>
+</div>
+</div> -->
+
+<div id="topSearch">
+    <div class="topSearchClose">
+        <i class="xi-close-thin xi-2x" title="닫기"></i>
+    </div>
+    <div id="searchKeyword">
+        <form name="TsearchForm" method="get" action="{{Main}}">
+            <input type="hidden" name="channel" value='search'/>
+            <div class="floatLeft">
+                <input type="text" name="keyword" value="{{keyword}}" class="topKeyword fontSCDream size14"
+                       required="required" autocomplete="off" data-msg="검색어를" data-on-enter="1"/>
+            </div>
+            <div class="floatLeft" style="padding:6px 0 0 ">
+                <i class="xi-search size14 cursorPoint" id="keywordSearch" title="검색"></i>
+            </div>
+        </form>
+    </div>
+
+    <div id="searchResent">
+        <div class="recent">
+            <span class="fontSCDream size13 weight400">최근 검색어</span>
+            <span class="fontSCDream size11 colorLgray cursorPoint underLineThin" id="recentKeywordReset">초기화</span>
+            <div class="empty10">&nbsp;</div>
+            <!-- DYNAMIC @loop_recent_keyword@ -->
+            <span class="recentItem"><a
+                    href="{{Main}}?channel=search&keyword={{recent_keyword}}">{{ recent_keyword }}</a><i
+                    class="xi-close recentKeywordDel" data-uid='{{recent_uid}}'></i></span>
+            <!-- DYNAMIC @loop_recent_keyword@ -->
+            <div id="recentKeywordEmpty" class="fontSCDream size11 colorLgray">최근 검색어가 없습니다.</div>
+        </div>
+        <div class="empty20">&nbsp;</div>
+        <div class="line">&nbsp;</div>
+        <div class="empty20">&nbsp;</div>
+        <div class="ranking">
+            <span class="fontSCDream size13 weight400">추천 검색어</span>
+            <div class="empty5">&nbsp;</div>
+            <!-- DYNAMIC @loop_best_keyword@ -->
+            <span><a href="{{Main}}?channel=search&keyword={{best_keyword}}"># {{ best_keyword }}</a></span>
+            <!-- DYNAMIC @loop_best_keyword@ -->
+        </div>
+    </div>
 </div>
 
-<div id="topSearch">	
-	<div class="topSearchClose">
-		<i class="xi-close-thin xi-2x" title="닫기"></i>
-	</div>
-	<div id="searchKeyword">
-		<form name="TsearchForm" method="get" action="{{Main}}">
-		<input type="hidden" name="channel" value='search' />
-		<div class="floatLeft">
-			<input type="text" name="keyword" value="{{keyword}}" class="topKeyword fontSCDream size14" required="required" autocomplete="off" data-msg="검색어를" data-on-enter="1"  />
-		</div>
-		<div class="floatLeft" style="padding:6px 0 0 ">
-			<i class="xi-search size14 cursorPoint" id="keywordSearch" title="검색"></i>
-		</div>
-		</form>
-	</div>
-	
-	<div id="searchResent">
-		<div class="recent">
-			<span class="fontSCDream size13 weight400">최근 검색어</span>
-			<span class="fontSCDream size11 colorLgray cursorPoint underLineThin" id="recentKeywordReset">초기화</span>
-			<div class="empty10">&nbsp;</div>
-			<!-- DYNAMIC @loop_recent_keyword@ -->
-			<span class="recentItem"><a href="{{Main}}?channel=search&keyword={{recent_keyword}}">{{recent_keyword}}</a><i class="xi-close recentKeywordDel" data-uid='{{recent_uid}}'></i></span>
-			<!-- DYNAMIC @loop_recent_keyword@ -->
-			<div id="recentKeywordEmpty" class="fontSCDream size11 colorLgray">최근 검색어가 없습니다.</div>
-		</div>
-		<div class="empty20">&nbsp;</div>
-		<div class="line">&nbsp;</div>
-		<div class="empty20">&nbsp;</div>
-		<div class="ranking">
-			<span class="fontSCDream size13 weight400">추천 검색어</span>
-			<div class="empty5">&nbsp;</div>
-			<!-- DYNAMIC @loop_best_keyword@ -->
-			<span><a href="{{Main}}?channel=search&keyword={{best_keyword}}"># {{best_keyword}}</a></span>
-			<!-- DYNAMIC @loop_best_keyword@ -->
-		</div>
-	</div>
-</div>			
 
+<div id="topMenu">
+    <div class="header">
+        <div class="title">
+<!--            &lt;!&ndash; DYNAMIC @is_logout@ &ndash;&gt;-->
+<!--            <a href="{{Main}}?channel=login"><b class="underLineThinSelectedW">로그인</b>을 해 주세요.</a>-->
+<!--            &lt;!&ndash; DYNAMIC @is_logout@ &ndash;&gt;-->
+<!--            &lt;!&ndash; DYNAMIC @is_login@ &ndash;&gt;-->
+<!--            {{ my_name }}님, 안녕 하세요!-->
+<!--            &lt;!&ndash; DYNAMIC @is_login@ &ndash;&gt;-->
+            <span class="topMenuClose"><i class="xi-close-thin xi-x" title="닫기"></i></span>
+        </div>
+        <div class="menu">
+            <ul>
+                <li><a href="{{Main}}?channel=mypage"><i class="xi-user-o xi-x"></i> 마이페이지</a></li>
+                <li><a href="{{Main}}?channel=cart"><i class="xi-market xi-x"></i> 장바구니</a></li>
+                <li><a href="{{Main}}?channel=order_list"><i class="xi-box xi-x"></i> 주문배송조회</a></li>
+                <li><a href="{{Main}}?channel=cs_center"><i class="xi-headset xi-x"></i> 고객센터</a></li>
+            </ul>
+        </div>
+    </div>
 
-<div id="topMenu">	
-	<div class="header">
-		<div class="title">
-			<!-- DYNAMIC @is_logout@ -->
-			<a href="{{Main}}?channel=login"><b class="underLineThinSelectedW">로그인</b>을 해 주세요.</a>
-			<!-- DYNAMIC @is_logout@ -->
-			<!-- DYNAMIC @is_login@ -->
-			{{my_name}}님, 안녕 하세요!
-			<!-- DYNAMIC @is_login@ -->			
-			<span class="topMenuClose"><i class="xi-close-thin xi-x" title="닫기"></i></span>
-		</div>
-		<div class="menu">
-			<ul>
-				<li><a href="{{Main}}?channel=mypage"><i class="xi-user-o xi-x"></i> 마이페이지</a></li>
-				<li><a href="{{Main}}?channel=cart"><i class="xi-market xi-x"></i> 장바구니</a></li>
-				<li><a href="{{Main}}?channel=order_list"><i class="xi-box xi-x"></i> 주문배송조회</a></li>
-				<li><a href="{{Main}}?channel=cs_center"><i class="xi-headset xi-x"></i> 고객센터</a></li>
-			</ul>
-		</div>
-	</div>
+    <div class="item">
+        <div class="empty20"></div>
+        <div class="category">
+            <div>카데고리</div>
+            <div class="empty10"></div>
+<!--            <ul>-->
+<!--                &lt;!&ndash; DYNAMIC @loop_cate@ &ndash;&gt;-->
+<!--                <li><a href="{{Main}}?channel=list&cate={{CATE}}">{{CATE_NAME}}</a></li>-->
+<!--                &lt;!&ndash; DYNAMIC @loop_cate@ &ndash;&gt;-->
+<!--            </ul>-->
+        </div>
 
-	<div class="item">
-		<div class="empty20"></div>
-		<div class="category">
-			<div>카데고리</div>
-			<div class="empty10"></div>
-			<ul>
-				<!-- DYNAMIC @loop_cate@ -->
-				<li><a href="{{Main}}?channel=list&cate={{CATE}}">{{CATE_NAME}}</a></li>
-				<!-- DYNAMIC @loop_cate@ -->			
-			</ul>
-		</div>
+        <div class="empty20"></div>
+        <div class="line"></div>
+        <div class="empty20"></div>
 
-		<div class="empty20"></div>
-		<div class="line"></div>
-		<div class="empty20"></div>
-
-		<div class="cs">
-			<div>고객센터 <span>{{CO_TEL}}</span></div>
-			<div class="empty20"></div>
-			<ul>
-				<li><a href="{{Main}}"><i class="xi-home-o xi-x"></i> 메인페이지</a></li>
-				<li><a href="{{Main}}?channel=cs_board&b_id=notice"><i class="xi-info-o xi-x"></i> 공지사항</a></li>
-				<li><a href="{{Main}}?channel=cs_board&b_id=faq"><i class="xi-forum-o xi-x"></i> 자주 찾는 질문</a></li>
-				<li><a href="{{Main}}?channel=review"><i class="xi-paper-o xi-x"></i> 구매후기</a></li>
-				<li><a href="{{Main}}?channel=cs_board&b_id=counsel"><i class="xi-border-color xi-x"></i> 1:1 문의</a></li>
-				<!-- DYNAMIC @is_logout2@ -->
-				<li><a href="{{Main}}?channel=regist"><i class="xi-user-plus-o xi-x"></i> 회원가입</a></li>
-				<!-- DYNAMIC @is_logout2@ -->
-				<!-- DYNAMIC @is_login2@ -->
-				<li><a href="php/logout.php"><i class="xi-log-out xi-x"></i> 로그아웃</a></li>
-				<!-- DYNAMIC @is_login2@ -->
-			</ul>
-		</div>	
-	</div>
+        <div class="cs">
+            <div>고객센터 <span>{{ CO_TEL }}</span></div>
+            <div class="empty20"></div>
+            <ul>
+                <li><a href="{{Main}}"><i class="xi-home-o xi-x"></i> 메인페이지</a></li>
+                <li><a href="{{Main}}?channel=cs_board&b_id=notice"><i class="xi-info-o xi-x"></i> 공지사항</a></li>
+                <li><a href="{{Main}}?channel=cs_board&b_id=faq"><i class="xi-forum-o xi-x"></i> 자주 찾는 질문</a></li>
+                <li><a href="{{Main}}?channel=review"><i class="xi-paper-o xi-x"></i> 구매후기</a></li>
+                <li><a href="{{Main}}?channel=cs_board&b_id=counsel"><i class="xi-border-color xi-x"></i> 1:1 문의</a>
+                </li>
+<!--                &lt;!&ndash; DYNAMIC @is_logout2@ &ndash;&gt;-->
+<!--                <li><a href="{{Main}}?channel=regist"><i class="xi-user-plus-o xi-x"></i> 회원가입</a></li>-->
+<!--                &lt;!&ndash; DYNAMIC @is_logout2@ &ndash;&gt;-->
+<!--                &lt;!&ndash; DYNAMIC @is_login2@ &ndash;&gt;-->
+<!--                <li><a href="php/logout.php"><i class="xi-log-out xi-x"></i> 로그아웃</a></li>-->
+<!--                &lt;!&ndash; DYNAMIC @is_login2@ &ndash;&gt;-->
+            </ul>
+        </div>
+    </div>
 </div>
 
 <script>
-<!--
-	
-	$(".topKeyword").autocompleteKeyword({'parentDiv':'#topSearch', 'recentDiv':'#searchResent', 'btnSearch':'#keywordSearch'});	
+    <!--
 
-	$(".btnTopCart").click(function() {
-		window.location.href = "{{Main}}?channel=cart";
-	});
-	
-//-->
+    $(".topKeyword").autocompleteKeyword({
+        'parentDiv': '#topSearch',
+        'recentDiv': '#searchResent',
+        'btnSearch': '#keywordSearch'
+    });
+
+    $(".btnTopCart").click(function () {
+        window.location.href = "{{Main}}?channel=cart";
+    });
+
+    //-->
 </script>	
