@@ -1,11 +1,13 @@
-
-<div id="topBannerU" class="topBannerU active">
-    <a href="{{B_LINK}}" {{B_TARGET}}>
-        <img src="./img/top_banner.jpg" alt="상단 배너" />
-    </a>
-    <button type="button" class="banner-close" aria-label="배너 닫기">×</button>
+<!-- DYNAMIC @is_banner_TOPU@ -->
+<div class="topBannerU" style="">
+    <!-- DYNAMIC @loop_banner_TOPU@ -->
+    <div>
+        <a href="{{B_LINK}}" {{B_TARGET}}>{{B_IMAGE}}</a>
+    </div>
+    <!-- DYNAMIC @loop_banner_TOPU@ -->
 </div>
-
+<script>var topBannerU = 1; </script>
+<!-- DYNAMIC @is_banner_TOPU@ -->
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const banner = document.getElementById('topBannerU');
