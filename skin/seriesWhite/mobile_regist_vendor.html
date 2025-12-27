@@ -1,0 +1,210 @@
+<div id="contents">		
+	<h2 class="contentTitle">입점 신청</h2>
+
+	<div class="empty30"></div>
+	
+	<form name='registForm' method='post' action='php/regist_vendor_post.php' enctype="multipart/form-data" target='HFrm'>
+	<div class="registBox inputBox">
+		<ul>
+			<li>
+				<input type="text" name="id" maxlength="12" value="" required="required" data-title="아이디" data-detail="영문시작, 영소문자, 숫자 조합 6~12자" data-msg="아이디를" data-check-vid='1' />		
+			</li>
+			<li>
+				<input type='password' name='passwd' required="required" data-title="비밀번호" data-detail='영문, 숫자, 특수문자 2가지 이상 조합 8~20자' data-msg="비밀번호를" data-check-password='1' />
+			</li>
+			<li>
+				<input type='password' name='re_passwd' required="required" data-title="비밀번호확인" data-detail='영문, 숫자, 특수문자 2가지 이상 조합 8~20자' data-msg="비밀번호확인을" data-check-password='2' data-check-field='document.registForm.passwd' />
+			</li>
+			<li>
+				<input type="text" name="comp_name" value="" required="required" data-title="업체명" data-msg="업체명을" data-check-name='1' />
+			</li>
+			<li>
+				<input type="text" name="comp_owner" maxlength="20" value="" required="required" data-title="대표자명" data-msg="대표자명을" data-check-name='1' />
+			</li>			
+			<li>
+				<input type="text" name="comp_license_no" maxlength="10" value="" required="required" class="only_num" data-title="사업자번호" data-detail="('-'없이)" data-msg="사업자번호를" data-check-comp_num='1' />
+			</li>
+			<li>
+				<input type="text" name="comp_postcode_search" value="" data-title="사업장주소검색" data-detail="청와대로 1 (도로명 + 건물번호) or 청담동 1-1 (지역명(동/리) + (번지, 건물명, 아파트명))" data-zip-search="2"  data-zip-name="comp_"/>
+			</li>
+			<li class="separation" style="width:28%">
+				<input type="text" name="comp_postcode" value="" readonly class="readonly" data-title="우편번호" data-msg="사업장주소검색후 우편번호를"  />
+			</li>
+			<li class="separation" style="width:2%"></li>
+			<li class="separation" style="width:70%">
+				<input type="text" name="comp_address1" value="" required="required" readonly class="readonly" data-title="사업장주소" data-msg="사업장주소검색후 주소를" />
+			</li>
+			<li style="clear:both">
+				<input type="text" name="comp_address2" value="" data-title="상세주소" />
+			</li>
+			<li>
+				<input type="text" name="comp_type" value="" required="required" data-title="업태" data-msg="업태를" />
+			</li>
+			<li>
+				<input type="text" name="comp_item" value="" required="required" data-title="종목" data-msg="종목을" />
+			</li>
+			<li>
+				<input type="text" name="comp_email" value="" required="required" data-title="대표이메일" data-msg="대표이메일을" />
+			</li>
+			<li>
+				<input type="text" name="comp_tel" maxlength="11" value="" required="required" class="only_num" data-title="대표전화번호" data-detail="('-'없이)" data-msg="대표전화번호를" data-check-tel='1' />
+			</li>
+			<li>
+				<input type="text" name="comp_fax" maxlength="11" value="" class="only_num" data-title="대표팩스번호" data-detail="('-'없이)" data-check-tel='1' />
+			</li>
+			<li>
+				<input type="text" name="cont_name" value="" required="required" data-title="담당자명" data-msg="담당자명을" data-check-name='1' />
+			</li>
+			<li>
+				<input type="text" name="cont_cell" maxlength="11" value="" required="required" class="only_num" data-title="담당자연락처" data-detail="('-'없이)" data-msg="담당자연락처를" data-check-cell='1' />
+			</li>
+			<li>
+				<input type="text" name="cont_email" value="" required="required" data-title="담당자이메일" data-msg="담당자이메일을" />
+			</li>
+			<li>
+				<input type="text" name="cont_part" value="" data-title="담당자 부서" />
+			</li>
+			<li>
+				<input type="text" name="cont_position" value="" data-title="담당자 직책" />
+			</li>
+<!--			<li class="multiSelect">-->
+<!--				<p class="inputTitle">희망정산주기</p>-->
+<!--				<div class="clearfix">-->
+<!--					<label class="min"><input type='radio' name="account_cycle" value="1" /><span class="radio">주 1회</span></label>-->
+<!--					<label class="min"><input type='radio' name="account_cycle" value="2" checked="checked" /><span class="radio">월 2회</span></label>-->
+<!--					<label class="min"><input type='radio' name="account_cycle" value="3" /><span class="radio">월 1회</span></label>-->
+<!--					<label class="min"><input type='radio' name="account_cycle" value="4" /><span class="radio">자율</span></label>-->
+<!--				</div>-->
+<!--			</li>-->
+<!--			<li class="separation" style="width:32%">-->
+<!--				<input type="text" name="bank_name" value="" required="required" data-title="정산 은행명" data-msg="정산 은행명을" />-->
+<!--			</li>-->
+<!--			<li class="separation" style="width:2%"></li>-->
+<!--			<li class="separation" style="width:32%">-->
+<!--				<input type="text" name="bank_num" value="" required="required" data-title="정산 계좌번호" data-msg="정산 계좌번호를" />-->
+<!--			</li>-->
+<!--			<li class="separation" style="width:2%"></li>-->
+<!--			<li class="separation" style="width:32%">-->
+<!--				<input type="text" name="bank_owner" value="" required="required" data-title="정산 예금주" data-msg="정산 예금주를" />-->
+<!--			</li>-->
+<!--			<li class="attach1" data-num="1" style="clear:both">-->
+<!--				<div class="attachBox">-->
+<!--					<div class="title">사업자등록증 사본 업로드 &nbsp;&lt;!&ndash;<i class="xi-check-circle"></i>&ndash;&gt;</div>-->
+<!--					<div class="file_name"></div>-->
+<!--					<div class="delete"><i class="xi-close-thin xi-x" title="삭제"></i></div>-->
+<!--					<input type="file" name="attach_file1" class="uploadBtn" data-msg-done="사업자등록증 사본을 등록 하세요." />-->
+<!--				</div>-->
+<!--			</li>-->
+<!--			<li class="attach2" data-num="2">-->
+<!--				<div class="attachBox">-->
+<!--					<div class="title">통장 사본 업로드 &nbsp;&lt;!&ndash;<i class="xi-check-circle"></i>&ndash;&gt;</div>-->
+<!--					<div class="file_name"></div>-->
+<!--					<div class="delete"><i class="xi-close-thin xi-x" title="삭제"></i></div>-->
+<!--					<input type="file" name="attach_file2" class="uploadBtn" data-msg-done="통장 사본을 등록 하세요." />-->
+<!--				</div>-->
+<!--			</li>-->
+		</ul>
+	</div>
+	
+	<div class="title alignCenter">약관동의</div>
+	<div class="agreeBox">		
+		<button class="graButton checkAll" style="width:100%" type="button"><span class="text">전체 약관에 동의</button>		
+		<div class="empty10"></div>
+		<div class="empty20"></div>
+		<p>
+			<label><input type='checkbox' name="agree2" value="1" class="checkAllItem" required="required" data-alert="1" data-msg-done="판매이용약관동의는 필수 동의 사항입니다.<br />약관에 동의하셔야 입점신청이 가능합니다." /><span class="checkbox"></span>[필수] 판매이용약관 동의</label>
+			<div class="cursorPoint documentAll1">전문보기 <i class='xi-angle-right-thin'></i></div>
+		</p>
+		<div class="empty10"></div>
+		<p>
+			<label><input type='checkbox' name="agree3" value="1" class="checkAllItem" required="required" data-alert="1" data-msg-done="개인정보 수집 및 이용에 대한 동의는 필수 동의 사항입니다.<br />개인정보 수집 및 이용에 대해 동의하셔야 판매신청이 가능합니다." /><span class="checkbox"></span>[필수] 개인정보 수집 및 이용에 대한 동의</label>
+			<div class="cursorPoint documentAll2">전문보기 <i class='xi-angle-right-thin'></i></div>
+		</p>
+		<div class="empty10"></div>
+	</div>
+
+	<div class="empty30"></div>
+
+	<div class="btnShineBox">
+		<div class="displayInline width100"><button class="fontSCDream weight300 shine fixWidth" type="submit">입점신청</button></div>
+		<div class="btnPrev"><i class="xi-arrow-left xi-x"></i></div>
+		<div class="btnPrevTitle fontNoto">이전페이지</div>
+	</div>
+
+	<div class="documentAll1Info">
+		<div>{{AGREEMENT}}</div>
+	</div>
+
+	<div class="documentAll2Info">
+		<div>{{PRIVACY}}</div>
+	</div>
+
+	</form>
+
+</div>	
+
+<script src="//ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
+<script>
+<!--
+	
+	var contentBtnHeight = 75;
+	if($('.btnShineBox').length) btnShineBoxPositionTop = $('.btnShineBox').offset().top;
+	else btnShineBoxPositionTop = 0;
+		
+	zipSearch('comp_');
+	
+	$('.checkAll').click(function(e) {	
+		$('.checkAllItem').prop('checked', true);
+	});
+
+	$('.documentAll1').click(function(e) {	
+		genericDialogView($('.documentAll1Info')[0], '판매이용약관');
+	});	
+
+	$('.documentAll2').click(function(e) {	
+		genericDialogView2($('.documentAll2Info')[0], '개인정보 수집 및 이용에 대한 동의');
+	});	
+
+	$('.uploadBtn').on('change', function(e){
+
+		if(!CommonCheckAll($(this))) return;
+
+		var num		= $(this).parents('li').attr('data-num');
+		var obj		= $(".attach" + num);		
+		var name	= $(this).val().split('\\');		
+
+		obj.find(".file_name").html(name[name.length - 1]);
+		if(parseInt(obj.find(".title").css('top')) == '20') {
+			obj.find(".title").animate({top:'-=15px'}, 'fast');
+		}
+		obj.find(".delete").show();
+		if(num < 5) $(".attach" + (parseInt(num) + 1)).show();
+					
+	});
+
+	$(".attachBox .delete").click(function(e){
+		var num		= $(this).parents('li').attr('data-num');
+		var obj		= $(".attach" + num);	
+
+		obj.find(".file_name").html('');
+		obj.find("input:file").val('');
+		obj.find("input:hidden").val('1');
+		obj.find(".attachBox .title").animate({top:'+=15px'}, 'fast');
+		$(this).hide();
+	});
+
+	$(".attachBox .file_name").each(function(i) {
+		if($(this).html().length) {
+			var num		= $(this).parents('li').attr('data-num');
+			var obj		= $(".attach" + num);		
+
+			if(parseInt(obj.find(".title").css('top')) == '20') {
+				obj.find(".title").animate({top:'-=15px'}, 'fast');
+			}
+			obj.find(".delete").show();
+			if(num < 5) $(".attach" + (parseInt(num) + 1)).show();
+		}
+	});
+	
+//-->
+</script>
