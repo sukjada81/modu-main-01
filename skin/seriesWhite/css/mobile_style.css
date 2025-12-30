@@ -375,9 +375,12 @@ body {  }
 	align-items: center;
 	font-size: 11px;
 	color: #606f4c;
-	padding: 10px 12px;
+	padding: 12px;
 	gap: 6px;
 	background-color: #f0f0f0;
+	position: sticky;
+	top: 0;
+	z-index: 1000;
 }
 
 .headerWrap {
@@ -385,6 +388,9 @@ body {  }
 	box-sizing: border-box;
 	background:#fff;
 	overflow-x: hidden;
+	position: sticky;
+	top: 36px; /* 로그인바 높이 */
+	z-index: 999;
 }
 
 .topmenu-box{
@@ -392,11 +398,12 @@ body {  }
 	align-items: center;
 	height: 56px;
 	border-bottom: 1px solid #3968f850;
+	justify-content: space-between;
 }
 
 /* 햄버거 버튼 */
 .topHammune{
-	width: 48px;
+	width: 80px;
 	height: 100%;
 	background: #3968f8;
 	display: flex;
@@ -418,16 +425,15 @@ body {  }
 	margin-right: auto;    /* 로고 오른쪽 공간 밀어주기 (아이콘들을 우측 끝으로) */
 }
 .topLogo img{
-	width: 70px;
+	max-width: 100%;
+	height: auto;
 	display: block;
-	margin-left: 10px;
 }
 /* 오른쪽 아이콘 묶음 */
 .topUser-box{
 	display: flex;
 	flex-direction: row;
-	align-items: center;
-	gap: 23px;
+	align-items: flex-start;
 	padding-right: 8px;
 }
 .topUser-box .topMypage img,
@@ -456,7 +462,11 @@ body {  }
 	align-items: center;
 	line-height: 1;
 }
-
+.topSideMenu {
+	height: calc(100dvh - 56px);
+	width: 80vw;     /* px 쓰지 말 것 */
+	left: -80vw;
+}
 
 /* 사이드 메뉴 */
 .topSideMenuWrap {
@@ -718,10 +728,11 @@ body {  }
 	justify-content: center;
 	text-decoration: none;
 	color: #333;
+	font-weight: 500;
 }
 
 .tab-menu-wrap .tab-box > ul > li > a > img {
-	width: 32px;
+	width: 50px;
 	height: 32px;
 	object-fit: contain;
 	margin-bottom: 6px;
@@ -757,7 +768,7 @@ h2.contentTitle:first-child { display:none; }
 .goodsItemBox ul { width:calc(100% - 20px); padding:0 10px 0 10px; min-height:280px;}
 .goodsItemBox li:first-child { overflow:hidden; padding-top:0; position:relative; }
 .goodsItemBox li:first-child img { width:100%; height:100%; border-radius:6px; }
-.goodsItemBox li:nth-child(2) { padding-bottom:6px; max-height:42px; overflow:hidden; line-height:1.2em; }
+.goodsItemBox li:nth-child(2) { padding-bottom:6px; max-height:100%; overflow:hidden; line-height:1.2em; }
 .goodsItemBox li a { font-family: 'SCDream', sans-serif; font-size:13px; color:#333; text-decoration:none; }
 .goodsItemBox li div:first-child { float:left; font-family: 'Montserrat', sans-serif; font-weight:bold;  font-size:14px; color:#000;  }
 .goodsItemBox .couponIcon { float:left; font-family: 'SCDream', sans-serif; font-size:10px; line-height:2.0em; margin:2px 0 0 10px; text-align:center; width:35px; height:18px; background:#a201fe; color:#fff; }
@@ -1501,14 +1512,13 @@ h2.contentTitle:first-child { display:none; }
 
 
 /* ===============================
-모바일 전용 반응형
+   모바일 전용 반응형
 =============================== */
-@media (max-width: 768px) {
+@media (min-width: 320px) and (max-width: 400px){
 
 	/* 상단 로그인바 */
 	.topLoginBar {
 		font-size: 10px;
-		padding: 8px 10px;
 	}
 
 	/* 헤더 높이 고정 */
@@ -1518,7 +1528,7 @@ h2.contentTitle:first-child { display:none; }
 
 	/* 햄버거 버튼 */
 	.topHammune {
-		width: 44px;
+		width: 60px;
 	}
 	.topHammune > div {
 		width: 20px;
@@ -1526,16 +1536,95 @@ h2.contentTitle:first-child { display:none; }
 
 	/* 로고 */
 	.topLogo {
-		margin-left: 6px;
+		width: 64%;    /* 🔥 보이는 로고 크기 */
+		height: 24px;       /* 로고 높이 */
+		flex-shrink: 0;
+		display: flex;
+		align-items: center;
 	}
 	.topLogo img {
-		width: 60px;
-		margin-left: 0;
+		width: 70%;
+		height: 100%;
+		object-fit: contain;
+		display: block;
 	}
 
 	/* 우측 아이콘 */
 	.topUser-box {
-		gap: 14px;
+		gap: 3px;
+		padding-right: 6px;
+	}
+	.topUser-box img {
+		width: 32px !important;
+	}
+
+	/* 장바구니 카운트 */
+	.topUser-box .cartCount {
+		min-width: 14px;
+		height: 18px;
+		font-size: 9px;
+	}
+
+	/* ===== 사이드 메뉴 ===== */
+	.topSideMenu {
+		top: 52px; /* 헤더 높이와 맞춤 */
+		width: 80vw;       /* 🔥 고정 220px → 화면 기준 */
+		max-width: 280px;
+		height: calc(100vh - 52px);
+		left: -80vw;
+	}
+
+	.topSideMenuWrap.active .topSideMenu {
+		left: 0;
+	}
+
+	.topSideMenu ul li a {
+		font-size: 13px;
+	}
+
+	.topSideMenu ul li a img {
+		width: 16px;
+		height: 16px;
+	}
+}
+@media (min-width: 400px) and (max-width: 1920px)  {
+
+	/* 상단 로그인바 */
+	.topLoginBar {
+		font-size: 10px;
+	}
+
+	/* 헤더 높이 고정 */
+	.topmenu-box {
+		height: 52px;
+	}
+
+	/* 햄버거 버튼 */
+	.topHammune {
+		width: 60px;
+	}
+	.topHammune > div {
+		width: 20px;
+	}
+
+	/* 로고 */
+	.topLogo {
+		width: 64%;    /* 🔥 보이는 로고 크기 */
+		height: 24px;       /* 로고 높이 */
+		flex-shrink: 0;
+		display: flex;
+		align-items: center;
+	}
+	.topLogo img {
+		width: 70%;
+		height: 100%;
+		object-fit: contain;
+		display: block;
+	}
+
+	/* 우측 아이콘 */
+	.topUser-box {
+		gap: 3px;
 		padding-right: 6px;
 	}
 	.topUser-box img {
