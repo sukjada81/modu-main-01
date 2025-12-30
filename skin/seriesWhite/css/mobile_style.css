@@ -601,19 +601,22 @@ body {  }
 ********************************************************************/
 /* 검색창 바깥 여백 */
 .search-container {
+	max-width:100%;
 	margin: 16px 20px;
 }
 
 /* 검색바 */
 .search-wrap {
+	width: 100%;
 	display: flex;
 	align-items: center;
 	height: 42px;
 	border: 2px solid #3968f8;
 	border-radius: 6px;
 	background: #fff;
+	margin: auto;
+	box-sizing: border-box;
 }
-
 /* ===== 카테고리 ===== */
 .search-category {
 	position: relative;
@@ -630,8 +633,16 @@ body {  }
 	justify-content: space-between;
 	background: none;
 	border: none;
-	font-size: 13px;
+	font-size: 12px;
 	cursor: pointer;
+}
+
+.select-btn .selected{
+	display: block;
+	max-width: 42px;          /* ← 여기서 길이 조절 */
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .select-btn i {
@@ -676,9 +687,11 @@ body {  }
 /* ===== 검색 input ===== */
 .search-input {
 	flex: 1;
+	min-width: 0;
+	box-sizing: border-box;
 	height: 100%;
 	border: none;
-	padding: 0 10px;
+	padding: 0 0 0 10px;
 	font-size: 11px;
 	outline: none;
 }
@@ -689,7 +702,7 @@ body {  }
 
 /* ===== 검색 버튼 ===== */
 .search-btn {
-	width: 42px;
+	width: 39px;
 	height: 100%;
 	border: none;
 	background: none;
@@ -1524,6 +1537,7 @@ h2.contentTitle:first-child { display:none; }
 	/* 헤더 높이 고정 */
 	.topmenu-box {
 		height: 52px;
+		line-height: 0px;
 	}
 
 	/* 햄버거 버튼 */
@@ -1543,7 +1557,7 @@ h2.contentTitle:first-child { display:none; }
 		align-items: center;
 	}
 	.topLogo img {
-		width: 70%;
+		width: 80%;
 		height: 100%;
 		object-fit: contain;
 		display: block;
@@ -1597,6 +1611,7 @@ h2.contentTitle:first-child { display:none; }
 	/* 헤더 높이 고정 */
 	.topmenu-box {
 		height: 52px;
+		line-height: 0px;
 	}
 
 	/* 햄버거 버튼 */
