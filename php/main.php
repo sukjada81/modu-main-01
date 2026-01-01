@@ -5,6 +5,111 @@ header("Pragma: no-cache");
 
 if(!defined('_B2BMALL_')) exit; // 개별 페이지 접근 불가
 
+if($mobile_header != "mobile_") {
+
+    ######################## 쇼핑카테고리 전체보기 #############################
+    $sql = "SELECT * FROM mallRN_cate WHERE cate_dep = '1' && used = '1' ORDER BY sequence ASC";
+    $mysql->query($sql);
+
+    while($row = $mysql->fetch_array()) {
+        if($my_level < 99) {
+            if($row['access_type'] == '1' && $my_level == '0') continue;
+            if($row['access_type'] == '2') {
+                $acc_level = explode(",", $row['access_level']);
+                if(!in_array($my_level, $acc_level)) continue;
+            }
+        }
+
+        if($row['cate_sub'] == 1) {
+            $sql = "SELECT * FROM mallRN_cate WHERE cate_parent = '{$row['cate']}' && used = '1' ORDER BY sequence ASC";
+            $mysql->query2($sql);
+
+            while($row2 = $mysql->fetch_array('2')) {
+                $CATE		= $row2['cate'];
+                $CATE_NAME	= stripslashes($row2['cate_name']);
+                $tpl->parse("loop_scate");
+            }
+        }
+
+        $CATE		= $row['cate'];
+        $CATE_NAME	= stripslashes($row['cate_name']);
+        $tpl->parse("loop_cate");
+    }
+    unset($row2, $CATE, $CATE_NAME);
+    ######################## 쇼핑카테고리 전체보기 #############################
+
+    ######################## 상단메뉴 #############################
+    if($shop_config['design_top_menu']) {
+        $top_menu_info = explode("|*|", $shop_config['design_top_menu']);
+        foreach($top_menu_info as $k => $v) {
+            $top_menu_info2 = explode("|", $v);
+            if($top_menu_info2[2] == 0) continue;
+            $MENU	= $top_menu_info2[0];
+            $URL	= $top_menu_info2[1];
+
+            preg_match("/(cate=)([0-9]*)/",$URL, $matchs);
+
+            if(@$matchs[1] && @$matchs[2]) {
+                $sql = "SELECT * FROM mallRN_cate WHERE cate_parent='{$matchs[2]}' && used ='1' ORDER BY  sequence ASC";
+                $mysql->query($sql);
+
+                $i2 = 0;
+                while($row = $mysql->fetch_array()){
+                    if($my_level < 100 && checkCateAccessThis($row['access_type'], $row['access_level'])) continue;
+
+                    $CATE		= $row['cate'];
+                    $CATE_NAME = stripslashes($row['cate_name']);
+                    $tpl->parse("loop_menu_sub");
+                    $i2 ++;
+                }
+
+                if($i2 > 0) $tpl->parse("is_menu_sub");
+            }
+            $tpl->parse("loop_menu");
+        }
+        unset($top_menu_info2, $MENU, $URL, $CATE, $CATE_NAME);
+    }
+    ######################## 상단메뉴 #############################
+}
+else {
+    ######################## 상단메뉴 #############################
+    if($shop_config['mobile_top_menu']) {
+        $top_menu_info = explode("|*|", $shop_config['mobile_top_menu']);
+        foreach($top_menu_info as $k => $v) {
+            $top_menu_info2 = explode("|", $v);
+            if($top_menu_info2[2] == 0) continue;
+            $MENU	= $top_menu_info2[0];
+            $URL	= $top_menu_info2[1];
+
+            $tpl->parse("loop_menu");
+        }
+        unset($top_menu_info2, $MENU, $URL);
+    }
+    ######################## 상단메뉴 #############################
+
+    ######################## 쇼핑카테고리 #############################
+    $sql = "SELECT * FROM mallRN_cate WHERE cate_dep = '1' && used = '1' ORDER BY sequence ASC";
+    $mysql->query($sql);
+
+    while($row = $mysql->fetch_array()) {
+        if($my_level < 99) {
+            if($row['access_type'] == '1' && $my_level == '0') continue;
+            if($row['access_type'] == '2') {
+                $acc_level = explode(",", $row['access_level']);
+                if(!in_array($my_level, $acc_level)) continue;
+            }
+        }
+
+        $CATE		= $row['cate'];
+        $CATE_NAME	= stripslashes($row['cate_name']);
+        $tpl->parse("loop_cate");
+    }
+    unset($row2, $CATE, $CATE_NAME);
+    ######################## 쇼핑카테고리 전체보기 #############################
+
+    $CO_TEL			= stripslashes($shop_config['comp_tel']);
+}
+
 $main_display		= $shop_config['design_main_display_order'] ? $shop_config['design_main_display_order'] : 'reco, code, best, cate, new';
 $main_display_arr	= explode(",", $main_display);
 $display_check_arr  = array('reco' => 2, 'best' => 1, 'new' => 3, 'code' => 0, 'cate' => 0); 

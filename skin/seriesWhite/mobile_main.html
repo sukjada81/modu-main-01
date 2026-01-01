@@ -3,35 +3,40 @@
 <div class="search-container">
     <div class="search-wrap">
 
-        <!-- 카테고리 드롭다운 -->
-        <div class="search-category custom-select">
-            <button type="button" class="select-btn">
-                <span class="selected">전체</span>
-                <i class="xi-angle-down"></i>
+        <form name="TsearchForm" method="get" action="{{Main}}" id="TsearchForm" class="search-form">
+            <input type="hidden" name="channel" value="search" />
+            <input type="hidden" name="cate" value="" id="searchCateHidden" />
+
+            <div class="search-category custom-select">
+                <button type="button" class="select-btn" aria-haspopup="listbox" aria-expanded="false">
+                    <span class="selected">전체</span>
+                    <i class="xi-angle-down"></i>
+                </button>
+
+                <ul class="select-list" role="listbox">
+                    <li class="active" data-cate="">전체</li>
+                    <!-- DYNAMIC @loop_cate@ -->
+                    <li data-cate="{{CATE}}">{{CATE_NAME}}</li>
+                    <!-- DYNAMIC @loop_cate@ -->
+                </ul>
+            </div>
+
+            <input
+                    type="text"
+                    name="keyword"
+                    value="{{keyword}}"
+                    class="search-input topKeyword"
+                    placeholder="찾고 싶은 상품을 검색해보세요"
+                    required="required"
+                    autocomplete="off"
+                    data-msg="검색어를"
+                    data-on-enter="1"
+            />
+
+            <button type="submit" class="search-btn" id="keywordSearch" title="검색">
+                <i class="xi-search"></i>
             </button>
-
-            <ul class="select-list">
-                <li class="active">전체</li>
-                <li>패션의류/잡화</li>
-                <li>뷰티</li>
-                <li>출산/유아동</li>
-                <li>식품</li>
-                <li>주방용품</li>
-                <li>생활용품</li>
-            </ul>
-        </div>
-
-        <!-- 검색 input -->
-        <input
-                type="text"
-                class="search-input"
-                placeholder="찾고 싶은 상품을 검색해보세요"
-        >
-
-        <!-- 검색 버튼 -->
-        <button class="search-btn">
-            <i class="xi-search"></i>
-        </button>
+        </form>
 
     </div>
 </div>
@@ -74,64 +79,36 @@
 <div class="tab-menu-wrap">
     <div class="tab-box">
         <ul>
+            <!-- DYNAMIC @loop_menu@ -->
             <li>
-                <a href="#">
-                    <img src="/image/icon/prodect-icon01.png" alt="">
-                    <p>30%할인상품</p>
+                <a href="{{URL}}">
+                    <img src="/image/icon/main-menu-btn-0{{k}}.png" alt="">
+                    <p>{{MENU}}</p>
                 </a>
             </li>
+            <!-- DYNAMIC @loop_menu@ -->
             <li>
-                <a href="#">
-                    <img src="/image/icon/prodect-icon02.png" alt="">
-                    <p>브랜드상품</p>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="/image/icon/prodect-icon03.png" alt="">
-                    <p>지자체상품</p>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="/image/icon/prodect-icon04.png" alt="">
+                <a href="{$Main}?channel=list&cate=106000000000">
+                    <img src="/image/icon/main-menu-btn-06.png" alt="">
                     <p>식품</p>
                 </a>
             </li>
             <li>
-                <a href="#">
-                    <img src="/image/icon/prodect-icon05.png" alt="">
+                <a href="{$Main}?channel=list&cate=104016000000">
+                    <img src="/image/icon/main-menu-btn-07.png" alt="">
                     <p>생활용품</p>
                 </a>
             </li>
             <li>
-                <a href="#">
-                    <img src="/image/icon/prodect-icon06.png" alt="">
+                <a href="{$Main}?channel=list&cate=103000000000">
+                    <img src="/image/icon/main-menu-btn-08.png" alt="">
                     <p>가전제품</p>
                 </a>
             </li>
             <li>
-                <a href="#">
-                    <img src="/image/icon/prodect-icon07.png" alt="">
+                <a href="{$Main}?channel=list&cate=106002000000">
+                    <img src="/image/icon/main-menu-btn-09.png" alt="">
                     <p>건강기능식품</p>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="/image/icon/prodect-icon08.png" alt="">
-                    <p>신상품</p>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="/image/icon/prodect-icon09.png" alt="">
-                    <p>직구상품</p>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="/image/icon/prodect-icon10.png" alt="">
-                    <p>기획상품</p>
                 </a>
             </li>
         </ul>

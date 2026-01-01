@@ -78,7 +78,7 @@ select::-ms-expand{display:none}
 .alignRight { text-align:right; }
 
 .floatLeft { float:left; }
-.floatRight { float:right; }
+.floatRight { width: 100%; margin: auto; }
 .clearboth { clear:both; }
 
 .displayNone { display:none; }
@@ -383,6 +383,10 @@ body {  }
 	z-index: 1000;
 }
 
+.topLoginBar li{
+	list-style: none;
+}
+
 .headerWrap {
 	width: 100%;
 	box-sizing: border-box;
@@ -599,6 +603,13 @@ body {  }
 /*******************************************************************
 *	centent
 ********************************************************************/
+/* 검색창 */
+#TsearchForm{
+	width: 100%;
+	display: flex;
+	align-items: center;
+}
+
 /* 검색창 바깥 여백 */
 .search-container {
 	max-width:100%;
@@ -862,7 +873,7 @@ h2.contentTitle:first-child { display:none; }
 .loginBox { background:#fff; padding:50px 40px 0px 40px; text-align:center; width:calc(100% - 80px); }
 .loginBoxWide { padding:30px 0 0 0; width:100%; }
 .loginBox li { position:relative; padding-bottom:20px;  }
-.loginBox .floatRight ul li { float:left; padding:0 8px; height:18px; position:relative;}
+.loginBox .floatRight ul li {float:left; padding:0 8px; height:18px; position:relative; font-size: 14px;}
 .loginBox .floatRight ul li.last { padding-right:0 }
 .loginBox .floatRight ul li.line:after { content:''; float:left; width:1px; height:12px; background-color:#ddd; position:absolute; top:8px; right:-2px }
 .loginBox .floatRight ul li a { font-size:0.85em; letter-spacing:0px; color:#333; text-decoration:none; font-weight:300; letter-spacing: -0.05em;}
