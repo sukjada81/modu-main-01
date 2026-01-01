@@ -1422,7 +1422,7 @@ function goodsOrderQtyChange($order_num) {
 
 	if(!$order_num) return;
 
-	$sql = "SELECT g_uid, price, qty, option FROM mallRN_order_goods WHERE order_num = '{$order_num}' && reals = 1";
+	$sql = "SELECT g_uid, price, qty, `option` FROM mallRN_order_goods WHERE order_num = '{$order_num}' && reals = 1";
 	$mysql->query($sql);
 
 	while($row = $mysql->fetch_array()){ 

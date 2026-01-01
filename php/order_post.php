@@ -401,15 +401,22 @@ while($row = $mysql->fetch_array()) {
 
 	######################## 주문상품 정보 등록  #########################
 	$item_array		= array('vendor', 'vendor_delivery', 'commission', 'order_num', 'g_uid', 'g_cate', 'g_name', 'g_code', 'price', 'orig_price', 'qty', 'mileage', 'option', 'option_name', 'delivery_type', 'delivery_type_qty', 'delivery_price', 'delivery_add_price', 'use_coupon', 'coupon_uid', 'discount', 'discount_info', 'status', 'status_date', 'signdate');
-	
-	$sql = "INSERT INTO mallRN_order_goods SET";
-	foreach ($item_array as $k => $v) {
-		$_POST[$v] = checkPostVar($v);
 
-		if($k == count($item_array)-1) $sql .= " {$v} = '{$_POST[$v]}'";
-		else $sql .= " {$v} = '{$_POST[$v]}',";
-	}
-	$mysql->query2($sql);
+    $sql = "INSERT INTO mallRN_order_goods SET ";
+    $sets = [];
+
+    foreach ($item_array as $v) {
+        $_POST[$v] = checkPostVar($v);
+
+        $col = ($v === 'option') ? "`option`" : $v;
+        $val = addslashes($_POST[$v]);
+
+        $sets[] = "{$col} = '{$val}'";
+    }
+
+    $sql .= implode(", ", $sets);
+
+    $mysql->query2($sql);
 	######################## 주문상품 정보 등록  #########################
 
 	if($_POST['use_coupon'] && $_POST['coupon_uid']) {
