@@ -170,6 +170,7 @@ else {
 		$CATE		= $row['cate'];		
 		$CATE_NAME	= stripslashes($row['cate_name']);	
 		$tpl->parse("loop_cate");
+        $tpl->parse("loop_cate2");
 	}
 	unset($row2, $CATE, $CATE_NAME);
 	######################## 쇼핑카테고리 전체보기 #############################

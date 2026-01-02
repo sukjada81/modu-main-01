@@ -31,114 +31,114 @@
     });
 </script>
 
-<div id="topUtil">	
-	
-	<div id="topMenu">	
-		<div id="utilMenu">
-			<ul>
-                <li class="first"><a href='#' onclick="bookmarksite('{{site_url}}','{{site_name}}'); return false;">공급사센터</a></li>
-			</ul>
-			<div class='fff'></div>
-		</div>
+<div id="topUtil">
 
-		<div id="homeMenu">
-			<ul>					
-				<!-- DYNAMIC @is_logout@ -->
-				<li class="first line"><a href='{{Main}}?channel=login'>로그인</a></li>
-				<li>
-					<div style="position:relative">
-						<a href='{{Main}}?channel=regist'>회원가입</a>
-						<!-- DYNAMIC @is_join_point@ -->
-						<div id="joinPoint">
-							<div class="arrow"></div>
-							<div class="fontMontserrat size11 colorWhite">+{{JPOINT}}P</div>												
-						</div>
-						<!-- DYNAMIC @is_join_point@ -->
-					</div>
-				</li>
-				<!-- DYNAMIC @is_logout@ -->
-				<!-- DYNAMIC @is_login@ -->
-				<li class="first line"><a href='php/logout.php'>로그아웃</a></li>
-				<!-- DYNAMIC @is_login@ -->
-				<li class="line"><a href='{{Main}}?channel=order_list'>주문배송조회 </a></li>
-				<li class="line menuMy">
-					<div>
-						<a href='{{Main}}?channel=mypage'>마이페이지 <i class="xi-angle-down" id="menuMy"></i></a>
-						<div id="mypageBox">
-							<div class="emptys"></div>
-							<div class="rotate45 arrow"></div>
-							<div class="mypageMenu">
-								<div><a href="{{Main}}?channel=my_mileage" class="submenu">마일리지</a></div>
-								<div><a href="{{Main}}?channel=my_coupon" class="submenu">쿠폰</a></div>
-								<div><a href="{{Main}}?channel=my_favorite_goods" class="submenu">관심상품</a></div>
-								<div><a href="{{Main}}?channel=member_modify" class="submenu">회원정보</a></div>		
-							</div>
-						</div>							
-					</div>
-				</li>					
-				<li class="line"><a href='{{Main}}?channel=cart'>장바구니</a></li>
-<!--				<li><a href='{{Main}}?channel=cs_center'>CS CENTER</a></li>-->
-			</ul>
-		</div>
-	</div>
+    <div id="topMenu">
+        <div id="utilMenu">
+            <ul>
+                <li class="first"><a href='#' onclick="bookmarksite('{{site_url}}','{{site_name}}'); return false;">공급사센터</a></li>
+            </ul>
+            <div class='fff'></div>
+        </div>
+
+        <div id="homeMenu">
+            <ul>
+                <!-- DYNAMIC @is_logout@ -->
+                <li class="first line"><a href='{{Main}}?channel=login'>로그인</a></li>
+                <li>
+                    <div style="position:relative">
+                        <a href='{{Main}}?channel=regist'>회원가입</a>
+                        <!-- DYNAMIC @is_join_point@ -->
+                        <div id="joinPoint">
+                            <div class="arrow"></div>
+                            <div class="fontMontserrat size11 colorWhite">+{{JPOINT}}P</div>
+                        </div>
+                        <!-- DYNAMIC @is_join_point@ -->
+                    </div>
+                </li>
+                <!-- DYNAMIC @is_logout@ -->
+                <!-- DYNAMIC @is_login@ -->
+                <li class="first line"><a href='php/logout.php'>로그아웃</a></li>
+                <!-- DYNAMIC @is_login@ -->
+                <li class="line"><a href='{{Main}}?channel=order_list'>주문배송조회 </a></li>
+                <li class="line menuMy">
+                    <div>
+                        <a href='{{Main}}?channel=mypage'>마이페이지 <i class="xi-angle-down" id="menuMy"></i></a>
+                        <div id="mypageBox">
+                            <div class="emptys"></div>
+                            <div class="rotate45 arrow"></div>
+                            <div class="mypageMenu">
+                                <div><a href="{{Main}}?channel=my_mileage" class="submenu">마일리지</a></div>
+                                <div><a href="{{Main}}?channel=my_coupon" class="submenu">쿠폰</a></div>
+                                <div><a href="{{Main}}?channel=my_favorite_goods" class="submenu">관심상품</a></div>
+                                <div><a href="{{Main}}?channel=member_modify" class="submenu">회원정보</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="line"><a href='{{Main}}?channel=cart'>장바구니</a></li>
+                <!--				<li><a href='{{Main}}?channel=cs_center'>CS CENTER</a></li>-->
+            </ul>
+        </div>
+    </div>
 </div>
 
 <div class="empty10">&nbsp;</div>
 
-<div id="topContent">		
-	
-	<div id="topMain">			
-		<div id="topBanner">
-			<div class="empty10">&nbsp;</div>
-			<!-- DYNAMIC @loop_banner_TOPL@ -->
-			<div><a href="{{B_LINK}}" {{B_TARGET}}>{{B_IMAGE}}</a>
+<div id="topContent">
+
+    <div id="topMain">
+        <div id="topBanner">
+            <div class="empty10">&nbsp;</div>
+            <!-- DYNAMIC @loop_banner_TOPL@ -->
+            <div><a href="{{B_LINK}}" {{B_TARGET}}>{{B_IMAGE}}</a>
             </div>
-			<!-- DYNAMIC @loop_banner_TOPL@ -->
-		</div>
-		
-		<div id="logo">
-			<!-- DYNAMIC @loop_banner_LOGO@ -->				
-			<h1><a href='{{Main}}'>
+            <!-- DYNAMIC @loop_banner_TOPL@ -->
+        </div>
+
+        <div id="logo">
+            <!-- DYNAMIC @loop_banner_LOGO@ -->
+            <h1><a href='{{Main}}'>
                 <img src=img/logo.png alt="로고 이미지">
             </a>
             </h1>
-			<!-- DYNAMIC @loop_banner_LOGO@ -->
-		</div>		
-		
-		<div id="topSearch">	
-			<div id="searchKeyword">
-				<form name="TsearchForm" method="get" action="{{Main}}">
-				<input type="hidden" name="channel" value='search' />
-				<div class="floatLeft">
-					<input type="text" name="keyword" value="{{keyword}}" class="topKeyword fontSCDream size14"  placeholder="검색어를 입력하여주세요. (상품코드 / 공급사코드 / 상품명)" required="required" autocomplete="off" data-msg="검색어를" data-on-enter="1"  />
-				</div>
-				<div class="floatRight" style="padding:8px 0 0; margin:0 8px 0">
-					<i class="xi-search size20 cursorPoint" id="keywordSearch" title="검색"></i>
-				</div>
-				</form>
-			</div>
-			
-			<div id="searchResent">
-				<div class="recent">
-					<span class="fontSCDream size13 weight400">최근 검색어</span>
-					<span class="fontSCDream size11 colorLgray cursorPoint underLineThin" id="recentKeywordReset">초기화</span>
-					<div class="empty10">&nbsp;</div>
-					<!-- DYNAMIC @loop_recent_keyword@ -->
-					<span class="recentItem"><a href="{{Main}}?channel=search&keyword={{recent_keyword}}">{{recent_keyword}}</a><i class="xi-close-min size12 recentKeywordDel" data-uid='{{recent_uid}}'></i></span>
-					<!-- DYNAMIC @loop_recent_keyword@ -->
-					<div id="recentKeywordEmpty" class="fontSCDream size11 colorLgray">최근 검색어가 없습니다.</div>
-				</div>
-				<div class="empty10">&nbsp;</div>
-				<div class="line">&nbsp;</div>
-				<div class="ranking">
-					<span class="fontSCDream size13 weight400">추천 검색어</span>
-					<div class="empty5">&nbsp;</div>
-					<!-- DYNAMIC @loop_best_keyword@ -->
-					<span><a href="{{Main}}?channel=search&keyword={{best_keyword}}"># {{best_keyword}}</a></span>
-					<!-- DYNAMIC @loop_best_keyword@ -->
-				</div>
-			</div>
-		</div>
+            <!-- DYNAMIC @loop_banner_LOGO@ -->
+        </div>
+
+        <div id="topSearch">
+            <div id="searchKeyword">
+                <form name="TsearchForm" method="get" action="{{Main}}">
+                    <input type="hidden" name="channel" value='search' />
+                    <div class="floatLeft">
+                        <input type="text" name="keyword" value="{{keyword}}" class="topKeyword fontSCDream size14"  placeholder="검색어를 입력하여주세요." required="required" autocomplete="off" data-msg="검색어를" data-on-enter="1"  />
+                    </div>
+                    <div class="floatRight" style="padding:8px 0 0; margin:0 8px 0">
+                        <i class="xi-search size20 cursorPoint" id="keywordSearch" title="검색"></i>
+                    </div>
+                </form>
+            </div>
+
+            <div id="searchResent">
+                <div class="recent">
+                    <span class="fontSCDream size13 weight400">최근 검색어</span>
+                    <span class="fontSCDream size11 colorLgray cursorPoint underLineThin" id="recentKeywordReset">초기화</span>
+                    <div class="empty10">&nbsp;</div>
+                    <!-- DYNAMIC @loop_recent_keyword@ -->
+                    <span class="recentItem"><a href="{{Main}}?channel=search&keyword={{recent_keyword}}">{{recent_keyword}}</a><i class="xi-close-min size12 recentKeywordDel" data-uid='{{recent_uid}}'></i></span>
+                    <!-- DYNAMIC @loop_recent_keyword@ -->
+                    <div id="recentKeywordEmpty" class="fontSCDream size11 colorLgray">최근 검색어가 없습니다.</div>
+                </div>
+                <div class="empty10">&nbsp;</div>
+                <div class="line">&nbsp;</div>
+                <div class="ranking">
+                    <span class="fontSCDream size13 weight400">추천 검색어</span>
+                    <div class="empty5">&nbsp;</div>
+                    <!-- DYNAMIC @loop_best_keyword@ -->
+                    <span><a href="{{Main}}?channel=search&keyword={{best_keyword}}"># {{best_keyword}}</a></span>
+                    <!-- DYNAMIC @loop_best_keyword@ -->
+                </div>
+            </div>
+        </div>
         <div id="guideBtn_wrap">
             <div id="ico_ul">
                 <ul>
@@ -185,94 +185,94 @@
                 </ul>
             </div>
         </div>
-	</div>
-	<div class="naviDefault">
-		
-		<div id="topNavis">
-			<ul>
-				<li class="cateAllOpen">
+    </div>
+    <div class="naviDefault">
+
+        <div id="topNavis">
+            <ul>
+                <li class="cateAllOpen">
                     <button type="button" class="catebtn">
                         <span class="ico" aria-hidden="true"></span>
                         <span class="label">전체카테고리</span>
                     </button>
-				</li>
-				<!-- DYNAMIC @loop_menu@ -->					
-				<li class="topNavi" data-num="{{k}}">						
-					<div>
-						<a href="{{URL}}">{{MENU}}</a>
-						<!-- DYNAMIC @is_menu_sub@ -->
-						<div id="topNaviSub{{k}}" class="naviSubBox">
-							<div class="emptys"></div>
-							<div class="rotate45 arrow"></div>
-							<div style="padding:8px; text-align:left;">
-								<!-- DYNAMIC @loop_menu_sub@ -->	
-								<div><a href='{{Main}}?channel=list&cate={{CATE}}'>{{CATE_NAME}}</a></div>
-								<!-- DYNAMIC @loop_menu_sub@ -->
-							</div>
-						</div>	
-						<!-- DYNAMIC @is_menu_sub@ -->
-					</div>
-				</li>
-				<!-- DYNAMIC @loop_menu@ -->	
-			</ul>
-		</div>
+                </li>
+                <!-- DYNAMIC @loop_menu@ -->
+                <li class="topNavi" data-num="{{k}}">
+                    <div>
+                        <a href="{{URL}}">{{MENU}}</a>
+                        <!-- DYNAMIC @is_menu_sub@ -->
+                        <div id="topNaviSub{{k}}" class="naviSubBox">
+                            <div class="emptys"></div>
+                            <div class="rotate45 arrow"></div>
+                            <div style="padding:8px; text-align:left;">
+                                <!-- DYNAMIC @loop_menu_sub@ -->
+                                <div><a href='{{Main}}?channel=list&cate={{CATE}}'>{{CATE_NAME}}</a></div>
+                                <!-- DYNAMIC @loop_menu_sub@ -->
+                            </div>
+                        </div>
+                        <!-- DYNAMIC @is_menu_sub@ -->
+                    </div>
+                </li>
+                <!-- DYNAMIC @loop_menu@ -->
+            </ul>
+        </div>
 
-		<div id="cateAll">
-			<div id="cateAllIn">
-				<!-- DYNAMIC @loop_cate@ -->
-				<ul class="cateBox">
-					<li><a href='{{Main}}?channel=list&cate={{CATE}}'>{{CATE_NAME}}</a></li>
-					<!-- DYNAMIC @loop_scate@ -->
-					<li><a href='{{Main}}?channel=list&cate={{CATE}}' class="sub">{{CATE_NAME}}</a></li>
-					<!-- DYNAMIC @loop_scate@ -->
-				</ul>
-				<!-- DYNAMIC @loop_cate@ -->
-				<div class="cateAllClose">
-					<i class="xi-close-thin xi-x" title="닫기"></i>
-				</div>
-			</div>
-		</div>
-	</div>		
+        <div id="cateAll">
+            <div id="cateAllIn">
+                <!-- DYNAMIC @loop_cate@ -->
+                <ul class="cateBox">
+                    <li><a href='{{Main}}?channel=list&cate={{CATE}}'>{{CATE_NAME}}</a></li>
+                    <!-- DYNAMIC @loop_scate@ -->
+                    <li><a href='{{Main}}?channel=list&cate={{CATE}}' class="sub">{{CATE_NAME}}</a></li>
+                    <!-- DYNAMIC @loop_scate@ -->
+                </ul>
+                <!-- DYNAMIC @loop_cate@ -->
+                <div class="cateAllClose">
+                    <i class="xi-close-thin xi-x" title="닫기"></i>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
-<!--
-	
-	var naviCnt = parseInt($("#topNavis .topNavi").length);
-	var a = parseInt($("#topNavis").css('width')) - parseInt($('.cateAllOpen').css('width'));
-	var b = 0;
-	
-	$("#topNavis .topNavi").each(function(i) {
-		b += parseInt($(this).css('width'));
-	});
-	
-	var c = Math.floor((a - b) / naviCnt);
+    <!--
 
-	$("#topNavis .topNavi").each(function(i) {
-		$(this).css({'width': parseInt($(this).css('width')) + c });
-		var a1 = $(this).attr("data-num");
+    var naviCnt = parseInt($("#topNavis .topNavi").length);
+    var a = parseInt($("#topNavis").css('width')) - parseInt($('.cateAllOpen').css('width'));
+    var b = 0;
 
-		if($("#topNaviSub" + a1).length) {
-			var a2 = parseInt($(this).css('width'));
-			var a3 = parseInt($("#topNaviSub" + a1).css('width'));
-			if(a2 > a3) a4 = Math.floor((a2 / 2) - (a3 / 2));
-			else a4 = -Math.floor((a3 / 2) - (a2 / 2));
-			$("#topNaviSub" + a1).css({"left" : a4});
-		}
-	});	
+    $("#topNavis .topNavi").each(function(i) {
+        b += parseInt($(this).css('width'));
+    });
 
-	utilMenus			= new textMenus("utilMenu");
-	homeMenus			= new textMenus("homeMenu");
-	topNaviss			= new textMenus("topNavis");	
-	recentKeywordTotal	= 0;
-	
-	$(".topKeyword").autocompleteKeyword({'parentDiv':'#topSearch', 'recentDiv':'#searchResent', 'btnSearch':'#keywordSearch'});	
+    var c = Math.floor((a - b) / naviCnt);
 
-	if(typeof(topBannerU) != 'undefined') {		
-		$(".naviDefault").addClass("naviDefaultBU");
-		$(".naviEmpty").css("height", parseInt($(".naviEmpty").css("height")) + 50);
-	}
-	else var topBannerU = 0;
-	
-//-->
+    $("#topNavis .topNavi").each(function(i) {
+        $(this).css({'width': parseInt($(this).css('width')) + c });
+        var a1 = $(this).attr("data-num");
+
+        if($("#topNaviSub" + a1).length) {
+            var a2 = parseInt($(this).css('width'));
+            var a3 = parseInt($("#topNaviSub" + a1).css('width'));
+            if(a2 > a3) a4 = Math.floor((a2 / 2) - (a3 / 2));
+            else a4 = -Math.floor((a3 / 2) - (a2 / 2));
+            $("#topNaviSub" + a1).css({"left" : a4});
+        }
+    });
+
+    utilMenus			= new textMenus("utilMenu");
+    homeMenus			= new textMenus("homeMenu");
+    topNaviss			= new textMenus("topNavis");
+    recentKeywordTotal	= 0;
+
+    $(".topKeyword").autocompleteKeyword({'parentDiv':'#topSearch', 'recentDiv':'#searchResent', 'btnSearch':'#keywordSearch'});
+
+    if(typeof(topBannerU) != 'undefined') {
+        $(".naviDefault").addClass("naviDefaultBU");
+        $(".naviEmpty").css("height", parseInt($(".naviEmpty").css("height")) + 50);
+    }
+    else var topBannerU = 0;
+
+    //-->
 </script>	

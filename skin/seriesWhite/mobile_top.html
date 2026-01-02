@@ -16,18 +16,13 @@
 <div class="topLoginBar">
     <!-- DYNAMIC @is_logout@ -->
     <a href="{{Main}}?channel=login"><p class="">로그인</p></a>
+    <li><a href="{{Main}}?channel=regist"> 회원가입</a></li>
     <!-- DYNAMIC @is_logout@ -->
     <!-- DYNAMIC @is_login@ -->
     {{my_name}} 님
-    <!-- DYNAMIC @is_login@ -->
-    <!-- DYNAMIC @is_logout2@ -->
-    <li><a href="{{Main}}?channel=regist"> 회원가입</a></li>
-    <!-- DYNAMIC @is_logout2@ -->
-    <!-- DYNAMIC @is_login2@ -->
     <li><a href="php/logout.php"> 로그아웃</a></li>
-    <!-- DYNAMIC @is_login2@ -->
-
-    <a href="{Main}}?channel=cs_center">고객센터</a>
+    <a href="{{Main}}?channel=cs_center">고객센터</a>
+    <!-- DYNAMIC @is_login@ -->
 </div>
 <div class="headerWrap">
     <div class="topmenu-box">
@@ -229,6 +224,47 @@ var swiper = new Swiper('.topNavis .swiper-container', {
                 <!--                &lt;!&ndash; DYNAMIC @is_login2@ &ndash;&gt;-->
             </ul>
         </div>
+    </div>
+</div>
+
+<div class="search-container">
+    <div class="search-wrap">
+
+        <form name="TsearchForm" method="get" action="{{Main}}" id="TsearchForm" class="search-form">
+            <input type="hidden" name="channel" value="search" />
+            <input type="hidden" name="cate" value="" id="searchCateHidden" />
+
+            <div class="search-category custom-select">
+                <button type="button" class="select-btn" aria-haspopup="listbox" aria-expanded="false">
+                    <span class="selected">전체</span>
+                    <i class="xi-angle-down"></i>
+                </button>
+
+                <ul class="select-list" role="listbox">
+                    <li class="active" data-cate="">전체</li>
+                    <!-- DYNAMIC @loop_cate2@ -->
+                    <li data-cate="{{CATE}}">{{CATE_NAME}}</li>
+                    <!-- DYNAMIC @loop_cate2@ -->
+                </ul>
+            </div>
+
+            <input
+                    type="text"
+                    name="keyword"
+                    value="{{keyword}}"
+                    class="search-input topKeyword"
+                    placeholder="찾고 싶은 상품을 검색해보세요"
+                    required="required"
+                    autocomplete="off"
+                    data-msg="검색어를"
+                    data-on-enter="1"
+            />
+
+            <button type="submit" class="search-btn" id="keywordSearch" title="검색">
+                <i class="xi-search"></i>
+            </button>
+        </form>
+
     </div>
 </div>
 
