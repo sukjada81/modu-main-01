@@ -151,7 +151,7 @@ while($row = $mysql->fetch_array()) {
 		}
 		
 		$MILEAGE			= $row2['mileage'];
-		if($row2['mileage']) {`
+		if($row2['mileage']) {
 			$MILEAGESONE = number_format($row2['mileage'] / $row2['qty']);
 			$tpl->parse("is_mileage");
 		}
