@@ -1,4 +1,25 @@
-function setListCookie(page) {	
+function str_replace(search, replace, subject) {
+	if (subject === null || subject === undefined) return subject;
+
+	if (Array.isArray(subject)) {
+		return subject.map(s => str_replace(search, replace, s));
+	}
+
+	let result = String(subject);
+
+	if (Array.isArray(search)) {
+		for (let i = 0; i < search.length; i++) {
+			const s = String(search[i]);
+			const r = Array.isArray(replace) ? String(replace[i] ?? '') : String(replace);
+			result = result.split(s).join(r);
+		}
+		return result;
+	}
+
+	return result.split(String(search)).join(String(replace));
+}
+
+function setListCookie(page) {
 	var ourl = defaultUrl.split("?");	
 	$.cookie("mallUrl",		ourl[0],													{ path: '/' });
 	$.cookie("mallPage",	page,														{ path: '/' });
