@@ -1466,7 +1466,7 @@ function goodsOrderQtyCancel($uid) {
 
 	if(!$uid) return;
 
-	$sql = "SELECT g_uid, price, qty, option FROM mallRN_order_goods WHERE uid = '{$uid}' && reals = 1";
+	$sql = "SELECT g_uid, price, qty, `option` FROM mallRN_order_goods WHERE uid = '{$uid}' && reals = 1";
 	$mysql->query3($sql);
 
 	while($row = $mysql->fetch_array(3)){ 
@@ -1522,8 +1522,12 @@ function orderSalesInsert($values) {
 	
 	$sql = "INSERT INTO mallRN_order_sales SET";
 	foreach ($item_array as $k => $v) {
-		if($k == count($item_array) - 1) $sql .= " {$v} = '{$values[$v]}'";
-		else $sql .= " {$v} = '{$values[$v]}',";
+
+		// MySQL 예약어 충돌 방지: option 컬럼은 백틱 처리
+		$col = ($v == 'option') ? "`option`" : $v;
+
+		if($k == count($item_array) - 1) $sql .= " {$col} = '{$values[$v]}'";
+		else $sql .= " {$col} = '{$values[$v]}',";
 	}
 	$mysql->query3($sql);
 }
@@ -1571,7 +1575,7 @@ function orderStatus1($order_num, $id) {
 		}
 	}
 
-	$sql = "SELECT uid, vendor, vendor_delivery, g_uid, g_cate, g_name, price, orig_price, qty, option, option_name, delivery_type, delivery_type_qty, delivery_price, delivery_add_price, use_coupon, coupon_uid, discount, discount_info, status FROM mallRN_order_goods WHERE order_num = '{$order_num}' && reals = 1";
+	$sql = "SELECT uid, vendor, vendor_delivery, g_uid, g_cate, g_name, price, orig_price, qty, `option`, option_name, delivery_type, delivery_type_qty, delivery_price, delivery_add_price, use_coupon, coupon_uid, discount, discount_info, status FROM mallRN_order_goods WHERE order_num = '{$order_num}' && reals = 1";
 	$mysql->query($sql);
 	
 	$sum_delivery_option = array();
