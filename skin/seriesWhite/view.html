@@ -656,7 +656,7 @@
 
         // 비회원 버튼 클릭
         $(document).off("click.btnLoginToBuy").on("click.btnLoginToBuy", ".btnLoginToBuy", function () {
-            alertify.alert("로그인이 필요한 서비스입니다.", function () {
+            $(document).on("click", ".btnLoginToBuyFixed", function () {
                 window.location.href = "{{Main}}?channel=login&channel2=view&uid={{uid}}";
             });
         });
