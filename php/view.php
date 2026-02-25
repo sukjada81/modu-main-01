@@ -79,29 +79,55 @@ if(isset($_COOKIE['v_my_id'])) {
 
 if(!$v_my_id) checkCateAccess($cate);
 
-$goods_info				= getGoodsInfo($data);
-$GOODS_IMAGE			= $goods_info['image1'];
-$GOODS_ICON				= $goods_info['icon'];
-$GOODS_NAME				= $goods_info['name'];
-$GOODS_NAME_CODE_ABLE	= $goods_info['name_code_able'];
-$GOODS_PRICE			= $goods_info['price'];
-$GOODS_DATAIL			= $goods_info['detail'];
-$GOODS_CONSUMER_PRICE	= $goods_info['consumer_price'];
-$GOODS_CODE				= stripslashes($data['goods_code']);
-$GOODS_MODEL			= stripslashes($data['model']);
-$GOODS_MAKE				= stripslashes($data['make']);
-$GOODS_ORIGIN			= stripslashes($data['origin']);
-$GOODS_BRAND			= stripslashes($data['brand']);
-$GOODS_ORIG_PRICE		= number_format($data['price'], CONF_FLOAT_CNT);
-$GOODS_LIMIT_QTY		= $data['limit_qty'];
-$GOODS_PRICE_MENT		= $data['price_ment'];
+$is_member = ($my_id) ? 1 : 0;
+$IS_LOGIN = ($my_id) ? 1 : 0;
+
+$goods_info             = getGoodsInfo($data);
+$GOODS_IMAGE            = $goods_info['image1'];
+$GOODS_ICON             = $goods_info['icon'];
+$GOODS_NAME             = $goods_info['name'];
+$GOODS_NAME_CODE_ABLE   = $goods_info['name_code_able'];
+
+// 소비자가 "원본 숫자" 먼저 확보 (DB 필드 우선)
+$consumer_raw = 0;
+if(isset($data['consumer_price'])) {
+    $consumer_raw = (int)$data['consumer_price'];
+} else if(isset($goods_info['consumer_price'])) {
+    // getGoodsInfo가 "12,000" 같은 문자열이면 숫자로 변환
+    $consumer_raw = (int)str_replace(",", "", $goods_info['consumer_price']);
+}
+
+// 화면 표시용 소비자가(문자열)
+$GOODS_CONSUMER_PRICE = ($consumer_raw > 0) ? number_format($consumer_raw, CONF_FLOAT_CNT) : "";
+
+// 기본은 판매가(회원 가격)
+$GOODS_PRICE = $goods_info['price'];
+
+// 비회원이면 "소비자가만" 보여야 하므로, 메인/옵션/총금액 기준가를 소비자가로 강제
+if(!$is_member && $consumer_raw > 0) {
+    $GOODS_PRICE   = number_format($consumer_raw, CONF_FLOAT_CNT);
+    $data['price'] = $consumer_raw; // 옵션/합계 계산에서 참조하는 경우 대비
+}
+
+$GOODS_DATAIL          = $goods_info['detail'];
+
+$GOODS_CODE            = stripslashes($data['goods_code']);
+$GOODS_MODEL           = stripslashes($data['model']);
+$GOODS_MAKE            = stripslashes($data['make']);
+$GOODS_ORIGIN          = stripslashes($data['origin']);
+$GOODS_BRAND           = stripslashes($data['brand']);
+$GOODS_ORIG_PRICE       = number_format($data['price'], CONF_FLOAT_CNT);
+$GOODS_LIMIT_QTY        = $data['limit_qty'];
+$GOODS_PRICE_MENT       = $data['price_ment'];
 if($GOODS_PRICE_MENT != '') $data['sale_use'] = 0;
 
 $SHARE_URL				= ABSOLUTE_PATH_SHOP."{$Main}?channel=view&uid={$uid}";
 $SHARE_IMG				= ABSOLUTE_PATH_SHOP."img/goods{$data['image1']}";
 
+
+
 ######################## 쿠폰관련 #############################
-if($goods_info['coupon_price']) {
+if($is_member && $goods_info['coupon_price']) {
 	$GOODS_COUPON_PRICE	= $GOODS_PRICE;
 	$tmp_price1			= (int) str_replace(",", "", $GOODS_PRICE);
 	$tmp_price2			= (int) str_replace(",", "", $goods_info['coupon_price']);
@@ -121,7 +147,7 @@ if($goods_info['coupon_price']) {
 }
 ######################## 쿠폰관련 #############################
 
-if($GOODS_ORIG_PRICE != $GOODS_PRICE) {
+if($is_member && $GOODS_ORIG_PRICE != $GOODS_PRICE) {
 	$sale_msg_array = array();
 	if($my_discount)	$sale_msg_array[] = "회원등급할인 {$my_discount}%";
 	
@@ -220,7 +246,7 @@ $ck_infos	= 0;
 
 if($GOODS_DATAIL)	$tpl->parse("is_goods_detail");
 if($GOODS_MILEAGE)	$tpl->parse("is_goods_mileage");
-if($GOODS_CONSUMER_PRICE) { 
+if($is_member && $GOODS_CONSUMER_PRICE) {
 	$tpl->parse("is_goods_consumer_price");
 	$ck_infos	= 1;
 }

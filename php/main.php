@@ -5,6 +5,23 @@ header("Pragma: no-cache");
 
 if(!defined('_B2BMALL_')) exit; // 개별 페이지 접근 불가
 
+$is_member = ($my_id) ? 1 : 0;
+
+// 비회원일 때 썸네일 가격을 "소비자가"로 강제하기 위한 row 보정
+function applyConsumerPriceForGuest(&$row, $is_member){
+    if($is_member) return;
+
+    $consumer_raw = isset($row['consumer_price']) ? (int)$row['consumer_price'] : 0;
+
+    if($consumer_raw > 0) {
+        $row['price'] = $consumer_raw;
+
+        if(isset($row['price_ment'])) $row['price_ment'] = '';   // 멘트형 가격 제거
+        if(isset($row['exhibition'])) $row['exhibition'] = '';   // 이벤트 할인 제거
+        if(isset($row['coupon_uid'])) $row['coupon_uid'] = 0;
+    }
+}
+
 if($mobile_header != "mobile_") {
 
     ######################## 쇼핑카테고리 전체보기 #############################
@@ -128,11 +145,12 @@ foreach($main_display_arr as $k => $v) {
 		$i = $display_check_arr[$v];
 		if($shop_config['design_main_display'.$i] == 0) continue;
 		
-		$sql = "SELECT {$goods_field} FROM mallRN_goods WHERE display_use = 1 && auth_ck = 'Y' && cate_hide = 0 && vendor_hide = 0 && main1_display{$i} = 1 ORDER BY main1_display{$i}_sequence ASC";
+		$sql = "SELECT {$goods_field} FROM mallRN_goods WHERE display_use = 1 && auth_ck = 'Y' && cate_hide = 0 && vendor_hide = 0 && main1_display{$i} = 1 ORDER BY main1_display{$i}_sequence ASC limit 10";
 		$mysql->query($sql);
 
 		$ck = 0;
 		while($row = $mysql->fetch_array()){
+            applyConsumerPriceForGuest($row, $is_member);
 			getGoodsInfo($row, "goods_item");
 			$ck++;
 		}	
@@ -158,11 +176,12 @@ foreach($main_display_arr as $k => $v) {
 				$CATE_NAME				= getCateAllName($goods_cate, '', 1);
 				$v						= "cate".$goods_cate;
 
-				$sql = "SELECT {$goods_field} FROM mallRN_goods WHERE display_use = 1 && auth_ck = 'Y' && cate_hide = 0 && vendor_hide = 0 && SUBSTRING(cate, 1, 3) = '{$goods_cate}' && main2_display{$goods_display} = 1 ORDER BY main2_display{$goods_display}_sequence ASC";
+				$sql = "SELECT {$goods_field} FROM mallRN_goods WHERE display_use = 1 && auth_ck = 'Y' && cate_hide = 0 && vendor_hide = 0 && SUBSTRING(cate, 1, 3) = '{$goods_cate}' && main2_display{$goods_display} = 1 ORDER BY main2_display{$goods_display}_sequence ASC  limit 10";
 				$mysql->query($sql);
 				
 				$ck = 0;
 				while($row = $mysql->fetch_array()){
+                    applyConsumerPriceForGuest($row, $is_member);
 					getGoodsInfo($row, "cate_goods_item", 1);			
 					$ck++;
 				}

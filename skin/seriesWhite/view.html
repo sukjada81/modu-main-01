@@ -1,691 +1,737 @@
-<div id="contents">	
-	<div class="empty50"></div>
-	
-	<form name="goodsForm" onsubmit="return false">
-	<input type='hidden' name='uid' value='{{uid}}' />
-	<input type='hidden' name='type' value='0' />
-	<input type='hidden' name='price' value='{{GOODS_PRICE}}' />
-	<input type='hidden' name='coupon_price' value='{{GOODS_COUPON_PRICE}}' />
-	<input type='hidden' name='qty_type' value='{{QTY_TYPE}}' />
-	<input type='hidden' name='save_qty' value='{{SAVE_QTY}}' />	
-	<input type='hidden' name='option_cnt' value='{{OPTION_CNT}}' />
-	<input type='hidden' name='coupon_down_yn' value='{{COUPON_DOWN_YN}}' />	
-	<input type='hidden' name='goods_price_ment' value='{{GOODS_PRICE_MENT}}' />
-	
-	<div class="goodsInfo">
-		<div class="goodsImage">
-			<div class="swiper-container">
-				<div class="swiper-wrapper">
-					<!-- DYNAMIC @loop_image@ -->
-					<div class="swiper-slide">
-						<img src="{{GOODS_IMAGE}}" title="{{GOODS_NAME}}" />						
-					</div>
-					<!-- DYNAMIC @loop_image@ -->
-				</div>
-				<!-- Add Arrows -->
-				<div class="swiper-button-next" style="display:none"><i class="xi-angle-right-thin xi-3x"></i></div>
-				<div class="swiper-button-prev" style="display:none"><i class="xi-angle-left-thin xi-3x"></i></div>
-				<!-- Add Pagination -->
-				<div class="swiper-pagination" style="position:relative; margin-top:20px"></div>
-			</div>
-			
-			<!-- DYNAMIC @is_image_swiper@ -->
-			<script>
-			<!--
+<div id="contents">
+    <div class="empty50"></div>
 
-				$(".goodsImage .swiper-container .swiper-button-next").show();
-				$(".goodsImage .swiper-container .swiper-button-prev").show();
-				 
-				var swiperImg = new Swiper('.goodsImage .swiper-container', {
-					loop: true,
-					navigation: {
-						nextEl: '.swiper-button-next',
-						prevEl: '.swiper-button-prev',
-					},
-					pagination: {
-						el: '.swiper-pagination',
-						clickable: true,
-					},
-					autoplay: {
-						delay: 3500,
-						disableOnInteraction: false,
-					},
-				});
+    <form name="goodsForm" onsubmit="return false">
+        <input type='hidden' name='uid' value='{{uid}}' />
+        <input type='hidden' name='type' value='0' />
+        <input type='hidden' name='price' value='{{GOODS_PRICE}}' />
+        <input type='hidden' name='coupon_price' value='{{GOODS_COUPON_PRICE}}' />
+        <input type='hidden' name='qty_type' value='{{QTY_TYPE}}' />
+        <input type='hidden' name='save_qty' value='{{SAVE_QTY}}' />
+        <input type='hidden' name='option_cnt' value='{{OPTION_CNT}}' />
+        <input type='hidden' name='coupon_down_yn' value='{{COUPON_DOWN_YN}}' />
+        <input type='hidden' name='goods_price_ment' value='{{GOODS_PRICE_MENT}}' />
 
-			//-->
-			</script>
-			<!-- DYNAMIC @is_image_swiper@ -->
-		</div>
+        <div class="goodsInfo">
+            <div class="goodsImage">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <!-- DYNAMIC @loop_image@ -->
+                        <div class="swiper-slide">
+                            <img src="{{GOODS_IMAGE}}" title="{{GOODS_NAME}}" />
+                        </div>
+                        <!-- DYNAMIC @loop_image@ -->
+                    </div>
+                    <!-- Add Arrows -->
+                    <div class="swiper-button-next" style="display:none"><i class="xi-angle-right-thin xi-3x"></i></div>
+                    <div class="swiper-button-prev" style="display:none"><i class="xi-angle-left-thin xi-3x"></i></div>
+                    <!-- Add Pagination -->
+                    <div class="swiper-pagination" style="position:relative; margin-top:20px"></div>
+                </div>
 
-		<div class="goodsDetail">
-			<div class="goods_icon">{{GOODS_ICON}}</div>
-			<div class="goods_name">{{GOODS_NAME_CODE_ABLE}}</div>
-			<!-- DYNAMIC @is_goods_detail@ -->
-			<div class="goods_detail">{{GOODS_DATAIL}}</div>
-			<!-- DYNAMIC @is_goods_detail@ -->
-			<div class="goods_price">
-				<span>{{GOODS_PRICE}}</span>원
-				<!-- DYNAMIC @is_goods_orig_price@ -->
-				&nbsp;&nbsp;&nbsp;&nbsp;<s class="size18 colorGray fontMontserrat">{{GOODS_ORIG_PRICE}}</s>
-				<b class="size14">({{GOODS_SALE_MSG}})</b>
-				<!-- DYNAMIC @is_goods_orig_price@ -->
-			</div>
-			<!-- DYNAMIC @is_coupon_price@ -->	
-			<div class="coupon_price"><span>{{GOODS_COUPON_PRICE}}</span>원</div>
-			<div class="coupon_down" data-cuid='{{COUPON_UID}}'><i class="xi-coupon xi-3x" style="width:20px; overflow:hidden;"></i><span>{{COUPON_MSG}} <i class="xi-download xi-x"></i></span></div>
-			<!-- DYNAMIC @is_coupon_price@ -->
-			<div class="empty20"></div>
-			<ul>
-				<!-- DYNAMIC @is_goods_consumer_price@ -->
-				<li>
-					<div>소비자가격</div>
-					<div><s>{{GOODS_CONSUMER_PRICE}}원</s></div>
-				</li>
-				<!-- DYNAMIC @is_goods_consumer_price@ -->
-			
-				<!-- DYNAMIC @is_goods_code@ -->
-				<li>
-					<div>상품코드</div>
-					<div>{{GOODS_CODE}}</div>
-				</li>
-				<!-- DYNAMIC @is_goods_code@ -->
-				<!-- DYNAMIC @is_goods_make@ -->
-				<li>
-					<div>제조사</div>
-					<div>{{GOODS_MAKE}}</div>
-				</li>
-				<!-- DYNAMIC @is_goods_make@ -->
-				<!-- DYNAMIC @is_goods_brand@ -->
-				<li>
-					<div>브랜드</div>
-					<div>{{GOODS_BRAND}}</div>
-				</li>
-				<!-- DYNAMIC @is_goods_brand@ -->
-				<!-- DYNAMIC @is_goods_model@ -->
-				<li>
-					<div>모델명</div>
-					<div>{{GOODS_MODEL}}</div>
-				</li>
-				<!-- DYNAMIC @is_goods_model@ -->	
-				<!-- DYNAMIC @is_goods_origin@ -->
-				<li>
-					<div>원산지</div>
-					<div>{{GOODS_ORIGIN}}</div>
-				</li>
-				<!-- DYNAMIC @is_goods_origin@ -->
-				<!-- DYNAMIC @loop_making_info@ -->
-				<li>
-					<div>{{making_name}}</div>
-					<div>{{making_value}}</div>
-				</li>
-				<!-- DYNAMIC @loop_making_info@ -->
-				<!-- DYNAMIC @is_goods_mileage@ -->
-				<li>
-					<div>적립혜택</div>					
-					<div>마일리지 <span>{{GOODS_MILEAGE}} %</span> 적립</div>					
-				</li>
-				<!-- DYNAMIC @is_goods_mileage@ -->
-				<li>
-					<div>배송비</div>
-					<div>{{DELIVERY_MESSAGE}}</div>
-				</li>	
-				<!-- DYNAMIC @is_add_delivery@ -->
-				<li>
-					<div>추가 배송비</div>
-					<div>
-						{{DELIVERY_ADD_MESSAGE}}
-					</div>
-				</li>	
-				<!-- DYNAMIC @is_add_delivery@ -->
-				<!-- DYNAMIC @is_limit_qty@ -->
-				<li style="height:20px">
-					<div>구매제한</div>
-					<div>
-						회원당 <strong>{{GOODS_LIMIT_QTY}}</strong>개까지 구매가능 합니다.(이전 주문 수량 포함)
-						<p class="empty5"></p>
-						주문가능 수량은 <strong>{{GOODS_ABLE_QTY}}</strong>개 입니다.				
-					</div>
-				</li>	
-				<!-- DYNAMIC @is_limit_qty@ -->
-				<li class="line"></li>
-			</ul>
+                <!-- DYNAMIC @is_image_swiper@ -->
+                <script>
+                    <!--
 
-			<!-- DYNAMIC @is_goods_option@ -->
-			<div class="empty20"></div>
-			<div class="optionList">
-				<!-- DYNAMIC @loop_option@ -->
-				<div class="optionBox">
-					<div class="option_title option_tnum{{k}}" data-num="{{k}}" data-name="{{OPTION_NAME}}">
-						<b class="option_name{{k}}">{{OPTION_NAME}}</b> <span><i class="xi-angle-down-thin xi-x"></i></span>						
-					</div>
-					
-					<div class="option_select option_snum{{k}}" data-num="{{k}}">
-						<!-- DYNAMIC @loop_option_value@ -->	
-						<div class="option_value {{option_soldout}}" data-value="{{OPTION_VALUE}}" data-info="{{OPTION_INFO}}">{{OPTION_VALUE}}</div>
-						<!-- DYNAMIC @loop_option_value@ -->						
-					</div>
-				</div>
-				<!-- DYNAMIC @loop_option@ -->				
-			</div>
-			<div class="option_list"></div>
-			<!-- DYNAMIC @is_goods_option@ -->
-			<!-- DYNAMIC @is_goods_default@ -->
-			<div class="empty20"></div>
-			<div class="option_list">
-				<div class="option_item clearfix">
-					<div class="option_item_name">단일상품</div>
-					<!-- DYNAMIC @is_qty_ment@ -->					
-					<div class="option_item_qty">재고수량 : {{SAVE_QTYS}}개 남음</div>
-					<!-- DYNAMIC @is_qty_ment@ -->
-					<div class="empty20"></div>
-					<div>
-						<div class="option_item_minus"><i class="xi-minus-thin xi-x"></i></div>
-						<div class="option_item_input"><input type="text" class="qty_ only_num" value="1" /></div>
-						<div class="option_item_plus"><i class="xi-plus-thin xi-x"></i></div>
-						<div class="option_item_coupon">COUPON</div>
-						<div class="option_item_price"><span class="option_price">{{GOODS_PRICE}}</span><span class="option_price_won">원</span></div>
-					</div>			
-				</div>			
-			</div>
-			<!-- DYNAMIC @is_goods_default@ -->
-			<div class="empty20"></div>
-			<div class="totalPrice">
-				총 금액 <span><b class="total_price">{{GOODS_PRICE}}</b><span class="total_price_won">원</span></span>
-			</div>
-			<div class="empty20"></div>
-			<p class="btn btnFavGoods2" style="margin-right:10px;"><i class="xi-heart-o xi-x btnFavGoods" title="찜하기"></i> <b class="favGoodsCnt size14 fontMontserrat">{{favGoodsCnt}}</b></p>
-			<!-- DYNAMIC @is_not_sold_out1@ -->
-			<button class="shineButton btnCart" style="width:200px;" type="button">장바구니</button>	
-			<button class="shineButtonBlack btnOrder" style="width:226px;margin-left:6px;" type="button">바로구매</button>	
-			<!-- DYNAMIC @is_not_sold_out1@ -->
-			<!-- DYNAMIC @is_sold_out1@ -->
-			<button class="shineButton" style="width:433px;" type="button">품절된 상품 입니다.</button>	
-			<!-- DYNAMIC @is_sold_out1@ -->
-			<!-- DYNAMIC @is_member_only1@ -->
-			<button class="shineButton" style="width:433px;" type="button">{{LIMIT_MSG}}</button>	
-			<!-- DYNAMIC @is_member_only1@ -->
-			
-			<!-- DYNAMIC @is_naver_pay@ -->
-			<div class="empty20"></div>
-			<div>
-				<script src="//pay.naver.com/customer/js/naverPayButton.js"></script>
-				<script>//<![CDATA[
-					naver.NaverPayButton.apply({
-					BUTTON_KEY:"{{naver_pay_key2}}", //네이버 페이에서 할당받은 버튼 KEY 를 입력하세요.
-					TYPE: "A", // 템플릿을 확인하시고 원하는 타입의 버튼을 선택
-					COLOR: 1, // 버튼의 색 설정
-					COUNT: 2, // 버튼 개수 설정. 구매하기 버튼(장바구니 페이지)만 있으면 1, 찜하기 버튼(상품 상세 페이지)과 함께 있으면 2 를 입력한다.
-					ENABLE: "{{naver_enable}}", // 품절등과 같은 이유에 따라 버튼을 비활성화할 필요가 있을 경우
-					BUY_BUTTON_HANDLER: {{naver_proc}}, // 구매하기 버튼 이벤트 Handler 함수 등록, 품절인 경우 not_buy_nc 함수 사용
-					BUY_BUTTON_LINK_URL:"", // 링크 주소 (필요한 경우만 사용)
-					WISHLIST_BUTTON_HANDLER:wishlist_nc, // 찜하기 버튼 이벤트 Handler 함수 등록
-					WISHLIST_BUTTON_LINK_URL:"php/naverGoodsWish.php?uid={{uid}}", // 찜하기 팝업 링크 주소
-					"":""
-					});
-				//]]></script>
-			</div>
-			<!-- DYNAMIC @is_naver_pay@ -->
-		</div>
-	</div>
-	</form>
+                    $(".goodsImage .swiper-container .swiper-button-next").show();
+                    $(".goodsImage .swiper-container .swiper-button-prev").show();
 
-	<div class="empty80"></div>
-	
-	<!-- DYNAMIC @is_related_goods@ -->
-	<div class="sub_title">함께보면 좋은상품</div>
-	<div class="empty20"></div>
-	<!-- DYNAMIC @loop_related_goods@ -->
-	<div class="goodsItemBox">
-		<div class="goodsItem goodsItem6">
-			<ul>				
-				<li>
-					<a href="{{LINK}}"><img src="{{IMAGE}}" alt="{{NAME}}" height="285" /></a>
-					<!-- DYNAMIC @is_soldout@ -->	
-					<span class="soldoutIcon">품절</span>
-					<!-- DYNAMIC @is_soldout@ -->	
-				</li>
-				<li><a href="{{LINK}}">{{NAME_CODE_ABLE}}</a></li>
-				<li>
-					<div>￦{{PRICE}}</div>
-					<!-- DYNAMIC @is_coupon@ -->	
-					<div class="couponIcon">쿠폰</div>						
-					<!-- DYNAMIC @is_coupon@ -->
-					<!-- DYNAMIC @is_sale@ -->	
-					<div class="salePrice">{{SALE}}%&nbsp;<i class="xi-arrow-down"></i></div>
-					<!-- DYNAMIC @is_sale@ -->
-					<!-- DYNAMIC @is_orig_price@ -->
-					<div class="origPrice"><s>{{ORIG_PRICE}}</s></div>
-					<!-- DYNAMIC @is_orig_price@ -->
-				</li>
-				<li>{{ICON}}</li>
-			</ul>
-		</div>
-	</div>
-	<!-- DYNAMIC @loop_related_goods@ -->
-	<!-- DYNAMIC @is_related_goods@ -->
+                    var swiperImg = new Swiper('.goodsImage .swiper-container', {
+                        loop: true,
+                        navigation: {
+                            nextEl: '.swiper-button-next',
+                            prevEl: '.swiper-button-prev',
+                        },
+                        pagination: {
+                            el: '.swiper-pagination',
+                            clickable: true,
+                        },
+                        autoplay: {
+                            delay: 3500,
+                            disableOnInteraction: false,
+                        },
+                    });
 
-	<!-- DYNAMIC @is_vendor_goods@ -->
-	<div class="sub_title">
-		이 판매자의 인기상품 
-		<span>
+                    //-->
+                </script>
+                <!-- DYNAMIC @is_image_swiper@ -->
+            </div>
+
+            <div class="goodsDetail">
+                <div class="goods_icon">{{GOODS_ICON}}</div>
+                <div class="goods_name">{{GOODS_NAME_CODE_ABLE}}</div>
+                <!-- DYNAMIC @is_goods_detail@ -->
+                <div class="goods_detail">{{GOODS_DATAIL}}</div>
+                <!-- DYNAMIC @is_goods_detail@ -->
+                <div class="goods_price">
+                    <span>{{GOODS_PRICE}}</span>원
+                    <!-- DYNAMIC @is_goods_orig_price@ -->
+                    &nbsp;&nbsp;&nbsp;&nbsp;<s class="size18 colorGray fontMontserrat">{{GOODS_ORIG_PRICE}}</s>
+                    <b class="size14">({{GOODS_SALE_MSG}})</b>
+                    <!-- DYNAMIC @is_goods_orig_price@ -->
+                </div>
+                <!-- DYNAMIC @is_coupon_price@ -->
+                <div class="coupon_price"><span>{{GOODS_COUPON_PRICE}}</span>원</div>
+                <div class="coupon_down" data-cuid='{{COUPON_UID}}'><i class="xi-coupon xi-3x" style="width:20px; overflow:hidden;"></i><span>{{COUPON_MSG}} <i class="xi-download xi-x"></i></span></div>
+                <!-- DYNAMIC @is_coupon_price@ -->
+                <div class="empty20"></div>
+                <ul>
+                    <!-- DYNAMIC @is_goods_consumer_price@ -->
+                    <li>
+                        <div>소비자가격</div>
+                        <div><s>{{GOODS_CONSUMER_PRICE}}원</s></div>
+                    </li>
+                    <!-- DYNAMIC @is_goods_consumer_price@ -->
+
+                    <!-- DYNAMIC @is_goods_code@ -->
+                    <li>
+                        <div>상품코드</div>
+                        <div>{{GOODS_CODE}}</div>
+                    </li>
+                    <!-- DYNAMIC @is_goods_code@ -->
+                    <!-- DYNAMIC @is_goods_make@ -->
+                    <li>
+                        <div>제조사</div>
+                        <div>{{GOODS_MAKE}}</div>
+                    </li>
+                    <!-- DYNAMIC @is_goods_make@ -->
+                    <!-- DYNAMIC @is_goods_brand@ -->
+                    <li>
+                        <div>브랜드</div>
+                        <div>{{GOODS_BRAND}}</div>
+                    </li>
+                    <!-- DYNAMIC @is_goods_brand@ -->
+                    <!-- DYNAMIC @is_goods_model@ -->
+                    <li>
+                        <div>모델명</div>
+                        <div>{{GOODS_MODEL}}</div>
+                    </li>
+                    <!-- DYNAMIC @is_goods_model@ -->
+                    <!-- DYNAMIC @is_goods_origin@ -->
+                    <li>
+                        <div>원산지</div>
+                        <div>{{GOODS_ORIGIN}}</div>
+                    </li>
+                    <!-- DYNAMIC @is_goods_origin@ -->
+                    <!-- DYNAMIC @loop_making_info@ -->
+                    <li>
+                        <div>{{making_name}}</div>
+                        <div>{{making_value}}</div>
+                    </li>
+                    <!-- DYNAMIC @loop_making_info@ -->
+                    <!-- DYNAMIC @is_goods_mileage@ -->
+                    <li>
+                        <div>적립혜택</div>
+                        <div>마일리지 <span>{{GOODS_MILEAGE}} %</span> 적립</div>
+                    </li>
+                    <!-- DYNAMIC @is_goods_mileage@ -->
+                    <li>
+                        <div>배송비</div>
+                        <div>{{DELIVERY_MESSAGE}}</div>
+                    </li>
+                    <!-- DYNAMIC @is_add_delivery@ -->
+                    <li>
+                        <div>추가 배송비</div>
+                        <div>
+                            {{DELIVERY_ADD_MESSAGE}}
+                        </div>
+                    </li>
+                    <!-- DYNAMIC @is_add_delivery@ -->
+                    <!-- DYNAMIC @is_limit_qty@ -->
+                    <li style="height:20px">
+                        <div>구매제한</div>
+                        <div>
+                            회원당 <strong>{{GOODS_LIMIT_QTY}}</strong>개까지 구매가능 합니다.(이전 주문 수량 포함)
+                            <p class="empty5"></p>
+                            주문가능 수량은 <strong>{{GOODS_ABLE_QTY}}</strong>개 입니다.
+                        </div>
+                    </li>
+                    <!-- DYNAMIC @is_limit_qty@ -->
+                    <li class="line"></li>
+                </ul>
+
+                <!-- DYNAMIC @is_goods_option@ -->
+                <div class="empty20"></div>
+                <div class="optionList">
+                    <!-- DYNAMIC @loop_option@ -->
+                    <div class="optionBox">
+                        <div class="option_title option_tnum{{k}}" data-num="{{k}}" data-name="{{OPTION_NAME}}">
+                            <b class="option_name{{k}}">{{OPTION_NAME}}</b> <span><i class="xi-angle-down-thin xi-x"></i></span>
+                        </div>
+
+                        <div class="option_select option_snum{{k}}" data-num="{{k}}">
+                            <!-- DYNAMIC @loop_option_value@ -->
+                            <div class="option_value {{option_soldout}}" data-value="{{OPTION_VALUE}}" data-info="{{OPTION_INFO}}">{{OPTION_VALUE}}</div>
+                            <!-- DYNAMIC @loop_option_value@ -->
+                        </div>
+                    </div>
+                    <!-- DYNAMIC @loop_option@ -->
+                </div>
+                <div class="option_list"></div>
+                <!-- DYNAMIC @is_goods_option@ -->
+                <!-- DYNAMIC @is_goods_default@ -->
+                <div class="empty20"></div>
+                <div class="option_list">
+                    <div class="option_item clearfix">
+                        <div class="option_item_name">단일상품</div>
+                        <!-- DYNAMIC @is_qty_ment@ -->
+                        <div class="option_item_qty">재고수량 : {{SAVE_QTYS}}개 남음</div>
+                        <!-- DYNAMIC @is_qty_ment@ -->
+                        <div class="empty20"></div>
+                        <div>
+                            <div class="option_item_minus"><i class="xi-minus-thin xi-x"></i></div>
+                            <div class="option_item_input"><input type="text" class="qty_ only_num" value="1" /></div>
+                            <div class="option_item_plus"><i class="xi-plus-thin xi-x"></i></div>
+                            <div class="option_item_coupon">COUPON</div>
+                            <div class="option_item_price"><span class="option_price">{{GOODS_PRICE}}</span><span class="option_price_won">원</span></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- DYNAMIC @is_goods_default@ -->
+                <div class="empty20"></div>
+                <div class="totalPrice">
+                    총 금액 <span><b class="total_price">{{GOODS_PRICE}}</b><span class="total_price_won">원</span></span>
+                </div>
+                <div class="empty20"></div>
+
+                <!-- 회원용 액션들(비회원일 때 JS로 숨김) -->
+                <p class="btn btnFavGoods2 memberOnlyActions" style="margin-right:10px;">
+                    <i class="xi-heart-o xi-x btnFavGoods" title="찜하기"></i>
+                    <b class="favGoodsCnt size14 fontMontserrat">{{favGoodsCnt}}</b>
+                </p>
+
+                <!-- DYNAMIC @is_not_sold_out1@ -->
+                <button class="shineButton btnCart memberOnlyActions" style="width:200px;" type="button">장바구니</button>
+                <button class="shineButtonBlack btnOrder memberOnlyActions" style="width:226px;margin-left:6px;" type="button">바로구매</button>
+                <!-- DYNAMIC @is_not_sold_out1@ -->
+                <!-- DYNAMIC @is_sold_out1@ -->
+                <button class="shineButton" style="width:433px;" type="button">품절된 상품 입니다.</button>
+                <!-- DYNAMIC @is_sold_out1@ -->
+                <!-- DYNAMIC @is_member_only1@ -->
+                <button class="shineButton" style="width:433px;" type="button">{{LIMIT_MSG}}</button>
+                <!-- DYNAMIC @is_member_only1@ -->
+
+                <!-- DYNAMIC @is_naver_pay@ -->
+                <div class="empty20"></div>
+                <div>
+                    <script src="//pay.naver.com/customer/js/naverPayButton.js"></script>
+                    <script>//<![CDATA[
+                    naver.NaverPayButton.apply({
+                        BUTTON_KEY:"{{naver_pay_key2}}", //네이버 페이에서 할당받은 버튼 KEY 를 입력하세요.
+                        TYPE: "A", // 템플릿을 확인하시고 원하는 타입의 버튼을 선택
+                        COLOR: 1, // 버튼의 색 설정
+                        COUNT: 2, // 버튼 개수 설정. 구매하기 버튼(장바구니 페이지)만 있으면 1, 찜하기 버튼(상품 상세 페이지)과 함께 있으면 2 를 입력한다.
+                        ENABLE: "{{naver_enable}}", // 품절등과 같은 이유에 따라 버튼을 비활성화할 필요가 있을 경우
+                        BUY_BUTTON_HANDLER: {{naver_proc}}, // 구매하기 버튼 이벤트 Handler 함수 등록, 품절인 경우 not_buy_nc 함수 사용
+                    BUY_BUTTON_LINK_URL:"", // 링크 주소 (필요한 경우만 사용)
+                        WISHLIST_BUTTON_HANDLER:wishlist_nc, // 찜하기 버튼 이벤트 Handler 함수 등록
+                        WISHLIST_BUTTON_LINK_URL:"php/naverGoodsWish.php?uid={{uid}}", // 찜하기 팝업 링크 주소
+                        "":""});
+                    //]]></script>
+                </div>
+                <!-- DYNAMIC @is_naver_pay@ -->
+            </div>
+        </div>
+    </form>
+
+    <div class="empty80"></div>
+
+    <!-- DYNAMIC @is_related_goods@ -->
+    <div class="sub_title">함께보면 좋은상품</div>
+    <div class="empty20"></div>
+    <!-- DYNAMIC @loop_related_goods@ -->
+    <div class="goodsItemBox">
+        <div class="goodsItem goodsItem6">
+            <ul>
+                <li>
+                    <a href="{{LINK}}"><img src="{{IMAGE}}" alt="{{NAME}}" height="285" /></a>
+                    <!-- DYNAMIC @is_soldout@ -->
+                    <span class="soldoutIcon">품절</span>
+                    <!-- DYNAMIC @is_soldout@ -->
+                </li>
+                <li><a href="{{LINK}}">{{NAME_CODE_ABLE}}</a></li>
+                <li>
+                    <div>￦{{PRICE}}</div>
+                    <!-- DYNAMIC @is_coupon@ -->
+                    <div class="couponIcon">쿠폰</div>
+                    <!-- DYNAMIC @is_coupon@ -->
+                    <!-- DYNAMIC @is_sale@ -->
+                    <div class="salePrice">{{SALE}}%&nbsp;<i class="xi-arrow-down"></i></div>
+                    <!-- DYNAMIC @is_sale@ -->
+                    <!-- DYNAMIC @is_orig_price@ -->
+                    <div class="origPrice"><s>{{ORIG_PRICE}}</s></div>
+                    <!-- DYNAMIC @is_orig_price@ -->
+                </li>
+                <li>{{ICON}}</li>
+            </ul>
+        </div>
+    </div>
+    <!-- DYNAMIC @loop_related_goods@ -->
+    <!-- DYNAMIC @is_related_goods@ -->
+
+    <!-- DYNAMIC @is_vendor_goods@ -->
+    <div class="sub_title">
+        이 판매자의 인기상품
+        <span>
 			<a href="{{Main}}?channel=store&vendor={{VENDOR}}"><i class="xi-shop xi-x"></i> {{STORE_NAME}}</a>
 			&nbsp;&nbsp;&nbsp;&nbsp;<i class="xi-heart-o xi-x btnFavStore cursorPoint" title="관심스토어등록"></i> <b class="favStoreCnt">{{FSTORE_CNT}}</b>
 		</span>
-	</div>
-	<div class="empty20"></div>
-	<!-- DYNAMIC @loop_vendor_goods@ -->
-	<div class="goodsItemBox">
-		<div class="goodsItem goodsItem6">
-			<ul>				
-				<li>
-					<a href="{{LINK}}"><img src="{{IMAGE}}" alt="{{NAME}}" height="285" /></a>
-					<!-- DYNAMIC @is_soldout2@ -->	
-					<span class="soldoutIcon">품절</span>
-					<!-- DYNAMIC @is_soldout2@ -->	
-				</li>
-				<li><a href="{{LINK}}">{{NAME_CODE_ABLE}}</a></li>
-				<li>
-					<div>￦{{PRICE}}</div>
-					<!-- DYNAMIC @is_coupon2@ -->	
-					<div class="couponIcon">쿠폰</div>						
-					<!-- DYNAMIC @is_coupon2@ -->
-					<!-- DYNAMIC @is_sale2@ -->	
-					<div class="salePrice">{{SALE}}%&nbsp;<i class="xi-arrow-down"></i></div>
-					<!-- DYNAMIC @is_sale2@ -->
-					<!-- DYNAMIC @is_orig_price2@ -->
-					<div class="origPrice"><s>{{ORIG_PRICE}}</s></div>
-					<!-- DYNAMIC @is_orig_price2@ -->
-				</li>
-				<li>{{ICON}}</li>
-			</ul>
-		</div>
-	</div>
-	<!-- DYNAMIC @loop_vendor_goods@ -->
-	<div class="empty1"></div>
-	<!-- DYNAMIC @is_vendor_goods@ -->
-	
-	<div class="goods_explain">
-		<div class="content_list">
-			<div class="contentMenu">
-				<ul>
-					<li class="contentMenuSub goods_explain1 selected" data-num="1">상품상세정보</li>
-					<li class="contentMenuSub goods_explain2" data-num="2">구매후기({{REVIEW_CNT}})</li>
-					<li class="contentMenuSub goods_explain3" data-num="3">상품문의({{INQUIRY_CNT}})</li>
-					<li class="contentMenuSub goods_explain4" data-num="4">배송/교환/반품</li>
-				</ul>				
-				<div class="contentBar left"></div>
-				<div class="contentBar right"></div>
-			</div>			
+    </div>
+    <div class="empty20"></div>
+    <!-- DYNAMIC @loop_vendor_goods@ -->
+    <div class="goodsItemBox">
+        <div class="goodsItem goodsItem6">
+            <ul>
+                <li>
+                    <a href="{{LINK}}"><img src="{{IMAGE}}" alt="{{NAME}}" height="285" /></a>
+                    <!-- DYNAMIC @is_soldout2@ -->
+                    <span class="soldoutIcon">품절</span>
+                    <!-- DYNAMIC @is_soldout2@ -->
+                </li>
+                <li><a href="{{LINK}}">{{NAME_CODE_ABLE}}</a></li>
+                <li>
+                    <div>￦{{PRICE}}</div>
+                    <!-- DYNAMIC @is_coupon2@ -->
+                    <div class="couponIcon">쿠폰</div>
+                    <!-- DYNAMIC @is_coupon2@ -->
+                    <!-- DYNAMIC @is_sale2@ -->
+                    <div class="salePrice">{{SALE}}%&nbsp;<i class="xi-arrow-down"></i></div>
+                    <!-- DYNAMIC @is_sale2@ -->
+                    <!-- DYNAMIC @is_orig_price2@ -->
+                    <div class="origPrice"><s>{{ORIG_PRICE}}</s></div>
+                    <!-- DYNAMIC @is_orig_price2@ -->
+                </li>
+                <li>{{ICON}}</li>
+            </ul>
+        </div>
+    </div>
+    <!-- DYNAMIC @loop_vendor_goods@ -->
+    <div class="empty1"></div>
+    <!-- DYNAMIC @is_vendor_goods@ -->
 
-			<script>
-				$('.contentMenu .contentMenuSub').hover(function(e){		
-					if(!$(this).hasClass('selected')) {
-						var left = $(this).position().left;
-						var right = parseInt(left + parseInt($(this).css('width'))) + 2; 
+    <div class="goods_explain">
+        <div class="content_list">
+            <div class="contentMenu">
+                <ul>
+                    <li class="contentMenuSub goods_explain1 selected" data-num="1">상품상세정보</li>
+                    <li class="contentMenuSub goods_explain2" data-num="2">구매후기({{REVIEW_CNT}})</li>
+                    <li class="contentMenuSub goods_explain3" data-num="3">상품문의({{INQUIRY_CNT}})</li>
+                    <li class="contentMenuSub goods_explain4" data-num="4">배송/교환/반품</li>
+                </ul>
+                <div class="contentBar left"></div>
+                <div class="contentBar right"></div>
+            </div>
 
-						$(".contentMenu .left").css({left:left}).show();
-						$(".contentMenu .right").css({left:right}).show();
-					}
-				}, 
-				function() {
-					$(".contentMenu .left").hide();
-					$(".contentMenu .right").hide();
-				});
+            <script>
+                $('.contentMenu .contentMenuSub').hover(function(e){
+                        if(!$(this).hasClass('selected')) {
+                            var left = $(this).position().left;
+                            var right = parseInt(left + parseInt($(this).css('width'))) + 2;
 
-				$('.contentMenu .contentMenuSub').click(function(e){
-					var num =$(this).attr('data-num');
-					var top = $(".goods_explain_0" + num).offset().top - 80;
-					
-					$('.contentMenu .contentMenuSub').removeClass("selected");
-					$(this).addClass("selected");
+                            $(".contentMenu .left").css({left:left}).show();
+                            $(".contentMenu .right").css({left:right}).show();
+                        }
+                    },
+                    function() {
+                        $(".contentMenu .left").hide();
+                        $(".contentMenu .right").hide();
+                    });
 
-					$("html, body").animate({ scrollTop: top }, 100);
-				});
-				
-			</script>
-		</div>
+                $('.contentMenu .contentMenuSub').click(function(e){
+                    var num =$(this).attr('data-num');
+                    var top = $(".goods_explain_0" + num).offset().top - 80;
 
-		<div class="contentEmpty"></div>
+                    $('.contentMenu .contentMenuSub').removeClass("selected");
+                    $(this).addClass("selected");
 
-		<div class="goods_explain_01">
-			<div class="empty30"></div>
-			<div class="sub_title">상품상세정보</div>
-			<div class="fontSCDream">{{GOODS_EXPLAINS}}</div>
-			<div class="empty30"></div>
-			<div>
-				<table style="border-bottom:1px solid #ccc; width:100%">			
-				<col width="22%" /> 
-				<col width="78%" /> 
-				<tbody>
-				<!-- DYNAMIC @loop_require_info@ -->
-				<tr>
-					<td class="tdType1">{{require_name}}</td>
-					<td class="tdType2">{{require_value}}</td>
-				</tr>
-				<!-- DYNAMIC @loop_require_info@ -->
-				</tbody>
-				</table>
-			</div>
-			<div class="empty1"></div>
-		</div>
-		
-		<div class="empty50"></div>
-		<div class="goods_explain_02">
-			<div class="empty30"></div>
-			<div class="sub_title">구매후기({{REVIEW_CNT}})</div>
-			<div class="empty20"></div>
-			<div class="reviewInfo">					
-				<div class="leftBox">
-					<div class="starsBg"><i class="xi-star-o xi-2x"></i><i class="xi-star-o xi-2x"></i><i class="xi-star-o xi-2x"></i><i class="xi-star-o xi-2x"></i><i class="xi-star-o xi-2x"></i></div>
-					<div class="starsCntBg" style="width:120px; overflow:hidden;">
-						<div class="starsCnt"><i class="xi-star xi-2x"></i><i class="xi-star xi-2x"></i><i class="xi-star xi-2x"></i><i class="xi-star xi-2x"></i><i class="xi-star xi-2x"></i></div>
-					</div>
-					<div class="star">{{STARSALL}}</div>
-				</div>
-				<div class="rightBox">
-					<div>
-						<div class="stars">5점</div> <div class="per_line"><div class="per_line_bar" data-per="{{WIDTH5}}"> </div></div> <div class="star_cnt">{{STARS5}}</div>
-					</div>
-					<div class="rightBox2">
-						<div class="stars">4점</div> <div class="per_line"><div class="per_line_bar" data-per="{{WIDTH4}}"> </div></div> <div class="star_cnt">{{STARS4}}</div>
-					</div>
-					<div class="rightBox2">
-						<div class="stars">3점</div> <div class="per_line"><div class="per_line_bar" data-per="{{WIDTH3}}"> </div></div> <div class="star_cnt">{{STARS3}}</div>
-					</div>
-					<div class="rightBox2">
-						<div class="stars">2점</div> <div class="per_line"><div class="per_line_bar" data-per="{{WIDTH2}}"> </div></div> <div class="star_cnt">{{STARS2}}</div>
-					</div>
-					<div class="rightBox2">
-						<div class="stars">1점</div> <div class="per_line"><div class="per_line_bar" data-per="{{WIDTH1}}"> </div></div> <div class="star_cnt">{{STARS1}}</div>
-					</div>
-				</div>
+                    $("html, body").animate({ scrollTop: top }, 100);
+                });
+            </script>
+        </div>
 
-				<script>
-				<!--
-					var starsPer	= "{{STARSPER}}";
-					var starsWidth	= ((120 * starsPer) / 100);
-					$(".starsCntBg").css("width", starsWidth);				
+        <div class="contentEmpty"></div>
 
-				//-->
-				</script>
-			</div>		
-			<div class="empty20"></div>
-			<div class="review">
-				<div id="listArea"></div>
-				<!-- DYNAMIC @is_review_empty@ -->
-				<div class="emptyListView fontSCDream weight300">등록된 구매후기가 없습니다.</div>
-				<!-- DYNAMIC @is_review_empty@ -->
-			</div>
-			<div class="empty20"></div>
-			<div class="paging"></div>
-			<div class="empty1"></div>
-		</div>
+        <div class="goods_explain_01">
+            <div class="empty30"></div>
+            <div class="sub_title">상품상세정보</div>
+            <div class="fontSCDream">{{GOODS_EXPLAINS}}</div>
+            <div class="empty30"></div>
+            <div>
+                <table style="border-bottom:1px solid #ccc; width:100%">
+                    <col width="22%" />
+                    <col width="78%" />
+                    <tbody>
+                    <!-- DYNAMIC @loop_require_info@ -->
+                    <tr>
+                        <td class="tdType1">{{require_name}}</td>
+                        <td class="tdType2">{{require_value}}</td>
+                    </tr>
+                    <!-- DYNAMIC @loop_require_info@ -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="empty1"></div>
+        </div>
 
-		<div class="empty30"></div>
-		<div class="goods_explain_03">
-			<div class="empty30"></div>
-			<div class="sub_title">상품문의({{INQUIRY_CNT}})</div>
-			<div class="content_list2">
-				<div id="listArea2"></div>
-				<!-- DYNAMIC @is_inquiry_empty@ -->
-				<div class="emptyListView fontSCDream weight300">등록된 상품문의가 없습니다.</div>
-				<!-- DYNAMIC @is_inquiry_empty@ -->
-			</div>
-			<div class="empty20"></div>
-			<div class="content_list2">
-				<div class="listBtn">
-					<button class="graButton btnLWrite2" style="width:100px" type="button"><span class="text"><i class="xi-document xi-x"></i>상품문의</span></button>		
-				</div>
-			</div>
-			<div class="paging2"></div>
-			<div class="empty1"></div>
-		</div>
+        <div class="empty50"></div>
+        <div class="goods_explain_02">
+            <div class="empty30"></div>
+            <div class="sub_title">구매후기({{REVIEW_CNT}})</div>
+            <div class="empty20"></div>
+            <div class="reviewInfo">
+                <div class="leftBox">
+                    <div class="starsBg"><i class="xi-star-o xi-2x"></i><i class="xi-star-o xi-2x"></i><i class="xi-star-o xi-2x"></i><i class="xi-star-o xi-2x"></i><i class="xi-star-o xi-2x"></i></div>
+                    <div class="starsCntBg" style="width:120px; overflow:hidden;">
+                        <div class="starsCnt"><i class="xi-star xi-2x"></i><i class="xi-star xi-2x"></i><i class="xi-star xi-2x"></i><i class="xi-star xi-2x"></i><i class="xi-star xi-2x"></i></div>
+                    </div>
+                    <div class="star">{{STARSALL}}</div>
+                </div>
+                <div class="rightBox">
+                    <div>
+                        <div class="stars">5점</div> <div class="per_line"><div class="per_line_bar" data-per="{{WIDTH5}}"> </div></div> <div class="star_cnt">{{STARS5}}</div>
+                    </div>
+                    <div class="rightBox2">
+                        <div class="stars">4점</div> <div class="per_line"><div class="per_line_bar" data-per="{{WIDTH4}}"> </div></div> <div class="star_cnt">{{STARS4}}</div>
+                    </div>
+                    <div class="rightBox2">
+                        <div class="stars">3점</div> <div class="per_line"><div class="per_line_bar" data-per="{{WIDTH3}}"> </div></div> <div class="star_cnt">{{STARS3}}</div>
+                    </div>
+                    <div class="rightBox2">
+                        <div class="stars">2점</div> <div class="per_line"><div class="per_line_bar" data-per="{{WIDTH2}}"> </div></div> <div class="star_cnt">{{STARS2}}</div>
+                    </div>
+                    <div class="rightBox2">
+                        <div class="stars">1점</div> <div class="per_line"><div class="per_line_bar" data-per="{{WIDTH1}}"> </div></div> <div class="star_cnt">{{STARS1}}</div>
+                    </div>
+                </div>
 
-		<div class="empty30"></div>
-		<div class="goods_explain_04">
-			<div class="empty30"></div>
-			<div class="sub_title">배송/환불/교환 안내</div>
-			<div class="empty20"></div>
-			<div class="info_box">
-				<div><i class="xi-truck xi-x"></i> 배송 안내</div>
-				<div class="empty20"></div>
-				<div>{{GOODE_DELIVERY_INFO}}</div>
-				<div class="empty20"></div>
-			</div>
-			<div class="empty20"></div>
-			<div class="info_box">
-				<div><i class="xi-won xi-x"></i> 환불 안내</div>
-				<div class="empty20"></div>
-				<div>{{GOODE_REFUND_INFO}}</div>
-				<div class="empty20"></div>
-			</div>
-			<div class="empty20"></div>
-			<div class="info_box">
-				<div><i class="xi-exchange xi-x"></i> 교환/반품 안내</div>
-				<div class="empty20"></div>
-				<div>{{GOODE_EXCHANGE_INFO}}</div>
-				<div class="empty20"></div>
-			</div>
-			<div class="empty20"></div>
-			<div class="info_box">
-				<div><i class="xi-headset xi-x"></i> A/S 안내</div>
-				<div class="empty20"></div>
-				<div>{{GOODE_AS_INFO}}</div>
-				<div class="empty20"></div>
-			</div>
-			<div class="empty1"></div>
-		</div>
-	</div>
+                <script>
+                    <!--
+                    var starsPer	= "{{STARSPER}}";
+                    var starsWidth	= ((120 * starsPer) / 100);
+                    $(".starsCntBg").css("width", starsWidth);
+                    //-->
+                </script>
+            </div>
+            <div class="empty20"></div>
+            <div class="review">
+                <div id="listArea"></div>
+                <!-- DYNAMIC @is_review_empty@ -->
+                <div class="emptyListView fontSCDream weight300">등록된 구매후기가 없습니다.</div>
+                <!-- DYNAMIC @is_review_empty@ -->
+            </div>
+            <div class="empty20"></div>
+            <div class="paging"></div>
+            <div class="empty1"></div>
+        </div>
 
-	<div class="goods_fixed">
-		<div class="optionListFix"></div>
-		<div class="option_list"></div>
-		<div class="empty20"></div>
-		<div class="totalPrice">
-			총 금액 <span><b class="total_price">{{GOODS_PRICE}}</b><span class="total_price_won">원</span></span>
-		</div>
-		<div class="empty20"></div>
-		<p class="btn btnFavGoods2" style="margin-right:10px;"><i class="xi-heart-o xi-x btnFavGoods" title="찜하기"></i> <b class="favGoodsCnt size14 fontMontserrat">{{favGoodsCnt}}</b></p>
-		<!-- DYNAMIC @is_not_sold_out2@ -->
-		<button class="shineButton btnCart" style="width:190px;" type="button">장바구니</button>	
-		<button class="shineButtonBlack btnOrder" style="width:300px;margin-top:10px;" type="button">바로구매</button>	
-		<!-- DYNAMIC @is_not_sold_out2@ -->
-		<!-- DYNAMIC @is_sold_out2@ -->
-		<button class="shineButton" style="width:190px;" type="button">품절된 상품 입니다.</button>	
-		<!-- DYNAMIC @is_sold_out2@ -->
-		<!-- DYNAMIC @is_member_only2@ -->
-		<button class="shineButton" style="width:190px;" type="button">{{LIMIT_MSG}}</button>	
-		<!-- DYNAMIC @is_member_only2@ -->
-	</div>
-	
-</div>	
+        <div class="empty30"></div>
+        <div class="goods_explain_03">
+            <div class="empty30"></div>
+            <div class="sub_title">상품문의({{INQUIRY_CNT}})</div>
+            <div class="content_list2">
+                <div id="listArea2"></div>
+                <!-- DYNAMIC @is_inquiry_empty@ -->
+                <div class="emptyListView fontSCDream weight300">등록된 상품문의가 없습니다.</div>
+                <!-- DYNAMIC @is_inquiry_empty@ -->
+            </div>
+            <div class="empty20"></div>
+            <div class="content_list2">
+                <div class="listBtn">
+                    <button class="graButton btnLWrite2" style="width:100px" type="button"><span class="text"><i class="xi-document xi-x"></i>상품문의</span></button>
+                </div>
+            </div>
+            <div class="paging2"></div>
+            <div class="empty1"></div>
+        </div>
+
+        <div class="empty30"></div>
+        <div class="goods_explain_04">
+            <div class="empty30"></div>
+            <div class="sub_title">배송/환불/교환 안내</div>
+            <div class="empty20"></div>
+            <div class="info_box">
+                <div><i class="xi-truck xi-x"></i> 배송 안내</div>
+                <div class="empty20"></div>
+                <div>{{GOODE_DELIVERY_INFO}}</div>
+                <div class="empty20"></div>
+            </div>
+            <div class="empty20"></div>
+            <div class="info_box">
+                <div><i class="xi-won xi-x"></i> 환불 안내</div>
+                <div class="empty20"></div>
+                <div>{{GOODE_REFUND_INFO}}</div>
+                <div class="empty20"></div>
+            </div>
+            <div class="empty20"></div>
+            <div class="info_box">
+                <div><i class="xi-exchange xi-x"></i> 교환/반품 안내</div>
+                <div class="empty20"></div>
+                <div>{{GOODE_EXCHANGE_INFO}}</div>
+                <div class="empty20"></div>
+            </div>
+            <div class="empty20"></div>
+            <div class="info_box">
+                <div><i class="xi-headset xi-x"></i> A/S 안내</div>
+                <div class="empty20"></div>
+                <div>{{GOODE_AS_INFO}}</div>
+                <div class="empty20"></div>
+            </div>
+            <div class="empty1"></div>
+        </div>
+    </div>
+
+    <div class="goods_fixed">
+        <div class="optionListFix"></div>
+        <div class="option_list"></div>
+        <div class="empty20"></div>
+        <div class="totalPrice">
+            총 금액 <span><b class="total_price">{{GOODS_PRICE}}</b><span class="total_price_won">원</span></span>
+        </div>
+        <div class="empty20"></div>
+
+        <!-- 회원용 액션들(비회원일 때 JS로 숨김) -->
+        <p class="btn btnFavGoods2 memberOnlyActions" style="margin-right:10px;">
+            <i class="xi-heart-o xi-x btnFavGoods" title="찜하기"></i>
+            <b class="favGoodsCnt size14 fontMontserrat">{{favGoodsCnt}}</b>
+        </p>
+
+        <!-- DYNAMIC @is_not_sold_out2@ -->
+        <button class="shineButton btnCart memberOnlyActions" style="width:190px;" type="button">장바구니</button>
+        <button class="shineButtonBlack btnOrder memberOnlyActions" style="width:300px;margin-top:10px;" type="button">바로구매</button>
+        <!-- DYNAMIC @is_not_sold_out2@ -->
+        <!-- DYNAMIC @is_sold_out2@ -->
+        <button class="shineButton" style="width:190px;" type="button">품절된 상품 입니다.</button>
+        <!-- DYNAMIC @is_sold_out2@ -->
+        <!-- DYNAMIC @is_member_only2@ -->
+        <button class="shineButton" style="width:190px;" type="button">{{LIMIT_MSG}}</button>
+        <!-- DYNAMIC @is_member_only2@ -->
+    </div>
+</div>
 
 <div class="empty50"></div>
 
 <script src="lib/jquery.timeliny.js?ver={{ver}}"></script>
 
 <script>
-<!--
-	
-	$(".optionListFix").html($(".optionList").html());
-	var optionFixHeight = parseInt(innerHeight) - parseInt($(".optionListFix").css('height')) - 350;
-	$(".goods_fixed .option_list").css("height", optionFixHeight);
+    <!--
+    $(".optionListFix").html($(".optionList").html());
+    var optionFixHeight = parseInt(innerHeight) - parseInt($(".optionListFix").css('height')) - 350;
+    $(".goods_fixed .option_list").css("height", optionFixHeight);
 
-	var goods_explain_pos	= new Array();
-	var menuPositionTop		= $(".content_list").offset().top - 60;
-	var fixdPositionLeft	= $('.goods_fixed').position().left + 1;
-	var fixdPositionTop		= $('.goods_fixed').position().top + $('#contents').position().top + 80;
-	var fixdPositionbottom	= 0;
-	var favGoodsSelect		= '{{favGoodsSelect}}';
-	var favStoreSelect		= '{{favStoreSelect}}';
-	var goods_limit_qty		= '{{GOODS_LIMIT_QTY}}';
-	var goods_able_qty		= '{{GOODS_ABLE_QTY}}';
-	var isLogin				= 1;
-	<!-- DYNAMIC @is_login@ -->
-	isLogin					= 0;
-	<!-- DYNAMIC @is_login@ -->
-	
-	<!-- DYNAMIC @is_review_list@ -->
-	var defaultUrl		= "{{Main}}?channel=view_review&g_uid={{uid}}";
-	var sort			= "uid DESC";
-	var limit			= "10";
-	var page			= "1";
-	var pagingType		= '1';
-	var lastPage		= '{{lastPage}}';
-	var listReset		= 1;
+    var goods_explain_pos	= new Array();
+    var menuPositionTop		= $(".content_list").offset().top - 60;
+    var fixdPositionLeft	= $('.goods_fixed').position().left + 1;
+    var fixdPositionTop		= $('.goods_fixed').position().top + $('#contents').position().top + 80;
+    var fixdPositionbottom	= 0;
+    var favGoodsSelect		= '{{favGoodsSelect}}';
+    var favStoreSelect		= '{{favStoreSelect}}';
+    var goods_limit_qty		= '{{GOODS_LIMIT_QTY}}';
+    var goods_able_qty		= '{{GOODS_ABLE_QTY}}';
 
-	$('.paging').timeliny({page: page, lastPage: lastPage, boundaries:'100', url: defaultUrl + '&sort=' + sort + '&limit=' + limit, listReset:listReset});	
-	<!-- DYNAMIC @is_review_list@ -->
-	<!-- DYNAMIC @is_review_empty2@ -->
-	$('.paging').hide();
-	<!-- DYNAMIC @is_review_empty2@ -->
+    // 로그인 상태 변수 (원본 유지)
+    var isLogin				= 1;
+    <!-- DYNAMIC @is_login@ -->
+    isLogin					= 0;
+    <!-- DYNAMIC @is_login@ -->
 
-	<!-- DYNAMIC @is_inquiry_list@ -->
-	var defaultUrl		= "{{Main}}?channel=view_inquiry&g_uid={{uid}}";
-	var sort			= "uid DESC";
-	var limit			= "10";
-	var page			= "1";
-	var pagingType		= '1';
-	var lastPage		= '{{lastPage2}}';
-	var listReset		= 1;	
+    <!-- DYNAMIC @is_review_list@ -->
+    var defaultUrl		= "{{Main}}?channel=view_review&g_uid={{uid}}";
+    var sort			= "uid DESC";
+    var limit			= "10";
+    var page			= "1";
+    var pagingType		= '1';
+    var lastPage		= '{{lastPage}}';
+    var listReset		= 1;
 
-	$('.paging2').timeliny({page: page, lastPage: lastPage, boundaries:'100', url: defaultUrl + '&sort=' + sort + '&limit=' + limit, listReset:listReset, listArea:'listArea2'});	
+    $('.paging').timeliny({page: page, lastPage: lastPage, boundaries:'100', url: defaultUrl + '&sort=' + sort + '&limit=' + limit, listReset:listReset});
+    <!-- DYNAMIC @is_review_list@ -->
+    <!-- DYNAMIC @is_review_empty2@ -->
+    $('.paging').hide();
+    <!-- DYNAMIC @is_review_empty2@ -->
 
-	var showAbleUid	= '';
-	function showContent(num) {
-		alertify.closeAll('iframeDialog');
+    <!-- DYNAMIC @is_inquiry_list@ -->
+    var defaultUrl		= "{{Main}}?channel=view_inquiry&g_uid={{uid}}";
+    var sort			= "uid DESC";
+    var limit			= "10";
+    var page			= "1";
+    var pagingType		= '1';
+    var lastPage		= '{{lastPage2}}';
+    var listReset		= 1;
 
-		if($(".content" + num).css('display') == 'none') {				
-			$(".content" + num).slideDown("fast");
-		}
-		else {
-			$(".content" + num).slideUp("fast");
-		}
+    $('.paging2').timeliny({page: page, lastPage: lastPage, boundaries:'100', url: defaultUrl + '&sort=' + sort + '&limit=' + limit, listReset:listReset, listArea:'listArea2'});
 
-		showAbleUid = num;
-	}	
-	<!-- DYNAMIC @is_inquiry_list@ -->
-	<!-- DYNAMIC @is_inquiry_empty2@ -->
-	$('.paging2').hide();
-	<!-- DYNAMIC @is_inquiry_empty2@ -->
+    var showAbleUid	= '';
+    function showContent(num) {
+        alertify.closeAll('iframeDialog');
 
-	function timelinyResetCallBack() {
-		
-		$('.review').find('.image').click(function(e) {	
-			var uid = $(this).attr("data-uid");
-			iframeWidth = '950px';
-			iframeHeight = '.70';
-			iframeView("php/popup_review_view.php?uid=" + uid, "구매후기");			
-		});			
+        if($(".content" + num).css('display') == 'none') {
+            $(".content" + num).slideDown("fast");
+        }
+        else {
+            $(".content" + num).slideUp("fast");
+        }
 
-		$('.content_list2').find('.listSubject').click(function(e) {	
-			var uid		= $(this).attr("data-uid");
-			var secret	= $(this).attr("data-secret");
-			
-			if(secret == 2) return;
-			else if(secret == 1 && showAbleUid != uid) {				
-				iframeWidth = '500px';
-				iframeHeight = '.45';
-				iframeView("php/popup_passwd.php?uid=" + uid, "비밀번호 확인");
-			}
-			else {
-				var num = $(this).attr("data-num");
-				if($(".content" + num).css('display') == 'none') {				
-					$(".content" + num).slideDown("fast");
-				}
-				else {
-					$(".content" + num).slideUp("fast");
-				}
-			}		
-		});	
-	}
+        showAbleUid = num;
+    }
+    <!-- DYNAMIC @is_inquiry_list@ -->
+    <!-- DYNAMIC @is_inquiry_empty2@ -->
+    $('.paging2').hide();
+    <!-- DYNAMIC @is_inquiry_empty2@ -->
 
-	function animationLine() {
-		$('.per_line_bar').each(function(i) {
-			$(this).css({width: 0});
-			per = $(this).attr('data-per') + '%';
-			$(this).stop().animate({width: per});
-		});	
-	}
+    function timelinyResetCallBack() {
 
-	function reset_pos() {
-		$('.contentMenu .contentMenuSub').each(function(i){
-			var num =$(this).attr('data-num');					
-			goods_explain_pos[num] = parseInt($(".goods_explain_0" + num).offset().top);			
-		});
-		fixdPositionbottom	= $('#footer').position().top - 78;		
-	}
+        $('.review').find('.image').click(function(e) {
+            var uid = $(this).attr("data-uid");
+            iframeWidth = '950px';
+            iframeHeight = '.70';
+            iframeView("php/popup_review_view.php?uid=" + uid, "구매후기");
+        });
 
-	$(function() {
+        $('.content_list2').find('.listSubject').click(function(e) {
+            var uid		= $(this).attr("data-uid");
+            var secret	= $(this).attr("data-secret");
 
-		if($("form[name=goodsForm] input[name=goods_price_ment]").val()) {
-			$(".goods_price").html($("form[name=goodsForm] input[name=goods_price_ment]").val());
-			$(".total_price_won").hide();
-			$(".option_price_won").hide();
-		}
+            if(secret == 2) return;
+            else if(secret == 1 && showAbleUid != uid) {
+                iframeWidth = '500px';
+                iframeHeight = '.45';
+                iframeView("php/popup_passwd.php?uid=" + uid, "비밀번호 확인");
+            }
+            else {
+                var num = $(this).attr("data-num");
+                if($(".content" + num).css('display') == 'none') {
+                    $(".content" + num).slideDown("fast");
+                }
+                else {
+                    $(".content" + num).slideUp("fast");
+                }
+            }
+        });
+    }
 
-		if($("form[name=goodsForm] input[name='coupon_down_yn']").val() == '1') {
-			couponDownOk();
-			$('.total_price').html('{{GOODS_COUPON_PRICE}}');
-		}
+    function animationLine() {
+        $('.per_line_bar').each(function(i) {
+            $(this).css({width: 0});
+            per = $(this).attr('data-per') + '%';
+            $(this).stop().animate({width: per});
+        });
+    }
 
-		$(".goods_explain_01").find('img').each(function(i) {
-			var width = parseInt($(this).css("width"));
-			if(width > 880) $(this).css({'width':880});
-		});
+    function reset_pos() {
+        $('.contentMenu .contentMenuSub').each(function(i){
+            var num =$(this).attr('data-num');
+            goods_explain_pos[num] = parseInt($(".goods_explain_0" + num).offset().top);
+        });
+        fixdPositionbottom	= $('#footer').position().top - 78;
+    }
 
-		$('.btnLWrite2').click(function(e) {	
-			<!-- DYNAMIC @is_inquiry_write@ -->
-			if(isLogin == 0) {
-				window.location.href = "{{Main}}?channel=login&channel2=view&uid={{uid}}";
-				return;
-			}
-			<!-- DYNAMIC @is_inquiry_write@ -->
-			iframeWidth = '850px';
-			iframeHeight = '.85';
-			iframeView("php/popup_inquiry_write.php?uid={{uid}}", "상품문의 등록");
-		});	
-		
-		fixdPositionbottom	= $('#footer').position().top + 30;
+    // 비회원/회원 버튼 강제 토글 + 비회원 버튼 생성
+    function applyLoginGate() {
+        if (typeof isLogin !== "undefined" && isLogin == 0) {
+            $(".memberOnlyActions").hide();
 
-		$('.contentMenu .contentMenuSub').each(function(i){
-			var num =$(this).attr('data-num');					
-			goods_explain_pos[num] = $(".goods_explain_0" + num).offset().top;										
-		});	
-		
-		$('.btnFavGoods2').click(function() {		
-			if(isLogin == 0) {
-				window.location.href = "{{Main}}?channel=login&channel2=view&uid={{uid}}";
-				return;
-			}
-			addFavoriteGoods('{{uid}}');
-		});
+            // 비회원 버튼이 없다면 생성(일반 영역/하단 고정 둘 다)
+            if ($(".btnLoginToBuy").length === 0) {
+                var btnHtml1 = '<button class="shineButtonBlack btnLoginToBuy" style="width:433px;" type="button">로그인하고 구매하기</button>';
+                var btnHtml2 = '<button class="shineButtonBlack btnLoginToBuy" style="width:433px;margin-top:10px;" type="button">로그인하고 구매하기</button>';
 
-		$('.btnFavStore').click(function() {		
-			if(isLogin == 0) {
-				window.location.href = "{{Main}}?channel=login&channel2=view&uid={{uid}}";
-				return;
-			}
-			addFavoriteStore('{{VENDOR}}');
-		});
+                // 일반 영역(상단 버튼 라인)
+                var $anchor1 = $(".goodsDetail").find(".btnOrder.memberOnlyActions").first();
+                if ($anchor1.length) $anchor1.after(btnHtml1);
 
-		animationLine();
+                // 하단 고정 영역
+                var $anchor2 = $(".goods_fixed").find(".btnOrder.memberOnlyActions").first();
+                if ($anchor2.length) $anchor2.after(btnHtml2);
+            }
+        } else {
+            $(".btnLoginToBuy").remove();
+            $(".memberOnlyActions").show();
+        }
+    }
 
-		setTimeout(reset_pos, 1000);
+    $(function() {
 
-	});
+        // 먼저 강제로 토글 적용
+        applyLoginGate();
 
-	$(window).resize(function(){ 
-		optionFixHeight = parseInt(innerHeight) - parseInt($(".optionListFix").css('height')) - 350;
-		$(".goods_fixed .option_list").css("height", optionFixHeight);
+        // 비회원 버튼 클릭
+        $(document).off("click.btnLoginToBuy").on("click.btnLoginToBuy", ".btnLoginToBuy", function () {
+            alertify.alert("로그인이 필요한 서비스입니다.", function () {
+                window.location.href = "{{Main}}?channel=login&channel2=view&uid={{uid}}";
+            });
+        });
 
-		if($('.goods_fixed').css("position") == "fixed") {
-			left = parseInt($('#contents').css('margin-left')) + fixdPositionLeft;
-			$('.goods_fixed').css("left", left);
-		}
-	});
+        // (혹시 다른 스크립트가 DOM을 건드리면 1번 더 보정)
+        setTimeout(applyLoginGate, 200);
 
-// -->
+        if($("form[name=goodsForm] input[name=goods_price_ment]").val()) {
+            $(".goods_price").html($("form[name=goodsForm] input[name=goods_price_ment]").val());
+            $(".total_price_won").hide();
+            $(".option_price_won").hide();
+        }
+
+        if($("form[name=goodsForm] input[name='coupon_down_yn']").val() == '1') {
+            couponDownOk();
+            $('.total_price').html('{{GOODS_COUPON_PRICE}}');
+        }
+
+        $(".goods_explain_01").find('img').each(function(i) {
+            var width = parseInt($(this).css("width"));
+            if(width > 880) $(this).css({'width':880});
+        });
+
+        $('.btnLWrite2').click(function(e) {
+            <!-- DYNAMIC @is_inquiry_write@ -->
+            if(isLogin == 0) {
+                window.location.href = "{{Main}}?channel=login&channel2=view&uid={{uid}}";
+                return;
+            }
+            <!-- DYNAMIC @is_inquiry_write@ -->
+            iframeWidth = '850px';
+            iframeHeight = '.85';
+            iframeView("php/popup_inquiry_write.php?uid={{uid}}", "상품문의 등록");
+        });
+
+        fixdPositionbottom	= $('#footer').position().top + 30;
+
+        $('.contentMenu .contentMenuSub').each(function(i){
+            var num =$(this).attr('data-num');
+            goods_explain_pos[num] = $(".goods_explain_0" + num).offset().top;
+        });
+
+        $('.btnFavGoods2').click(function() {
+            if(isLogin == 0) {
+                window.location.href = "{{Main}}?channel=login&channel2=view&uid={{uid}}";
+                return;
+            }
+            addFavoriteGoods('{{uid}}');
+        });
+
+        $('.btnFavStore').click(function() {
+            if(isLogin == 0) {
+                window.location.href = "{{Main}}?channel=login&channel2=view&uid={{uid}}";
+                return;
+            }
+            addFavoriteStore('{{VENDOR}}');
+        });
+
+        animationLine();
+
+        setTimeout(reset_pos, 1000);
+
+    });
+
+    $(window).resize(function(){
+        optionFixHeight = parseInt(innerHeight) - parseInt($(".optionListFix").css('height')) - 350;
+        $(".goods_fixed .option_list").css("height", optionFixHeight);
+
+        if($('.goods_fixed').css("position") == "fixed") {
+            left = parseInt($('#contents').css('margin-left')) + fixdPositionLeft;
+            $('.goods_fixed').css("left", left);
+        }
+    });
+
+    // -->
 </script>
 
 <script src="{{skin}}/js/viewProc.js?ver={{ver}}"></script>

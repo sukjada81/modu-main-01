@@ -640,7 +640,7 @@
 
     <!-- DYNAMIC @loop_display_goods@ -->
     <!-- DYNAMIC @is_display_goods_item@ -->
-	<div class="{{v}}GoodsItem">			
+	<div class="{{v}}GoodsItem">
 		<h2 class="goodsItemTitle fontSCDream weight600" id="{{v}}Title">&nbsp;</h2>
 		<div class="swiper-container">
 			<div class="swiper-wrapper">
@@ -676,11 +676,11 @@
 		</div>
 		<div class="swiper-button-next swiper-button-next{{v}} circleBtn swiper-button-main" style="right:-14px; width:35px; height:40px; color:#fff; padding:0 0 0 5px;"><i class="xi-angle-right-thin xi-x"></i></div>
 		<div class="swiper-button-prev swiper-button-prev{{v}} circleBtn swiper-button-main" style="left:-20px; width:35px; height:40px; color:#fff; padding:0 5px 0 0;"><i class="xi-angle-left-thin xi-x"></i></div>
-	</div>		
+	</div>
 
 	<script>
 	<!--
-		<!-- DYNAMIC @is_display_goods_type1@ -->	 
+		<!-- DYNAMIC @is_display_goods_type1@ -->
 		if($('.{{v}}GoodsItem .swiper-container .swiper-slide').length > 4) var loop{{v}} = true;
 		else																var loop{{v}} = false;
 
@@ -694,7 +694,7 @@
 			navigation: {
 				nextEl: '.swiper-button-next{{v}}',
 				prevEl: '.swiper-button-prev{{v}}',
-			},			
+			},
 			autoplay: {
 				delay: 3500,
 				disableOnInteraction: false,
@@ -704,7 +704,7 @@
 		$('.{{v}}GoodsItem').hover(function(e){
 			swiper{{v}}.autoplay.stop();
 		},function() {
-			swiper{{v}}.autoplay.start();			
+			swiper{{v}}.autoplay.start();
 		});
 		<!-- DYNAMIC @is_display_goods_type1@ -->
 		<!-- DYNAMIC @is_display_goods_type0@ -->
@@ -715,9 +715,9 @@
 	//-->
 	</script>
 	<!-- DYNAMIC @is_display_goods_item@ -->
-	
+
 	<!-- DYNAMIC @is_cate_goods_item@ -->
-	<div class="categoryGoodsItem">			
+	<div class="categoryGoodsItem">
 		<h2 class="goodsItemTitle fontSCDream weight600">CATEGORY BEST ITEMS</h2>
 		<div class="alignCenter">
 			<!-- DYNAMIC @loop_cate_menu@ -->
@@ -725,7 +725,7 @@
 			<!-- DYNAMIC @loop_cate_menu@ -->
 		</div>
 
-		<!-- DYNAMIC @loop_cate_goods@ -->	
+		<!-- DYNAMIC @loop_cate_goods@ -->
 		<div class="{{v}}GoodsItem cateGoodsItem">
 			<h2 class="goodsItemTitle">&nbsp;</h2>
 			<div class="swiper-container">
@@ -733,20 +733,20 @@
 					<!-- DYNAMIC @loop_cate_goods_item@ -->
 					<div class="swiper-slide goodsItemBox">
 						<div class="goodsItem">
-							<ul>				
+							<ul>
 								<li>
 									<a href="{{LINK}}"><img src="{{IMAGE}}" alt="{{NAME}}" height="285" /></a>
-									<!-- DYNAMIC @is_soldout2@ -->	
+									<!-- DYNAMIC @is_soldout2@ -->
 									<span class="soldoutIcon">품절</span>
-									<!-- DYNAMIC @is_soldout2@ -->	
+									<!-- DYNAMIC @is_soldout2@ -->
 								</li>
 								<li><a href="{{LINK}}">{{NAME_CODE_ABLE}}</a></li>
 								<li>
 									<div>￦{{PRICE}}</div>
-									<!-- DYNAMIC @is_coupon2@ -->	
-									<div class="couponIcon">쿠폰</div>						
 									<!-- DYNAMIC @is_coupon2@ -->
-									<!-- DYNAMIC @is_sale2@ -->	
+									<div class="couponIcon">쿠폰</div>
+									<!-- DYNAMIC @is_coupon2@ -->
+									<!-- DYNAMIC @is_sale2@ -->
 									<div class="salePrice">{{SALE}}%&nbsp;<i class="xi-arrow-down"></i></div>
 									<!-- DYNAMIC @is_sale2@ -->
 									<!-- DYNAMIC @is_orig_price2@ -->
@@ -757,16 +757,16 @@
 							</ul>
 						</div>
 					</div>
-					<!-- DYNAMIC @loop_cate_goods_item@ -->						
-				</div>			
+					<!-- DYNAMIC @loop_cate_goods_item@ -->
+				</div>
 			</div>
 			<div class="swiper-button-next swiper-button-next{{v}} circleBtn swiper-button-main" style="right:-14px; width:35px; height:40px; color:#fff; padding:0 0 0 5px;"><i class="xi-angle-right-thin xi-x"></i></div>
 			<div class="swiper-button-prev swiper-button-prev{{v}} circleBtn swiper-button-main" style="left:-20px; width:35px; height:40px; color:#fff; padding:0 5px 0 0;"><i class="xi-angle-left-thin xi-x"></i></div>
-		</div>		
+		</div>
 
 		<script>
 		<!--
-			<!-- DYNAMIC @is_cate_goods_type1@ -->	 
+			<!-- DYNAMIC @is_cate_goods_type1@ -->
 			if($('.{{v}}GoodsItem .swiper-container .swiper-slide').length > 4) var loop{{v}} = true;
 			else																var loop{{v}} = false;
 
@@ -780,7 +780,7 @@
 				navigation: {
 					nextEl: '.swiper-button-next{{v}}',
 					prevEl: '.swiper-button-prev{{v}}',
-				},			
+				},
 				autoplay: {
 					delay: 3500,
 					disableOnInteraction: false,
@@ -790,7 +790,7 @@
 			$('.{{v}}GoodsItem').hover(function(e){
 				swiper{{v}}.autoplay.stop();
 			},function() {
-				swiper{{v}}.autoplay.start();			
+				swiper{{v}}.autoplay.start();
 			});
 			<!-- DYNAMIC @is_cate_goods_type1@ -->
 			<!-- DYNAMIC @is_cate_goods_type0@ -->
@@ -842,6 +842,6 @@
 	//-->
 	</script>
 
-</div>	
+</div>
 
 <div class="empty40"></div>
