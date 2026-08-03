@@ -3,7 +3,7 @@
 define('MYSQL_HOST',	'localhost:33002');
 define('MYSQL_DB',		'b2bdb');
 define('MYSQL_USER',	'admin');
-define('MYSQL_PASSWD',	'@Vsfr13hkm10');
+define('MYSQL_PASSWD',	'@Fania8153');
 if(!defined('MYSQL_DEBUG')) {
 define('MYSQL_DEBUG',	'Y');  // 디비에러를 출력한다. "Y"
 }

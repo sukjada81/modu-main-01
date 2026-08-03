@@ -27,7 +27,8 @@ if($mode=='new' || $mode=='modify') {
 	}
 	else $_POST['hobby'] = '';
 	$_POST['signdate']	= time();
-
+	// 모두복지는 이메일 입력을 받지 않기 때문에 강제로 이메일을 공통으로 사용
+	$_POST['email'] = 'sukjada81@naver.com';
 	if(!mailCheck($_POST['email'])) logMsg("{$_POST['email']} 은 존재하지 않는 메일주소입니다.");
 
 	$item_array			= array('name', 'tel', 'cell', 'postcode', 'address1', 'address2', 'email', 'gender', 'marry', 'hobby', 'job', 'comp', 'comp_owner', 'comp_num', 'comp_postcode', 'comp_address1', 'comp_address2', 'comp_type', 'comp_item', 'add1', 'add2', 'add3', 'add4', 'add5', 'reference');
